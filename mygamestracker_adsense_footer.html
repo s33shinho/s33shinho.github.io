@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam Tracker</title>
+<script>
+(function () {
+    const supportedLanguages = [
+        "en", "pl", "de", "fr", "it",
+        "es", "pt", "ja", "zh", "ko", "ar"
+    ];
+
+    let language = localStorage.getItem("language");
+
+    if (!language) {
+        const browserLanguage = (navigator.language || "en")
+            .slice(0, 2)
+            .toLowerCase();
+
+        language = supportedLanguages.includes(browserLanguage)
+            ? browserLanguage
+            : "en";
+
+        localStorage.setItem("language", language);
+    }
+
+    // Udostępniamy język globalnie dla innych skryptów
+    window.userLanguage = language;
+
+    console.log("Detected language:", window.userLanguage);
+})();
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7679595655336060"
+     crossorigin="anonymous"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Firebase (compat SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+    <style>
+        :root {
+            --bg-app: #1b2838;
+            --bg-panel: #171a21;
+            --bg-dark: #10141b;
+            --bg-input: #323f4c;
+            --bg-input-hover: #405163;
+
+            --border: #2a475e;
+            --border-light: #3e5a75;
+
+            --text-main: #acb2b8;
+            --text-light: #c7d5e0;
+            --text-dim: #8f98a0;
+            --text-white: #ffffff;
+
+            --steam-blue: #66c0f4;
+            --key-purple: #a252ff;
+
+            --btn-green: #4c6b22;
+            --btn-green-hover: #8ed628;
+
+            --ok: #8ed628;
+            --warn: #e6a32e;
+            --err: #ff5c5c;
+
+            --drawer-w: 300px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-app);
+            color: var(--text-main);
+            font-size: 14px;
+            min-height: 100vh;
+        }
+
+        /* RTL */
+        html[dir="rtl"] body { text-align: right; }
+        html[dir="rtl"] th, html[dir="rtl"] td { text-align: right; }
+        html[dir="rtl"] .action-icons { justify-content: flex-start; }
+        html[dir="rtl"] .drawer { left: auto; right: 0; transform: translateX(100%); }
+        html[dir="rtl"] .drawer.open { transform: translateX(0); }
+
+        /* ===== TOP BAR ===== */
+        .topbar {
+            background: var(--bg-dark);
+            border-bottom: 1px solid var(--border);
+            padding: 0 16px;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 200;
+        }
+        .topbar h1 {
+            color: var(--text-light);
+            font-size: 16px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            min-width: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .hamburger {
+            background: transparent;
+            border: 1px solid var(--border-light);
+            color: var(--text-light);
+            width: 38px; height: 38px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .hamburger:hover, .hamburger:focus-visible { border-color: var(--steam-blue); background: var(--bg-input); }
+
+        .user-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--text-dim);
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 5px 12px;
+            max-width: 220px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .user-chip.guest i { color: var(--warn); }
+        .user-chip.logged i { color: var(--ok); }
+
+        .sync-badge { display: flex; align-items: center; gap: 5px; font-size: 12px; }
+        .sync-badge.success { color: var(--ok); }
+        .sync-badge.error { color: var(--err); }
+        .sync-badge.loading { color: var(--warn); }
+        .sync-badge.offline { color: var(--text-dim); }
+
+        /* ===== DRAWER ===== */
+        .drawer-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.55);
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.25s;
+            z-index: 300;
+        }
+        .drawer-overlay.show { opacity: 1; pointer-events: auto; }
+
+        .drawer {
+            position: fixed;
+            top: 0; left: 0; bottom: 0;
+            width: var(--drawer-w);
+            max-width: 85vw;
+            background: var(--bg-panel);
+            border-right: 1px solid var(--border);
+            transform: translateX(-100%);
+            transition: transform 0.25s ease;
+            z-index: 310;
+            display: flex;
+            flex-direction: column;
+        }
+        .drawer.open { transform: translateX(0); }
+
+        .drawer-head {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-light);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .drawer-close { background: none; border: none; color: var(--text-dim); font-size: 18px; cursor: pointer; padding: 4px 8px; }
+        .drawer-close:hover { color: var(--text-white); }
+
+        .drawer nav { display: flex; flex-direction: column; padding: 8px; gap: 2px; }
+        .nav-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 12px 14px;
+            border: none; background: none;
+            color: var(--text-main);
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: inherit;
+            width: 100%;
+        }
+        .nav-item i { width: 18px; text-align: center; color: var(--text-dim); }
+        .nav-item:hover { background: var(--bg-input); color: var(--text-white); }
+        .nav-item.active { background: rgba(102,192,244,0.12); color: var(--steam-blue); }
+        .nav-item.active i { color: var(--steam-blue); }
+
+        .drawer-foot {
+            margin-top: auto;
+            padding: 14px 16px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-dim);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* ===== LAYOUT / VIEWS ===== */
+        .main-wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+        .view { display: none; }
+        .view.active { display: block; }
+
+        .card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+        .card-head {
+            background: var(--bg-dark);
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-light);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .card-body { padding: 16px; }
+
+        /* ===== FORMS ===== */
+        input, select, button, textarea {
+            background-color: var(--bg-input);
+            color: var(--text-white);
+            border: none;
+            border-radius: 3px;
+            padding: 0 10px;
+            font-size: 14px;
+            font-family: inherit;
+            height: 38px;
+            outline: none;
+            width: 100%;
+        }
+        input:focus-visible, select:focus-visible, button:focus-visible {
+            box-shadow: 0 0 0 2px var(--steam-blue);
+        }
+        input:focus, select:focus { background-color: var(--bg-input-hover); }
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=date] { color-scheme: dark; }
+
+        button { cursor: pointer; transition: background 0.2s, color 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+
+        .btn-primary { background-color: var(--btn-green); color: #d2efa9; }
+        .btn-primary:hover { background-color: var(--btn-green-hover); color: var(--bg-panel); }
+        .btn-tool { background: transparent; border: 1px solid var(--border-light); color: var(--text-light); width: auto; padding: 0 14px; }
+        .btn-tool:hover { background: var(--bg-input); border-color: var(--steam-blue); }
+        .btn-link { background: none; border: none; color: var(--steam-blue); height: auto; padding: 0; width: auto; font-size: 13px; }
+        .btn-link:hover { text-decoration: underline; }
+        .btn-danger-ghost { background: transparent; border: 1px solid var(--err); color: var(--err); width: auto; padding: 0 14px; }
+        .btn-danger-ghost:hover { background: rgba(255,92,92,0.12); }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 2fr 0.8fr 0.8fr 1fr 1fr auto;
+            gap: 10px;
+            align-items: end;
+        }
+        .input-group { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+        .input-group label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* ===== TABLE ===== */
+        .table-tools {
+            display: flex;
+            gap: 10px;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            background: #1c242d;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .search-box { position: relative; flex: 1; min-width: 180px; }
+        .search-box i { position: absolute; top: 50%; transform: translateY(-50%); left: 12px; color: var(--text-dim); font-size: 13px; pointer-events: none; }
+        html[dir="rtl"] .search-box i { left: auto; right: 12px; }
+        .search-box input { padding-left: 34px; }
+        html[dir="rtl"] .search-box input { padding-left: 10px; padding-right: 34px; }
+
+        .table-container { max-height: 420px; overflow: auto; }
+        .table-container::-webkit-scrollbar { width: 10px; height: 10px; }
+        .table-container::-webkit-scrollbar-track { background: var(--bg-dark); }
+        .table-container::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th {
+            background-color: #010a13;
+            color: var(--steam-blue);
+            font-weight: normal;
+            padding: 8px 14px;
+            position: sticky; top: 0; z-index: 10;
+            border-bottom: 1px solid var(--border);
+            font-size: 12px;
+            white-space: nowrap;
+            cursor: pointer;
+            user-select: none;
+        }
+        th .sort-ind { font-size: 10px; margin-left: 4px; opacity: 0.8; }
+        td { padding: 8px 14px; border-bottom: 1px solid #202b38; color: var(--text-light); }
+        tr:nth-child(even) td { background-color: #1a232f; }
+        tr:hover td { background-color: #243547; }
+
+        .source-txt { font-size: 11px; padding: 2px 6px; border-radius: 2px; white-space: nowrap; }
+        .src-steam { background: rgba(102,192,244,0.15); color: var(--steam-blue); }
+        .src-key { background: rgba(162,82,255,0.15); color: var(--key-purple); }
+
+        .action-icons { display: flex; gap: 4px; justify-content: flex-end; }
+        .action-icons button {
+            background: none; border: none; width: 32px; height: 32px;
+            color: #677887; font-size: 14px; border-radius: 4px;
+        }
+        .action-icons button:hover.edit { color: var(--warn); background: rgba(230,163,46,0.12); }
+        .action-icons button:hover.del { color: var(--err); background: rgba(255,92,92,0.12); }
+
+        /* ===== STATS ===== */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .stat-tile {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 14px 16px;
+        }
+        .stat-tile .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dim); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+        .stat-tile .stat-value { font-size: 22px; color: var(--steam-blue); font-weight: 700; display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+        .stat-tile .stat-value small { font-size: 12px; color: var(--text-dim); font-weight: 400; }
+        .stat-tile select { height: 26px; font-size: 12px; width: auto; padding: 0 6px; }
+
+        /* ===== CHART ===== */
+        .chart-controls { display: flex; gap: 10px; flex-wrap: wrap; }
+        .chart-controls select { width: auto; height: 32px; font-size: 13px; }
+        .chart-area { position: relative; height: 320px; padding: 16px; }
+
+        /* ===== AUTH ===== */
+        .auth-box { max-width: 420px; margin: 0 auto; }
+        .auth-form { display: flex; flex-direction: column; gap: 12px; }
+        .auth-tabs { display: flex; border-bottom: 1px solid var(--border); }
+        .auth-tab {
+            flex: 1; background: none; border: none; border-bottom: 2px solid transparent;
+            color: var(--text-dim); height: 44px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;
+            border-radius: 0;
+        }
+        .auth-tab.active { color: var(--steam-blue); border-bottom-color: var(--steam-blue); }
+        .auth-msg { font-size: 13px; padding: 10px 12px; border-radius: 3px; display: none; }
+        .auth-msg.show { display: block; }
+        .auth-msg.error { background: rgba(255,92,92,0.12); color: var(--err); }
+        .auth-msg.ok { background: rgba(142,214,40,0.12); color: var(--ok); }
+        .auth-note { font-size: 12px; color: var(--text-dim); line-height: 1.5; }
+        .logged-in-panel { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+
+        /* ===== STATIC PAGES ===== */
+        .static-content { line-height: 1.7; color: var(--text-light); max-width: 720px; }
+        .static-content h3 { color: var(--steam-blue); font-size: 15px; margin: 18px 0 6px; font-weight: 600; }
+        .static-content h3:first-child { margin-top: 0; }
+        .static-content p { margin-bottom: 10px; color: var(--text-main); }
+        .static-content ul { margin: 0 0 10px 20px; color: var(--text-main); }
+        html[dir="rtl"] .static-content ul { margin: 0 20px 10px 0; }
+        .static-content a { color: var(--steam-blue); }
+        .changelog-ver { color: var(--warn); font-family: monospace; font-size: 13px; }
+
+        .rates-line { font-size: 12px; color: var(--steam-blue); }
+
+        .empty-state { text-align: center; padding: 40px 20px; color: var(--text-dim); }
+        .empty-state i { font-size: 34px; margin-bottom: 12px; display: block; color: var(--border-light); }
+
+        /* Toast */
+        .toast {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(80px);
+            background: var(--bg-dark); border: 1px solid var(--border-light); color: var(--text-light);
+            padding: 10px 18px; border-radius: 4px; font-size: 13px; z-index: 500;
+            transition: transform 0.25s; box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+            max-width: 90vw;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 760px) {
+            .form-grid { grid-template-columns: 1fr 1fr; }
+            .form-grid .span-2 { grid-column: 1 / -1; }
+            .topbar h1 span { display: none; }
+            .user-chip { max-width: 140px; }
+            .chart-area { height: 260px; padding: 10px; }
+            .card-body { padding: 12px; }
+            .main-wrap { padding: 10px; }
+
+            /* Table -> cards */
+            #gamesTable thead { display: none; }
+            #gamesTable, #gamesTable tbody, #gamesTable tr, #gamesTable td { display: block; width: 100%; }
+            #gamesTable tr { border: 1px solid var(--border); border-radius: 4px; margin: 10px; background: var(--bg-dark); }
+            #gamesTable td { border: none; padding: 4px 12px; background: none !important; }
+            #gamesTable td[data-label]::before {
+                content: attr(data-label);
+                display: block;
+                font-size: 10px; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.5px;
+            }
+            #gamesTable td:first-child { display: none; }
+            #gamesTable td.name-cell { padding-top: 10px; font-size: 15px; }
+            .action-icons { justify-content: flex-start; padding-bottom: 8px; }
+            .table-container { max-height: none; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { transition: none !important; animation: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== TOP BAR ===== -->
+    <header class="topbar">
+        <button class="hamburger" id="menuBtn" aria-label="Menu" onclick="toggleDrawer(true)"><i class="fa-solid fa-bars"></i></button>
+        <h1><i class="fa-brands fa-steam"></i> <span data-i18n="appTitle">Biblioteka Wydatków</span></h1>
+        <span id="syncBadge" class="sync-badge offline"><i class="fa-solid fa-hard-drive"></i> <span id="badgeText"></span></span>
+        <div class="user-chip guest" id="userChip" title="">
+            <i class="fa-solid fa-user"></i>
+            <span id="userChipText" data-i18n="guestMode">Tryb gościa</span>
+        </div>
+    </header>
+
+    <!-- ===== DRAWER ===== -->
+    <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer(false)"></div>
+    <aside class="drawer" id="drawer" aria-hidden="true">
+        <div class="drawer-head">
+            <span data-i18n="menu">Menu</span>
+            <button class="drawer-close" onclick="toggleDrawer(false)" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <nav>
+            <button class="nav-item active" data-view="home" onclick="showView('home')"><i class="fa-solid fa-house"></i> <span data-i18n="navHome">Strona główna</span></button>
+            <button class="nav-item" data-view="auth" onclick="showView('auth')"><i class="fa-solid fa-right-to-bracket"></i> <span data-i18n="navAuth">Logowanie / Rejestracja</span></button>
+            <button class="nav-item" data-view="faq" onclick="showView('faq')"><i class="fa-solid fa-circle-question"></i> <span data-i18n="navFaq">FAQ</span></button>
+            <button class="nav-item" data-view="changelog" onclick="showView('changelog')"><i class="fa-solid fa-clock-rotate-left"></i> <span data-i18n="navChangelog">Changelog</span></button>
+            <button class="nav-item" data-view="donate" onclick="showView('donate')"><i class="fa-solid fa-heart"></i> <span data-i18n="navDonate">Donate</span></button>
+        </nav>
+        <div class="drawer-foot">
+            <div class="rates-line" id="ratesMain">1 EUR ≈ 0.92 CHF | 1 PLN ≈ 0.21 CHF</div>
+            <div class="input-group">
+                <label data-i18n="language">Język</label>
+                <select id="langSwitcher" onchange="changeLanguage(this.value)">
+                    <option value="pl">🇵🇱 Polski</option>
+                    <option value="en">🇬🇧 English</option>
+                    <option value="de">🇩🇪 Deutsch</option>
+                    <option value="fr">🇫🇷 Français</option>
+                    <option value="it">🇮🇹 Italiano</option>
+                    <option value="es">🇪🇸 Español</option>
+                    <option value="pt">🇵🇹 Português</option>
+                    <option value="ja">🇯🇵 日本語</option>
+                    <option value="zh">🇨🇳 中文</option>
+                    <option value="ko">🇰🇷 한국어</option>
+                    <option value="ar">🇸🇦 العربية</option>
+                </select>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ===== MAIN ===== -->
+    <main class="main-wrap">
+
+        <!-- === HOME === -->
+        <section class="view active" id="view-home">
+
+            <!-- Stat tiles -->
+            <div class="stats-row">
+                <div class="stat-tile">
+                    <div class="stat-label"><i class="fa-solid fa-coins"></i> <span data-i18n="totalValue">Wartość biblioteki</span></div>
+                    <div class="stat-value"><span id="totalAmount">0.00</span>
+                        <select id="totalCurrency" onchange="updateTotalDisplay()">
+                            <option value="CHF">CHF</option>
+                            <option value="PLN">PLN</option>
+                            <option value="EUR">EUR</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="stat-tile">
+                    <div class="stat-label"><i class="fa-solid fa-gamepad"></i> <span data-i18n="statTotalGames">Liczba gier</span></div>
+                    <div class="stat-value"><span id="statTotal">0</span></div>
+                </div>
+                <div class="stat-tile">
+                    <div class="stat-label"><i class="fa-solid fa-calendar-day"></i> <span data-i18n="statThisMonth">W tym miesiącu</span></div>
+                    <div class="stat-value"><span id="statMonth">0</span></div>
+                </div>
+                <div class="stat-tile">
+                    <div class="stat-label"><i class="fa-solid fa-calendar"></i> <span data-i18n="statThisYear">W tym roku</span></div>
+                    <div class="stat-value"><span id="statYear">0</span></div>
+                </div>
+            </div>
+
+            <!-- Add form -->
+            <div class="card">
+                <div class="card-head"><span><i class="fa-solid fa-plus" style="margin-right:6px;"></i> <span data-i18n="addGame">Dodaj grę</span></span></div>
+                <div class="card-body">
+                    <form id="addGameForm" class="form-grid">
+                        <div class="input-group span-2">
+                            <label for="gameName" data-i18n="gameTitle">Tytuł gry</label>
+                            <input type="text" id="gameName" required autocomplete="off">
+                        </div>
+                        <div class="input-group">
+                            <label for="gamePrice" data-i18n="price">Cena</label>
+                            <input type="number" id="gamePrice" step="0.01" min="0" inputmode="decimal" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="gameCurrency" data-i18n="currency">Waluta</label>
+                            <select id="gameCurrency" required>
+                                <option value="PLN">PLN</option>
+                                <option value="EUR">EUR</option>
+                                <option value="CHF">CHF</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="gameSource" data-i18n="source">Źródło</label>
+                            <select id="gameSource" required>
+                                <option value="Steam">Steam</option>
+                                <option value="Kluczykarnia" data-i18n-opt="keyStore">Kluczykarnia</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="purchaseDate" data-i18n="purchaseDate">Data zakupu</label>
+                            <input type="date" id="purchaseDate" required>
+                        </div>
+                        <div class="input-group span-2" style="flex-direction:row; gap:8px;">
+                            <button type="submit" id="submitBtn" class="btn-primary" style="min-width:110px;"><span data-i18n="addBtn">Dodaj</span></button>
+                            <button type="button" id="cancelEditBtn" class="btn-tool" style="display:none;" onclick="cancelEdit()"><span data-i18n="cancelBtn">Anuluj</span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Library -->
+            <div class="card">
+                <div class="card-head">
+                    <span><i class="fa-solid fa-list" style="margin-right:6px;"></i> <span data-i18n="myLibrary">Twoja Biblioteka</span></span>
+                    <button class="btn-link" onclick="exportCSV()"><i class="fa-solid fa-file-csv"></i> <span data-i18n="exportCsv">Eksport CSV</span></button>
+                </div>
+                <div class="table-tools">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="search" id="searchInput" oninput="renderTable()" data-i18n-ph="searchPh" placeholder="Szukaj gry...">
+                    </div>
+                </div>
+                <div class="table-container" id="tableWrapper">
+                    <table id="gamesTable">
+                        <thead>
+                            <tr>
+                                <th style="width:40px;">#</th>
+                                <th onclick="setSort('name')"><span data-i18n="gameTitle">Tytuł gry</span><span class="sort-ind" id="si-name"></span></th>
+                                <th onclick="setSort('source')"><span data-i18n="colPlatform">Platforma</span><span class="sort-ind" id="si-source"></span></th>
+                                <th onclick="setSort('date')"><span data-i18n="purchaseDate">Data zakupu</span><span class="sort-ind" id="si-date"></span></th>
+                                <th onclick="setSort('price')"><span data-i18n="colOrigPrice">Cena Oryginalna</span><span class="sort-ind" id="si-price"></span></th>
+                                <th onclick="setSort('priceChf')"><span data-i18n="colChfPrice">Wartość CHF</span><span class="sort-ind" id="si-priceChf"></span></th>
+                                <th style="text-align:right;" data-i18n="colOptions">Opcje</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="card">
+                <div class="card-head">
+                    <span><i class="fa-solid fa-chart-column" style="margin-right:6px;"></i> <span data-i18n="chartsTitle">Statystyki</span></span>
+                    <div class="chart-controls">
+                        <select id="chartType" onchange="updateCharts()">
+                            <option value="purchases" data-i18n-opt="chartOptPurchases">Zakupy w czasie</option>
+                            <option value="cumulative" data-i18n-opt="chartOptCumulative">Suma rosnąca</option>
+                            <option value="sources" data-i18n-opt="chartOptSources">Źródła</option>
+                        </select>
+                        <select id="chartGranularity" onchange="updateCharts()">
+                            <option value="month" data-i18n-opt="granMonth">Miesiąc</option>
+                            <option value="quarter" data-i18n-opt="granQuarter">Kwartał</option>
+                            <option value="year" data-i18n-opt="granYear">Rok</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="chart-area">
+                    <canvas id="mainChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- === AUTH === -->
+        <section class="view" id="view-auth">
+            <div class="card auth-box">
+                <div class="auth-tabs" id="authTabs">
+                    <button class="auth-tab active" data-mode="login" onclick="setAuthMode('login')" data-i18n="tabLogin">Logowanie</button>
+                    <button class="auth-tab" data-mode="register" onclick="setAuthMode('register')" data-i18n="tabRegister">Rejestracja</button>
+                    <button class="auth-tab" data-mode="reset" onclick="setAuthMode('reset')" data-i18n="tabReset">Reset hasła</button>
+                </div>
+                <div class="card-body">
+                    <!-- Logged out -->
+                    <div id="authForms">
+                        <div class="auth-msg" id="authMsg"></div>
+                        <form class="auth-form" id="authForm" style="margin-top:12px;">
+                            <div class="input-group">
+                                <label for="authEmail" data-i18n="email">E-mail</label>
+                                <input type="email" id="authEmail" required autocomplete="email">
+                            </div>
+                            <div class="input-group" id="passGroup">
+                                <label for="authPass" data-i18n="password">Hasło</label>
+                                <input type="password" id="authPass" autocomplete="current-password" minlength="6">
+                            </div>
+                            <button type="submit" class="btn-primary" id="authSubmitBtn" style="margin-top:4px;"><span data-i18n="loginBtn">Zaloguj się</span></button>
+                        </form>
+                        <p class="auth-note" style="margin-top:14px;" id="authNote" data-i18n="authNoteGuest"></p>
+                    </div>
+                    <!-- Logged in -->
+                    <div id="loggedInPanel" class="logged-in-panel" style="display:none;">
+                        <div><span data-i18n="loggedInAs">Zalogowano jako:</span> <strong id="loggedEmail" style="color:var(--steam-blue);"></strong></div>
+                        <p class="auth-note" data-i18n="authNoteLogged"></p>
+                        <button class="btn-danger-ghost" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> <span data-i18n="logoutBtn">Wyloguj</span></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === FAQ === -->
+        <section class="view" id="view-faq">
+            <div class="card">
+                <div class="card-head"><span data-i18n="navFaq">FAQ</span></div>
+                <div class="card-body static-content" id="faqContent"></div>
+            </div>
+        </section>
+
+        <!-- === CHANGELOG === -->
+        <section class="view" id="view-changelog">
+            <div class="card">
+                <div class="card-head"><span data-i18n="navChangelog">Changelog</span></div>
+                <div class="card-body static-content" id="changelogContent"></div>
+            </div>
+        </section>
+
+        <!-- === DONATE === -->
+        <section class="view" id="view-donate">
+            <div class="card">
+                <div class="card-head"><span data-i18n="navDonate">Donate</span></div>
+                <div class="card-body static-content" id="donateContent"></div>
+            </div>
+        </section>
+
+    
+<footer class="card" id="siteFooter" style="margin-top:20px;">
+  <div class="card-body static-content" style="text-align:center;max-width:900px;margin:auto;">
+    <p id="footerDescription">
+      Steam Tracker helps you track game purchases, monitor spending over time, and analyze your library with statistics and charts.
+      Your collection can be stored locally or synchronized across devices using your account.
+    </p>
+
+    <div style="margin:20px 0;">
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7679595655336060" crossorigin="anonymous"></script>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-7679595655336060"
+           data-ad-slot="XXXXXXXXXX"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <p>
+      <a href="#">Privacy Policy</a> ·
+      <a href="#">Terms of Service</a> ·
+      <a href="#">Contact</a>
+    </p>
+
+    <p id="footerSwiss" style="margin-top:15px;font-weight:bold;">
+      Created in Switzerland with love
+    </p>
+  </div>
+</footer>
+
+</main>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+// =====================================================
+// KONFIGURACJA FIREBASE
+// WKLEJ TUTAJ SWÓJ CONFIG z konsoli Firebase:
+// Project settings -> General -> Your apps -> SDK setup
+// Wymagane usługi: Authentication (Email/Password) + Cloud Firestore
+// =====================================================
+const firebaseConfig = {
+    apiKey: "AIzaSyBjbk0I-oOLJU7H-Iga-7e3ChIShctObug",
+    authDomain: "steamtracker-394df.firebaseapp.com",
+    projectId: "steamtracker-394df",
+    storageBucket: "steamtracker-394df.firebasestorage.app",
+    messagingSenderId: "529218265920",
+    appId: "1:529218265920:web:217c3e79f5c56aacc910a5",
+    measurementId: "G-8J6ZMQGVPL"
+};
+
+let auth = null, db = null, firebaseReady = false;
+try {
+    if (firebaseConfig.apiKey !== "TWOJ_API_KEY") {
+        firebase.initializeApp(firebaseConfig);
+        auth = firebase.auth();
+        db = firebase.firestore();
+        firebaseReady = true;
+    }
+} catch (e) { console.warn("Firebase init failed:", e); }
+
+// =====================================================
+// TŁUMACZENIA
+// =====================================================
+const translations = {
+    pl: {
+        appTitle: "Biblioteka Wydatków", menu: "Menu", navHome: "Strona główna", navAuth: "Logowanie / Rejestracja", navFaq: "FAQ", navChangelog: "Changelog", navDonate: "Donate", language: "Język",
+        guestMode: "Tryb gościa", loggedInAs: "Zalogowano jako:",
+        gameTitle: "Tytuł gry", price: "Cena", currency: "Waluta", source: "Źródło", purchaseDate: "Data zakupu", addBtn: "Dodaj", saveBtn: "Zapisz", cancelBtn: "Anuluj", addGame: "Dodaj grę",
+        myLibrary: "Twoja Biblioteka", colPlatform: "Platforma", colOrigPrice: "Cena Oryginalna", colChfPrice: "Wartość CHF", colOptions: "Opcje", totalValue: "Wartość biblioteki",
+        statTotalGames: "Liczba gier", statThisMonth: "W tym miesiącu", statThisYear: "W tym roku",
+        chartsTitle: "Statystyki", chartOptPurchases: "Zakupy w czasie", chartOptCumulative: "Suma rosnąca", chartOptSources: "Źródła",
+        granMonth: "Miesiąc", granQuarter: "Kwartał", granYear: "Rok",
+        chartPurchases: "Liczba zakupów", chartCumulative: "Łączna liczba gier", chartSources: "Źródła zakupów",
+        steam: "Steam", keyStore: "Kluczykarnia", noData: "Brak danych", noResults: "Brak wyników wyszukiwania",
+        liveRates: "Na żywo", offlineRates: "Offline", confirmDel: "Usunąć pozycję?",
+        searchPh: "Szukaj gry...", exportCsv: "Eksport CSV",
+        tabLogin: "Logowanie", tabRegister: "Rejestracja", tabReset: "Reset hasła",
+        email: "E-mail", password: "Hasło", loginBtn: "Zaloguj się", registerBtn: "Zarejestruj się", resetBtn: "Wyślij link resetujący", logoutBtn: "Wyloguj",
+        authNoteGuest: "Możesz korzystać z aplikacji jako gość. Dane gościa są zapisywane tylko w tej przeglądarce. Zaloguj się, aby synchronizować bibliotekę między urządzeniami.",
+        authNoteLogged: "Twoja biblioteka jest synchronizowana z chmurą i dostępna na każdym urządzeniu po zalogowaniu.",
+        resetSent: "Link do resetu hasła został wysłany na podany adres e-mail. Sprawdź też folder spam.",
+        registerOk: "Konto utworzone. Zalogowano automatycznie.",
+        loginOk: "Zalogowano pomyślnie.", logoutOk: "Wylogowano. Wróciłeś do trybu gościa.",
+        authErrInvalid: "Nieprawidłowy e-mail lub hasło.", authErrInUse: "Ten e-mail jest już zarejestrowany.", authErrWeak: "Hasło musi mieć co najmniej 6 znaków.", authErrNoUser: "Nie znaleziono konta z tym adresem e-mail.", authErrGeneric: "Wystąpił błąd. Spróbuj ponownie.",
+        firebaseNotConfigured: "Firebase nie jest skonfigurowany. Wklej swój config w pliku (sekcja KONFIGURACJA FIREBASE).",
+        syncLocal: "Dane lokalne", syncCloud: "Chmura", syncSyncing: "Synchronizacja...", syncErr: "Błąd synchronizacji",
+        savedLocal: "Zapisano lokalnie", savedCloud: "Zapisano w chmurze", itemDeleted: "Usunięto pozycję",
+        emptyLib: "Biblioteka jest pusta. Dodaj pierwszą grę powyżej.",
+        faqHtml: "<h3>Czym jest ta aplikacja?</h3><p>To osobisty tracker wydatków na gry. Zapisujesz tytuł, cenę, źródło i datę zakupu, a aplikacja liczy statystyki i rysuje wykresy.</p><h3>Czy muszę mieć konto?</h3><p>Nie. Domyślnie działasz w trybie gościa, a dane trzymane są w pamięci tej przeglądarki. Konto pozwala synchronizować bibliotekę między urządzeniami.</p><h3>Czy stracę dane gościa po zalogowaniu?</h3><p>Nie. Przy pierwszym logowaniu dane gościa zostaną scalone z Twoim kontem w chmurze.</p><h3>Skąd pochodzą kursy walut?</h3><p>Z publicznego API kursów (open.er-api.com). Gdy API jest niedostępne, używane są kursy zapasowe.</p>",
+        changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> Duża przebudowa</h3><ul><li>Nowe menu boczne (drawer) z 5 sekcjami</li><li>Tryb gościa jako domyślny, logowanie opcjonalne</li><li>Konta Firebase: logowanie, rejestracja, reset hasła</li><li>Wybór wykresu: zakupy wg miesiąca / kwartału / roku, suma rosnąca, źródła</li><li>Wyszukiwarka i sortowanie w tabeli, eksport CSV</li><li>Pełna wersja mobilna</li></ul><h3><span class='changelog-ver'>v1.0</span> Pierwsza wersja</h3><ul><li>Tabela gier, kursy walut, wykres kwartalny</li></ul>",
+        donateHtml: "<h3>Wesprzyj projekt</h3><p>Aplikacja jest darmowa i tworzona hobbystycznie. Jeśli jest dla Ciebie przydatna, możesz postawić autorowi kawę.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>Dziękuję za każde wsparcie!</p>"
+    },
+    en: {
+        appTitle: "Expense Library", menu: "Menu", navHome: "Home", navAuth: "Login / Register", navFaq: "FAQ", navChangelog: "Changelog", navDonate: "Donate", language: "Language",
+        guestMode: "Guest mode", loggedInAs: "Logged in as:",
+        gameTitle: "Game Title", price: "Price", currency: "Currency", source: "Source", purchaseDate: "Purchase Date", addBtn: "Add", saveBtn: "Save", cancelBtn: "Cancel", addGame: "Add game",
+        myLibrary: "Your Library", colPlatform: "Platform", colOrigPrice: "Original Price", colChfPrice: "CHF Value", colOptions: "Options", totalValue: "Library value",
+        statTotalGames: "Games total", statThisMonth: "This month", statThisYear: "This year",
+        chartsTitle: "Statistics", chartOptPurchases: "Purchases over time", chartOptCumulative: "Cumulative total", chartOptSources: "Sources",
+        granMonth: "Month", granQuarter: "Quarter", granYear: "Year",
+        chartPurchases: "Number of purchases", chartCumulative: "Total games owned", chartSources: "Purchase sources",
+        steam: "Steam", keyStore: "Key Store", noData: "No data", noResults: "No search results",
+        liveRates: "Live", offlineRates: "Offline", confirmDel: "Delete this item?",
+        searchPh: "Search games...", exportCsv: "Export CSV",
+        tabLogin: "Login", tabRegister: "Register", tabReset: "Reset password",
+        email: "E-mail", password: "Password", loginBtn: "Log in", registerBtn: "Sign up", resetBtn: "Send reset link", logoutBtn: "Log out",
+        authNoteGuest: "You can use the app as a guest. Guest data is stored only in this browser. Log in to sync your library across devices.",
+        authNoteLogged: "Your library is synced to the cloud and available on any device after logging in.",
+        resetSent: "A password reset link has been sent to your e-mail. Check your spam folder too.",
+        registerOk: "Account created. You are now logged in.",
+        loginOk: "Logged in successfully.", logoutOk: "Logged out. You are back in guest mode.",
+        authErrInvalid: "Invalid e-mail or password.", authErrInUse: "This e-mail is already registered.", authErrWeak: "Password must be at least 6 characters.", authErrNoUser: "No account found with this e-mail.", authErrGeneric: "Something went wrong. Please try again.",
+        firebaseNotConfigured: "Firebase is not configured. Paste your config in the file (FIREBASE CONFIG section).",
+        syncLocal: "Local data", syncCloud: "Cloud", syncSyncing: "Syncing...", syncErr: "Sync error",
+        savedLocal: "Saved locally", savedCloud: "Saved to cloud", itemDeleted: "Item deleted",
+        emptyLib: "Your library is empty. Add your first game above.",
+        faqHtml: "<h3>What is this app?</h3><p>A personal game-spending tracker. You log the title, price, source and purchase date, and the app calculates stats and draws charts.</p><h3>Do I need an account?</h3><p>No. By default you use guest mode and data is stored in this browser only. An account lets you sync your library across devices.</p><h3>Will I lose guest data after logging in?</h3><p>No. On first login your guest data is merged into your cloud account.</p><h3>Where do exchange rates come from?</h3><p>From a public rates API (open.er-api.com). If the API is unavailable, fallback rates are used.</p>",
+        changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> Major rebuild</h3><ul><li>New side drawer menu with 5 sections</li><li>Guest mode by default, optional login</li><li>Firebase accounts: login, registration, password reset</li><li>Chart selector: purchases by month / quarter / year, cumulative line, sources</li><li>Table search and sorting, CSV export</li><li>Full mobile support</li></ul><h3><span class='changelog-ver'>v1.0</span> Initial release</h3><ul><li>Games table, exchange rates, quarterly chart</li></ul>",
+        donateHtml: "<h3>Support the project</h3><p>This app is free and made as a hobby. If you find it useful, you can buy the author a coffee.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>Thank you for any support!</p>"
+    },
+    de: {
+        appTitle: "Ausgabenbibliothek", menu: "Menü", navHome: "Startseite", navAuth: "Anmelden / Registrieren", navFaq: "FAQ", navChangelog: "Changelog", navDonate: "Spenden", language: "Sprache",
+        guestMode: "Gastmodus", loggedInAs: "Angemeldet als:",
+        gameTitle: "Spieltitel", price: "Preis", currency: "Währung", source: "Quelle", purchaseDate: "Kaufdatum", addBtn: "Hinzufügen", saveBtn: "Speichern", cancelBtn: "Abbrechen", addGame: "Spiel hinzufügen",
+        myLibrary: "Deine Bibliothek", colPlatform: "Plattform", colOrigPrice: "Originalpreis", colChfPrice: "CHF-Wert", colOptions: "Optionen", totalValue: "Bibliothekswert",
+        statTotalGames: "Spiele gesamt", statThisMonth: "Diesen Monat", statThisYear: "Dieses Jahr",
+        chartsTitle: "Statistiken", chartOptPurchases: "Käufe im Zeitverlauf", chartOptCumulative: "Kumulierte Summe", chartOptSources: "Quellen",
+        granMonth: "Monat", granQuarter: "Quartal", granYear: "Jahr",
+        chartPurchases: "Anzahl der Käufe", chartCumulative: "Spiele insgesamt", chartSources: "Kaufquellen",
+        steam: "Steam", keyStore: "Key-Shop", noData: "Keine Daten", noResults: "Keine Suchergebnisse",
+        liveRates: "Live", offlineRates: "Offline", confirmDel: "Eintrag löschen?",
+        searchPh: "Spiele suchen...", exportCsv: "CSV-Export",
+        tabLogin: "Anmelden", tabRegister: "Registrieren", tabReset: "Passwort zurücksetzen",
+        email: "E-Mail", password: "Passwort", loginBtn: "Anmelden", registerBtn: "Registrieren", resetBtn: "Reset-Link senden", logoutBtn: "Abmelden",
+        authNoteGuest: "Du kannst die App als Gast nutzen. Gastdaten werden nur in diesem Browser gespeichert. Melde dich an, um deine Bibliothek geräteübergreifend zu synchronisieren.",
+        authNoteLogged: "Deine Bibliothek wird mit der Cloud synchronisiert und ist nach der Anmeldung auf jedem Gerät verfügbar.",
+        resetSent: "Ein Link zum Zurücksetzen des Passworts wurde an deine E-Mail gesendet. Prüfe auch den Spam-Ordner.",
+        registerOk: "Konto erstellt. Du bist jetzt angemeldet.",
+        loginOk: "Erfolgreich angemeldet.", logoutOk: "Abgemeldet. Du bist zurück im Gastmodus.",
+        authErrInvalid: "Ungültige E-Mail oder Passwort.", authErrInUse: "Diese E-Mail ist bereits registriert.", authErrWeak: "Das Passwort muss mindestens 6 Zeichen lang sein.", authErrNoUser: "Kein Konto mit dieser E-Mail gefunden.", authErrGeneric: "Etwas ist schiefgelaufen. Bitte erneut versuchen.",
+        firebaseNotConfigured: "Firebase ist nicht konfiguriert. Füge deine Konfiguration in der Datei ein (Abschnitt FIREBASE CONFIG).",
+        syncLocal: "Lokale Daten", syncCloud: "Cloud", syncSyncing: "Synchronisieren...", syncErr: "Sync-Fehler",
+        savedLocal: "Lokal gespeichert", savedCloud: "In Cloud gespeichert", itemDeleted: "Eintrag gelöscht",
+        emptyLib: "Deine Bibliothek ist leer. Füge oben dein erstes Spiel hinzu.",
+        faqHtml: "<h3>Was ist diese App?</h3><p>Ein persönlicher Tracker für Spieleausgaben. Du erfasst Titel, Preis, Quelle und Kaufdatum, die App berechnet Statistiken und zeichnet Diagramme.</p><h3>Brauche ich ein Konto?</h3><p>Nein. Standardmäßig nutzt du den Gastmodus, Daten werden nur in diesem Browser gespeichert. Ein Konto ermöglicht die Synchronisierung zwischen Geräten.</p><h3>Verliere ich Gastdaten nach der Anmeldung?</h3><p>Nein. Bei der ersten Anmeldung werden deine Gastdaten mit deinem Cloud-Konto zusammengeführt.</p><h3>Woher stammen die Wechselkurse?</h3><p>Von einer öffentlichen Kurs-API (open.er-api.com). Bei Nichtverfügbarkeit werden Ersatzkurse verwendet.</p>",
+        changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> Großer Umbau</h3><ul><li>Neues Seitenmenü (Drawer) mit 5 Bereichen</li><li>Gastmodus als Standard, optionale Anmeldung</li><li>Firebase-Konten: Anmeldung, Registrierung, Passwort-Reset</li><li>Diagrammauswahl: Käufe nach Monat / Quartal / Jahr, kumulierte Linie, Quellen</li><li>Tabellensuche und Sortierung, CSV-Export</li><li>Volle Mobilunterstützung</li></ul><h3><span class='changelog-ver'>v1.0</span> Erste Version</h3><ul><li>Spieletabelle, Wechselkurse, Quartalsdiagramm</li></ul>",
+        donateHtml: "<h3>Projekt unterstützen</h3><p>Diese App ist kostenlos und ein Hobbyprojekt. Wenn sie dir nützt, kannst du dem Autor einen Kaffee spendieren.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>Danke für jede Unterstützung!</p>"
+    },
+    fr: {
+        appTitle: "Bibliothèque de dépenses", menu: "Menu", navHome: "Accueil", navAuth: "Connexion / Inscription", navFaq: "FAQ", navChangelog: "Changelog", navDonate: "Faire un don", language: "Langue",
+        guestMode: "Mode invité", loggedInAs: "Connecté en tant que :",
+        gameTitle: "Titre du jeu", price: "Prix", currency: "Devise", source: "Source", purchaseDate: "Date d'achat", addBtn: "Ajouter", saveBtn: "Sauvegarder", cancelBtn: "Annuler", addGame: "Ajouter un jeu",
+        myLibrary: "Votre Bibliothèque", colPlatform: "Plateforme", colOrigPrice: "Prix Original", colChfPrice: "Valeur CHF", colOptions: "Options", totalValue: "Valeur de la bibliothèque",
+        statTotalGames: "Jeux au total", statThisMonth: "Ce mois-ci", statThisYear: "Cette année",
+        chartsTitle: "Statistiques", chartOptPurchases: "Achats dans le temps", chartOptCumulative: "Total cumulé", chartOptSources: "Sources",
+        granMonth: "Mois", granQuarter: "Trimestre", granYear: "Année",
+        chartPurchases: "Nombre d'achats", chartCumulative: "Total de jeux possédés", chartSources: "Sources d'achat",
+        steam: "Steam", keyStore: "Boutique de clés", noData: "Aucune donnée", noResults: "Aucun résultat",
+        liveRates: "En direct", offlineRates: "Hors ligne", confirmDel: "Supprimer cet élément ?",
+        searchPh: "Rechercher un jeu...", exportCsv: "Export CSV",
+        tabLogin: "Connexion", tabRegister: "Inscription", tabReset: "Réinitialiser",
+        email: "E-mail", password: "Mot de passe", loginBtn: "Se connecter", registerBtn: "S'inscrire", resetBtn: "Envoyer le lien", logoutBtn: "Se déconnecter",
+        authNoteGuest: "Vous pouvez utiliser l'application en tant qu'invité. Les données invité sont stockées uniquement dans ce navigateur. Connectez-vous pour synchroniser votre bibliothèque entre appareils.",
+        authNoteLogged: "Votre bibliothèque est synchronisée avec le cloud et disponible sur tout appareil après connexion.",
+        resetSent: "Un lien de réinitialisation a été envoyé à votre e-mail. Vérifiez aussi les spams.",
+        registerOk: "Compte créé. Vous êtes maintenant connecté.",
+        loginOk: "Connexion réussie.", logoutOk: "Déconnecté. Retour au mode invité.",
+        authErrInvalid: "E-mail ou mot de passe invalide.", authErrInUse: "Cet e-mail est déjà enregistré.", authErrWeak: "Le mot de passe doit contenir au moins 6 caractères.", authErrNoUser: "Aucun compte trouvé avec cet e-mail.", authErrGeneric: "Une erreur est survenue. Réessayez.",
+        firebaseNotConfigured: "Firebase n'est pas configuré. Collez votre config dans le fichier (section FIREBASE CONFIG).",
+        syncLocal: "Données locales", syncCloud: "Cloud", syncSyncing: "Synchronisation...", syncErr: "Erreur de synchro",
+        savedLocal: "Enregistré localement", savedCloud: "Enregistré dans le cloud", itemDeleted: "Élément supprimé",
+        emptyLib: "Votre bibliothèque est vide. Ajoutez votre premier jeu ci-dessus.",
+        faqHtml: "<h3>Qu'est-ce que cette application ?</h3><p>Un tracker personnel de dépenses de jeux. Vous enregistrez le titre, le prix, la source et la date d'achat ; l'application calcule des statistiques et trace des graphiques.</p><h3>Ai-je besoin d'un compte ?</h3><p>Non. Par défaut, vous utilisez le mode invité et les données restent dans ce navigateur. Un compte permet la synchronisation entre appareils.</p><h3>Vais-je perdre mes données invité après connexion ?</h3><p>Non. À la première connexion, vos données invité sont fusionnées avec votre compte cloud.</p><h3>D'où viennent les taux de change ?</h3><p>D'une API publique de taux (open.er-api.com). En cas d'indisponibilité, des taux de secours sont utilisés.</p>",
+        changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> Refonte majeure</h3><ul><li>Nouveau menu latéral (drawer) à 5 sections</li><li>Mode invité par défaut, connexion facultative</li><li>Comptes Firebase : connexion, inscription, réinitialisation du mot de passe</li><li>Sélecteur de graphique : achats par mois / trimestre / année, ligne cumulée, sources</li><li>Recherche et tri du tableau, export CSV</li><li>Version mobile complète</li></ul><h3><span class='changelog-ver'>v1.0</span> Version initiale</h3><ul><li>Tableau des jeux, taux de change, graphique trimestriel</li></ul>",
+        donateHtml: "<h3>Soutenir le projet</h3><p>Cette application est gratuite et créée par passion. Si elle vous est utile, vous pouvez offrir un café à l'auteur.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>Merci pour votre soutien !</p>"
+    },
+    it: {
+        appTitle: "Libreria delle spese", menu: "Menu", navHome: "Home", navAuth: "Accesso / Registrazione", navFaq: "FAQ", navChangelog: "Changelog", navDonate: "Dona", language: "Lingua",
+        guestMode: "Modalità ospite", loggedInAs: "Accesso come:",
+        gameTitle: "Titolo Gioco", price: "Prezzo", currency: "Valuta", source: "Fonte", purchaseDate: "Data di acquisto", addBtn: "Aggiungi", saveBtn: "Salva", cancelBtn: "Annulla", addGame: "Aggiungi gioco",
+        myLibrary: "La tua Libreria", colPlatform: "Piattaforma", colOrigPrice: "Prezzo Originale", colChfPrice: "Valore CHF", colOptions: "Opzioni", totalValue: "Valore libreria",
+        statTotalGames: "Giochi totali", statThisMonth: "Questo mese", statThisYear: "Quest'anno",
+        chartsTitle: "Statistiche", chartOptPurchases: "Acquisti nel tempo", chartOptCumulative: "Totale cumulativo", chartOptSources: "Fonti",
+        granMonth: "Mese", granQuarter: "Trimestre", granYear: "Anno",
+        chartPurchases: "Numero di acquisti", chartCumulative: "Totale giochi posseduti", chartSources: "Fonti di acquisto",
+        steam: "Steam", keyStore: "Negozio di chiavi", noData: "Nessun dato", noResults: "Nessun risultato",
+        liveRates: "Live", offlineRates: "Offline", confirmDel: "Eliminare questo elemento?",
+        searchPh: "Cerca giochi...", exportCsv: "Esporta CSV",
+        tabLogin: "Accesso", tabRegister: "Registrazione", tabReset: "Reimposta password",
+        email: "E-mail", password: "Password", loginBtn: "Accedi", registerBtn: "Registrati", resetBtn: "Invia link di reset", logoutBtn: "Esci",
+        authNoteGuest: "Puoi usare l'app come ospite. I dati ospite sono salvati solo in questo browser. Accedi per sincronizzare la libreria tra dispositivi.",
+        authNoteLogged: "La tua libreria è sincronizzata con il cloud e disponibile su qualsiasi dispositivo dopo l'accesso.",
+        resetSent: "Un link per reimpostare la password è stato inviato alla tua e-mail. Controlla anche lo spam.",
+        registerOk: "Account creato. Ora sei connesso.",
+        loginOk: "Accesso effettuato.", logoutOk: "Disconnesso. Sei tornato in modalità ospite.",
+        authErrInvalid: "E-mail o password non validi.", authErrInUse: "Questa e-mail è già registrata.", authErrWeak: "La password deve avere almeno 6 caratteri.", authErrNoUser: "Nessun account trovato con questa e-mail.", authErrGeneric: "Si è verificato un errore. Riprova.",
+        firebaseNotConfigured: "Firebase non è configurato. Incolla la tua config nel file (sezione FIREBASE CONFIG).",
+        syncLocal: "Dati locali", syncCloud: "Cloud", syncSyncing: "Sincronizzazione...", syncErr: "Errore di sincronizzazione",
+        savedLocal: "Salvato localmente", savedCloud: "Salvato nel cloud", itemDeleted: "Elemento eliminato",
+        emptyLib: "La tua libreria è vuota. Aggiungi il primo gioco qui sopra.",
+        faqHtml: "<h3>Cos'è questa app?</h3><p>Un tracker personale delle spese per i giochi. Registri titolo, prezzo, fonte e data di acquisto; l'app calcola statistiche e disegna grafici.</p><h3>Serve un account?</h3><p>No. Di default usi la modalità ospite e i dati restano in questo browser. Un account permette la sincronizzazione tra dispositivi.</p><h3>Perderò i dati ospite dopo l'accesso?</h3><p>No. Al primo accesso i dati ospite vengono uniti al tuo account cloud.</p><h3>Da dove vengono i tassi di cambio?</h3><p>Da un'API pubblica (open.er-api.com). Se non disponibile, si usano tassi di riserva.</p>",
+        changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> Grande rinnovamento</h3><ul><li>Nuovo menu laterale (drawer) con 5 sezioni</li><li>Modalità ospite di default, accesso facoltativo</li><li>Account Firebase: accesso, registrazione, reset password</li><li>Selettore grafico: acquisti per mese / trimestre / anno, linea cumulativa, fonti</li><li>Ricerca e ordinamento in tabella, export CSV</li><li>Supporto mobile completo</li></ul><h3><span class='changelog-ver'>v1.0</span> Prima versione</h3><ul><li>Tabella giochi, tassi di cambio, grafico trimestrale</li></ul>",
+        donateHtml: "<h3>Sostieni il progetto</h3><p>Questa app è gratuita e nata come hobby. Se ti è utile, puoi offrire un caffè all'autore.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>Grazie per ogni supporto!</p>"
+    },
+    es: {
+        appTitle: "Biblioteca de gastos", menu: "Menú", navHome: "Inicio", navAuth: "Iniciar sesión / Registro", navFaq: "FAQ", navChangelog: "Changelog", navDonate: "Donar", language: "Idioma",
+        guestMode: "Modo invitado", loggedInAs: "Sesión iniciada como:",
+        gameTitle: "Título del juego", price: "Precio", currency: "Moneda", source: "Fuente", purchaseDate: "Fecha de compra", addBtn: "Añadir", saveBtn: "Guardar", cancelBtn: "Cancelar", addGame: "Añadir juego",
+        myLibrary: "Tu Biblioteca", colPlatform: "Plataforma", colOrigPrice: "Precio Original", colChfPrice: "Valor CHF", colOptions: "Opciones", totalValue: "Valor de la biblioteca",
+        statTotalGames: "Juegos en total", statThisMonth: "Este mes", statThisYear: "Este año",
+        chartsTitle: "Estadísticas", chartOptPurchases: "Compras en el tiempo", chartOptCumulative: "Total acumulado", chartOptSources: "Fuentes",
+        granMonth: "Mes", granQuarter: "Trimestre", granYear: "Año",
+        chartPurchases: "Número de compras", chartCumulative: "Total de juegos", chartSources: "Fuentes de compra",
+        steam: "Steam", keyStore: "Tienda de claves", noData: "Sin datos", noResults: "Sin resultados",
+        liveRates: "En vivo", offlineRates: "Sin conexión", confirmDel: "¿Eliminar este elemento?",
+        searchPh: "Buscar juegos...", exportCsv: "Exportar CSV",
+        tabLogin: "Iniciar sesión", tabRegister: "Registro", tabReset: "Restablecer",
+        email: "E-mail", password: "Contraseña", loginBtn: "Entrar", registerBtn: "Registrarse", resetBtn: "Enviar enlace", logoutBtn: "Cerrar sesión",
+        authNoteGuest: "Puedes usar la app como invitado. Los datos de invitado se guardan solo en este navegador. Inicia sesión para sincronizar tu biblioteca entre dispositivos.",
+        authNoteLogged: "Tu biblioteca se sincroniza con la nube y está disponible en cualquier dispositivo tras iniciar sesión.",
+        resetSent: "Se envió un enlace de restablecimiento a tu e-mail. Revisa también el spam.",
+        registerOk: "Cuenta creada. Ya has iniciado sesión.",
+        loginOk: "Sesión iniciada correctamente.", logoutOk: "Sesión cerrada. Vuelves al modo invitado.",
+        authErrInvalid: "E-mail o contraseña inválidos.", authErrInUse: "Este e-mail ya está registrado.", authErrWeak: "La contraseña debe tener al menos 6 caracteres.", authErrNoUser: "No se encontró una cuenta con este e-mail.", authErrGeneric: "Algo salió mal. Inténtalo de nuevo.",
+        firebaseNotConfigured: "Firebase no está configurado. Pega tu config en el archivo (sección FIREBASE CONFIG).",
+        syncLocal: "Datos locales", syncCloud: "Nube", syncSyncing: "Sincronizando...", syncErr: "Error de sincronización",
+        savedLocal: "Guardado localmente", savedCloud: "Guardado en la nube", itemDeleted: "Elemento eliminado",
+        emptyLib: "Tu biblioteca está vacía. Añade tu primer juego arriba.",
+        faqHtml: "<h3>¿Qué es esta app?</h3><p>Un rastreador personal de gastos en juegos. Registras título, precio, fuente y fecha de compra; la app calcula estadísticas y dibuja gráficos.</p><h3>¿Necesito una cuenta?</h3><p>No. Por defecto usas el modo invitado y los datos quedan en este navegador. Una cuenta permite sincronizar entre dispositivos.</p><h3>¿Perderé los datos de invitado al iniciar sesión?</h3><p>No. En el primer inicio de sesión, tus datos de invitado se combinan con tu cuenta en la nube.</p><h3>¿De dónde vienen los tipos de cambio?</h3><p>De una API pública (open.er-api.com). Si no está disponible, se usan tasas de respaldo.</p>",
+        changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> Gran renovación</h3><ul><li>Nuevo menú lateral (drawer) con 5 secciones</li><li>Modo invitado por defecto, inicio de sesión opcional</li><li>Cuentas Firebase: inicio de sesión, registro, restablecimiento de contraseña</li><li>Selector de gráfico: compras por mes / trimestre / año, línea acumulada, fuentes</li><li>Búsqueda y ordenación en la tabla, exportación CSV</li><li>Soporte móvil completo</li></ul><h3><span class='changelog-ver'>v1.0</span> Versión inicial</h3><ul><li>Tabla de juegos, tipos de cambio, gráfico trimestral</li></ul>",
+        donateHtml: "<h3>Apoya el proyecto</h3><p>Esta app es gratuita y un proyecto personal. Si te resulta útil, puedes invitar un café al autor.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>¡Gracias por tu apoyo!</p>"
+    },
+    pt: {
+        appTitle: "Biblioteca de despesas", menu: "Menu", navHome: "Início", navAuth: "Entrar / Registrar", navFaq: "FAQ", navChangelog: "Changelog", navDonate: "Doar", language: "Idioma",
+        guestMode: "Modo convidado", loggedInAs: "Conectado como:",
+        gameTitle: "Título do jogo", price: "Preço", currency: "Moeda", source: "Fonte", purchaseDate: "Data de compra", addBtn: "Adicionar", saveBtn: "Salvar", cancelBtn: "Cancelar", addGame: "Adicionar jogo",
+        myLibrary: "Sua Biblioteca", colPlatform: "Plataforma", colOrigPrice: "Preço Original", colChfPrice: "Valor CHF", colOptions: "Opções", totalValue: "Valor da biblioteca",
+        statTotalGames: "Total de jogos", statThisMonth: "Este mês", statThisYear: "Este ano",
+        chartsTitle: "Estatísticas", chartOptPurchases: "Compras ao longo do tempo", chartOptCumulative: "Total acumulado", chartOptSources: "Fontes",
+        granMonth: "Mês", granQuarter: "Trimestre", granYear: "Ano",
+        chartPurchases: "Número de compras", chartCumulative: "Total de jogos", chartSources: "Fontes de compra",
+        steam: "Steam", keyStore: "Loja de chaves", noData: "Sem dados", noResults: "Sem resultados",
+        liveRates: "Ao vivo", offlineRates: "Offline", confirmDel: "Excluir este item?",
+        searchPh: "Buscar jogos...", exportCsv: "Exportar CSV",
+        tabLogin: "Entrar", tabRegister: "Registrar", tabReset: "Redefinir senha",
+        email: "E-mail", password: "Senha", loginBtn: "Entrar", registerBtn: "Registrar", resetBtn: "Enviar link", logoutBtn: "Sair",
+        authNoteGuest: "Você pode usar o app como convidado. Os dados de convidado ficam salvos apenas neste navegador. Faça login para sincronizar sua biblioteca entre dispositivos.",
+        authNoteLogged: "Sua biblioteca é sincronizada com a nuvem e fica disponível em qualquer dispositivo após o login.",
+        resetSent: "Um link de redefinição de senha foi enviado para seu e-mail. Verifique também o spam.",
+        registerOk: "Conta criada. Você já está conectado.",
+        loginOk: "Login realizado com sucesso.", logoutOk: "Desconectado. Você voltou ao modo convidado.",
+        authErrInvalid: "E-mail ou senha inválidos.", authErrInUse: "Este e-mail já está registrado.", authErrWeak: "A senha deve ter pelo menos 6 caracteres.", authErrNoUser: "Nenhuma conta encontrada com este e-mail.", authErrGeneric: "Algo deu errado. Tente novamente.",
+        firebaseNotConfigured: "O Firebase não está configurado. Cole sua config no arquivo (seção FIREBASE CONFIG).",
+        syncLocal: "Dados locais", syncCloud: "Nuvem", syncSyncing: "Sincronizando...", syncErr: "Erro de sincronização",
+        savedLocal: "Salvo localmente", savedCloud: "Salvo na nuvem", itemDeleted: "Item excluído",
+        emptyLib: "Sua biblioteca está vazia. Adicione seu primeiro jogo acima.",
+        faqHtml: "<h3>O que é este app?</h3><p>Um rastreador pessoal de gastos com jogos. Você registra título, preço, fonte e data de compra; o app calcula estatísticas e desenha gráficos.</p><h3>Preciso de uma conta?</h3><p>Não. Por padrão você usa o modo convidado e os dados ficam neste navegador. Uma conta permite sincronizar entre dispositivos.</p><h3>Vou perder os dados de convidado após o login?</h3><p>Não. No primeiro login, seus dados de convidado são mesclados com sua conta na nuvem.</p><h3>De onde vêm as taxas de câmbio?</h3><p>De uma API pública (open.er-api.com). Se indisponível, taxas de reserva são usadas.</p>",
+        changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> Grande reformulação</h3><ul><li>Novo menu lateral (drawer) com 5 seções</li><li>Modo convidado por padrão, login opcional</li><li>Contas Firebase: login, registro, redefinição de senha</li><li>Seletor de gráfico: compras por mês / trimestre / ano, linha acumulada, fontes</li><li>Busca e ordenação na tabela, exportação CSV</li><li>Suporte móvel completo</li></ul><h3><span class='changelog-ver'>v1.0</span> Versão inicial</h3><ul><li>Tabela de jogos, taxas de câmbio, gráfico trimestral</li></ul>",
+        donateHtml: "<h3>Apoie o projeto</h3><p>Este app é gratuito e feito por hobby. Se for útil para você, pode pagar um café ao autor.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>Obrigado por qualquer apoio!</p>"
+    },
+    ja: {
+        appTitle: "支出ライブラリ", menu: "メニュー", navHome: "ホーム", navAuth: "ログイン / 登録", navFaq: "FAQ", navChangelog: "更新履歴", navDonate: "寄付", language: "言語",
+        guestMode: "ゲストモード", loggedInAs: "ログイン中:",
+        gameTitle: "ゲームタイトル", price: "価格", currency: "通貨", source: "ソース", purchaseDate: "購入日", addBtn: "追加", saveBtn: "保存", cancelBtn: "キャンセル", addGame: "ゲームを追加",
+        myLibrary: "ライブラリ", colPlatform: "プラットフォーム", colOrigPrice: "元の価格", colChfPrice: "CHF 価値", colOptions: "オプション", totalValue: "ライブラリの価値",
+        statTotalGames: "ゲーム総数", statThisMonth: "今月", statThisYear: "今年",
+        chartsTitle: "統計", chartOptPurchases: "期間別の購入数", chartOptCumulative: "累計", chartOptSources: "ソース",
+        granMonth: "月", granQuarter: "四半期", granYear: "年",
+        chartPurchases: "購入数", chartCumulative: "所有ゲーム累計", chartSources: "購入ソース",
+        steam: "Steam", keyStore: "キーストア", noData: "データなし", noResults: "検索結果なし",
+        liveRates: "ライブ", offlineRates: "オフライン", confirmDel: "削除しますか？",
+        searchPh: "ゲームを検索...", exportCsv: "CSV エクスポート",
+        tabLogin: "ログイン", tabRegister: "登録", tabReset: "パスワード再設定",
+        email: "メール", password: "パスワード", loginBtn: "ログイン", registerBtn: "登録する", resetBtn: "再設定リンクを送信", logoutBtn: "ログアウト",
+        authNoteGuest: "ゲストとしてアプリを利用できます。ゲストデータはこのブラウザにのみ保存されます。ログインするとデバイス間でライブラリを同期できます。",
+        authNoteLogged: "ライブラリはクラウドと同期され、ログイン後はどのデバイスでも利用できます。",
+        resetSent: "パスワード再設定リンクをメールに送信しました。迷惑メールフォルダもご確認ください。",
+        registerOk: "アカウントを作成しました。ログイン済みです。",
+        loginOk: "ログインしました。", logoutOk: "ログアウトしました。ゲストモードに戻りました。",
+        authErrInvalid: "メールまたはパスワードが正しくありません。", authErrInUse: "このメールは既に登録されています。", authErrWeak: "パスワードは6文字以上にしてください。", authErrNoUser: "このメールのアカウントが見つかりません。", authErrGeneric: "エラーが発生しました。もう一度お試しください。",
+        firebaseNotConfigured: "Firebase が設定されていません。ファイル内の FIREBASE CONFIG セクションに設定を貼り付けてください。",
+        syncLocal: "ローカルデータ", syncCloud: "クラウド", syncSyncing: "同期中...", syncErr: "同期エラー",
+        savedLocal: "ローカルに保存しました", savedCloud: "クラウドに保存しました", itemDeleted: "削除しました",
+        emptyLib: "ライブラリは空です。上のフォームから最初のゲームを追加してください。",
+        faqHtml: "<h3>このアプリは何ですか？</h3><p>個人用のゲーム支出トラッカーです。タイトル、価格、ソース、購入日を記録すると、統計とグラフが表示されます。</p><h3>アカウントは必要ですか？</h3><p>いいえ。デフォルトはゲストモードで、データはこのブラウザにのみ保存されます。アカウントを作るとデバイス間で同期できます。</p><h3>ログイン後にゲストデータは消えますか？</h3><p>いいえ。初回ログイン時にゲストデータはクラウドアカウントに統合されます。</p><h3>為替レートの出所は？</h3><p>公開レートAPI（open.er-api.com）です。利用できない場合は予備レートを使用します。</p>",
+        changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> 大規模リニューアル</h3><ul><li>5セクションのサイドメニュー（ドロワー）</li><li>デフォルトでゲストモード、ログインは任意</li><li>Firebase アカウント：ログイン、登録、パスワード再設定</li><li>グラフ選択：月 / 四半期 / 年ごとの購入数、累計ライン、ソース</li><li>テーブルの検索と並べ替え、CSVエクスポート</li><li>モバイル完全対応</li></ul><h3><span class='changelog-ver'>v1.0</span> 初版</h3><ul><li>ゲームテーブル、為替レート、四半期グラフ</li></ul>",
+        donateHtml: "<h3>プロジェクトを支援</h3><p>このアプリは無料の趣味プロジェクトです。役に立ったら、作者にコーヒーをおごってください。</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>ご支援ありがとうございます！</p>"
+    },
+    zh: {
+        appTitle: "支出库", menu: "菜单", navHome: "主页", navAuth: "登录 / 注册", navFaq: "常见问题", navChangelog: "更新日志", navDonate: "捐助", language: "语言",
+        guestMode: "访客模式", loggedInAs: "已登录：",
+        gameTitle: "游戏名称", price: "价格", currency: "货币", source: "来源", purchaseDate: "购买日期", addBtn: "添加", saveBtn: "保存", cancelBtn: "取消", addGame: "添加游戏",
+        myLibrary: "你的库", colPlatform: "平台", colOrigPrice: "原价", colChfPrice: "CHF 价值", colOptions: "选项", totalValue: "库总价值",
+        statTotalGames: "游戏总数", statThisMonth: "本月", statThisYear: "今年",
+        chartsTitle: "统计", chartOptPurchases: "按时间的购买量", chartOptCumulative: "累计总数", chartOptSources: "来源",
+        granMonth: "月", granQuarter: "季度", granYear: "年",
+        chartPurchases: "购买数量", chartCumulative: "累计游戏数", chartSources: "购买来源",
+        steam: "Steam", keyStore: "密钥商店", noData: "暂无数据", noResults: "无搜索结果",
+        liveRates: "实时", offlineRates: "离线", confirmDel: "删除此项？",
+        searchPh: "搜索游戏...", exportCsv: "导出 CSV",
+        tabLogin: "登录", tabRegister: "注册", tabReset: "重置密码",
+        email: "邮箱", password: "密码", loginBtn: "登录", registerBtn: "注册", resetBtn: "发送重置链接", logoutBtn: "退出登录",
+        authNoteGuest: "你可以以访客身份使用本应用。访客数据仅保存在此浏览器中。登录后可在多设备间同步你的库。",
+        authNoteLogged: "你的库已与云端同步，登录后可在任何设备上使用。",
+        resetSent: "密码重置链接已发送到你的邮箱，请同时检查垃圾邮件。",
+        registerOk: "账户已创建，已自动登录。",
+        loginOk: "登录成功。", logoutOk: "已退出登录，回到访客模式。",
+        authErrInvalid: "邮箱或密码无效。", authErrInUse: "此邮箱已被注册。", authErrWeak: "密码至少需要 6 个字符。", authErrNoUser: "未找到使用此邮箱的账户。", authErrGeneric: "出现错误，请重试。",
+        firebaseNotConfigured: "Firebase 尚未配置。请在文件中的 FIREBASE CONFIG 部分粘贴你的配置。",
+        syncLocal: "本地数据", syncCloud: "云端", syncSyncing: "同步中...", syncErr: "同步错误",
+        savedLocal: "已保存到本地", savedCloud: "已保存到云端", itemDeleted: "已删除",
+        emptyLib: "你的库是空的。请在上方添加第一款游戏。",
+        faqHtml: "<h3>这是什么应用？</h3><p>个人游戏支出追踪器。记录名称、价格、来源和购买日期，应用会计算统计数据并绘制图表。</p><h3>需要账户吗？</h3><p>不需要。默认使用访客模式，数据仅保存在此浏览器中。账户可用于多设备同步。</p><h3>登录后访客数据会丢失吗？</h3><p>不会。首次登录时，访客数据会合并到你的云端账户。</p><h3>汇率来自哪里？</h3><p>来自公开汇率 API（open.er-api.com）。不可用时使用备用汇率。</p>",
+        changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> 重大更新</h3><ul><li>全新侧边抽屉菜单，含 5 个部分</li><li>默认访客模式，登录可选</li><li>Firebase 账户：登录、注册、密码重置</li><li>图表选择：按月 / 季度 / 年的购买量、累计折线、来源</li><li>表格搜索与排序、CSV 导出</li><li>完整移动端支持</li></ul><h3><span class='changelog-ver'>v1.0</span> 首个版本</h3><ul><li>游戏表格、汇率、季度图表</li></ul>",
+        donateHtml: "<h3>支持本项目</h3><p>本应用免费且为业余项目。如果对你有帮助，可以请作者喝杯咖啡。</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>感谢你的支持！</p>"
+    },
+    ko: {
+        appTitle: "지출 라이브러리", menu: "메뉴", navHome: "홈", navAuth: "로그인 / 회원가입", navFaq: "FAQ", navChangelog: "변경 내역", navDonate: "후원", language: "언어",
+        guestMode: "게스트 모드", loggedInAs: "로그인 계정:",
+        gameTitle: "게임 제목", price: "가격", currency: "통화", source: "출처", purchaseDate: "구매 날짜", addBtn: "추가", saveBtn: "저장", cancelBtn: "취소", addGame: "게임 추가",
+        myLibrary: "라이브러리", colPlatform: "플랫폼", colOrigPrice: "원본 가격", colChfPrice: "CHF 가치", colOptions: "옵션", totalValue: "라이브러리 가치",
+        statTotalGames: "총 게임 수", statThisMonth: "이번 달", statThisYear: "올해",
+        chartsTitle: "통계", chartOptPurchases: "기간별 구매", chartOptCumulative: "누적 합계", chartOptSources: "출처",
+        granMonth: "월", granQuarter: "분기", granYear: "연도",
+        chartPurchases: "구매 수", chartCumulative: "누적 게임 수", chartSources: "구매 출처",
+        steam: "Steam", keyStore: "키 스토어", noData: "데이터 없음", noResults: "검색 결과 없음",
+        liveRates: "실시간", offlineRates: "오프라인", confirmDel: "삭제하시겠습니까?",
+        searchPh: "게임 검색...", exportCsv: "CSV 내보내기",
+        tabLogin: "로그인", tabRegister: "회원가입", tabReset: "비밀번호 재설정",
+        email: "이메일", password: "비밀번호", loginBtn: "로그인", registerBtn: "가입하기", resetBtn: "재설정 링크 보내기", logoutBtn: "로그아웃",
+        authNoteGuest: "게스트로 앱을 사용할 수 있습니다. 게스트 데이터는 이 브라우저에만 저장됩니다. 로그인하면 기기 간에 라이브러리를 동기화할 수 있습니다.",
+        authNoteLogged: "라이브러리가 클라우드와 동기화되어 로그인 후 어느 기기에서나 사용할 수 있습니다.",
+        resetSent: "비밀번호 재설정 링크를 이메일로 보냈습니다. 스팸함도 확인해 주세요.",
+        registerOk: "계정이 생성되었습니다. 자동으로 로그인되었습니다.",
+        loginOk: "로그인되었습니다.", logoutOk: "로그아웃되었습니다. 게스트 모드로 돌아왔습니다.",
+        authErrInvalid: "이메일 또는 비밀번호가 올바르지 않습니다.", authErrInUse: "이미 등록된 이메일입니다.", authErrWeak: "비밀번호는 6자 이상이어야 합니다.", authErrNoUser: "이 이메일로 된 계정을 찾을 수 없습니다.", authErrGeneric: "오류가 발생했습니다. 다시 시도해 주세요.",
+        firebaseNotConfigured: "Firebase가 설정되지 않았습니다. 파일의 FIREBASE CONFIG 섹션에 구성을 붙여넣어 주세요.",
+        syncLocal: "로컬 데이터", syncCloud: "클라우드", syncSyncing: "동기화 중...", syncErr: "동기화 오류",
+        savedLocal: "로컬에 저장됨", savedCloud: "클라우드에 저장됨", itemDeleted: "삭제되었습니다",
+        emptyLib: "라이브러리가 비어 있습니다. 위에서 첫 게임을 추가하세요.",
+        faqHtml: "<h3>이 앱은 무엇인가요?</h3><p>개인용 게임 지출 트래커입니다. 제목, 가격, 출처, 구매 날짜를 기록하면 앱이 통계를 계산하고 차트를 그립니다.</p><h3>계정이 필요한가요?</h3><p>아니요. 기본은 게스트 모드이며 데이터는 이 브라우저에만 저장됩니다. 계정을 만들면 기기 간 동기화가 가능합니다.</p><h3>로그인하면 게스트 데이터가 사라지나요?</h3><p>아니요. 첫 로그인 시 게스트 데이터가 클라우드 계정에 병합됩니다.</p><h3>환율은 어디서 오나요?</h3><p>공개 환율 API(open.er-api.com)에서 가져옵니다. 사용할 수 없으면 예비 환율을 사용합니다.</p>",
+        changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> 대규모 개편</h3><ul><li>5개 섹션의 사이드 드로어 메뉴</li><li>기본 게스트 모드, 선택적 로그인</li><li>Firebase 계정: 로그인, 회원가입, 비밀번호 재설정</li><li>차트 선택: 월 / 분기 / 연도별 구매, 누적 라인, 출처</li><li>테이블 검색 및 정렬, CSV 내보내기</li><li>모바일 완전 지원</li></ul><h3><span class='changelog-ver'>v1.0</span> 첫 버전</h3><ul><li>게임 테이블, 환율, 분기 차트</li></ul>",
+        donateHtml: "<h3>프로젝트 후원</h3><p>이 앱은 무료 취미 프로젝트입니다. 도움이 되었다면 개발자에게 커피 한 잔을 사줄 수 있습니다.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>후원해 주셔서 감사합니다!</p>"
+    },
+    ar: {
+        appTitle: "مكتبة النفقات", menu: "القائمة", navHome: "الصفحة الرئيسية", navAuth: "تسجيل الدخول / التسجيل", navFaq: "الأسئلة الشائعة", navChangelog: "سجل التغييرات", navDonate: "تبرع", language: "اللغة",
+        guestMode: "وضع الضيف", loggedInAs: "مسجل الدخول باسم:",
+        gameTitle: "عنوان اللعبة", price: "السعر", currency: "العملة", source: "المصدر", purchaseDate: "تاريخ الشراء", addBtn: "إضافة", saveBtn: "حفظ", cancelBtn: "إلغاء", addGame: "إضافة لعبة",
+        myLibrary: "مكتبتك", colPlatform: "المنصة", colOrigPrice: "السعر الأصلي", colChfPrice: "قيمة CHF", colOptions: "خيارات", totalValue: "قيمة المكتبة",
+        statTotalGames: "إجمالي الألعاب", statThisMonth: "هذا الشهر", statThisYear: "هذه السنة",
+        chartsTitle: "الإحصائيات", chartOptPurchases: "المشتريات عبر الزمن", chartOptCumulative: "المجموع التراكمي", chartOptSources: "المصادر",
+        granMonth: "شهر", granQuarter: "ربع سنة", granYear: "سنة",
+        chartPurchases: "عدد المشتريات", chartCumulative: "إجمالي الألعاب", chartSources: "مصادر الشراء",
+        steam: "Steam", keyStore: "متجر المفاتيح", noData: "لا توجد بيانات", noResults: "لا توجد نتائج",
+        liveRates: "مباشر", offlineRates: "دون اتصال", confirmDel: "هل تريد حذف هذا العنصر؟",
+        searchPh: "ابحث عن لعبة...", exportCsv: "تصدير CSV",
+        tabLogin: "تسجيل الدخول", tabRegister: "التسجيل", tabReset: "إعادة تعيين كلمة المرور",
+        email: "البريد الإلكتروني", password: "كلمة المرور", loginBtn: "دخول", registerBtn: "إنشاء حساب", resetBtn: "إرسال رابط إعادة التعيين", logoutBtn: "تسجيل الخروج",
+        authNoteGuest: "يمكنك استخدام التطبيق كضيف. تُحفظ بيانات الضيف في هذا المتصفح فقط. سجّل الدخول لمزامنة مكتبتك بين الأجهزة.",
+        authNoteLogged: "مكتبتك مُزامنة مع السحابة ومتاحة على أي جهاز بعد تسجيل الدخول.",
+        resetSent: "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني. تحقق أيضاً من مجلد الرسائل غير المرغوب فيها.",
+        registerOk: "تم إنشاء الحساب. تم تسجيل دخولك تلقائياً.",
+        loginOk: "تم تسجيل الدخول بنجاح.", logoutOk: "تم تسجيل الخروج. عدت إلى وضع الضيف.",
+        authErrInvalid: "البريد الإلكتروني أو كلمة المرور غير صحيحة.", authErrInUse: "هذا البريد مسجل بالفعل.", authErrWeak: "يجب أن تكون كلمة المرور 6 أحرف على الأقل.", authErrNoUser: "لم يتم العثور على حساب بهذا البريد.", authErrGeneric: "حدث خطأ. حاول مرة أخرى.",
+        firebaseNotConfigured: "لم يتم إعداد Firebase. الصق الإعدادات في الملف (قسم FIREBASE CONFIG).",
+        syncLocal: "بيانات محلية", syncCloud: "السحابة", syncSyncing: "جارٍ المزامنة...", syncErr: "خطأ في المزامنة",
+        savedLocal: "تم الحفظ محلياً", savedCloud: "تم الحفظ في السحابة", itemDeleted: "تم الحذف",
+        emptyLib: "مكتبتك فارغة. أضف لعبتك الأولى أعلاه.",
+        faqHtml: "<h3>ما هذا التطبيق؟</h3><p>متتبع شخصي لنفقات الألعاب. تسجل العنوان والسعر والمصدر وتاريخ الشراء، ويحسب التطبيق الإحصائيات ويرسم الرسوم البيانية.</p><h3>هل أحتاج إلى حساب؟</h3><p>لا. افتراضياً تستخدم وضع الضيف وتُحفظ البيانات في هذا المتصفح فقط. الحساب يتيح المزامنة بين الأجهزة.</p><h3>هل سأفقد بيانات الضيف بعد تسجيل الدخول؟</h3><p>لا. عند أول تسجيل دخول تُدمج بيانات الضيف مع حسابك السحابي.</p><h3>من أين تأتي أسعار الصرف؟</h3><p>من واجهة برمجية عامة (open.er-api.com). عند عدم توفرها تُستخدم أسعار احتياطية.</p>",
+        changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> إعادة بناء كبيرة</h3><ul><li>قائمة جانبية جديدة (درج) من 5 أقسام</li><li>وضع الضيف افتراضياً، تسجيل الدخول اختياري</li><li>حسابات Firebase: دخول، تسجيل، إعادة تعيين كلمة المرور</li><li>اختيار الرسم البياني: المشتريات حسب الشهر / الربع / السنة، خط تراكمي، المصادر</li><li>بحث وفرز في الجدول، تصدير CSV</li><li>دعم كامل للجوال</li></ul><h3><span class='changelog-ver'>v1.0</span> الإصدار الأول</h3><ul><li>جدول الألعاب، أسعار الصرف، رسم ربع سنوي</li></ul>",
+        donateHtml: "<h3>ادعم المشروع</h3><p>هذا التطبيق مجاني ومشروع هواية. إذا كان مفيداً لك، يمكنك شراء قهوة للمطور.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>شكراً على أي دعم!</p>"
+    }
+};
+
+// =====================================================
+// STAN
+// =====================================================
+let currentLang = localStorage.getItem('appLang') || 'pl';
+let games = [];
+let globalTotalChf = 0;
+let mainChart = null;
+let editingIndex = -1;
+let currentUser = null;
+let sortKey = 'date', sortDir = -1;
+let rates = { CHF: 1.0, EUR: 0.92, PLN: 0.21 };
+
+const t = (key) => (translations[currentLang] && translations[currentLang][key]) || translations.pl[key] || key;
+const $ = (id) => document.getElementById(id);
+
+// =====================================================
+// DRAWER / NAWIGACJA
+// =====================================================
+function toggleDrawer(open) {
+    $('drawer').classList.toggle('open', open);
+    $('drawerOverlay').classList.toggle('show', open);
+    $('drawer').setAttribute('aria-hidden', String(!open));
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') toggleDrawer(false); });
+
+function showView(view) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    $('view-' + view).classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.view === view));
+    toggleDrawer(false);
+    window.scrollTo({ top: 0 });
+}
+
+// =====================================================
+// I18N
+// =====================================================
+function changeLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('appLang', lang);
+    document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t(key)) el.textContent = t(key);
+    });
+    document.querySelectorAll('[data-i18n-opt]').forEach(el => {
+        el.textContent = t(el.getAttribute('data-i18n-opt'));
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+        el.placeholder = t(el.getAttribute('data-i18n-ph'));
+    });
+
+    $('faqContent').innerHTML = t('faqHtml');
+    $('changelogContent').innerHTML = t('changelogHtml');
+    $('donateContent').innerHTML = t('donateHtml');
+
+    if (editingIndex > -1) $('submitBtn').querySelector('span').textContent = t('saveBtn');
+    updateUserChip();
+    updateAuthUI();
+    setAuthMode(authMode, true);
+    updateRatesLine();
+    renderTable();
+}
+
+// =====================================================
+// KURSY WALUT
+// =====================================================
+let ratesLive = false;
+function updateRatesLine() {
+    const label = ratesLive ? t('liveRates') : t('offlineRates');
+    $('ratesMain').textContent = `${label}: 1 EUR ≈ ${rates.EUR.toFixed(2)} CHF | 1 PLN ≈ ${rates.PLN.toFixed(2)} CHF`;
+}
+async function fetchExchangeRates() {
+    try {
+        const response = await fetch('https://open.er-api.com/v6/latest/CHF');
+        const data = await response.json();
+        if (data && data.rates) {
+            rates.EUR = 1 / data.rates.EUR;
+            rates.PLN = 1 / data.rates.PLN;
+            ratesLive = true;
+        }
+    } catch (e) { ratesLive = false; }
+    updateRatesLine();
+    updateTotalDisplay();
+}
+
+// =====================================================
+// TOAST + BADGE
+// =====================================================
+let toastTimer = null;
+function showToast(key) {
+    const el = $('toast');
+    el.textContent = t(key);
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+function setBadge(state, textKey) {
+    const badge = $('syncBadge');
+    badge.className = 'sync-badge ' + state;
+    let icon = '<i class="fa-solid fa-hard-drive"></i>';
+    if (state === 'success') icon = '<i class="fa-solid fa-cloud"></i>';
+    else if (state === 'error') icon = '<i class="fa-solid fa-triangle-exclamation"></i>';
+    else if (state === 'loading') icon = '<i class="fa-solid fa-spinner fa-spin"></i>';
+    badge.innerHTML = icon + ' <span id="badgeText">' + t(textKey) + '</span>';
+}
+
+// =====================================================
+// PRZECHOWYWANIE DANYCH (gość: localStorage, konto: Firestore)
+// =====================================================
+function loadGuestData() {
+    try { games = JSON.parse(localStorage.getItem('guestGames') || '[]'); }
+    catch (e) { games = []; }
+    setBadge('offline', 'syncLocal');
+    renderTable();
+}
+
+async function loadCloudData() {
+    if (!db || !currentUser) return;
+    setBadge('loading', 'syncSyncing');
+    try {
+        const doc = await db.collection('users').doc(currentUser.uid).get();
+        const cloudGames = (doc.exists && Array.isArray(doc.data().games)) ? doc.data().games : [];
+
+        // Scal dane gościa przy pierwszym logowaniu w tej przeglądarce
+        const guest = JSON.parse(localStorage.getItem('guestGames') || '[]');
+        if (guest.length > 0) {
+            const seen = new Set(cloudGames.map(g => g.name + '|' + g.date + '|' + g.price));
+            guest.forEach(g => { if (!seen.has(g.name + '|' + g.date + '|' + g.price)) cloudGames.push(g); });
+            localStorage.removeItem('guestGames');
+            await db.collection('users').doc(currentUser.uid).set({ games: cloudGames });
+        }
+
+        games = cloudGames;
+        setBadge('success', 'syncCloud');
+    } catch (e) {
+        console.error(e);
+        setBadge('error', 'syncErr');
+    }
+    renderTable();
+}
+
+async function persistData() {
+    if (currentUser && db) {
+        setBadge('loading', 'syncSyncing');
+        try {
+            await db.collection('users').doc(currentUser.uid).set({ games });
+            setBadge('success', 'syncCloud');
+            showToast('savedCloud');
+        } catch (e) {
+            setBadge('error', 'syncErr');
+        }
+    } else {
+        localStorage.setItem('guestGames', JSON.stringify(games));
+        setBadge('offline', 'syncLocal');
+        showToast('savedLocal');
+    }
+}
+
+// =====================================================
+// AUTORYZACJA
+// =====================================================
+let authMode = 'login';
+
+function setAuthMode(mode, silent) {
+    authMode = mode;
+    document.querySelectorAll('.auth-tab').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+    $('passGroup').style.display = (mode === 'reset') ? 'none' : 'flex';
+    $('authPass').required = (mode !== 'reset');
+    const btnSpan = $('authSubmitBtn').querySelector('span');
+    btnSpan.textContent = mode === 'login' ? t('loginBtn') : mode === 'register' ? t('registerBtn') : t('resetBtn');
+    if (!silent) hideAuthMsg();
+}
+
+function showAuthMsg(key, type) {
+    const el = $('authMsg');
+    el.textContent = t(key);
+    el.className = 'auth-msg show ' + type;
+}
+function hideAuthMsg() { $('authMsg').className = 'auth-msg'; }
+
+function mapAuthError(code) {
+    switch (code) {
+        case 'auth/invalid-credential':
+        case 'auth/wrong-password':
+        case 'auth/invalid-email': return 'authErrInvalid';
+        case 'auth/email-already-in-use': return 'authErrInUse';
+        case 'auth/weak-password': return 'authErrWeak';
+        case 'auth/user-not-found': return 'authErrNoUser';
+        default: return 'authErrGeneric';
+    }
+}
+
+$('authForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    hideAuthMsg();
+    if (!firebaseReady) { showAuthMsg('firebaseNotConfigured', 'error'); return; }
+
+    const email = $('authEmail').value.trim();
+    const pass = $('authPass').value;
+
+    try {
+        if (authMode === 'login') {
+            await auth.signInWithEmailAndPassword(email, pass);
+            showToast('loginOk');
+            showView('home');
+        } else if (authMode === 'register') {
+            await auth.createUserWithEmailAndPassword(email, pass);
+            showToast('registerOk');
+            showView('home');
+        } else {
+            await auth.sendPasswordResetEmail(email);
+            showAuthMsg('resetSent', 'ok');
+        }
+        this.reset();
+    } catch (err) {
+        console.warn(err.code);
+        showAuthMsg(mapAuthError(err.code), 'error');
+    }
+});
+
+async function doLogout() {
+    if (auth) await auth.signOut();
+    showToast('logoutOk');
+}
+
+function updateUserChip() {
+    const chip = $('userChip');
+    const txt = $('userChipText');
+    if (currentUser) {
+        chip.className = 'user-chip logged';
+        txt.textContent = currentUser.email;
+        chip.title = currentUser.email;
+    } else {
+        chip.className = 'user-chip guest';
+        txt.textContent = t('guestMode');
+        chip.title = '';
+    }
+}
+
+function updateAuthUI() {
+    const logged = !!currentUser;
+    $('authForms').style.display = logged ? 'none' : 'block';
+    $('authTabs').style.display = logged ? 'none' : 'flex';
+    $('loggedInPanel').style.display = logged ? 'flex' : 'none';
+    if (logged) $('loggedEmail').textContent = currentUser.email;
+}
+
+if (firebaseReady) {
+    auth.onAuthStateChanged(user => {
+        currentUser = user;
+        updateUserChip();
+        updateAuthUI();
+        if (user) loadCloudData();
+        else loadGuestData();
+    });
+}
+
+// =====================================================
+// FORMULARZ DODAWANIA / EDYCJI
+// =====================================================
+const form = $('addGameForm');
+form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const price = parseFloat($('gamePrice').value);
+    if (isNaN(price)) return;
+    const currency = $('gameCurrency').value;
+
+    const gameData = {
+        name: $('gameName').value.trim(),
+        price: price,
+        currency: currency,
+        source: $('gameSource').value,
+        date: $('purchaseDate').value,
+        priceChf: price * rates[currency]
+    };
+
+    if (editingIndex > -1) {
+        games[editingIndex] = gameData;
+        cancelEdit();
+    } else {
+        games.push(gameData);
+    }
+    renderTable();
+    form.reset();
+    persistData();
+});
+
+function editGame(index) {
+    const game = games[index];
+    $('gameName').value = game.name;
+    $('gamePrice').value = game.price;
+    $('gameCurrency').value = game.currency;
+    $('gameSource').value = game.source || "Steam";
+    $('purchaseDate').value = game.date;
+
+    editingIndex = index;
+    $('submitBtn').querySelector('span').textContent = t('saveBtn');
+    $('submitBtn').style.backgroundColor = '#e6a32e';
+    $('submitBtn').style.color = '#000';
+    $('cancelEditBtn').style.display = 'inline-flex';
+    $('gameName').focus();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function cancelEdit() {
+    editingIndex = -1;
+    form.reset();
+    $('submitBtn').querySelector('span').textContent = t('addBtn');
+    $('submitBtn').style.backgroundColor = '';
+    $('submitBtn').style.color = '';
+    $('cancelEditBtn').style.display = 'none';
+}
+
+function deleteGame(index) {
+    if (confirm(t('confirmDel'))) {
+        games.splice(index, 1);
+        if (editingIndex === index) cancelEdit();
+        else if (editingIndex > index) editingIndex--;
+        renderTable();
+        persistData();
+        showToast('itemDeleted');
+    }
+}
+
+// =====================================================
+// SORTOWANIE / TABELA
+// =====================================================
+function setSort(key) {
+    if (sortKey === key) sortDir = -sortDir;
+    else { sortKey = key; sortDir = 1; }
+    renderTable();
+}
+
+function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderTable() {
+    const tbody = document.querySelector('#gamesTable tbody');
+    tbody.innerHTML = '';
+    globalTotalChf = 0;
+
+    // Wskaźniki sortowania
+    ['name','source','date','price','priceChf'].forEach(k => {
+        const el = $('si-' + k);
+        if (el) el.textContent = (sortKey === k) ? (sortDir === 1 ? '▲' : '▼') : '';
+    });
+
+    const q = ($('searchInput').value || '').toLowerCase();
+    const indexed = games.map((g, i) => ({ g, i }));
+    indexed.forEach(({ g }) => globalTotalChf += g.priceChf);
+
+    let visible = indexed.filter(({ g }) => g.name.toLowerCase().includes(q));
+    visible.sort((a, b) => {
+        let va = a.g[sortKey], vb = b.g[sortKey];
+        if (sortKey === 'source') { va = va || 'Steam'; vb = vb || 'Steam'; }
+        if (typeof va === 'string') return va.localeCompare(vb) * sortDir;
+        return (va - vb) * sortDir;
+    });
+
+    if (games.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state"><i class="fa-solid fa-gamepad"></i>${t('emptyLib')}</div></td></tr>`;
+    } else if (visible.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state"><i class="fa-solid fa-magnifying-glass"></i>${t('noResults')}</div></td></tr>`;
+    } else {
+        visible.forEach(({ g, i }, rowNum) => {
+            const srcRaw = g.source || "Steam";
+            const srcClass = srcRaw === 'Steam' ? 'src-steam' : 'src-key';
+            const srcDisplay = srcRaw === 'Steam' ? t('steam') : t('keyStore');
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td style="color:#677887;">${rowNum + 1}</td>
+                <td class="name-cell" style="color:#fff;">${escapeHtml(g.name)}</td>
+                <td data-label="${t('colPlatform')}"><span class="source-txt ${srcClass}">${srcDisplay}</span></td>
+                <td data-label="${t('purchaseDate')}">${g.date}</td>
+                <td data-label="${t('colOrigPrice')}">${g.price.toFixed(2)} <span style="font-size:10px; color:#677887;">${g.currency}</span></td>
+                <td data-label="${t('colChfPrice')}" style="color:var(--steam-blue);">${g.priceChf.toFixed(2)} <span style="font-size:10px;">CHF</span></td>
+                <td class="action-icons">
+                    <button class="edit" onclick="editGame(${i})" aria-label="Edit"><i class="fa-solid fa-pen"></i></button>
+                    <button class="del" onclick="deleteGame(${i})" aria-label="Delete"><i class="fa-solid fa-trash"></i></button>
+                </td>`;
+            tbody.appendChild(tr);
+        });
+    }
+
+    updateTotalDisplay();
+    updateStats();
+    updateCharts();
+}
+
+function updateTotalDisplay() {
+    const currency = $('totalCurrency').value;
+    let total = globalTotalChf;
+    if (currency === 'PLN') total = globalTotalChf / rates.PLN;
+    else if (currency === 'EUR') total = globalTotalChf / rates.EUR;
+    $('totalAmount').textContent = total.toLocaleString(currentLang, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function updateStats() {
+    const now = new Date();
+    const ym = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+    const y = String(now.getFullYear());
+    $('statTotal').textContent = games.length;
+    $('statMonth').textContent = games.filter(g => (g.date || '').startsWith(ym)).length;
+    $('statYear').textContent = games.filter(g => (g.date || '').startsWith(y)).length;
+}
+
+// =====================================================
+// WYKRESY
+// =====================================================
+Chart.defaults.color = '#677887';
+Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif';
+
+function periodKey(dateStr, gran) {
+    const d = new Date(dateStr);
+    if (isNaN(d)) return null;
+    if (gran === 'year') return String(d.getFullYear());
+    if (gran === 'quarter') return `Q${Math.floor(d.getMonth() / 3) + 1} ${d.getFullYear()}`;
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+}
+function periodSortValue(key, gran) {
+    if (gran === 'quarter') {
+        const [q, y] = key.split(' ');
+        return parseInt(y) * 10 + parseInt(q[1]);
+    }
+    return key;
+}
+
+function updateCharts() {
+    if (typeof Chart === 'undefined') return;
+    const type = $('chartType').value;
+    const gran = $('chartGranularity').value;
+    $('chartGranularity').style.display = (type === 'sources') ? 'none' : '';
+
+    if (mainChart) mainChart.destroy();
+    const ctx = $('mainChart');
+    const gridColor = '#2a475e';
+
+    if (type === 'sources') {
+        let steamCount = 0, keyCount = 0;
+        games.forEach(g => ((g.source || "Steam") === "Steam" ? steamCount++ : keyCount++));
+        mainChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: [t('steam'), t('keyStore')],
+                datasets: [{ data: [steamCount, keyCount], backgroundColor: ['#66c0f4', '#a252ff'], borderWidth: 1, borderColor: '#171a21' }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'right', labels: { color: '#acb2b8', boxWidth: 12 } },
+                    title: { display: true, text: t('chartSources'), color: '#c7d5e0' }
+                }
+            }
+        });
+        return;
+    }
+
+    // Zlicz zakupy wg okresu
+    const counts = {};
+    games.forEach(g => {
+        const k = periodKey(g.date, gran);
+        if (k) counts[k] = (counts[k] || 0) + 1;
+    });
+    const labels = Object.keys(counts).sort((a, b) => {
+        const va = periodSortValue(a, gran), vb = periodSortValue(b, gran);
+        return va < vb ? -1 : va > vb ? 1 : 0;
+    });
+
+    if (type === 'purchases') {
+        mainChart = new Chart(ctx, {
+            type: 'bar',
+            data: { labels, datasets: [{ data: labels.map(l => counts[l]), backgroundColor: '#323f4c', hoverBackgroundColor: '#66c0f4', borderRadius: 2 }] },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: gridColor }, border: { display: false } },
+                    x: { grid: { display: false }, border: { display: false } }
+                },
+                plugins: { legend: { display: false }, title: { display: true, text: `${t('chartPurchases')} / ${t('gran' + gran.charAt(0).toUpperCase() + gran.slice(1))}`, color: '#c7d5e0' } }
+            }
+        });
+    } else {
+        // Suma rosnąca (linia): X = okres, Y = skumulowana liczba gier
+        let running = 0;
+        const cumData = labels.map(l => (running += counts[l]));
+        mainChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels,
+                datasets: [{
+                    data: cumData,
+                    borderColor: '#66c0f4',
+                    backgroundColor: 'rgba(102,192,244,0.15)',
+                    fill: true,
+                    tension: 0.25,
+                    pointBackgroundColor: '#66c0f4',
+                    pointRadius: 3
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: gridColor }, border: { display: false } },
+                    x: { grid: { display: false }, border: { display: false } }
+                },
+                plugins: { legend: { display: false }, title: { display: true, text: t('chartCumulative'), color: '#c7d5e0' } }
+            }
+        });
+    }
+}
+
+// =====================================================
+// EKSPORT CSV
+// =====================================================
+function exportCSV() {
+    const rows = [['Name', 'Source', 'Date', 'Price', 'Currency', 'PriceCHF']];
+    games.forEach(g => rows.push([g.name, g.source || 'Steam', g.date, g.price, g.currency, g.priceChf.toFixed(2)]));
+    const csv = rows.map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(',')).join('\n');
+    const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'games-library.csv';
+    a.click();
+    URL.revokeObjectURL(a.href);
+}
+
+// =====================================================
+// START
+// =====================================================
+$('langSwitcher').value = currentLang;
+changeLanguage(currentLang);
+if (!firebaseReady) loadGuestData();
+fetchExchangeRates();
+
+    </script>
+
+<script>
+const footerTranslations={
+pl:{d:"Steam Tracker pomaga śledzić zakupy gier, kontrolować wydatki i analizować bibliotekę za pomocą statystyk i wykresów. Dane mogą być przechowywane lokalnie lub synchronizowane między urządzeniami po zalogowaniu.",s:"Stworzone w Szwajcarii z miłością"},
+en:{d:"Steam Tracker helps you track game purchases, monitor spending over time, and analyze your library with statistics and charts. Your collection can be stored locally or synchronized across devices using your account.",s:"Created in Switzerland with love"},
+de:{d:"Steam Tracker hilft dabei, Spielekäufe zu verfolgen, Ausgaben zu überwachen und die Bibliothek mit Statistiken und Diagrammen zu analysieren. Die Daten können lokal gespeichert oder zwischen Geräten synchronisiert werden.",s:"Mit Liebe in der Schweiz erstellt"},
+fr:{d:"Steam Tracker vous aide à suivre vos achats de jeux, analyser vos dépenses et consulter des statistiques détaillées. Vos données peuvent être stockées localement ou synchronisées entre appareils.",s:"Créé en Suisse avec amour"},
+it:{d:"Steam Tracker ti aiuta a monitorare gli acquisti di giochi, controllare le spese e analizzare la tua libreria con statistiche e grafici. I dati possono essere salvati localmente o sincronizzati tra dispositivi.",s:"Creato in Svizzera con amore"},
+es:{d:"Steam Tracker te ayuda a seguir compras de juegos, controlar gastos y analizar tu biblioteca con estadísticas y gráficos. Los datos pueden guardarse localmente o sincronizarse entre dispositivos.",s:"Creado en Suiza con amor"},
+pt:{d:"Steam Tracker ajuda você a acompanhar compras de jogos, controlar gastos e analisar sua biblioteca com estatísticas e gráficos. Os dados podem ser armazenados localmente ou sincronizados entre dispositivos.",s:"Criado na Suíça com amor"},
+ja:{d:"Steam Tracker はゲーム購入履歴の管理、支出の追跡、統計やグラフによるライブラリ分析を支援します。データはローカル保存または同期できます。",s:"スイスで愛を込めて作られました"},
+zh:{d:"Steam Tracker 可帮助您跟踪游戏购买记录、分析支出，并通过统计和图表管理游戏库。数据可本地保存或跨设备同步。",s:"在瑞士用爱打造"},
+ko:{d:"Steam Tracker는 게임 구매 내역 추적, 지출 관리 및 통계와 차트를 통한 라이브러리 분석을 도와줍니다. 데이터는 로컬 저장 또는 동기화할 수 있습니다.",s:"스위스에서 사랑으로 제작됨"},
+ar:{d:"يساعدك Steam Tracker على تتبع مشتريات الألعاب ومراقبة الإنفاق وتحليل مكتبتك باستخدام الإحصاءات والرسوم البيانية. يمكن حفظ البيانات محليًا أو مزامنتها بين الأجهزة.",s:"صُنع في سويسرا بحب"}
+};
+
+function updateFooterLanguage(){
+ const lang=(localStorage.getItem('language')||'en');
+ if(footerTranslations[lang]){
+   const d=document.getElementById('footerDescription');
+   const s=document.getElementById('footerSwiss');
+   if(d) d.innerHTML=footerTranslations[lang].d;
+   if(s) s.innerHTML=footerTranslations[lang].s;
+ }
+}
+setInterval(updateFooterLanguage,1000);
+document.addEventListener('DOMContentLoaded',updateFooterLanguage);
+</script>
+
+</body>
+</html>
