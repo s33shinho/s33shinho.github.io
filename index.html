@@ -8,7 +8,7 @@
 (function () {
     const supportedLanguages = [
         "en", "pl", "de", "fr", "it",
-        "es", "pt", "ja", "zh", "ko", "ar"
+        "es", "pt", "ja", "zh", "ko", "ar", "ru"
     ];
 
     let language = localStorage.getItem("language");
@@ -451,6 +451,9 @@
             <i class="fa-solid fa-user"></i>
             <span id="userChipText" data-i18n="guestMode">Tryb gościa</span>
         </div>
+        <button class="hamburger" id="quickLogoutBtn" style="display:none;width:auto;padding:0 12px;" onclick="doLogout()" data-i18n-title="logoutBtn" title="Wyloguj">
+            <i class="fa-solid fa-right-from-bracket"></i>
+        </button>
     </header>
 
     <!-- ===== DRAWER ===== -->
@@ -466,6 +469,8 @@
             <button class="nav-item" data-view="faq" onclick="showView('faq')"><i class="fa-solid fa-circle-question"></i> <span data-i18n="navFaq">FAQ</span></button>
             <button class="nav-item" data-view="changelog" onclick="showView('changelog')"><i class="fa-solid fa-clock-rotate-left"></i> <span data-i18n="navChangelog">Changelog</span></button>
             <button class="nav-item" data-view="donate" onclick="showView('donate')"><i class="fa-solid fa-heart"></i> <span data-i18n="navDonate">Donate</span></button>
+            <button class="nav-item" data-view="terms" onclick="showView('terms')"><i class="fa-solid fa-file-contract"></i> <span data-i18n="navTerms">Regulamin</span></button>
+            <button class="nav-item" data-view="privacy" onclick="showView('privacy')"><i class="fa-solid fa-user-shield"></i> <span data-i18n="navPrivacy">Polityka prywatności</span></button>
         </nav>
         <div class="drawer-foot">
             <div class="rates-line" id="ratesMain">1 EUR ≈ 0.92 CHF | 1 PLN ≈ 0.21 CHF</div>
@@ -483,6 +488,7 @@
                     <option value="zh">🇨🇳 中文</option>
                     <option value="ko">🇰🇷 한국어</option>
                     <option value="ar">🇸🇦 العربية</option>
+                    <option value="ru">🇷🇺 Русский</option>
                 </select>
             </div>
         </div>
@@ -634,6 +640,10 @@
                                 <label for="authPass" data-i18n="password">Hasło</label>
                                 <input type="password" id="authPass" autocomplete="current-password" minlength="6">
                             </div>
+                            <div class="input-group" id="rememberGroup" style="flex-direction:row; align-items:center; gap:8px;">
+                                <input type="checkbox" id="rememberMe" style="width:auto; height:auto;" checked>
+                                <label for="rememberMe" style="text-transform:none; font-size:13px; color:var(--text-light);" data-i18n="rememberMe">Zapamiętaj mnie</label>
+                            </div>
                             <button type="submit" class="btn-primary" id="authSubmitBtn" style="margin-top:4px;"><span data-i18n="loginBtn">Zaloguj się</span></button>
                         </form>
                         <p class="auth-note" style="margin-top:14px;" id="authNote" data-i18n="authNoteGuest"></p>
@@ -672,6 +682,22 @@
             </div>
         </section>
 
+        <!-- === TERMS AND CONDITIONS === -->
+        <section class="view" id="view-terms">
+            <div class="card">
+                <div class="card-head"><span data-i18n="navTerms">Regulamin</span></div>
+                <div class="card-body static-content" id="termsContent"></div>
+            </div>
+        </section>
+
+        <!-- === PRIVACY POLICY === -->
+        <section class="view" id="view-privacy">
+            <div class="card">
+                <div class="card-head"><span data-i18n="navPrivacy">Polityka prywatności</span></div>
+                <div class="card-body static-content" id="privacyContent"></div>
+            </div>
+        </section>
+
     
 <footer class="card" id="siteFooter" style="margin-top:20px;">
   <div class="card-body static-content" style="text-align:center;max-width:900px;margin:auto;">
@@ -681,7 +707,7 @@
     </p>
 
     <div style="margin:20px 0;">
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7679595655336060" crossorigin="anonymous"></script>
+      <!-- Skrypt ładujący AdSense jest wczytywany tylko raz, w <head> dokumentu -->
       <ins class="adsbygoogle"
            style="display:block"
            data-ad-client="ca-pub-7679595655336060"
@@ -694,9 +720,9 @@
     </div>
 
     <p>
-      <a href="#">Privacy Policy</a> ·
-      <a href="#">Terms of Service</a> ·
-      <a href="#">Contact</a>
+      <a href="#" onclick="showView('privacy'); return false;" data-i18n="navPrivacy">Privacy Policy</a> ·
+      <a href="#" onclick="showView('terms'); return false;" data-i18n="navTerms">Terms of Service</a> ·
+      <a href="mailto:contact@mygamestracker.app" data-i18n="footerContact">Contact</a>
     </p>
 
     <p id="footerSwiss" style="margin-top:15px;font-weight:bold;">
@@ -705,9 +731,25 @@
   </div>
 </footer>
 
+<button id="backToTopBtn" class="hamburger" style="position:fixed;bottom:20px;right:20px;display:none;z-index:150;" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" title="Back to top">
+    <i class="fa-solid fa-arrow-up"></i>
+</button>
+
 </main>
 
     <div class="toast" id="toast"></div>
+
+    <!-- ===== COOKIE CONSENT ===== -->
+    <div id="cookieConsent" style="display:none; position:fixed; left:0; right:0; bottom:0; z-index:600; background:var(--bg-dark); border-top:1px solid var(--border-light); padding:16px; box-shadow:0 -4px 14px rgba(0,0,0,0.5);">
+        <div style="max-width:900px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; gap:14px;">
+            <p id="cookieConsentText" style="flex:1; min-width:220px; color:var(--text-light); font-size:13px; line-height:1.5; margin:0;"></p>
+            <div style="display:flex; gap:10px; flex-shrink:0;">
+                <button class="btn-tool" style="width:auto;" onclick="showView('privacy'); return false;" id="cookieMoreInfoBtn"></button>
+                <button class="btn-tool" style="width:auto;" onclick="setCookieConsent(false)" id="cookieDeclineBtn"></button>
+                <button class="btn-primary" style="width:auto;" onclick="setCookieConsent(true)" id="cookieAcceptBtn"></button>
+            </div>
+        </div>
+    </div>
 
     <script>
 // =====================================================
@@ -764,9 +806,12 @@ const translations = {
         syncLocal: "Dane lokalne", syncCloud: "Chmura", syncSyncing: "Synchronizacja...", syncErr: "Błąd synchronizacji",
         savedLocal: "Zapisano lokalnie", savedCloud: "Zapisano w chmurze", itemDeleted: "Usunięto pozycję",
         emptyLib: "Biblioteka jest pusta. Dodaj pierwszą grę powyżej.",
+        navTerms: "Regulamin", navPrivacy: "Polityka prywatności", rememberMe: "Zapamiętaj mnie", footerContact: "Kontakt", cookieConsentText: "Ta strona wykorzystuje pliki cookie oraz podobne technologie (w tym pliki cookie Google AdSense) w celu zapewnienia poprawnego działania serwisu, zapamiętania Twoich preferencji oraz wyświetlania reklam. Kontynuując korzystanie ze strony, wyrażasz na to zgodę.", cookieMoreInfo: "Więcej informacji", cookieDeclineBtn: "Odrzuć", cookieAcceptBtn: "Akceptuję",
         faqHtml: "<h3>Czym jest ta aplikacja?</h3><p>To osobisty tracker wydatków na gry. Zapisujesz tytuł, cenę, źródło i datę zakupu, a aplikacja liczy statystyki i rysuje wykresy.</p><h3>Czy muszę mieć konto?</h3><p>Nie. Domyślnie działasz w trybie gościa, a dane trzymane są w pamięci tej przeglądarki. Konto pozwala synchronizować bibliotekę między urządzeniami.</p><h3>Czy stracę dane gościa po zalogowaniu?</h3><p>Nie. Przy pierwszym logowaniu dane gościa zostaną scalone z Twoim kontem w chmurze.</p><h3>Skąd pochodzą kursy walut?</h3><p>Z publicznego API kursów (open.er-api.com). Gdy API jest niedostępne, używane są kursy zapasowe.</p>",
         changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> Duża przebudowa</h3><ul><li>Nowe menu boczne (drawer) z 5 sekcjami</li><li>Tryb gościa jako domyślny, logowanie opcjonalne</li><li>Konta Firebase: logowanie, rejestracja, reset hasła</li><li>Wybór wykresu: zakupy wg miesiąca / kwartału / roku, suma rosnąca, źródła</li><li>Wyszukiwarka i sortowanie w tabeli, eksport CSV</li><li>Pełna wersja mobilna</li></ul><h3><span class='changelog-ver'>v1.0</span> Pierwsza wersja</h3><ul><li>Tabela gier, kursy walut, wykres kwartalny</li></ul>",
-        donateHtml: "<h3>Wesprzyj projekt</h3><p>Aplikacja jest darmowa i tworzona hobbystycznie. Jeśli jest dla Ciebie przydatna, możesz postawić autorowi kawę.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>Dziękuję za każde wsparcie!</p>"
+        donateHtml: "<h3>Wesprzyj projekt</h3><p>Aplikacja jest darmowa i tworzona hobbystycznie. Jeśli jest dla Ciebie przydatna, możesz postawić autorowi kawę.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>Dziękuję za każde wsparcie!</p>",
+        termsHtml: "<h3>1. Postanowienia ogólne</h3><p>Niniejszy regulamin określa zasady korzystania z aplikacji Steam Tracker (\"Aplikacja\"), dostępnej pod domeną strony. Korzystając z Aplikacji, akceptujesz poniższe warunki.</p><h3>2. Charakter usługi</h3><p>Aplikacja jest darmowym, hobbystycznym narzędziem do prywatnego śledzenia wydatków na gry wideo. Nie jest ona w żaden sposób powiązana ani afiliowana z firmą Valve Corporation ani platformą Steam. Nazwa \"Steam\" użyta jest wyłącznie w celach opisowych.</p><h3>3. Konto użytkownika</h3><p>Aplikacji można używać w trybie gościa (bez rejestracji, dane przechowywane lokalnie w przeglądarce) lub po założeniu konta (uwierzytelnianie e-mail/hasło), co umożliwia synchronizację danych w chmurze. Użytkownik jest odpowiedzialny za zachowanie poufności danych logowania.</p><h3>4. Obowiązki użytkownika</h3><ul><li>Zakazane jest wykorzystywanie Aplikacji do celów niezgodnych z prawem.</li><li>Zakazane są próby naruszenia bezpieczeństwa Aplikacji lub jej infrastruktury.</li><li>Użytkownik ponosi odpowiedzialność za treści (np. tytuły gier) wprowadzane do Aplikacji.</li></ul><h3>5. Ograniczenie odpowiedzialności</h3><p>Aplikacja dostarczana jest \"tak jak jest\", bez jakichkolwiek gwarancji. Kursy walut pobierane są z zewnętrznego, publicznego API i mogą zawierać nieścisłości. Autor nie ponosi odpowiedzialności za utratę danych, w szczególności danych przechowywanych lokalnie w trybie gościa.</p><h3>6. Reklamy</h3><p>Aplikacja wyświetla reklamy za pośrednictwem Google AdSense. Więcej informacji na ten temat znajduje się w Polityce Prywatności.</p><h3>7. Zmiany regulaminu</h3><p>Zastrzegamy sobie prawo do zmiany niniejszego regulaminu w dowolnym momencie. Kontynuowanie korzystania z Aplikacji po wprowadzeniu zmian oznacza ich akceptację.</p><h3>8. Kontakt</h3><p>W sprawach dotyczących regulaminu prosimy o kontakt na adres podany w stopce strony.</p>",
+        privacyHtml: "<h3>1. Administrator danych</h3><p>Administratorem danych osobowych przetwarzanych w ramach Aplikacji jest właściciel serwisu, z którym można się skontaktować za pomocą adresu podanego w stopce strony.</p><h3>2. Jakie dane przetwarzamy</h3><ul><li><strong>Tryb gościa:</strong> dane biblioteki gier (tytuł, cena, źródło, data) przechowywane są wyłącznie lokalnie w przeglądarce (localStorage) i nie są przesyłane na nasze serwery.</li><li><strong>Konto użytkownika:</strong> w przypadku rejestracji przetwarzamy adres e-mail oraz dane Twojej biblioteki gier, przechowywane w usłudze Firebase (Google) w celu synchronizacji między urządzeniami.</li><li><strong>Preferencje:</strong> wybrany język interfejsu oraz zgoda na pliki cookie zapisywane są lokalnie w przeglądarce.</li></ul><h3>3. Pliki cookie i podobne technologie</h3><p>Aplikacja wykorzystuje mechanizmy przechowywania lokalnego (localStorage) niezbędne do jej działania oraz, za pośrednictwem Google AdSense, pliki cookie służące do wyświetlania reklam, w tym reklam spersonalizowanych. Możesz zarządzać zgodą na pliki cookie w wyświetlanym powiadomieniu lub w ustawieniach swojej przeglądarki.</p><h3>4. Reklamy Google AdSense</h3><p>Korzystamy z Google AdSense do wyświetlania reklam. Google oraz jego partnerzy mogą wykorzystywać pliki cookie w celu personalizacji reklam na podstawie Twoich wcześniejszych wizyt na tej lub innych stronach internetowych. Możesz zrezygnować z personalizacji reklam, odwiedzając ustawienia reklam Google pod adresem <a href='https://adssettings.google.com' target='_blank' rel='noopener'>adssettings.google.com</a>.</p><h3>5. Udostępnianie danych</h3><p>Nie sprzedajemy danych użytkowników. Dane mogą być przetwarzane przez dostawców usług (Firebase/Google, Google AdSense) wyłącznie w zakresie niezbędnym do świadczenia funkcji Aplikacji.</p><h3>6. Twoje prawa</h3><p>Masz prawo dostępu do swoich danych, ich sprostowania, usunięcia oraz przenoszenia. Konto wraz z danymi w chmurze możesz usunąć, kontaktując się z administratorem. Dane gościa możesz usunąć samodzielnie, czyszcząc dane przeglądarki dla tej strony.</p><h3>7. Bezpieczeństwo</h3><p>Stosujemy standardowe środki bezpieczeństwa dostawcy Firebase w celu ochrony Twoich danych, jednak żadna metoda transmisji danych w internecie nie jest w 100% bezpieczna.</p><h3>8. Kontakt</h3><p>W sprawach dotyczących prywatności prosimy o kontakt na adres podany w stopce strony.</p>",
     },
     en: {
         appTitle: "Expense Library", menu: "Menu", navHome: "Home", navAuth: "Login / Register", navFaq: "FAQ", navChangelog: "Changelog", navDonate: "Donate", language: "Language",
@@ -792,9 +837,12 @@ const translations = {
         syncLocal: "Local data", syncCloud: "Cloud", syncSyncing: "Syncing...", syncErr: "Sync error",
         savedLocal: "Saved locally", savedCloud: "Saved to cloud", itemDeleted: "Item deleted",
         emptyLib: "Your library is empty. Add your first game above.",
+        navTerms: "Terms & Conditions", navPrivacy: "Privacy Policy", rememberMe: "Remember me", footerContact: "Contact", cookieConsentText: "This site uses cookies and similar technologies (including Google AdSense cookies) to ensure proper functioning, remember your preferences, and show ads. By continuing to use the site, you consent to this.", cookieMoreInfo: "More information", cookieDeclineBtn: "Decline", cookieAcceptBtn: "Accept",
         faqHtml: "<h3>What is this app?</h3><p>A personal game-spending tracker. You log the title, price, source and purchase date, and the app calculates stats and draws charts.</p><h3>Do I need an account?</h3><p>No. By default you use guest mode and data is stored in this browser only. An account lets you sync your library across devices.</p><h3>Will I lose guest data after logging in?</h3><p>No. On first login your guest data is merged into your cloud account.</p><h3>Where do exchange rates come from?</h3><p>From a public rates API (open.er-api.com). If the API is unavailable, fallback rates are used.</p>",
         changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> Major rebuild</h3><ul><li>New side drawer menu with 5 sections</li><li>Guest mode by default, optional login</li><li>Firebase accounts: login, registration, password reset</li><li>Chart selector: purchases by month / quarter / year, cumulative line, sources</li><li>Table search and sorting, CSV export</li><li>Full mobile support</li></ul><h3><span class='changelog-ver'>v1.0</span> Initial release</h3><ul><li>Games table, exchange rates, quarterly chart</li></ul>",
-        donateHtml: "<h3>Support the project</h3><p>This app is free and made as a hobby. If you find it useful, you can buy the author a coffee.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>Thank you for any support!</p>"
+        donateHtml: "<h3>Support the project</h3><p>This app is free and made as a hobby. If you find it useful, you can buy the author a coffee.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>Thank you for any support!</p>",
+        termsHtml: "<h3>1. General provisions</h3><p>These Terms and Conditions govern the use of the Steam Tracker application (the \"App\"). By using the App, you agree to the terms below.</p><h3>2. Nature of the service</h3><p>The App is a free, hobby-built tool for personal tracking of video game purchases. It is not affiliated with, endorsed by, or in any way officially connected with Valve Corporation or the Steam platform. The name \"Steam\" is used purely descriptively.</p><h3>3. User accounts</h3><p>The App can be used in guest mode (no registration required, data stored locally in your browser) or with a registered account (email/password authentication), which enables cloud synchronization. You are responsible for keeping your login credentials confidential.</p><h3>4. User obligations</h3><ul><li>You may not use the App for any unlawful purpose.</li><li>You may not attempt to compromise the security of the App or its infrastructure.</li><li>You are responsible for the content (e.g., game titles) you enter into the App.</li></ul><h3>5. Limitation of liability</h3><p>The App is provided \"as is\", without warranties of any kind. Currency exchange rates are fetched from a third-party public API and may be inaccurate. The author is not liable for any data loss, particularly for data stored locally in guest mode.</p><h3>6. Advertising</h3><p>The App displays advertisements via Google AdSense. See the Privacy Policy for more information.</p><h3>7. Changes to these terms</h3><p>We reserve the right to modify these Terms at any time. Continued use of the App after changes constitutes acceptance of the updated Terms.</p><h3>8. Contact</h3><p>For questions about these Terms, please use the contact details provided in the footer.</p>",
+        privacyHtml: "<h3>1. Data controller</h3><p>The data controller for personal data processed within the App is the site owner, who can be reached using the contact details provided in the footer.</p><h3>2. What data we process</h3><ul><li><strong>Guest mode:</strong> your game library data (title, price, source, date) is stored only locally in your browser (localStorage) and is never sent to our servers.</li><li><strong>User accounts:</strong> if you register, we process your email address and your game library data, stored via Firebase (Google) to enable synchronization across devices.</li><li><strong>Preferences:</strong> your chosen interface language and cookie consent choice are stored locally in your browser.</li></ul><h3>3. Cookies and similar technologies</h3><p>The App uses local storage mechanisms required for it to function, and, via Google AdSense, cookies used to serve advertising, including personalized ads. You can manage your cookie consent via the banner shown on the site or through your browser settings.</p><h3>4. Google AdSense advertising</h3><p>We use Google AdSense to display ads. Google and its partners may use cookies to personalize ads based on your prior visits to this or other websites. You can opt out of personalized advertising by visiting Google's Ads Settings at <a href='https://adssettings.google.com' target='_blank' rel='noopener'>adssettings.google.com</a>.</p><h3>5. Data sharing</h3><p>We do not sell user data. Data may be processed by service providers (Firebase/Google, Google AdSense) solely to the extent necessary to provide the App's functionality.</p><h3>6. Your rights</h3><p>You have the right to access, correct, delete, and port your data. You can request deletion of your account and cloud data by contacting the administrator. You can delete guest data yourself by clearing this site's browser data.</p><h3>7. Security</h3><p>We rely on Firebase's standard security measures to protect your data; however, no method of transmission over the internet is 100% secure.</p><h3>8. Contact</h3><p>For privacy-related questions, please use the contact details provided in the footer.</p>",
     },
     de: {
         appTitle: "Ausgabenbibliothek", menu: "Menü", navHome: "Startseite", navAuth: "Anmelden / Registrieren", navFaq: "FAQ", navChangelog: "Changelog", navDonate: "Spenden", language: "Sprache",
@@ -820,6 +868,7 @@ const translations = {
         syncLocal: "Lokale Daten", syncCloud: "Cloud", syncSyncing: "Synchronisieren...", syncErr: "Sync-Fehler",
         savedLocal: "Lokal gespeichert", savedCloud: "In Cloud gespeichert", itemDeleted: "Eintrag gelöscht",
         emptyLib: "Deine Bibliothek ist leer. Füge oben dein erstes Spiel hinzu.",
+        navTerms: "AGB", navPrivacy: "Datenschutz", rememberMe: "Angemeldet bleiben", footerContact: "Kontakt", cookieConsentText: "Diese Website verwendet Cookies und ähnliche Technologien (einschließlich Google AdSense-Cookies), um die Funktion sicherzustellen, Ihre Einstellungen zu speichern und Anzeigen zu schalten. Durch die weitere Nutzung stimmen Sie dem zu.", cookieMoreInfo: "Weitere Informationen", cookieDeclineBtn: "Ablehnen", cookieAcceptBtn: "Akzeptieren",
         faqHtml: "<h3>Was ist diese App?</h3><p>Ein persönlicher Tracker für Spieleausgaben. Du erfasst Titel, Preis, Quelle und Kaufdatum, die App berechnet Statistiken und zeichnet Diagramme.</p><h3>Brauche ich ein Konto?</h3><p>Nein. Standardmäßig nutzt du den Gastmodus, Daten werden nur in diesem Browser gespeichert. Ein Konto ermöglicht die Synchronisierung zwischen Geräten.</p><h3>Verliere ich Gastdaten nach der Anmeldung?</h3><p>Nein. Bei der ersten Anmeldung werden deine Gastdaten mit deinem Cloud-Konto zusammengeführt.</p><h3>Woher stammen die Wechselkurse?</h3><p>Von einer öffentlichen Kurs-API (open.er-api.com). Bei Nichtverfügbarkeit werden Ersatzkurse verwendet.</p>",
         changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> Großer Umbau</h3><ul><li>Neues Seitenmenü (Drawer) mit 5 Bereichen</li><li>Gastmodus als Standard, optionale Anmeldung</li><li>Firebase-Konten: Anmeldung, Registrierung, Passwort-Reset</li><li>Diagrammauswahl: Käufe nach Monat / Quartal / Jahr, kumulierte Linie, Quellen</li><li>Tabellensuche und Sortierung, CSV-Export</li><li>Volle Mobilunterstützung</li></ul><h3><span class='changelog-ver'>v1.0</span> Erste Version</h3><ul><li>Spieletabelle, Wechselkurse, Quartalsdiagramm</li></ul>",
         donateHtml: "<h3>Projekt unterstützen</h3><p>Diese App ist kostenlos und ein Hobbyprojekt. Wenn sie dir nützt, kannst du dem Autor einen Kaffee spendieren.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>Danke für jede Unterstützung!</p>"
@@ -848,6 +897,7 @@ const translations = {
         syncLocal: "Données locales", syncCloud: "Cloud", syncSyncing: "Synchronisation...", syncErr: "Erreur de synchro",
         savedLocal: "Enregistré localement", savedCloud: "Enregistré dans le cloud", itemDeleted: "Élément supprimé",
         emptyLib: "Votre bibliothèque est vide. Ajoutez votre premier jeu ci-dessus.",
+        navTerms: "Conditions d'utilisation", navPrivacy: "Politique de confidentialité", rememberMe: "Se souvenir de moi", footerContact: "Contact", cookieConsentText: "Ce site utilise des cookies et des technologies similaires (y compris les cookies Google AdSense) afin d'assurer son bon fonctionnement, de mémoriser vos préférences et d'afficher des publicités. En continuant, vous y consentez.", cookieMoreInfo: "Plus d'informations", cookieDeclineBtn: "Refuser", cookieAcceptBtn: "Accepter",
         faqHtml: "<h3>Qu'est-ce que cette application ?</h3><p>Un tracker personnel de dépenses de jeux. Vous enregistrez le titre, le prix, la source et la date d'achat ; l'application calcule des statistiques et trace des graphiques.</p><h3>Ai-je besoin d'un compte ?</h3><p>Non. Par défaut, vous utilisez le mode invité et les données restent dans ce navigateur. Un compte permet la synchronisation entre appareils.</p><h3>Vais-je perdre mes données invité après connexion ?</h3><p>Non. À la première connexion, vos données invité sont fusionnées avec votre compte cloud.</p><h3>D'où viennent les taux de change ?</h3><p>D'une API publique de taux (open.er-api.com). En cas d'indisponibilité, des taux de secours sont utilisés.</p>",
         changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> Refonte majeure</h3><ul><li>Nouveau menu latéral (drawer) à 5 sections</li><li>Mode invité par défaut, connexion facultative</li><li>Comptes Firebase : connexion, inscription, réinitialisation du mot de passe</li><li>Sélecteur de graphique : achats par mois / trimestre / année, ligne cumulée, sources</li><li>Recherche et tri du tableau, export CSV</li><li>Version mobile complète</li></ul><h3><span class='changelog-ver'>v1.0</span> Version initiale</h3><ul><li>Tableau des jeux, taux de change, graphique trimestriel</li></ul>",
         donateHtml: "<h3>Soutenir le projet</h3><p>Cette application est gratuite et créée par passion. Si elle vous est utile, vous pouvez offrir un café à l'auteur.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>Merci pour votre soutien !</p>"
@@ -876,6 +926,7 @@ const translations = {
         syncLocal: "Dati locali", syncCloud: "Cloud", syncSyncing: "Sincronizzazione...", syncErr: "Errore di sincronizzazione",
         savedLocal: "Salvato localmente", savedCloud: "Salvato nel cloud", itemDeleted: "Elemento eliminato",
         emptyLib: "La tua libreria è vuota. Aggiungi il primo gioco qui sopra.",
+        navTerms: "Termini e condizioni", navPrivacy: "Informativa sulla privacy", rememberMe: "Ricordami", footerContact: "Contatto", cookieConsentText: "Questo sito utilizza cookie e tecnologie simili (inclusi i cookie di Google AdSense) per garantire il corretto funzionamento, ricordare le tue preferenze e mostrare annunci. Continuando accetti questo utilizzo.", cookieMoreInfo: "Maggiori informazioni", cookieDeclineBtn: "Rifiuta", cookieAcceptBtn: "Accetta",
         faqHtml: "<h3>Cos'è questa app?</h3><p>Un tracker personale delle spese per i giochi. Registri titolo, prezzo, fonte e data di acquisto; l'app calcola statistiche e disegna grafici.</p><h3>Serve un account?</h3><p>No. Di default usi la modalità ospite e i dati restano in questo browser. Un account permette la sincronizzazione tra dispositivi.</p><h3>Perderò i dati ospite dopo l'accesso?</h3><p>No. Al primo accesso i dati ospite vengono uniti al tuo account cloud.</p><h3>Da dove vengono i tassi di cambio?</h3><p>Da un'API pubblica (open.er-api.com). Se non disponibile, si usano tassi di riserva.</p>",
         changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> Grande rinnovamento</h3><ul><li>Nuovo menu laterale (drawer) con 5 sezioni</li><li>Modalità ospite di default, accesso facoltativo</li><li>Account Firebase: accesso, registrazione, reset password</li><li>Selettore grafico: acquisti per mese / trimestre / anno, linea cumulativa, fonti</li><li>Ricerca e ordinamento in tabella, export CSV</li><li>Supporto mobile completo</li></ul><h3><span class='changelog-ver'>v1.0</span> Prima versione</h3><ul><li>Tabella giochi, tassi di cambio, grafico trimestrale</li></ul>",
         donateHtml: "<h3>Sostieni il progetto</h3><p>Questa app è gratuita e nata come hobby. Se ti è utile, puoi offrire un caffè all'autore.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>Grazie per ogni supporto!</p>"
@@ -904,6 +955,7 @@ const translations = {
         syncLocal: "Datos locales", syncCloud: "Nube", syncSyncing: "Sincronizando...", syncErr: "Error de sincronización",
         savedLocal: "Guardado localmente", savedCloud: "Guardado en la nube", itemDeleted: "Elemento eliminado",
         emptyLib: "Tu biblioteca está vacía. Añade tu primer juego arriba.",
+        navTerms: "Términos y condiciones", navPrivacy: "Política de privacidad", rememberMe: "Recordarme", footerContact: "Contacto", cookieConsentText: "Este sitio utiliza cookies y tecnologías similares (incluidas las cookies de Google AdSense) para garantizar su correcto funcionamiento, recordar tus preferencias y mostrar anuncios. Si continúas navegando, aceptas su uso.", cookieMoreInfo: "Más información", cookieDeclineBtn: "Rechazar", cookieAcceptBtn: "Aceptar",
         faqHtml: "<h3>¿Qué es esta app?</h3><p>Un rastreador personal de gastos en juegos. Registras título, precio, fuente y fecha de compra; la app calcula estadísticas y dibuja gráficos.</p><h3>¿Necesito una cuenta?</h3><p>No. Por defecto usas el modo invitado y los datos quedan en este navegador. Una cuenta permite sincronizar entre dispositivos.</p><h3>¿Perderé los datos de invitado al iniciar sesión?</h3><p>No. En el primer inicio de sesión, tus datos de invitado se combinan con tu cuenta en la nube.</p><h3>¿De dónde vienen los tipos de cambio?</h3><p>De una API pública (open.er-api.com). Si no está disponible, se usan tasas de respaldo.</p>",
         changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> Gran renovación</h3><ul><li>Nuevo menú lateral (drawer) con 5 secciones</li><li>Modo invitado por defecto, inicio de sesión opcional</li><li>Cuentas Firebase: inicio de sesión, registro, restablecimiento de contraseña</li><li>Selector de gráfico: compras por mes / trimestre / año, línea acumulada, fuentes</li><li>Búsqueda y ordenación en la tabla, exportación CSV</li><li>Soporte móvil completo</li></ul><h3><span class='changelog-ver'>v1.0</span> Versión inicial</h3><ul><li>Tabla de juegos, tipos de cambio, gráfico trimestral</li></ul>",
         donateHtml: "<h3>Apoya el proyecto</h3><p>Esta app es gratuita y un proyecto personal. Si te resulta útil, puedes invitar un café al autor.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>¡Gracias por tu apoyo!</p>"
@@ -932,6 +984,7 @@ const translations = {
         syncLocal: "Dados locais", syncCloud: "Nuvem", syncSyncing: "Sincronizando...", syncErr: "Erro de sincronização",
         savedLocal: "Salvo localmente", savedCloud: "Salvo na nuvem", itemDeleted: "Item excluído",
         emptyLib: "Sua biblioteca está vazia. Adicione seu primeiro jogo acima.",
+        navTerms: "Termos e condições", navPrivacy: "Política de privacidade", rememberMe: "Lembrar de mim", footerContact: "Contato", cookieConsentText: "Este site utiliza cookies e tecnologias semelhantes (incluindo cookies do Google AdSense) para garantir o funcionamento correto, lembrar suas preferências e exibir anúncios. Ao continuar, você concorda com isso.", cookieMoreInfo: "Mais informações", cookieDeclineBtn: "Recusar", cookieAcceptBtn: "Aceitar",
         faqHtml: "<h3>O que é este app?</h3><p>Um rastreador pessoal de gastos com jogos. Você registra título, preço, fonte e data de compra; o app calcula estatísticas e desenha gráficos.</p><h3>Preciso de uma conta?</h3><p>Não. Por padrão você usa o modo convidado e os dados ficam neste navegador. Uma conta permite sincronizar entre dispositivos.</p><h3>Vou perder os dados de convidado após o login?</h3><p>Não. No primeiro login, seus dados de convidado são mesclados com sua conta na nuvem.</p><h3>De onde vêm as taxas de câmbio?</h3><p>De uma API pública (open.er-api.com). Se indisponível, taxas de reserva são usadas.</p>",
         changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> Grande reformulação</h3><ul><li>Novo menu lateral (drawer) com 5 seções</li><li>Modo convidado por padrão, login opcional</li><li>Contas Firebase: login, registro, redefinição de senha</li><li>Seletor de gráfico: compras por mês / trimestre / ano, linha acumulada, fontes</li><li>Busca e ordenação na tabela, exportação CSV</li><li>Suporte móvel completo</li></ul><h3><span class='changelog-ver'>v1.0</span> Versão inicial</h3><ul><li>Tabela de jogos, taxas de câmbio, gráfico trimestral</li></ul>",
         donateHtml: "<h3>Apoie o projeto</h3><p>Este app é gratuito e feito por hobby. Se for útil para você, pode pagar um café ao autor.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>Obrigado por qualquer apoio!</p>"
@@ -960,6 +1013,7 @@ const translations = {
         syncLocal: "ローカルデータ", syncCloud: "クラウド", syncSyncing: "同期中...", syncErr: "同期エラー",
         savedLocal: "ローカルに保存しました", savedCloud: "クラウドに保存しました", itemDeleted: "削除しました",
         emptyLib: "ライブラリは空です。上のフォームから最初のゲームを追加してください。",
+        navTerms: "利用規約", navPrivacy: "プライバシーポリシー", rememberMe: "ログイン状態を保持", footerContact: "お問い合わせ", cookieConsentText: "当サイトは、正常な動作の確保、設定の保存、広告表示（Google AdSense のCookieを含む）のためにCookieおよび類似の技術を使用しています。利用を続けることで、これに同意したものとみなされます。", cookieMoreInfo: "詳細情報", cookieDeclineBtn: "拒否", cookieAcceptBtn: "同意する",
         faqHtml: "<h3>このアプリは何ですか？</h3><p>個人用のゲーム支出トラッカーです。タイトル、価格、ソース、購入日を記録すると、統計とグラフが表示されます。</p><h3>アカウントは必要ですか？</h3><p>いいえ。デフォルトはゲストモードで、データはこのブラウザにのみ保存されます。アカウントを作るとデバイス間で同期できます。</p><h3>ログイン後にゲストデータは消えますか？</h3><p>いいえ。初回ログイン時にゲストデータはクラウドアカウントに統合されます。</p><h3>為替レートの出所は？</h3><p>公開レートAPI（open.er-api.com）です。利用できない場合は予備レートを使用します。</p>",
         changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> 大規模リニューアル</h3><ul><li>5セクションのサイドメニュー（ドロワー）</li><li>デフォルトでゲストモード、ログインは任意</li><li>Firebase アカウント：ログイン、登録、パスワード再設定</li><li>グラフ選択：月 / 四半期 / 年ごとの購入数、累計ライン、ソース</li><li>テーブルの検索と並べ替え、CSVエクスポート</li><li>モバイル完全対応</li></ul><h3><span class='changelog-ver'>v1.0</span> 初版</h3><ul><li>ゲームテーブル、為替レート、四半期グラフ</li></ul>",
         donateHtml: "<h3>プロジェクトを支援</h3><p>このアプリは無料の趣味プロジェクトです。役に立ったら、作者にコーヒーをおごってください。</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>ご支援ありがとうございます！</p>"
@@ -988,6 +1042,7 @@ const translations = {
         syncLocal: "本地数据", syncCloud: "云端", syncSyncing: "同步中...", syncErr: "同步错误",
         savedLocal: "已保存到本地", savedCloud: "已保存到云端", itemDeleted: "已删除",
         emptyLib: "你的库是空的。请在上方添加第一款游戏。",
+        navTerms: "服务条款", navPrivacy: "隐私政策", rememberMe: "记住我", footerContact: "联系我们", cookieConsentText: "本网站使用Cookie及类似技术（包括谷歌 AdSense Cookie），以确保网站正常运行、记住您的偏好并展示广告。继续使用即表示您同意。", cookieMoreInfo: "了解更多", cookieDeclineBtn: "拒绝", cookieAcceptBtn: "接受",
         faqHtml: "<h3>这是什么应用？</h3><p>个人游戏支出追踪器。记录名称、价格、来源和购买日期，应用会计算统计数据并绘制图表。</p><h3>需要账户吗？</h3><p>不需要。默认使用访客模式，数据仅保存在此浏览器中。账户可用于多设备同步。</p><h3>登录后访客数据会丢失吗？</h3><p>不会。首次登录时，访客数据会合并到你的云端账户。</p><h3>汇率来自哪里？</h3><p>来自公开汇率 API（open.er-api.com）。不可用时使用备用汇率。</p>",
         changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> 重大更新</h3><ul><li>全新侧边抽屉菜单，含 5 个部分</li><li>默认访客模式，登录可选</li><li>Firebase 账户：登录、注册、密码重置</li><li>图表选择：按月 / 季度 / 年的购买量、累计折线、来源</li><li>表格搜索与排序、CSV 导出</li><li>完整移动端支持</li></ul><h3><span class='changelog-ver'>v1.0</span> 首个版本</h3><ul><li>游戏表格、汇率、季度图表</li></ul>",
         donateHtml: "<h3>支持本项目</h3><p>本应用免费且为业余项目。如果对你有帮助，可以请作者喝杯咖啡。</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>感谢你的支持！</p>"
@@ -1016,6 +1071,7 @@ const translations = {
         syncLocal: "로컬 데이터", syncCloud: "클라우드", syncSyncing: "동기화 중...", syncErr: "동기화 오류",
         savedLocal: "로컬에 저장됨", savedCloud: "클라우드에 저장됨", itemDeleted: "삭제되었습니다",
         emptyLib: "라이브러리가 비어 있습니다. 위에서 첫 게임을 추가하세요.",
+        navTerms: "이용 약관", navPrivacy: "개인정보처리방침", rememberMe: "로그인 상태 유지", footerContact: "문의하기", cookieConsentText: "이 사이트는 원활한 작동, 환경설정 저장, 광고 표시(Google 애드센스 쿠키 포함)를 위해 쿠키 및 유사 기술을 사용합니다. 계속 이용하시면 이에 동의하는 것으로 간주됩니다.", cookieMoreInfo: "자세히 보기", cookieDeclineBtn: "거부", cookieAcceptBtn: "동의",
         faqHtml: "<h3>이 앱은 무엇인가요?</h3><p>개인용 게임 지출 트래커입니다. 제목, 가격, 출처, 구매 날짜를 기록하면 앱이 통계를 계산하고 차트를 그립니다.</p><h3>계정이 필요한가요?</h3><p>아니요. 기본은 게스트 모드이며 데이터는 이 브라우저에만 저장됩니다. 계정을 만들면 기기 간 동기화가 가능합니다.</p><h3>로그인하면 게스트 데이터가 사라지나요?</h3><p>아니요. 첫 로그인 시 게스트 데이터가 클라우드 계정에 병합됩니다.</p><h3>환율은 어디서 오나요?</h3><p>공개 환율 API(open.er-api.com)에서 가져옵니다. 사용할 수 없으면 예비 환율을 사용합니다.</p>",
         changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> 대규모 개편</h3><ul><li>5개 섹션의 사이드 드로어 메뉴</li><li>기본 게스트 모드, 선택적 로그인</li><li>Firebase 계정: 로그인, 회원가입, 비밀번호 재설정</li><li>차트 선택: 월 / 분기 / 연도별 구매, 누적 라인, 출처</li><li>테이블 검색 및 정렬, CSV 내보내기</li><li>모바일 완전 지원</li></ul><h3><span class='changelog-ver'>v1.0</span> 첫 버전</h3><ul><li>게임 테이블, 환율, 분기 차트</li></ul>",
         donateHtml: "<h3>프로젝트 후원</h3><p>이 앱은 무료 취미 프로젝트입니다. 도움이 되었다면 개발자에게 커피 한 잔을 사줄 수 있습니다.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>후원해 주셔서 감사합니다!</p>"
@@ -1044,9 +1100,41 @@ const translations = {
         syncLocal: "بيانات محلية", syncCloud: "السحابة", syncSyncing: "جارٍ المزامنة...", syncErr: "خطأ في المزامنة",
         savedLocal: "تم الحفظ محلياً", savedCloud: "تم الحفظ في السحابة", itemDeleted: "تم الحذف",
         emptyLib: "مكتبتك فارغة. أضف لعبتك الأولى أعلاه.",
+        navTerms: "الشروط والأحكام", navPrivacy: "سياسة الخصوصية", rememberMe: "تذكرني", footerContact: "اتصل بنا", cookieConsentText: "يستخدم هذا الموقع ملفات تعريف الارتباط وتقنيات مشابهة (بما في ذلك ملفات تعريف ارتباط Google AdSense) لضمان عمل الموقع بشكل صحيح وتذكر تفضيلاتك وعرض الإعلانات. بمواصلة استخدام الموقع، فإنك توافق على ذلك.", cookieMoreInfo: "مزيد من المعلومات", cookieDeclineBtn: "رفض", cookieAcceptBtn: "موافق",
         faqHtml: "<h3>ما هذا التطبيق؟</h3><p>متتبع شخصي لنفقات الألعاب. تسجل العنوان والسعر والمصدر وتاريخ الشراء، ويحسب التطبيق الإحصائيات ويرسم الرسوم البيانية.</p><h3>هل أحتاج إلى حساب؟</h3><p>لا. افتراضياً تستخدم وضع الضيف وتُحفظ البيانات في هذا المتصفح فقط. الحساب يتيح المزامنة بين الأجهزة.</p><h3>هل سأفقد بيانات الضيف بعد تسجيل الدخول؟</h3><p>لا. عند أول تسجيل دخول تُدمج بيانات الضيف مع حسابك السحابي.</p><h3>من أين تأتي أسعار الصرف؟</h3><p>من واجهة برمجية عامة (open.er-api.com). عند عدم توفرها تُستخدم أسعار احتياطية.</p>",
         changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> إعادة بناء كبيرة</h3><ul><li>قائمة جانبية جديدة (درج) من 5 أقسام</li><li>وضع الضيف افتراضياً، تسجيل الدخول اختياري</li><li>حسابات Firebase: دخول، تسجيل، إعادة تعيين كلمة المرور</li><li>اختيار الرسم البياني: المشتريات حسب الشهر / الربع / السنة، خط تراكمي، المصادر</li><li>بحث وفرز في الجدول، تصدير CSV</li><li>دعم كامل للجوال</li></ul><h3><span class='changelog-ver'>v1.0</span> الإصدار الأول</h3><ul><li>جدول الألعاب، أسعار الصرف، رسم ربع سنوي</li></ul>",
         donateHtml: "<h3>ادعم المشروع</h3><p>هذا التطبيق مجاني ومشروع هواية. إذا كان مفيداً لك، يمكنك شراء قهوة للمطور.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>شكراً على أي دعم!</p>"
+    },
+    ru: {
+        appTitle: "Библиотека расходов", menu: "Меню", navHome: "Главная", navAuth: "Вход / Регистрация", navFaq: "FAQ", navChangelog: "История изменений", navDonate: "Поддержать", language: "Язык",
+        guestMode: "Гостевой режим", loggedInAs: "Вы вошли как:",
+        gameTitle: "Название игры", price: "Цена", currency: "Валюта", source: "Источник", purchaseDate: "Дата покупки", addBtn: "Добавить", saveBtn: "Сохранить", cancelBtn: "Отмена", addGame: "Добавить игру",
+        myLibrary: "Ваша библиотека", colPlatform: "Платформа", colOrigPrice: "Исходная цена", colChfPrice: "Стоимость в CHF", colOptions: "Действия", totalValue: "Стоимость библиотеки",
+        statTotalGames: "Всего игр", statThisMonth: "В этом месяце", statThisYear: "В этом году",
+        chartsTitle: "Статистика", chartOptPurchases: "Покупки во времени", chartOptCumulative: "Нарастающий итог", chartOptSources: "Источники",
+        granMonth: "Месяц", granQuarter: "Квартал", granYear: "Год",
+        chartPurchases: "Количество покупок", chartCumulative: "Всего игр в собственности", chartSources: "Источники покупок",
+        steam: "Steam", keyStore: "Магазин ключей", noData: "Нет данных", noResults: "Ничего не найдено",
+        liveRates: "В реальном времени", offlineRates: "Офлайн", confirmDel: "Удалить эту запись?",
+        searchPh: "Поиск игр...", exportCsv: "Экспорт в CSV",
+        tabLogin: "Вход", tabRegister: "Регистрация", tabReset: "Сброс пароля",
+        email: "E-mail", password: "Пароль", loginBtn: "Войти", registerBtn: "Зарегистрироваться", resetBtn: "Отправить ссылку", logoutBtn: "Выйти",
+        authNoteGuest: "Вы можете пользоваться приложением как гость. Гостевые данные хранятся только в этом браузере. Войдите в систему, чтобы синхронизировать библиотеку между устройствами.",
+        authNoteLogged: "Ваша библиотека синхронизирована с облаком и доступна на любом устройстве после входа в систему.",
+        resetSent: "Ссылка для сброса пароля отправлена на указанный e-mail. Проверьте также папку со спамом.",
+        registerOk: "Учётная запись создана. Вы автоматически вошли в систему.",
+        loginOk: "Вход выполнен успешно.", logoutOk: "Вы вышли из системы. Возврат в гостевой режим.",
+        authErrInvalid: "Неверный e-mail или пароль.", authErrInUse: "Этот e-mail уже зарегистрирован.", authErrWeak: "Пароль должен содержать не менее 6 символов.", authErrNoUser: "Учётная запись с таким e-mail не найдена.", authErrGeneric: "Произошла ошибка. Попробуйте ещё раз.",
+        firebaseNotConfigured: "Firebase не настроен. Вставьте вашу конфигурацию в файл (раздел FIREBASE CONFIG).",
+        syncLocal: "Локальные данные", syncCloud: "Облако", syncSyncing: "Синхронизация...", syncErr: "Ошибка синхронизации",
+        savedLocal: "Сохранено локально", savedCloud: "Сохранено в облаке", itemDeleted: "Запись удалена",
+        emptyLib: "Ваша библиотека пуста. Добавьте первую игру выше.",
+        navTerms: "Условия использования", navPrivacy: "Политика конфиденциальности", rememberMe: "Запомнить меня", footerContact: "Контакты", cookieConsentText: "Этот сайт использует файлы cookie и аналогичные технологии (включая cookie Google AdSense) для обеспечения корректной работы, запоминания ваших настроек и показа рекламы. Продолжая использовать сайт, вы соглашаетесь с этим.", cookieMoreInfo: "Подробнее", cookieDeclineBtn: "Отклонить", cookieAcceptBtn: "Принять",
+        faqHtml: "<h3>Что это за приложение?</h3><p>Это личный трекер расходов на игры. Вы записываете название, цену, источник и дату покупки, а приложение считает статистику и строит графики.</p><h3>Нужна ли учётная запись?</h3><p>Нет. По умолчанию вы работаете в гостевом режиме, а данные хранятся только в этом браузере. Учётная запись позволяет синхронизировать библиотеку между устройствами.</p><h3>Потеряю ли я гостевые данные после входа в систему?</h3><p>Нет. При первом входе гостевые данные объединяются с вашей учётной записью в облаке.</p><h3>Откуда берутся курсы валют?</h3><p>Из публичного API курсов валют (open.er-api.com). Если API недоступен, используются резервные курсы.</p>",
+        changelogHtml: "<h3><span class='changelog-ver'>v2.0</span> Большое обновление</h3><ul><li>Новое боковое меню (drawer) с 5 разделами</li><li>Гостевой режим по умолчанию, вход в систему опционален</li><li>Учётные записи Firebase: вход, регистрация, сброс пароля</li><li>Выбор графика: покупки по месяцам / кварталам / годам, нарастающий итог, источники</li><li>Поиск и сортировка в таблице, экспорт CSV</li><li>Полная поддержка мобильных устройств</li></ul><h3><span class='changelog-ver'>v1.0</span> Первая версия</h3><ul><li>Таблица игр, курсы валют, квартальный график</li></ul>",
+        donateHtml: "<h3>Поддержать проект</h3><p>Приложение бесплатное и создано на любительской основе. Если оно оказалось полезным, вы можете угостить автора кофе.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>Спасибо за любую поддержку!</p>",
+        termsHtml: "<h3>1. Общие положения</h3><p>Настоящие условия использования регулируют использование приложения Steam Tracker (\"Приложение\"). Используя Приложение, вы соглашаетесь с изложенными ниже условиями.</p><h3>2. Характер сервиса</h3><p>Приложение является бесплатным любительским инструментом для личного учёта расходов на видеоигры. Оно никак не связано и не аффилировано с компанией Valve Corporation или платформой Steam. Название \"Steam\" используется исключительно в описательных целях.</p><h3>3. Учётная запись пользователя</h3><p>Приложением можно пользоваться в гостевом режиме (без регистрации, данные хранятся локально в браузере) или после создания учётной записи (вход по e-mail и паролю), что позволяет синхронизировать данные в облаке. Вы несёте ответственность за сохранность своих учётных данных.</p><h3>4. Обязанности пользователя</h3><ul><li>Запрещается использовать Приложение в незаконных целях.</li><li>Запрещаются попытки нарушить безопасность Приложения или его инфраструктуры.</li><li>Пользователь несёт ответственность за содержимое (например, названия игр), вносимое в Приложение.</li></ul><h3>5. Ограничение ответственности</h3><p>Приложение предоставляется \"как есть\", без каких-либо гарантий. Курсы валют получаются из стороннего публичного API и могут быть неточными. Автор не несёт ответственности за утрату данных, в особенности данных, хранящихся локально в гостевом режиме.</p><h3>6. Реклама</h3><p>Приложение показывает рекламу через Google AdSense. Подробнее см. в Политике конфиденциальности.</p><h3>7. Изменения условий</h3><p>Мы оставляем за собой право изменять настоящие условия в любое время. Продолжение использования Приложения после внесения изменений означает их принятие.</p><h3>8. Контакты</h3><p>По вопросам, связанным с условиями использования, обращайтесь по контактным данным, указанным в подвале сайта.</p>",
+        privacyHtml: "<h3>1. Оператор данных</h3><p>Оператором персональных данных, обрабатываемых в рамках Приложения, является владелец сайта, с которым можно связаться по контактным данным, указанным в подвале сайта.</p><h3>2. Какие данные мы обрабатываем</h3><ul><li><strong>Гостевой режим:</strong> данные вашей библиотеки игр (название, цена, источник, дата) хранятся только локально в вашем браузере (localStorage) и никогда не отправляются на наши серверы.</li><li><strong>Учётная запись:</strong> при регистрации мы обрабатываем ваш адрес электронной почты и данные библиотеки игр, хранящиеся в сервисе Firebase (Google) для синхронизации между устройствами.</li><li><strong>Настройки:</strong> выбранный язык интерфейса и согласие на использование файлов cookie сохраняются локально в вашем браузере.</li></ul><h3>3. Файлы cookie и аналогичные технологии</h3><p>Приложение использует механизмы локального хранения, необходимые для его работы, а также, через Google AdSense, файлы cookie, используемые для показа рекламы, включая персонализированную. Вы можете управлять согласием на использование cookie через уведомление на сайте или настройки браузера.</p><h3>4. Реклама Google AdSense</h3><p>Мы используем Google AdSense для показа рекламы. Google и его партнёры могут использовать файлы cookie для персонализации рекламы на основе ваших предыдущих посещений этого или других сайтов. Вы можете отказаться от персонализированной рекламы, посетив настройки рекламы Google по адресу <a href='https://adssettings.google.com' target='_blank' rel='noopener'>adssettings.google.com</a>.</p><h3>5. Передача данных</h3><p>Мы не продаём данные пользователей. Данные могут обрабатываться поставщиками услуг (Firebase/Google, Google AdSense) исключительно в объёме, необходимом для работы функций Приложения.</p><h3>6. Ваши права</h3><p>Вы имеете право на доступ к своим данным, их исправление, удаление и перенос. Вы можете запросить удаление своей учётной записи и облачных данных, связавшись с администратором. Гостевые данные вы можете удалить самостоятельно, очистив данные браузера для этого сайта.</p><h3>7. Безопасность</h3><p>Мы полагаемся на стандартные меры безопасности Firebase для защиты ваших данных, однако ни один способ передачи данных через интернет не является на 100% безопасным.</p><h3>8. Контакты</h3><p>По вопросам конфиденциальности обращайтесь по контактным данным, указанным в подвале сайта.</p>"
     }
 };
 
@@ -1106,6 +1194,9 @@ function changeLanguage(lang) {
     $('faqContent').innerHTML = t('faqHtml');
     $('changelogContent').innerHTML = t('changelogHtml');
     $('donateContent').innerHTML = t('donateHtml');
+    $('termsContent').innerHTML = t('termsHtml');
+    $('privacyContent').innerHTML = t('privacyHtml');
+    if ($('cookieConsentText')) updateCookieConsentTexts();
 
     if (editingIndex > -1) $('submitBtn').querySelector('span').textContent = t('saveBtn');
     updateUserChip();
@@ -1221,6 +1312,7 @@ function setAuthMode(mode, silent) {
     document.querySelectorAll('.auth-tab').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
     $('passGroup').style.display = (mode === 'reset') ? 'none' : 'flex';
     $('authPass').required = (mode !== 'reset');
+    $('rememberGroup').style.display = (mode === 'login') ? 'flex' : 'none';
     const btnSpan = $('authSubmitBtn').querySelector('span');
     btnSpan.textContent = mode === 'login' ? t('loginBtn') : mode === 'register' ? t('registerBtn') : t('resetBtn');
     if (!silent) hideAuthMsg();
@@ -1255,6 +1347,9 @@ $('authForm').addEventListener('submit', async function (e) {
 
     try {
         if (authMode === 'login') {
+            const remember = $('rememberMe').checked;
+            localStorage.setItem('rememberMe', remember ? '1' : '0');
+            await auth.setPersistence(remember ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION);
             await auth.signInWithEmailAndPassword(email, pass);
             showToast('loginOk');
             showView('home');
@@ -1281,14 +1376,18 @@ async function doLogout() {
 function updateUserChip() {
     const chip = $('userChip');
     const txt = $('userChipText');
+    const quickLogout = $('quickLogoutBtn');
     if (currentUser) {
         chip.className = 'user-chip logged';
         txt.textContent = currentUser.email;
         chip.title = currentUser.email;
+        quickLogout.style.display = 'flex';
+        quickLogout.title = t('logoutBtn');
     } else {
         chip.className = 'user-chip guest';
         txt.textContent = t('guestMode');
         chip.title = '';
+        quickLogout.style.display = 'none';
     }
 }
 
@@ -1581,12 +1680,40 @@ function exportCSV() {
 }
 
 // =====================================================
+// ZGODA NA PLIKI COOKIE
+// =====================================================
+function updateCookieConsentTexts() {
+    $('cookieConsentText').textContent = t('cookieConsentText');
+    $('cookieMoreInfoBtn').textContent = t('cookieMoreInfo');
+    $('cookieDeclineBtn').textContent = t('cookieDeclineBtn');
+    $('cookieAcceptBtn').textContent = t('cookieAcceptBtn');
+}
+function setCookieConsent(accepted) {
+    localStorage.setItem('cookieConsent', accepted ? 'accepted' : 'declined');
+    $('cookieConsent').style.display = 'none';
+}
+function initCookieConsent() {
+    updateCookieConsentTexts();
+    if (!localStorage.getItem('cookieConsent')) {
+        $('cookieConsent').style.display = 'block';
+    }
+}
+
+// =====================================================
+// PRZYCISK "DO GÓRY"
+// =====================================================
+window.addEventListener('scroll', () => {
+    $('backToTopBtn').style.display = (window.scrollY > 400) ? 'flex' : 'none';
+});
+
+// =====================================================
 // START
 // =====================================================
 $('langSwitcher').value = currentLang;
 changeLanguage(currentLang);
 if (!firebaseReady) loadGuestData();
 fetchExchangeRates();
+initCookieConsent();
 
     </script>
 
@@ -1602,7 +1729,8 @@ pt:{d:"Steam Tracker ajuda você a acompanhar compras de jogos, controlar gastos
 ja:{d:"Steam Tracker はゲーム購入履歴の管理、支出の追跡、統計やグラフによるライブラリ分析を支援します。データはローカル保存または同期できます。",s:"スイスで愛を込めて作られました"},
 zh:{d:"Steam Tracker 可帮助您跟踪游戏购买记录、分析支出，并通过统计和图表管理游戏库。数据可本地保存或跨设备同步。",s:"在瑞士用爱打造"},
 ko:{d:"Steam Tracker는 게임 구매 내역 추적, 지출 관리 및 통계와 차트를 통한 라이브러리 분석을 도와줍니다. 데이터는 로컬 저장 또는 동기화할 수 있습니다.",s:"스위스에서 사랑으로 제작됨"},
-ar:{d:"يساعدك Steam Tracker على تتبع مشتريات الألعاب ومراقبة الإنفاق وتحليل مكتبتك باستخدام الإحصاءات والرسوم البيانية. يمكن حفظ البيانات محليًا أو مزامنتها بين الأجهزة.",s:"صُنع في سويسرا بحب"}
+ar:{d:"يساعدك Steam Tracker على تتبع مشتريات الألعاب ومراقبة الإنفاق وتحليل مكتبتك باستخدام الإحصاءات والرسوم البيانية. يمكن حفظ البيانات محليًا أو مزامنتها بين الأجهزة.",s:"صُنع في سويسرا بحب"},
+ru:{d:"Steam Tracker помогает отслеживать покупки игр, контролировать расходы и анализировать библиотеку с помощью статистики и графиков. Данные можно хранить локально или синхронизировать между устройствами после входа в систему.",s:"Сделано в Швейцарии с любовью"}
 };
 
 function updateFooterLanguage(){
