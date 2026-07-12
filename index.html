@@ -2466,6 +2466,7 @@ async function loadCloudData() {
         setBadge('error', 'syncErr');
     }
     renderTable();
+    updateLeaderboardEntry(); // v0.6.1: żeby ranking pojawił się już po zwykłym zalogowaniu, nie tylko po edycji gier
 }
 
 async function persistData() {
