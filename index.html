@@ -93,6 +93,44 @@
             pointer-events: none;
         }
         .hero-inner { padding: 48px 22px 40px; max-width: 720px; margin: 0 auto; position: relative; }
+        .hero-grid { max-width: 1000px; }
+        @media (min-width: 860px) {
+            .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: center; text-align: left; }
+            .hero-facts, .hero-cta { justify-content: flex-start; }
+            .hero-note { margin-left: 0; }
+        }
+        .mock-receipt {
+            display: none;
+        }
+        @media (min-width: 860px) {
+            .mock-receipt {
+                display: block;
+                position: relative;
+                background: var(--bg-panel);
+                border: 1px solid var(--border);
+                border-radius: 4px;
+                padding: 22px 20px 26px;
+                font-family: var(--font-mono);
+                font-size: 13px;
+                color: var(--text-light);
+                transform: rotate(2deg);
+                box-shadow: 0 18px 40px rgba(0,0,0,0.35), 0 2px 0 var(--border);
+            }
+        }
+        .mock-receipt-hole {
+            position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+            width: 16px; height: 16px; border-radius: 50%; background: var(--bg-app);
+            border: 1px dashed var(--border-light);
+        }
+        .mock-receipt-row { display: flex; justify-content: space-between; gap: 14px; padding: 5px 0; color: var(--text-main); }
+        .mock-receipt-div { border-top: 1px dashed var(--border-light); margin: 8px 0; }
+        .mock-receipt-total { display: flex; justify-content: space-between; font-weight: 600; color: var(--text-white); font-size: 15px; }
+        .mock-receipt-stamp {
+            margin-top: 16px; text-align: center; color: var(--steam-blue);
+            border: 2px solid var(--steam-blue); border-radius: 4px; padding: 4px;
+            letter-spacing: 2px; font-size: 11px; transform: rotate(-3deg);
+            opacity: 0.85;
+        }
         .hero-badge {
             display: inline-flex; align-items: center; gap: 8px;
             font-family: var(--font-mono);
@@ -159,6 +197,10 @@
         body {
             font-family: var(--font-body);
             background-color: var(--bg-app);
+            background-image:
+                radial-gradient(ellipse 900px 500px at 15% 0%, rgba(51,191,161,0.06), transparent 60%),
+                radial-gradient(ellipse 700px 500px at 100% 20%, rgba(226,161,61,0.04), transparent 60%);
+            background-attachment: fixed;
             color: var(--text-main);
             font-size: 14px;
             min-height: 100vh;
@@ -366,27 +408,36 @@
 
         .card {
             background: var(--bg-panel);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            margin-bottom: 16px;
+            border: none;
+            border-radius: 14px;
+            margin-bottom: 20px;
             overflow: hidden;
+            box-shadow: 0 10px 28px rgba(0,0,0,0.22);
         }
         .card-head {
-            background: var(--bg-dark);
-            padding: 12px 16px;
-            border-bottom: 1px dashed var(--border);
-            color: var(--text-light);
-            font-family: var(--font-mono);
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            background: none;
+            padding: 22px 24px 16px;
+            border-bottom: none;
+            position: relative;
+            color: var(--text-white);
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: none;
+            letter-spacing: 0;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 10px;
             flex-wrap: wrap;
         }
-        .card-body { padding: 16px; }
+        .card-head::after {
+            content: "";
+            position: absolute; left: 24px; right: 24px; bottom: 0; height: 1px;
+            background-image: repeating-linear-gradient(90deg, var(--border-light) 0 6px, transparent 6px 13px);
+        }
+        .card-head i { color: var(--steam-blue); }
+        .card-body { padding: 22px 24px; }
 
         input, select, button, textarea {
             background-color: var(--bg-input);
@@ -432,9 +483,9 @@
         .table-tools {
             display: flex;
             gap: 10px;
-            padding: 12px 16px;
-            border-bottom: 1px dashed var(--border);
-            background: var(--bg-dark);
+            padding: 16px 24px;
+            border-bottom: none;
+            background: none;
             flex-wrap: wrap;
             align-items: center;
         }
@@ -444,30 +495,37 @@
         .search-box input { padding-left: 34px; }
         html[dir="rtl"] .search-box input { padding-left: 10px; padding-right: 34px; }
 
-        .table-container { max-height: 420px; overflow: auto; }
+        .table-container { max-height: 420px; overflow: auto; padding: 0 24px 20px; }
         .table-container.expanded { max-height: none; } .table-container::-webkit-scrollbar { width: 10px; height: 10px; }
-        .table-container::-webkit-scrollbar-track { background: var(--bg-dark); }
+        .table-container::-webkit-scrollbar-track { background: transparent; }
         .table-container::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
         table { width: 100%; border-collapse: collapse; text-align: left; font-family: var(--font-mono); }
         th {
-            background-color: var(--bg-dark);
-            color: var(--steam-blue);
+            background-color: var(--bg-panel);
+            color: var(--text-dim);
             font-weight: 500;
-            padding: 8px 14px;
+            padding: 6px 10px 12px;
             position: sticky; top: 0; z-index: 10;
             border-bottom: 1px solid var(--border);
-            font-size: 11px;
+            font-size: 10px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             white-space: nowrap;
             cursor: pointer;
             user-select: none;
         }
         th .sort-ind { font-size: 10px; margin-left: 4px; opacity: 0.8; }
-        td { padding: 8px 14px; border-bottom: 1px dashed var(--border); color: var(--text-light); font-size: 13px; }
-        tr:nth-child(even) td { background-color: rgba(255,255,255,0.02); }
-        tr:hover td { background-color: rgba(51,191,161,0.06); }
+        td { padding: 13px 10px; border-bottom: 1px solid var(--border); color: var(--text-light); font-size: 13px; }
+        tr:nth-child(even) td { background-color: transparent; }
+        tr:hover td { background-color: rgba(51,191,161,0.05); }
+        td.name-cell { position: relative; padding-left: 18px; }
+        td.name-cell::before {
+            content: ""; position: absolute; left: 2px; top: 50%; transform: translateY(-50%);
+            width: 5px; height: 5px; border-radius: 50%; background: var(--steam-blue); opacity: 0.7;
+        }
+        html[dir="rtl"] td.name-cell { padding-left: 10px; padding-right: 18px; }
+        html[dir="rtl"] td.name-cell::before { left: auto; right: 2px; }
 
         .source-txt { font-size: 11px; padding: 2px 6px; border-radius: 2px; white-space: nowrap; }
         #gamesTable th:nth-child(5), #gamesTable th:nth-child(6) { text-align: right; }
@@ -487,14 +545,22 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 12px;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
         .stat-tile {
             background: var(--bg-panel);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 14px 16px;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 18px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.16);
         }
+        .stat-tile.stat-hero {
+            grid-column: span 2;
+            background: linear-gradient(135deg, rgba(51,191,161,0.14), var(--bg-panel) 65%);
+            box-shadow: 0 6px 20px rgba(51,191,161,0.14);
+        }
+        .stat-tile.stat-hero .stat-value { font-family: var(--font-display); font-size: 34px; font-weight: 600; }
+        @media (max-width: 480px) { .stat-tile.stat-hero { grid-column: 1 / -1; } }
         .stat-tile .stat-label { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
         .stat-tile .stat-value { font-family: var(--font-mono); font-size: 22px; color: var(--steam-blue); font-weight: 600; display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
         .stat-tile .stat-value small { font-size: 12px; color: var(--text-dim); font-weight: 400; }
@@ -505,6 +571,12 @@
         .chart-area { position: relative; height: 320px; padding: 16px; }
 
         .auth-box { max-width: 420px; margin: 0 auto; }
+        .auth-side { display: none; }
+        @media (min-width: 900px) {
+            .auth-layout { display: grid; grid-template-columns: 0.85fr 1fr; gap: 32px; align-items: start; }
+            .auth-side { display: block; padding-top: 6px; }
+            .auth-box { margin: 0; max-width: none; }
+        }
         .auth-form { display: flex; flex-direction: column; gap: 12px; }
         .auth-tabs { display: flex; border-bottom: 1px solid var(--border); }
         .auth-tab {
@@ -584,21 +656,42 @@
             #logoTitle { display: none; }
         }
 
-        @media (min-width: 960px) {
-            #menuBtn, .drawer-close { display: none; }
+        @media (min-width: 860px) {
+            #menuBtn, .drawer-close, .drawer-head span { display: none; }
             .drawer-overlay { display: none !important; }
             .drawer {
-                position: sticky;
-                top: 54px;
-                height: calc(100vh - 54px);
+                position: static;
+                width: 100%;
+                max-width: none;
+                height: auto;
                 transform: none !important;
                 box-shadow: none;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                flex-direction: row;
+                background: var(--bg-panel);
             }
-            .drawer-head { border-bottom: 1px dashed var(--border); }
-            body { display: flex; flex-wrap: wrap; }
-            .topbar { width: 100%; }
-            .main-wrap { flex: 1; min-width: 0; max-width: none; margin: 0; padding: 28px 36px; }
-            .main-wrap > .view { max-width: 1100px; margin: 0 auto; }
+            .drawer-head { display: none; }
+            .drawer nav {
+                flex-direction: row;
+                padding: 0 28px;
+                gap: 4px;
+                max-width: 1100px;
+                margin: 0 auto;
+                width: 100%;
+                overflow-x: auto;
+            }
+            .nav-item {
+                width: auto;
+                white-space: nowrap;
+                padding: 16px 16px;
+                border-radius: 0;
+                border-bottom: 2px solid transparent;
+            }
+            .nav-item:hover { background: none; }
+            .nav-item.active { background: none; border-bottom-color: var(--steam-blue); }
+            .drawer-foot { display: none; }
+            .main-wrap { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -671,21 +764,33 @@
 
             <div id="homeLanding">
                 <section class="hero card">
-                    <div class="hero-inner">
-                        <div class="hero-badge">
-                            Backlog Wallet
+                    <div class="hero-inner hero-grid">
+                        <div class="hero-copy">
+                            <div class="hero-badge">
+                                Backlog Wallet
+                            </div>
+                            <h2 data-i18n="heroTagline">Twoje wydatki na gry - policzone i przejrzyste.</h2>
+                            <p class="lead" data-i18n="heroLead"></p>
+                            <div class="hero-cta">
+                                <button class="btn-primary" onclick="goRegister()"><i class="fa-solid fa-user-plus"></i> <span data-i18n="ctaRegister">Załóż darmowe konto</span></button>
+                                <button class="btn-tool" onclick="goLogin()"><span data-i18n="ctaHaveAccount">Mam już konto</span></button>
+                            </div>
+                            <p class="hero-note" data-i18n="landingFootNote"></p>
+                            <div class="hero-facts">
+                                <span><i class="fa-solid fa-language"></i> <span data-i18n="heroFact1">12 languages</span></span>
+                                <span><i class="fa-solid fa-coins"></i> <span data-i18n="heroFact2">20+ currencies</span></span>
+                                <span><i class="fa-solid fa-lock"></i> <span data-i18n="heroFact3">Free, no card required</span></span>
+                            </div>
                         </div>
-                        <h2 data-i18n="heroTagline">Twoje wydatki na gry - policzone i przejrzyste.</h2>
-                        <p class="lead" data-i18n="heroLead"></p>
-                        <div class="hero-cta">
-                            <button class="btn-primary" onclick="goRegister()"><i class="fa-solid fa-user-plus"></i> <span data-i18n="ctaRegister">Załóż darmowe konto</span></button>
-                            <button class="btn-tool" onclick="goLogin()"><span data-i18n="ctaHaveAccount">Mam już konto</span></button>
-                        </div>
-                        <p class="hero-note" data-i18n="landingFootNote"></p>
-                        <div class="hero-facts">
-                            <span><i class="fa-solid fa-language"></i> <span data-i18n="heroFact1">12 languages</span></span>
-                            <span><i class="fa-solid fa-coins"></i> <span data-i18n="heroFact2">20+ currencies</span></span>
-                            <span><i class="fa-solid fa-lock"></i> <span data-i18n="heroFact3">Free, no card required</span></span>
+                        <div class="mock-receipt" aria-hidden="true">
+                            <div class="mock-receipt-hole"></div>
+                            <div class="mock-receipt-row"><span>Hollow Knight</span><span>54,99</span></div>
+                            <div class="mock-receipt-row"><span>Hades</span><span>39,09</span></div>
+                            <div class="mock-receipt-row"><span>Baldur's Gate 3</span><span>199,20</span></div>
+                            <div class="mock-receipt-row"><span>Stardew Valley</span><span>38,98</span></div>
+                            <div class="mock-receipt-div"></div>
+                            <div class="mock-receipt-total"><span data-i18n="heroReceiptTotal">Suma</span><span>332,26</span></div>
+                            <div class="mock-receipt-stamp" data-i18n="heroReceiptStamp">ZAPISANE</div>
                         </div>
                     </div>
                 </section>
@@ -719,9 +824,24 @@
                 </div>
             </div>
 
+            <div id="verifyGate" style="display:none;">
+                <div class="card">
+                    <div class="card-body" style="text-align:center; padding:40px 24px;">
+                        <i class="fa-solid fa-envelope-circle-check" style="font-size:38px; color:var(--warn); margin-bottom:16px; display:block;"></i>
+                        <h3 style="font-family:var(--font-display); font-size:22px; color:var(--text-white); margin-bottom:10px;" data-i18n="verifyGateTitle">Potwierdź adres e-mail</h3>
+                        <p style="max-width:480px; margin:0 auto 20px; color:var(--text-main); line-height:1.6;" data-i18n="verifyGateBody">Wysłaliśmy link potwierdzający na Twój adres e-mail. Kliknij go, a potem wróć tutaj i sprawdź ponownie.</p>
+                        <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+                            <button type="button" class="btn-primary" style="width:auto; padding:0 20px;" onclick="recheckVerification()"><i class="fa-solid fa-rotate"></i> <span data-i18n="recheckVerifyBtn">Sprawdź ponownie</span></button>
+                            <button type="button" class="btn-tool" style="width:auto; padding:0 20px;" onclick="resendVerificationEmail()"><i class="fa-solid fa-paper-plane"></i> <span data-i18n="resendVerifyBtn">Wyślij ponownie</span></button>
+                            <button type="button" class="btn-tool" style="width:auto; padding:0 20px;" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> <span data-i18n="logoutBtn">Wyloguj</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div id="homeApp" style="display:none;">
             <div class="stats-row">
-                <div class="stat-tile">
+                <div class="stat-tile stat-hero">
                     <div class="stat-label"><i class="fa-solid fa-coins"></i> <span data-i18n="totalValue">Wartość biblioteki</span></div>
                     <div class="stat-value"><span id="totalAmount">0.00</span>
                         <select id="totalCurrency" onchange="onTotalCurrencyChange()">
@@ -764,8 +884,13 @@
             </div>
 
             <div class="card">
-                <div class="card-head"><span><i class="fa-solid fa-plus" style="margin-right:6px;"></i> <span data-i18n="addGame">Dodaj grę</span></span></div>
-                <div class="card-body">
+                <div class="card-head">
+                    <span><i class="fa-solid fa-plus" style="margin-right:6px;"></i> <span data-i18n="addGame">Dodaj grę</span></span>
+                    <button type="button" class="btn-link" id="addFormToggleBtn" onclick="toggleAddForm()">
+                        <span id="addFormToggleText" data-i18n="addFormShow">Pokaż formularz</span> <i class="fa-solid fa-chevron-down" id="addFormToggleIcon"></i>
+                    </button>
+                </div>
+                <div class="card-body" id="addFormBody" style="display:none;">
                     <form id="addGameForm" class="form-grid">
                         <div class="input-group span-2">
                             <label for="gameName" data-i18n="gameTitle">Tytuł gry</label>
@@ -906,6 +1031,13 @@
             </div></section>
 
         <section class="view" id="view-auth">
+            <div class="auth-layout">
+                <aside class="auth-side">
+                    <div class="hero-badge" style="margin-bottom:18px;">Backlog Wallet</div>
+                    <div class="feature-card" style="margin-bottom:14px;"><i class="fa-solid fa-list-check"></i><h4 data-i18n="feat1T"></h4><p data-i18n="feat1D"></p></div>
+                    <div class="feature-card" style="margin-bottom:14px;"><i class="fa-solid fa-coins"></i><h4 data-i18n="feat3T"></h4><p data-i18n="feat3D"></p></div>
+                    <div class="feature-card"><i class="fa-solid fa-cloud"></i><h4 data-i18n="feat4T"></h4><p data-i18n="feat4D"></p></div>
+                </aside>
             <div class="card auth-box">
                 <div class="auth-tabs" id="authTabs">
                     <button class="auth-tab active" data-mode="login" onclick="setAuthMode('login')" data-i18n="tabLogin">Logowanie</button>
@@ -939,6 +1071,10 @@
                     </div>
                     <div id="loggedInPanel" class="logged-in-panel" style="display:none;">
                         <div class="acc-greeting"><span data-i18n="accSignedInAs">Zalogowano jako</span>: <strong id="loggedEmail"></strong></div>
+                        <div class="auth-msg show error" id="accVerifyBanner" style="display:none; width:100%;">
+                            <span data-i18n="verifyGateTitle">Potwierdź adres e-mail</span> -
+                            <button type="button" class="btn-link" style="color:inherit; text-decoration:underline;" onclick="resendVerificationEmail()"><span data-i18n="resendVerifyBtn">Wyślij ponownie</span></button>
+                        </div>
                         <p class="auth-note" data-i18n="authNoteLogged"></p>
                         <button class="btn-danger-ghost" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> <span data-i18n="logoutBtn">Wyloguj</span></button>
 
@@ -996,6 +1132,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </section>
 
@@ -1227,6 +1364,7 @@ const translations = {
         priv3: "W każdej chwili możesz wyeksportować lub trwale usunąć wszystkie swoje dane - prosto z panelu konta.",
         landingFootNote: "Wszystkie funkcje śledzenia wymagają darmowego konta. Założysz je w mniej niż minutę.",
         heroFact1: "12 języków", heroFact2: "20+ walut", heroFact3: "Za darmo, bez karty",
+        heroReceiptTotal: "Suma", heroReceiptStamp: "ZAPISANE",
         accSignedInAs: "Zalogowano jako",
         accProfileHead: "Profil",
         fldNickname: "Pseudonim",
@@ -1255,13 +1393,14 @@ const translations = {
         appTitle: "Backlog Wallet", menu: "Menu", navHome: "Strona główna", navAuth: "Logowanie / Rejestracja", navFaq: "FAQ", navChangelog: "Changelog", navDonate: "Donate", language: "Język",
         guestMode: "Tryb gościa", loggedInAs: "Zalogowano jako:",
         gameTitle: "Tytuł gry", price: "Cena", currency: "Waluta", source: "Źródło", purchaseDate: "Data zakupu", addBtn: "Dodaj", saveBtn: "Zapisz", cancelBtn: "Anuluj", addGame: "Dodaj grę",
+        addFormShow: "Pokaż formularz", addFormHide: "Ukryj formularz",
         myLibrary: "Twoja Biblioteka", colPlatform: "Platforma", colOrigPrice: "Cena Oryginalna", colChfPrice: "Wartość CHF", colOptions: "Opcje", totalValue: "Wartość biblioteki",
         statTotalGames: "Liczba gier", statThisMonth: "W tym miesiącu", statThisYear: "W tym roku",
         chartsTitle: "Statystyki", chartOptPurchases: "Zakupy w czasie", chartOptCumulative: "Suma rosnąca", chartOptSources: "Źródła",
         granMonth: "Miesiąc", granQuarter: "Kwartał", granYear: "Rok",
         chartPurchases: "Liczba zakupów", chartCumulative: "Łączna liczba gier", chartSources: "Źródła zakupów",
         steam: "Steam", keyStore: "Kluczykarnia", noData: "Brak danych", noResults: "Brak wyników wyszukiwania",
-        liveRates: "Na żywo", offlineRates: "Offline", confirmDel: "Usunąć pozycję?", feat5T: "Ranking graczy", feat5D: "Sprawdź, jak Twoja biblioteka wypada na tle innych zalogowanych użytkowników.", suspiciousName: "Nazwa gry wygląda na fikcyjną lub śmieciową - popraw ją, aby dodać pozycję.", navRanking: "Ranking", rankingTitle: "Ranking wartości bibliotek", rankingColRank: "Miejsce", rankingColNickname: "Gracz", rankingColValue: "Wartość (EUR)", rankingYou: "Ty", rankingEmpty: "Ranking jest jeszcze pusty.", rankingNote: "Ranking liczony jest bezpośrednio z danych zapisanych na koncie w chwili wyświetlenia - nie da się go ręcznie podbić bez faktycznego dodania gier.", vsLastMonth: "vs poprzedni miesiąc", bannedMsg: "To konto zostało zablokowane przez administratora.", anonNickname: "Gracz",
+        liveRates: "Na żywo", offlineRates: "Offline", confirmDel: "Usunąć pozycję?", feat5T: "Ranking graczy", feat5D: "Sprawdź, jak Twoja biblioteka wypada na tle innych zalogowanych użytkowników.", suspiciousName: "Nazwa gry wygląda na fikcyjną lub śmieciową - popraw ją, aby dodać pozycję.", priceTooHigh: "Ta cena wygląda na nierealistyczną (limit: 2000 CHF równowartości) - popraw ją, aby dodać pozycję.", navRanking: "Ranking", rankingTitle: "Ranking wartości bibliotek", rankingColRank: "Miejsce", rankingColNickname: "Gracz", rankingColValue: "Wartość (EUR)", rankingYou: "Ty", rankingEmpty: "Ranking jest jeszcze pusty.", rankingNote: "Ranking liczony jest bezpośrednio z danych zapisanych na koncie w chwili wyświetlenia - nie da się go ręcznie podbić bez faktycznego dodania gier.", vsLastMonth: "vs poprzedni miesiąc", bannedMsg: "To konto zostało zablokowane przez administratora.", anonNickname: "Gracz",
         searchPh: "Szukaj gry...", exportCsv: "Eksport CSV",
         tabLogin: "Logowanie", tabRegister: "Rejestracja", tabReset: "Reset hasła",
         email: "E-mail", password: "Hasło", loginBtn: "Zaloguj się", registerBtn: "Zarejestruj się", resetBtn: "Wyślij link resetujący", logoutBtn: "Wyloguj",
@@ -1270,6 +1409,7 @@ const translations = {
         regPrivacyNote: "Podczas rejestracji na podstawie Twojego adresu IP ustalamy wyłącznie kraj (np. „PL”) - sam adres IP nie jest nigdzie zapisywany. Kraj widoczny jest w panelu administratora w celach bezpieczeństwa/nadzoru nad kontami. Szczegóły w Polityce prywatności.",
         resetSent: "Link do resetu hasła został wysłany na podany adres e-mail. Sprawdź też folder spam.",
         registerOk: "Konto utworzone. Zalogowano automatycznie.",
+        registerCheckEmail: "Konto utworzone! Sprawdź skrzynkę e-mail i potwierdź adres, aby aktywować konto.", verifyGateTitle: "Potwierdź adres e-mail", verifyGateBody: "Wysłaliśmy link potwierdzający na Twój adres e-mail. Kliknij go, a potem wróć tutaj i sprawdź ponownie.", resendVerifyBtn: "Wyślij ponownie", recheckVerifyBtn: "Sprawdź ponownie", verifyEmailSent: "Wysłano ponownie e-mail z potwierdzeniem.", verifyStillNotVerified: "Adres wciąż niepotwierdzony - sprawdź skrzynkę (też SPAM).", verifyNowVerified: "Adres e-mail potwierdzony!",
         loginOk: "Zalogowano pomyślnie.", logoutOk: "Wylogowano. Wróciłeś do trybu gościa.",
         authErrInvalid: "Nieprawidłowy e-mail lub hasło.", authErrInUse: "Ten e-mail jest już zarejestrowany.", authErrWeak: "Hasło musi mieć co najmniej 6 znaków.", authErrNoUser: "Nie znaleziono konta z tym adresem e-mail.", authErrGeneric: "Wystąpił błąd. Spróbuj ponownie.",
         firebaseNotConfigured: "Firebase nie jest skonfigurowany. Wklej swój config w pliku (sekcja KONFIGURACJA FIREBASE).",
@@ -1305,6 +1445,7 @@ const translations = {
         priv3: "You can export or permanently delete all of your data at any time, straight from your account.",
         landingFootNote: "All tracking features require a free account. It takes less than a minute to set up.",
         heroFact1: "12 languages", heroFact2: "20+ currencies", heroFact3: "Free, no card required",
+        heroReceiptTotal: "Total", heroReceiptStamp: "SAVED",
         accSignedInAs: "Signed in as",
         accProfileHead: "Profile",
         fldNickname: "Nickname",
@@ -1333,13 +1474,14 @@ const translations = {
         appTitle: "Backlog Wallet", menu: "Menu", navHome: "Home", navAuth: "Login / Register", navFaq: "FAQ", navChangelog: "Changelog", navDonate: "Donate", language: "Language",
         guestMode: "Guest mode", loggedInAs: "Logged in as:",
         gameTitle: "Game Title", price: "Price", currency: "Currency", source: "Source", purchaseDate: "Purchase Date", addBtn: "Add", saveBtn: "Save", cancelBtn: "Cancel", addGame: "Add game",
+        addFormShow: "Show form", addFormHide: "Hide form",
         myLibrary: "Your Library", colPlatform: "Platform", colOrigPrice: "Original Price", colChfPrice: "CHF Value", colOptions: "Options", totalValue: "Library value",
         statTotalGames: "Games total", statThisMonth: "This month", statThisYear: "This year",
         chartsTitle: "Statistics", chartOptPurchases: "Purchases over time", chartOptCumulative: "Cumulative total", chartOptSources: "Sources",
         granMonth: "Month", granQuarter: "Quarter", granYear: "Year",
         chartPurchases: "Number of purchases", chartCumulative: "Total games owned", chartSources: "Purchase sources",
         steam: "Steam", keyStore: "Key Store", noData: "No data", noResults: "No search results",
-        liveRates: "Live", offlineRates: "Offline", confirmDel: "Delete this item?", feat5T: "Player ranking", feat5D: "See how your library stacks up against other signed-in users.", suspiciousName: "That game title looks fake or made up - please fix it to add the entry.", navRanking: "Ranking", rankingTitle: "Library Value Ranking", rankingColRank: "Rank", rankingColNickname: "Player", rankingColValue: "Value (EUR)", rankingYou: "You", rankingEmpty: "The ranking is still empty.", rankingNote: "The ranking is calculated directly from the data stored on each account at the moment it's displayed - it can't be manually inflated without actually adding games.", vsLastMonth: "vs last month", bannedMsg: "This account has been banned by the administrator.", anonNickname: "Player",
+        liveRates: "Live", offlineRates: "Offline", confirmDel: "Delete this item?", feat5T: "Player ranking", feat5D: "See how your library stacks up against other signed-in users.", suspiciousName: "That game title looks fake or made up - please fix it to add the entry.", priceTooHigh: "That price looks unrealistic (limit: 2000 CHF equivalent) - please fix it to add the entry.", navRanking: "Ranking", rankingTitle: "Library Value Ranking", rankingColRank: "Rank", rankingColNickname: "Player", rankingColValue: "Value (EUR)", rankingYou: "You", rankingEmpty: "The ranking is still empty.", rankingNote: "The ranking is calculated directly from the data stored on each account at the moment it's displayed - it can't be manually inflated without actually adding games.", vsLastMonth: "vs last month", bannedMsg: "This account has been banned by the administrator.", anonNickname: "Player",
         searchPh: "Search games...", exportCsv: "Export CSV",
         tabLogin: "Login", tabRegister: "Register", tabReset: "Reset password",
         email: "E-mail", password: "Password", loginBtn: "Log in", registerBtn: "Sign up", resetBtn: "Send reset link", logoutBtn: "Log out",
@@ -1348,6 +1490,7 @@ const translations = {
         regPrivacyNote: "During registration we determine only your country (e.g. \"PL\") from your IP address - the IP address itself is never stored. The country is visible in the administrator panel for account security/oversight purposes. See the Privacy Policy for details.",
         resetSent: "A password reset link has been sent to your e-mail. Check your spam folder too.",
         registerOk: "Account created. You are now logged in.",
+        registerCheckEmail: "Account created! Check your inbox and confirm your email to activate your account.", verifyGateTitle: "Confirm your email address", verifyGateBody: "We've sent a confirmation link to your email. Click it, then come back here and check again.", resendVerifyBtn: "Resend email", recheckVerifyBtn: "Check again", verifyEmailSent: "Confirmation email resent.", verifyStillNotVerified: "Still not confirmed - check your inbox (and spam folder).", verifyNowVerified: "Email address confirmed!",
         loginOk: "Logged in successfully.", logoutOk: "Logged out. You are back in guest mode.",
         authErrInvalid: "Invalid e-mail or password.", authErrInUse: "This e-mail is already registered.", authErrWeak: "Password must be at least 6 characters.", authErrNoUser: "No account found with this e-mail.", authErrGeneric: "Something went wrong. Please try again.",
         firebaseNotConfigured: "Firebase is not configured. Paste your config in the file (FIREBASE CONFIG section).",
@@ -1383,6 +1526,7 @@ const translations = {
         priv3: "Du kannst all deine Daten jederzeit exportieren oder dauerhaft löschen - direkt aus deinem Konto.",
         landingFootNote: "Alle Tracking-Funktionen erfordern ein kostenloses Konto. Die Einrichtung dauert weniger als eine Minute.",
         heroFact1: "12 Sprachen", heroFact2: "20+ Währungen", heroFact3: "Kostenlos, keine Karte nötig",
+        heroReceiptTotal: "Summe", heroReceiptStamp: "GESPEICHERT",
         accSignedInAs: "Angemeldet als",
         accProfileHead: "Profil",
         fldNickname: "Spitzname",
@@ -1411,13 +1555,14 @@ const translations = {
         appTitle: "Backlog Wallet", menu: "Menü", navHome: "Startseite", navAuth: "Anmelden / Registrieren", navFaq: "FAQ", navChangelog: "Changelog", navDonate: "Spenden", language: "Sprache",
         guestMode: "Gastmodus", loggedInAs: "Angemeldet als:",
         gameTitle: "Spieltitel", price: "Preis", currency: "Währung", source: "Quelle", purchaseDate: "Kaufdatum", addBtn: "Hinzufügen", saveBtn: "Speichern", cancelBtn: "Abbrechen", addGame: "Spiel hinzufügen",
+        addFormShow: "Formular anzeigen", addFormHide: "Formular ausblenden",
         myLibrary: "Deine Bibliothek", colPlatform: "Plattform", colOrigPrice: "Originalpreis", colChfPrice: "CHF-Wert", colOptions: "Optionen", totalValue: "Bibliothekswert",
         statTotalGames: "Spiele gesamt", statThisMonth: "Diesen Monat", statThisYear: "Dieses Jahr",
         chartsTitle: "Statistiken", chartOptPurchases: "Käufe im Zeitverlauf", chartOptCumulative: "Kumulierte Summe", chartOptSources: "Quellen",
         granMonth: "Monat", granQuarter: "Quartal", granYear: "Jahr",
         chartPurchases: "Anzahl der Käufe", chartCumulative: "Spiele insgesamt", chartSources: "Kaufquellen",
         steam: "Steam", keyStore: "Key-Shop", noData: "Keine Daten", noResults: "Keine Suchergebnisse",
-        liveRates: "Live", offlineRates: "Offline", confirmDel: "Eintrag löschen?", feat5T: "Spieler-Rangliste", feat5D: "Sieh, wie deine Bibliothek im Vergleich zu anderen angemeldeten Nutzern abschneidet.", suspiciousName: "Dieser Spieltitel wirkt frei erfunden - bitte korrigiere ihn, um den Eintrag hinzuzufügen.", navRanking: "Rangliste", rankingTitle: "Rangliste nach Bibliothekswert", rankingColRank: "Platz", rankingColNickname: "Spieler", rankingColValue: "Wert (EUR)", rankingYou: "Du", rankingEmpty: "Die Rangliste ist noch leer.", rankingNote: "Die Rangliste wird direkt aus den zum Anzeigezeitpunkt gespeicherten Kontodaten berechnet - sie lässt sich nicht künstlich aufblähen, ohne tatsächlich Spiele hinzuzufügen.", vsLastMonth: "vs. letzter Monat", bannedMsg: "Dieses Konto wurde vom Administrator gesperrt.", anonNickname: "Spieler",
+        liveRates: "Live", offlineRates: "Offline", confirmDel: "Eintrag löschen?", feat5T: "Spieler-Rangliste", feat5D: "Sieh, wie deine Bibliothek im Vergleich zu anderen angemeldeten Nutzern abschneidet.", suspiciousName: "Dieser Spieltitel wirkt frei erfunden - bitte korrigiere ihn, um den Eintrag hinzuzufügen.", priceTooHigh: "Dieser Preis wirkt unrealistisch (Limit: 2000 CHF Gegenwert) - bitte korrigiere ihn, um den Eintrag hinzuzufügen.", navRanking: "Rangliste", rankingTitle: "Rangliste nach Bibliothekswert", rankingColRank: "Platz", rankingColNickname: "Spieler", rankingColValue: "Wert (EUR)", rankingYou: "Du", rankingEmpty: "Die Rangliste ist noch leer.", rankingNote: "Die Rangliste wird direkt aus den zum Anzeigezeitpunkt gespeicherten Kontodaten berechnet - sie lässt sich nicht künstlich aufblähen, ohne tatsächlich Spiele hinzuzufügen.", vsLastMonth: "vs. letzter Monat", bannedMsg: "Dieses Konto wurde vom Administrator gesperrt.", anonNickname: "Spieler",
         searchPh: "Spiele suchen...", exportCsv: "CSV-Export",
         tabLogin: "Anmelden", tabRegister: "Registrieren", tabReset: "Passwort zurücksetzen",
         email: "E-Mail", password: "Passwort", loginBtn: "Anmelden", registerBtn: "Registrieren", resetBtn: "Reset-Link senden", logoutBtn: "Abmelden",
@@ -1426,6 +1571,7 @@ const translations = {
         regPrivacyNote: "Bei der Registrierung ermitteln wir anhand deiner IP-Adresse nur dein Land (z. B. „DE\") - die IP-Adresse selbst wird nicht gespeichert. Das Land ist im Administrationsbereich zu Sicherheits-/Aufsichtszwecken sichtbar. Details in der Datenschutzerklärung.",
         resetSent: "Ein Link zum Zurücksetzen des Passworts wurde an deine E-Mail gesendet. Prüfe auch den Spam-Ordner.",
         registerOk: "Konto erstellt. Du bist jetzt angemeldet.",
+        registerCheckEmail: "Konto erstellt! Prüfe dein Postfach und bestätige deine E-Mail-Adresse, um dein Konto zu aktivieren.", verifyGateTitle: "Bestätige deine E-Mail-Adresse", verifyGateBody: "Wir haben dir einen Bestätigungslink per E-Mail geschickt. Klicke ihn an und komm dann hierher zurück, um erneut zu prüfen.", resendVerifyBtn: "Erneut senden", recheckVerifyBtn: "Erneut prüfen", verifyEmailSent: "Bestätigungs-E-Mail erneut gesendet.", verifyStillNotVerified: "Noch nicht bestätigt - prüfe dein Postfach (auch den Spam-Ordner).", verifyNowVerified: "E-Mail-Adresse bestätigt!",
         loginOk: "Erfolgreich angemeldet.", logoutOk: "Abgemeldet. Du bist zurück im Gastmodus.",
         authErrInvalid: "Ungültige E-Mail oder Passwort.", authErrInUse: "Diese E-Mail ist bereits registriert.", authErrWeak: "Das Passwort muss mindestens 6 Zeichen lang sein.", authErrNoUser: "Kein Konto mit dieser E-Mail gefunden.", authErrGeneric: "Etwas ist schiefgelaufen. Bitte erneut versuchen.",
         firebaseNotConfigured: "Firebase ist nicht konfiguriert. Füge deine Konfiguration in der Datei ein (Abschnitt FIREBASE CONFIG).",
@@ -1461,6 +1607,7 @@ const translations = {
         priv3: "Vous pouvez exporter ou supprimer définitivement toutes vos données à tout moment, directement depuis votre compte.",
         landingFootNote: "Toutes les fonctions de suivi nécessitent un compte gratuit. La création prend moins d'une minute.",
         heroFact1: "12 langues", heroFact2: "20+ devises", heroFact3: "Gratuit, sans carte bancaire",
+        heroReceiptTotal: "Total", heroReceiptStamp: "ENREGISTRÉ",
         accSignedInAs: "Connecté en tant que",
         accProfileHead: "Profil",
         fldNickname: "Pseudo",
@@ -1489,13 +1636,14 @@ const translations = {
         appTitle: "Backlog Wallet", menu: "Menu", navHome: "Accueil", navAuth: "Connexion / Inscription", navFaq: "FAQ", navChangelog: "Changelog", navDonate: "Faire un don", language: "Langue",
         guestMode: "Mode invité", loggedInAs: "Connecté en tant que :",
         gameTitle: "Titre du jeu", price: "Prix", currency: "Devise", source: "Source", purchaseDate: "Date d'achat", addBtn: "Ajouter", saveBtn: "Sauvegarder", cancelBtn: "Annuler", addGame: "Ajouter un jeu",
+        addFormShow: "Afficher le formulaire", addFormHide: "Masquer le formulaire",
         myLibrary: "Votre Bibliothèque", colPlatform: "Plateforme", colOrigPrice: "Prix Original", colChfPrice: "Valeur CHF", colOptions: "Options", totalValue: "Valeur de la bibliothèque",
         statTotalGames: "Jeux au total", statThisMonth: "Ce mois-ci", statThisYear: "Cette année",
         chartsTitle: "Statistiques", chartOptPurchases: "Achats dans le temps", chartOptCumulative: "Total cumulé", chartOptSources: "Sources",
         granMonth: "Mois", granQuarter: "Trimestre", granYear: "Année",
         chartPurchases: "Nombre d'achats", chartCumulative: "Total de jeux possédés", chartSources: "Sources d'achat",
         steam: "Steam", keyStore: "Boutique de clés", noData: "Aucune donnée", noResults: "Aucun résultat",
-        liveRates: "En direct", offlineRates: "Hors ligne", confirmDel: "Supprimer cet élément ?", feat5T: "Classement des joueurs", feat5D: "Découvrez comment votre bibliothèque se compare à celle des autres utilisateurs connectés.", suspiciousName: "Ce titre de jeu semble fictif ou inventé - corrigez-le pour ajouter l'entrée.", navRanking: "Classement", rankingTitle: "Classement par valeur de bibliothèque", rankingColRank: "Rang", rankingColNickname: "Joueur", rankingColValue: "Valeur (EUR)", rankingYou: "Vous", rankingEmpty: "Le classement est encore vide.", rankingNote: "Le classement est calculé directement à partir des données enregistrées sur chaque compte au moment de l'affichage - il ne peut pas être gonflé artificiellement sans ajouter réellement des jeux.", vsLastMonth: "vs mois dernier", bannedMsg: "Ce compte a été banni par l'administrateur.", anonNickname: "Joueur",
+        liveRates: "En direct", offlineRates: "Hors ligne", confirmDel: "Supprimer cet élément ?", feat5T: "Classement des joueurs", feat5D: "Découvrez comment votre bibliothèque se compare à celle des autres utilisateurs connectés.", suspiciousName: "Ce titre de jeu semble fictif ou inventé - corrigez-le pour ajouter l'entrée.", priceTooHigh: "Ce prix semble irréaliste (limite : équivalent de 2000 CHF) - corrigez-le pour ajouter l'entrée.", navRanking: "Classement", rankingTitle: "Classement par valeur de bibliothèque", rankingColRank: "Rang", rankingColNickname: "Joueur", rankingColValue: "Valeur (EUR)", rankingYou: "Vous", rankingEmpty: "Le classement est encore vide.", rankingNote: "Le classement est calculé directement à partir des données enregistrées sur chaque compte au moment de l'affichage - il ne peut pas être gonflé artificiellement sans ajouter réellement des jeux.", vsLastMonth: "vs mois dernier", bannedMsg: "Ce compte a été banni par l'administrateur.", anonNickname: "Joueur",
         searchPh: "Rechercher un jeu...", exportCsv: "Export CSV",
         tabLogin: "Connexion", tabRegister: "Inscription", tabReset: "Réinitialiser",
         email: "E-mail", password: "Mot de passe", loginBtn: "Se connecter", registerBtn: "S'inscrire", resetBtn: "Envoyer le lien", logoutBtn: "Se déconnecter",
@@ -1504,6 +1652,7 @@ const translations = {
         regPrivacyNote: "Lors de l'inscription, nous déterminons uniquement votre pays (par ex. « FR ») à partir de votre adresse IP - l'adresse IP elle-même n'est jamais stockée. Le pays est visible dans le panneau d'administration à des fins de sécurité/surveillance des comptes. Détails dans la Politique de confidentialité.",
         resetSent: "Un lien de réinitialisation a été envoyé à votre e-mail. Vérifiez aussi les spams.",
         registerOk: "Compte créé. Vous êtes maintenant connecté.",
+        registerCheckEmail: "Compte créé ! Vérifiez votre boîte mail et confirmez votre adresse pour activer votre compte.", verifyGateTitle: "Confirmez votre adresse e-mail", verifyGateBody: "Nous avons envoyé un lien de confirmation à votre adresse e-mail. Cliquez dessus, puis revenez ici et vérifiez à nouveau.", resendVerifyBtn: "Renvoyer l'e-mail", recheckVerifyBtn: "Vérifier à nouveau", verifyEmailSent: "E-mail de confirmation renvoyé.", verifyStillNotVerified: "Toujours pas confirmé - vérifiez votre boîte mail (et les spams).", verifyNowVerified: "Adresse e-mail confirmée !",
         loginOk: "Connexion réussie.", logoutOk: "Déconnecté. Retour au mode invité.",
         authErrInvalid: "E-mail ou mot de passe invalide.", authErrInUse: "Cet e-mail est déjà enregistré.", authErrWeak: "Le mot de passe doit contenir au moins 6 caractères.", authErrNoUser: "Aucun compte trouvé avec cet e-mail.", authErrGeneric: "Une erreur est survenue. Réessayez.",
         firebaseNotConfigured: "Firebase n'est pas configuré. Collez votre config dans le fichier (section FIREBASE CONFIG).",
@@ -1539,6 +1688,7 @@ const translations = {
         priv3: "Puoi esportare o eliminare definitivamente tutti i tuoi dati in qualsiasi momento, direttamente dal tuo account.",
         landingFootNote: "Tutte le funzioni di tracciamento richiedono un account gratuito. La configurazione richiede meno di un minuto.",
         heroFact1: "12 lingue", heroFact2: "20+ valute", heroFact3: "Gratis, senza carta",
+        heroReceiptTotal: "Totale", heroReceiptStamp: "SALVATO",
         accSignedInAs: "Connesso come",
         accProfileHead: "Profilo",
         fldNickname: "Soprannome",
@@ -1567,13 +1717,14 @@ const translations = {
         appTitle: "Backlog Wallet", menu: "Menu", navHome: "Home", navAuth: "Accesso / Registrazione", navFaq: "FAQ", navChangelog: "Changelog", navDonate: "Dona", language: "Lingua",
         guestMode: "Modalità ospite", loggedInAs: "Accesso come:",
         gameTitle: "Titolo Gioco", price: "Prezzo", currency: "Valuta", source: "Fonte", purchaseDate: "Data di acquisto", addBtn: "Aggiungi", saveBtn: "Salva", cancelBtn: "Annulla", addGame: "Aggiungi gioco",
+        addFormShow: "Mostra modulo", addFormHide: "Nascondi modulo",
         myLibrary: "La tua Libreria", colPlatform: "Piattaforma", colOrigPrice: "Prezzo Originale", colChfPrice: "Valore CHF", colOptions: "Opzioni", totalValue: "Valore libreria",
         statTotalGames: "Giochi totali", statThisMonth: "Questo mese", statThisYear: "Quest'anno",
         chartsTitle: "Statistiche", chartOptPurchases: "Acquisti nel tempo", chartOptCumulative: "Totale cumulativo", chartOptSources: "Fonti",
         granMonth: "Mese", granQuarter: "Trimestre", granYear: "Anno",
         chartPurchases: "Numero di acquisti", chartCumulative: "Totale giochi posseduti", chartSources: "Fonti di acquisto",
         steam: "Steam", keyStore: "Negozio di chiavi", noData: "Nessun dato", noResults: "Nessun risultato",
-        liveRates: "Live", offlineRates: "Offline", confirmDel: "Eliminare questo elemento?", feat5T: "Classifica giocatori", feat5D: "Scopri come si posiziona la tua libreria rispetto ad altri utenti registrati.", suspiciousName: "Questo titolo del gioco sembra falso o inventato - correggilo per aggiungere la voce.", navRanking: "Classifica", rankingTitle: "Classifica del valore della libreria", rankingColRank: "Posizione", rankingColNickname: "Giocatore", rankingColValue: "Valore (EUR)", rankingYou: "Tu", rankingEmpty: "La classifica è ancora vuota.", rankingNote: "La classifica viene calcolata direttamente dai dati salvati sull'account al momento della visualizzazione - non può essere gonfiata artificialmente senza aggiungere davvero dei giochi.", vsLastMonth: "vs mese scorso", bannedMsg: "Questo account è stato bannato dall'amministratore.", anonNickname: "Giocatore",
+        liveRates: "Live", offlineRates: "Offline", confirmDel: "Eliminare questo elemento?", feat5T: "Classifica giocatori", feat5D: "Scopri come si posiziona la tua libreria rispetto ad altri utenti registrati.", suspiciousName: "Questo titolo del gioco sembra falso o inventato - correggilo per aggiungere la voce.", priceTooHigh: "Questo prezzo sembra irrealistico (limite: equivalente a 2000 CHF) - correggilo per aggiungere la voce.", navRanking: "Classifica", rankingTitle: "Classifica del valore della libreria", rankingColRank: "Posizione", rankingColNickname: "Giocatore", rankingColValue: "Valore (EUR)", rankingYou: "Tu", rankingEmpty: "La classifica è ancora vuota.", rankingNote: "La classifica viene calcolata direttamente dai dati salvati sull'account al momento della visualizzazione - non può essere gonfiata artificialmente senza aggiungere davvero dei giochi.", vsLastMonth: "vs mese scorso", bannedMsg: "Questo account è stato bannato dall'amministratore.", anonNickname: "Giocatore",
         searchPh: "Cerca giochi...", exportCsv: "Esporta CSV",
         tabLogin: "Accesso", tabRegister: "Registrazione", tabReset: "Reimposta password",
         email: "E-mail", password: "Password", loginBtn: "Accedi", registerBtn: "Registrati", resetBtn: "Invia link di reset", logoutBtn: "Esci",
@@ -1582,6 +1733,7 @@ const translations = {
         regPrivacyNote: "Durante la registrazione determiniamo solo il tuo paese (es. «IT») dal tuo indirizzo IP - l'indirizzo IP stesso non viene mai salvato. Il paese è visibile nel pannello di amministrazione per finalità di sicurezza/supervisione degli account. Dettagli nell'Informativa sulla privacy.",
         resetSent: "Un link per reimpostare la password è stato inviato alla tua e-mail. Controlla anche lo spam.",
         registerOk: "Account creato. Ora sei connesso.",
+        registerCheckEmail: "Account creato! Controlla la posta e conferma il tuo indirizzo e-mail per attivare l'account.", verifyGateTitle: "Conferma il tuo indirizzo e-mail", verifyGateBody: "Abbiamo inviato un link di conferma alla tua e-mail. Cliccalo, poi torna qui e controlla di nuovo.", resendVerifyBtn: "Invia di nuovo", recheckVerifyBtn: "Controlla di nuovo", verifyEmailSent: "E-mail di conferma inviata di nuovo.", verifyStillNotVerified: "Ancora non confermato - controlla la posta (anche lo spam).", verifyNowVerified: "Indirizzo e-mail confermato!",
         loginOk: "Accesso effettuato.", logoutOk: "Disconnesso. Sei tornato in modalità ospite.",
         authErrInvalid: "E-mail o password non validi.", authErrInUse: "Questa e-mail è già registrata.", authErrWeak: "La password deve avere almeno 6 caratteri.", authErrNoUser: "Nessun account trovato con questa e-mail.", authErrGeneric: "Si è verificato un errore. Riprova.",
         firebaseNotConfigured: "Firebase non è configurato. Incolla la tua config nel file (sezione FIREBASE CONFIG).",
@@ -1617,6 +1769,7 @@ const translations = {
         priv3: "Puedes exportar o eliminar de forma permanente todos tus datos en cualquier momento, directamente desde tu cuenta.",
         landingFootNote: "Todas las funciones de seguimiento requieren una cuenta gratuita. Configurarla lleva menos de un minuto.",
         heroFact1: "12 idiomas", heroFact2: "20+ monedas", heroFact3: "Gratis, sin tarjeta",
+        heroReceiptTotal: "Total", heroReceiptStamp: "GUARDADO",
         accSignedInAs: "Sesión iniciada como",
         accProfileHead: "Perfil",
         fldNickname: "Apodo",
@@ -1645,13 +1798,14 @@ const translations = {
         appTitle: "Backlog Wallet", menu: "Menú", navHome: "Inicio", navAuth: "Iniciar sesión / Registro", navFaq: "FAQ", navChangelog: "Changelog", navDonate: "Donar", language: "Idioma",
         guestMode: "Modo invitado", loggedInAs: "Sesión iniciada como:",
         gameTitle: "Título del juego", price: "Precio", currency: "Moneda", source: "Fuente", purchaseDate: "Fecha de compra", addBtn: "Añadir", saveBtn: "Guardar", cancelBtn: "Cancelar", addGame: "Añadir juego",
+        addFormShow: "Mostrar formulario", addFormHide: "Ocultar formulario",
         myLibrary: "Tu Biblioteca", colPlatform: "Plataforma", colOrigPrice: "Precio Original", colChfPrice: "Valor CHF", colOptions: "Opciones", totalValue: "Valor de la biblioteca",
         statTotalGames: "Juegos en total", statThisMonth: "Este mes", statThisYear: "Este año",
         chartsTitle: "Estadísticas", chartOptPurchases: "Compras en el tiempo", chartOptCumulative: "Total acumulado", chartOptSources: "Fuentes",
         granMonth: "Mes", granQuarter: "Trimestre", granYear: "Año",
         chartPurchases: "Número de compras", chartCumulative: "Total de juegos", chartSources: "Fuentes de compra",
         steam: "Steam", keyStore: "Tienda de claves", noData: "Sin datos", noResults: "Sin resultados",
-        liveRates: "En vivo", offlineRates: "Sin conexión", confirmDel: "¿Eliminar este elemento?", feat5T: "Clasificación de jugadores", feat5D: "Descubre cómo se compara tu biblioteca con la de otros usuarios registrados.", suspiciousName: "Ese título de juego parece falso o inventado - corrígelo para añadir el registro.", navRanking: "Clasificación", rankingTitle: "Clasificación por valor de biblioteca", rankingColRank: "Puesto", rankingColNickname: "Jugador", rankingColValue: "Valor (EUR)", rankingYou: "Tú", rankingEmpty: "La clasificación todavía está vacía.", rankingNote: "La clasificación se calcula directamente a partir de los datos guardados en cada cuenta en el momento de mostrarla - no se puede inflar manualmente sin añadir juegos de verdad.", vsLastMonth: "vs mes anterior", bannedMsg: "Esta cuenta ha sido bloqueada por el administrador.", anonNickname: "Jugador",
+        liveRates: "En vivo", offlineRates: "Sin conexión", confirmDel: "¿Eliminar este elemento?", feat5T: "Clasificación de jugadores", feat5D: "Descubre cómo se compara tu biblioteca con la de otros usuarios registrados.", suspiciousName: "Ese título de juego parece falso o inventado - corrígelo para añadir el registro.", priceTooHigh: "Ese precio parece poco realista (límite: equivalente a 2000 CHF) - corrígelo para añadir el registro.", navRanking: "Clasificación", rankingTitle: "Clasificación por valor de biblioteca", rankingColRank: "Puesto", rankingColNickname: "Jugador", rankingColValue: "Valor (EUR)", rankingYou: "Tú", rankingEmpty: "La clasificación todavía está vacía.", rankingNote: "La clasificación se calcula directamente a partir de los datos guardados en cada cuenta en el momento de mostrarla - no se puede inflar manualmente sin añadir juegos de verdad.", vsLastMonth: "vs mes anterior", bannedMsg: "Esta cuenta ha sido bloqueada por el administrador.", anonNickname: "Jugador",
         searchPh: "Buscar juegos...", exportCsv: "Exportar CSV",
         tabLogin: "Iniciar sesión", tabRegister: "Registro", tabReset: "Restablecer",
         email: "E-mail", password: "Contraseña", loginBtn: "Entrar", registerBtn: "Registrarse", resetBtn: "Enviar enlace", logoutBtn: "Cerrar sesión",
@@ -1660,6 +1814,7 @@ const translations = {
         regPrivacyNote: "Durante el registro determinamos únicamente tu país (p. ej. «ES») a partir de tu dirección IP - la dirección IP en sí nunca se almacena. El país es visible en el panel de administración con fines de seguridad/supervisión de cuentas. Más detalles en la Política de Privacidad.",
         resetSent: "Se envió un enlace de restablecimiento a tu e-mail. Revisa también el spam.",
         registerOk: "Cuenta creada. Ya has iniciado sesión.",
+        registerCheckEmail: "¡Cuenta creada! Revisa tu correo y confirma tu dirección para activar la cuenta.", verifyGateTitle: "Confirma tu dirección de correo", verifyGateBody: "Te hemos enviado un enlace de confirmación a tu correo. Haz clic en él y vuelve aquí para comprobarlo de nuevo.", resendVerifyBtn: "Reenviar correo", recheckVerifyBtn: "Comprobar de nuevo", verifyEmailSent: "Correo de confirmación reenviado.", verifyStillNotVerified: "Todavía no confirmado - revisa tu correo (y la carpeta de spam).", verifyNowVerified: "¡Dirección de correo confirmada!",
         loginOk: "Sesión iniciada correctamente.", logoutOk: "Sesión cerrada. Vuelves al modo invitado.",
         authErrInvalid: "E-mail o contraseña inválidos.", authErrInUse: "Este e-mail ya está registrado.", authErrWeak: "La contraseña debe tener al menos 6 caracteres.", authErrNoUser: "No se encontró una cuenta con este e-mail.", authErrGeneric: "Algo salió mal. Inténtalo de nuevo.",
         firebaseNotConfigured: "Firebase no está configurado. Pega tu config en el archivo (sección FIREBASE CONFIG).",
@@ -1695,6 +1850,7 @@ const translations = {
         priv3: "Você pode exportar ou excluir permanentemente todos os seus dados a qualquer momento, direto da sua conta.",
         landingFootNote: "Todos os recursos de acompanhamento exigem uma conta gratuita. A configuração leva menos de um minuto.",
         heroFact1: "12 idiomas", heroFact2: "20+ moedas", heroFact3: "Grátis, sem cartão",
+        heroReceiptTotal: "Total", heroReceiptStamp: "GUARDADO",
         accSignedInAs: "Conectado como",
         accProfileHead: "Perfil",
         fldNickname: "Apelido",
@@ -1723,13 +1879,14 @@ const translations = {
         appTitle: "Backlog Wallet", menu: "Menu", navHome: "Início", navAuth: "Entrar / Registrar", navFaq: "FAQ", navChangelog: "Changelog", navDonate: "Doar", language: "Idioma",
         guestMode: "Modo convidado", loggedInAs: "Conectado como:",
         gameTitle: "Título do jogo", price: "Preço", currency: "Moeda", source: "Fonte", purchaseDate: "Data de compra", addBtn: "Adicionar", saveBtn: "Salvar", cancelBtn: "Cancelar", addGame: "Adicionar jogo",
+        addFormShow: "Mostrar formulário", addFormHide: "Ocultar formulário",
         myLibrary: "Sua Biblioteca", colPlatform: "Plataforma", colOrigPrice: "Preço Original", colChfPrice: "Valor CHF", colOptions: "Opções", totalValue: "Valor da biblioteca",
         statTotalGames: "Total de jogos", statThisMonth: "Este mês", statThisYear: "Este ano",
         chartsTitle: "Estatísticas", chartOptPurchases: "Compras ao longo do tempo", chartOptCumulative: "Total acumulado", chartOptSources: "Fontes",
         granMonth: "Mês", granQuarter: "Trimestre", granYear: "Ano",
         chartPurchases: "Número de compras", chartCumulative: "Total de jogos", chartSources: "Fontes de compra",
         steam: "Steam", keyStore: "Loja de chaves", noData: "Sem dados", noResults: "Sem resultados",
-        liveRates: "Ao vivo", offlineRates: "Offline", confirmDel: "Excluir este item?", feat5T: "Ranking de jogadores", feat5D: "Veja como sua biblioteca se compara à de outros usuários conectados.", suspiciousName: "Esse título de jogo parece falso ou inventado - corrija-o para adicionar o item.", navRanking: "Ranking", rankingTitle: "Ranking de valor da biblioteca", rankingColRank: "Posição", rankingColNickname: "Jogador", rankingColValue: "Valor (EUR)", rankingYou: "Você", rankingEmpty: "O ranking ainda está vazio.", rankingNote: "O ranking é calculado diretamente a partir dos dados salvos na conta no momento da exibição - não pode ser inflado manualmente sem realmente adicionar jogos.", vsLastMonth: "vs mês passado", bannedMsg: "Esta conta foi banida pelo administrador.", anonNickname: "Jogador",
+        liveRates: "Ao vivo", offlineRates: "Offline", confirmDel: "Excluir este item?", feat5T: "Ranking de jogadores", feat5D: "Veja como sua biblioteca se compara à de outros usuários conectados.", suspiciousName: "Esse título de jogo parece falso ou inventado - corrija-o para adicionar o item.", priceTooHigh: "Esse preço parece irreal (limite: equivalente a 2000 CHF) - corrija-o para adicionar o item.", navRanking: "Ranking", rankingTitle: "Ranking de valor da biblioteca", rankingColRank: "Posição", rankingColNickname: "Jogador", rankingColValue: "Valor (EUR)", rankingYou: "Você", rankingEmpty: "O ranking ainda está vazio.", rankingNote: "O ranking é calculado diretamente a partir dos dados salvos na conta no momento da exibição - não pode ser inflado manualmente sem realmente adicionar jogos.", vsLastMonth: "vs mês passado", bannedMsg: "Esta conta foi banida pelo administrador.", anonNickname: "Jogador",
         searchPh: "Buscar jogos...", exportCsv: "Exportar CSV",
         tabLogin: "Entrar", tabRegister: "Registrar", tabReset: "Redefinir senha",
         email: "E-mail", password: "Senha", loginBtn: "Entrar", registerBtn: "Registrar", resetBtn: "Enviar link", logoutBtn: "Sair",
@@ -1738,6 +1895,7 @@ const translations = {
         regPrivacyNote: "Durante o registro, determinamos apenas o seu país (ex.: «PT») a partir do seu endereço IP - o endereço IP em si nunca é armazenado. O país fica visível no painel de administração para fins de segurança/supervisão de contas. Detalhes na Política de Privacidade.",
         resetSent: "Um link de redefinição de senha foi enviado para seu e-mail. Verifique também o spam.",
         registerOk: "Conta criada. Você já está conectado.",
+        registerCheckEmail: "Conta criada! Verifique seu e-mail e confirme o endereço para ativar sua conta.", verifyGateTitle: "Confirme seu endereço de e-mail", verifyGateBody: "Enviamos um link de confirmação para seu e-mail. Clique nele e depois volte aqui para verificar novamente.", resendVerifyBtn: "Reenviar e-mail", recheckVerifyBtn: "Verificar novamente", verifyEmailSent: "E-mail de confirmação reenviado.", verifyStillNotVerified: "Ainda não confirmado - verifique seu e-mail (e o spam).", verifyNowVerified: "Endereço de e-mail confirmado!",
         loginOk: "Login realizado com sucesso.", logoutOk: "Desconectado. Você voltou ao modo convidado.",
         authErrInvalid: "E-mail ou senha inválidos.", authErrInUse: "Este e-mail já está registrado.", authErrWeak: "A senha deve ter pelo menos 6 caracteres.", authErrNoUser: "Nenhuma conta encontrada com este e-mail.", authErrGeneric: "Algo deu errado. Tente novamente.",
         firebaseNotConfigured: "O Firebase não está configurado. Cole sua config no arquivo (seção FIREBASE CONFIG).",
@@ -1773,6 +1931,7 @@ const translations = {
         priv3: "すべてのデータは、アカウントからいつでもエクスポートまたは完全に削除できます。",
         landingFootNote: "すべての記録機能には無料アカウントが必要です。登録は1分もかかりません。",
         heroFact1: "12言語対応", heroFact2: "20以上の通貨", heroFact3: "無料・カード登録不要",
+        heroReceiptTotal: "合計", heroReceiptStamp: "記録済み",
         accSignedInAs: "ログイン中",
         accProfileHead: "プロフィール",
         fldNickname: "ニックネーム",
@@ -1801,13 +1960,14 @@ const translations = {
         appTitle: "Backlog Wallet", menu: "メニュー", navHome: "ホーム", navAuth: "ログイン / 登録", navFaq: "FAQ", navChangelog: "更新履歴", navDonate: "寄付", language: "言語",
         guestMode: "ゲストモード", loggedInAs: "ログイン中:",
         gameTitle: "ゲームタイトル", price: "価格", currency: "通貨", source: "ソース", purchaseDate: "購入日", addBtn: "追加", saveBtn: "保存", cancelBtn: "キャンセル", addGame: "ゲームを追加",
+        addFormShow: "フォームを表示", addFormHide: "フォームを隠す",
         myLibrary: "ライブラリ", colPlatform: "プラットフォーム", colOrigPrice: "元の価格", colChfPrice: "CHF 価値", colOptions: "オプション", totalValue: "ライブラリの価値",
         statTotalGames: "ゲーム総数", statThisMonth: "今月", statThisYear: "今年",
         chartsTitle: "統計", chartOptPurchases: "期間別の購入数", chartOptCumulative: "累計", chartOptSources: "ソース",
         granMonth: "月", granQuarter: "四半期", granYear: "年",
         chartPurchases: "購入数", chartCumulative: "所有ゲーム累計", chartSources: "購入ソース",
         steam: "Steam", keyStore: "キーストア", noData: "データなし", noResults: "検索結果なし",
-        liveRates: "ライブ", offlineRates: "オフライン", confirmDel: "削除しますか？", feat5T: "プレイヤーランキング", feat5D: "自分のライブラリが他のログインユーザーと比べてどうかを確認できます。", suspiciousName: "そのゲームタイトルは架空・でたらめに見えます。修正してから追加してください。", navRanking: "ランキング", rankingTitle: "ライブラリ価値ランキング", rankingColRank: "順位", rankingColNickname: "プレイヤー", rankingColValue: "価値（EUR）", rankingYou: "あなた", rankingEmpty: "ランキングはまだ空です。", rankingNote: "ランキングは表示時にアカウントに保存されているデータから直接計算されます。実際にゲームを追加せずに数値を水増しすることはできません。", vsLastMonth: "先月比", bannedMsg: "このアカウントは管理者によりBANされました。", anonNickname: "プレイヤー",
+        liveRates: "ライブ", offlineRates: "オフライン", confirmDel: "削除しますか？", feat5T: "プレイヤーランキング", feat5D: "自分のライブラリが他のログインユーザーと比べてどうかを確認できます。", suspiciousName: "そのゲームタイトルは架空・でたらめに見えます。修正してから追加してください。", priceTooHigh: "この価格は非現実的に見えます（上限：2000 CHF相当）。修正してから追加してください。", navRanking: "ランキング", rankingTitle: "ライブラリ価値ランキング", rankingColRank: "順位", rankingColNickname: "プレイヤー", rankingColValue: "価値（EUR）", rankingYou: "あなた", rankingEmpty: "ランキングはまだ空です。", rankingNote: "ランキングは表示時にアカウントに保存されているデータから直接計算されます。実際にゲームを追加せずに数値を水増しすることはできません。", vsLastMonth: "先月比", bannedMsg: "このアカウントは管理者によりBANされました。", anonNickname: "プレイヤー",
         searchPh: "ゲームを検索...", exportCsv: "CSV エクスポート",
         tabLogin: "ログイン", tabRegister: "登録", tabReset: "パスワード再設定",
         email: "メール", password: "パスワード", loginBtn: "ログイン", registerBtn: "登録する", resetBtn: "再設定リンクを送信", logoutBtn: "ログアウト",
@@ -1816,6 +1976,7 @@ const translations = {
         regPrivacyNote: "登録時、IPアドレスから国（例:「JP」）のみを判定します。IPアドレス自体は保存されません。国はアカウントのセキュリティ・監督目的で管理者パネルに表示されます。詳細はプライバシーポリシーをご覧ください。",
         resetSent: "パスワード再設定リンクをメールに送信しました。迷惑メールフォルダもご確認ください。",
         registerOk: "アカウントを作成しました。ログイン済みです。",
+        registerCheckEmail: "アカウントを作成しました！受信箱を確認し、メールアドレスを確認してアカウントを有効化してください。", verifyGateTitle: "メールアドレスを確認してください", verifyGateBody: "確認リンクをメールで送信しました。リンクをクリックしてから、ここに戻って再確認してください。", resendVerifyBtn: "再送信", recheckVerifyBtn: "再確認", verifyEmailSent: "確認メールを再送信しました。", verifyStillNotVerified: "まだ確認されていません - 受信箱（迷惑メールも）を確認してください。", verifyNowVerified: "メールアドレスが確認されました！",
         loginOk: "ログインしました。", logoutOk: "ログアウトしました。ゲストモードに戻りました。",
         authErrInvalid: "メールまたはパスワードが正しくありません。", authErrInUse: "このメールは既に登録されています。", authErrWeak: "パスワードは6文字以上にしてください。", authErrNoUser: "このメールのアカウントが見つかりません。", authErrGeneric: "エラーが発生しました。もう一度お試しください。",
         firebaseNotConfigured: "Firebase が設定されていません。ファイル内の FIREBASE CONFIG セクションに設定を貼り付けてください。",
@@ -1851,6 +2012,7 @@ const translations = {
         priv3: "你可以随时直接在账户中导出或永久删除所有数据。",
         landingFootNote: "所有追踪功能均需要免费账户，注册用时不到一分钟。",
         heroFact1: "支持12种语言", heroFact2: "20多种货币", heroFact3: "完全免费，无需绑卡",
+        heroReceiptTotal: "总计", heroReceiptStamp: "已记录",
         accSignedInAs: "当前登录",
         accProfileHead: "个人资料",
         fldNickname: "昵称",
@@ -1879,13 +2041,14 @@ const translations = {
         appTitle: "Backlog Wallet", menu: "菜单", navHome: "主页", navAuth: "登录 / 注册", navFaq: "常见问题", navChangelog: "更新日志", navDonate: "捐助", language: "语言",
         guestMode: "访客模式", loggedInAs: "已登录：",
         gameTitle: "游戏名称", price: "价格", currency: "货币", source: "来源", purchaseDate: "购买日期", addBtn: "添加", saveBtn: "保存", cancelBtn: "取消", addGame: "添加游戏",
+        addFormShow: "显示表单", addFormHide: "隐藏表单",
         myLibrary: "你的库", colPlatform: "平台", colOrigPrice: "原价", colChfPrice: "CHF 价值", colOptions: "选项", totalValue: "库总价值",
         statTotalGames: "游戏总数", statThisMonth: "本月", statThisYear: "今年",
         chartsTitle: "统计", chartOptPurchases: "按时间的购买量", chartOptCumulative: "累计总数", chartOptSources: "来源",
         granMonth: "月", granQuarter: "季度", granYear: "年",
         chartPurchases: "购买数量", chartCumulative: "累计游戏数", chartSources: "购买来源",
         steam: "Steam", keyStore: "密钥商店", noData: "暂无数据", noResults: "无搜索结果",
-        liveRates: "实时", offlineRates: "离线", confirmDel: "删除此项？", feat5T: "玩家排行榜", feat5D: "查看你的游戏库与其他登录用户相比的排名情况。", suspiciousName: "这个游戏名称看起来是虚构或随意填写的 - 请修改后再添加。", navRanking: "排行榜", rankingTitle: "游戏库价值排行榜", rankingColRank: "名次", rankingColNickname: "玩家", rankingColValue: "价值（欧元）", rankingYou: "你", rankingEmpty: "排行榜暂时是空的。", rankingNote: "排行榜是在显示时直接根据账户中保存的数据计算得出的 - 如果不真正添加游戏，是无法人为抬高数值的。", vsLastMonth: "较上月", bannedMsg: "该账户已被管理员封禁。", anonNickname: "玩家",
+        liveRates: "实时", offlineRates: "离线", confirmDel: "删除此项？", feat5T: "玩家排行榜", feat5D: "查看你的游戏库与其他登录用户相比的排名情况。", suspiciousName: "这个游戏名称看起来是虚构或随意填写的 - 请修改后再添加。", priceTooHigh: "这个价格看起来不合理（上限：相当于2000瑞士法郎）- 请修改后再添加。", navRanking: "排行榜", rankingTitle: "游戏库价值排行榜", rankingColRank: "名次", rankingColNickname: "玩家", rankingColValue: "价值（欧元）", rankingYou: "你", rankingEmpty: "排行榜暂时是空的。", rankingNote: "排行榜是在显示时直接根据账户中保存的数据计算得出的 - 如果不真正添加游戏，是无法人为抬高数值的。", vsLastMonth: "较上月", bannedMsg: "该账户已被管理员封禁。", anonNickname: "玩家",
         searchPh: "搜索游戏...", exportCsv: "导出 CSV",
         tabLogin: "登录", tabRegister: "注册", tabReset: "重置密码",
         email: "邮箱", password: "密码", loginBtn: "登录", registerBtn: "注册", resetBtn: "发送重置链接", logoutBtn: "退出登录",
@@ -1894,6 +2057,7 @@ const translations = {
         regPrivacyNote: "注册时，我们仅根据您的IP地址确定国家（如「CN」）- 不会存储IP地址本身。该国家信息会显示在管理员面板中，用于账户安全与监管目的。详情见隐私政策。",
         resetSent: "密码重置链接已发送到你的邮箱，请同时检查垃圾邮件。",
         registerOk: "账户已创建，已自动登录。",
+        registerCheckEmail: "账户已创建！请查收邮件并确认地址以激活账户。", verifyGateTitle: "请确认您的邮箱地址", verifyGateBody: "我们已向您的邮箱发送了确认链接。点击链接后，请返回这里再次检查。", resendVerifyBtn: "重新发送", recheckVerifyBtn: "重新检查", verifyEmailSent: "确认邮件已重新发送。", verifyStillNotVerified: "仍未确认 - 请检查收件箱（包括垃圾邮件）。", verifyNowVerified: "邮箱地址已确认！",
         loginOk: "登录成功。", logoutOk: "已退出登录，回到访客模式。",
         authErrInvalid: "邮箱或密码无效。", authErrInUse: "此邮箱已被注册。", authErrWeak: "密码至少需要 6 个字符。", authErrNoUser: "未找到使用此邮箱的账户。", authErrGeneric: "出现错误，请重试。",
         firebaseNotConfigured: "Firebase 尚未配置。请在文件中的 FIREBASE CONFIG 部分粘贴你的配置。",
@@ -1929,6 +2093,7 @@ const translations = {
         priv3: "모든 데이터는 계정에서 언제든지 내보내거나 영구적으로 삭제할 수 있습니다.",
         landingFootNote: "모든 추적 기능에는 무료 계정이 필요합니다. 설정은 1분도 걸리지 않습니다.",
         heroFact1: "12개 언어 지원", heroFact2: "20개 이상 통화", heroFact3: "무료, 카드 등록 불필요",
+        heroReceiptTotal: "합계", heroReceiptStamp: "기록됨",
         accSignedInAs: "로그인 계정",
         accProfileHead: "프로필",
         fldNickname: "닉네임",
@@ -1957,13 +2122,14 @@ const translations = {
         appTitle: "Backlog Wallet", menu: "메뉴", navHome: "홈", navAuth: "로그인 / 회원가입", navFaq: "FAQ", navChangelog: "변경 내역", navDonate: "후원", language: "언어",
         guestMode: "게스트 모드", loggedInAs: "로그인 계정:",
         gameTitle: "게임 제목", price: "가격", currency: "통화", source: "출처", purchaseDate: "구매 날짜", addBtn: "추가", saveBtn: "저장", cancelBtn: "취소", addGame: "게임 추가",
+        addFormShow: "양식 표시", addFormHide: "양식 숨기기",
         myLibrary: "라이브러리", colPlatform: "플랫폼", colOrigPrice: "원본 가격", colChfPrice: "CHF 가치", colOptions: "옵션", totalValue: "라이브러리 가치",
         statTotalGames: "총 게임 수", statThisMonth: "이번 달", statThisYear: "올해",
         chartsTitle: "통계", chartOptPurchases: "기간별 구매", chartOptCumulative: "누적 합계", chartOptSources: "출처",
         granMonth: "월", granQuarter: "분기", granYear: "연도",
         chartPurchases: "구매 수", chartCumulative: "누적 게임 수", chartSources: "구매 출처",
         steam: "Steam", keyStore: "키 스토어", noData: "데이터 없음", noResults: "검색 결과 없음",
-        liveRates: "실시간", offlineRates: "오프라인", confirmDel: "삭제하시겠습니까?", feat5T: "플레이어 랭킹", feat5D: "내 라이브러리가 다른 로그인 사용자들과 비교해 어느 정도인지 확인해 보세요.", suspiciousName: "이 게임 제목은 허위 또는 무작위로 보입니다. 수정한 후 추가해 주세요.", navRanking: "랭킹", rankingTitle: "라이브러리 가치 랭킹", rankingColRank: "순위", rankingColNickname: "플레이어", rankingColValue: "가치 (EUR)", rankingYou: "나", rankingEmpty: "랭킹이 아직 비어 있습니다.", rankingNote: "랭킹은 표시되는 순간 계정에 저장된 데이터를 기반으로 직접 계산됩니다 - 실제로 게임을 추가하지 않고는 수치를 조작할 수 없습니다.", vsLastMonth: "지난달 대비", bannedMsg: "이 계정은 관리자에 의해 차단되었습니다.", anonNickname: "플레이어",
+        liveRates: "실시간", offlineRates: "오프라인", confirmDel: "삭제하시겠습니까?", feat5T: "플레이어 랭킹", feat5D: "내 라이브러리가 다른 로그인 사용자들과 비교해 어느 정도인지 확인해 보세요.", suspiciousName: "이 게임 제목은 허위 또는 무작위로 보입니다. 수정한 후 추가해 주세요.", priceTooHigh: "이 가격은 비현실적으로 보입니다 (한도: 2000 CHF 상당). 수정한 후 추가해 주세요.", navRanking: "랭킹", rankingTitle: "라이브러리 가치 랭킹", rankingColRank: "순위", rankingColNickname: "플레이어", rankingColValue: "가치 (EUR)", rankingYou: "나", rankingEmpty: "랭킹이 아직 비어 있습니다.", rankingNote: "랭킹은 표시되는 순간 계정에 저장된 데이터를 기반으로 직접 계산됩니다 - 실제로 게임을 추가하지 않고는 수치를 조작할 수 없습니다.", vsLastMonth: "지난달 대비", bannedMsg: "이 계정은 관리자에 의해 차단되었습니다.", anonNickname: "플레이어",
         searchPh: "게임 검색...", exportCsv: "CSV 내보내기",
         tabLogin: "로그인", tabRegister: "회원가입", tabReset: "비밀번호 재설정",
         email: "이메일", password: "비밀번호", loginBtn: "로그인", registerBtn: "가입하기", resetBtn: "재설정 링크 보내기", logoutBtn: "로그아웃",
@@ -1972,6 +2138,7 @@ const translations = {
         regPrivacyNote: "가입 시 IP 주소로부터 국가(예: 「KR」)만 판별하며, IP 주소 자체는 저장되지 않습니다. 국가 정보는 계정 보안/관리 목적으로 관리자 패널에 표시됩니다. 자세한 내용은 개인정보처리방침을 참고하세요.",
         resetSent: "비밀번호 재설정 링크를 이메일로 보냈습니다. 스팸함도 확인해 주세요.",
         registerOk: "계정이 생성되었습니다. 자동으로 로그인되었습니다.",
+        registerCheckEmail: "계정이 생성되었습니다! 받은 편지함을 확인하고 이메일을 인증하여 계정을 활성화하세요.", verifyGateTitle: "이메일 주소를 확인해 주세요", verifyGateBody: "확인 링크를 이메일로 보냈습니다. 링크를 클릭한 후 여기로 돌아와 다시 확인해 주세요.", resendVerifyBtn: "다시 보내기", recheckVerifyBtn: "다시 확인", verifyEmailSent: "확인 이메일을 다시 보냈습니다.", verifyStillNotVerified: "아직 인증되지 않았습니다 - 받은 편지함(스팸 포함)을 확인하세요.", verifyNowVerified: "이메일 주소가 확인되었습니다!",
         loginOk: "로그인되었습니다.", logoutOk: "로그아웃되었습니다. 게스트 모드로 돌아왔습니다.",
         authErrInvalid: "이메일 또는 비밀번호가 올바르지 않습니다.", authErrInUse: "이미 등록된 이메일입니다.", authErrWeak: "비밀번호는 6자 이상이어야 합니다.", authErrNoUser: "이 이메일로 된 계정을 찾을 수 없습니다.", authErrGeneric: "오류가 발생했습니다. 다시 시도해 주세요.",
         firebaseNotConfigured: "Firebase가 설정되지 않았습니다. 파일의 FIREBASE CONFIG 섹션에 구성을 붙여넣어 주세요.",
@@ -2007,6 +2174,7 @@ const translations = {
         priv3: "يمكنك تصدير جميع بياناتك أو حذفها نهائيًا في أي وقت، مباشرةً من حسابك.",
         landingFootNote: "تتطلب جميع ميزات التتبّع حسابًا مجانيًا. لا يستغرق الإعداد سوى أقل من دقيقة.",
         heroFact1: "12 لغة", heroFact2: "+20 عملة", heroFact3: "مجاني، دون الحاجة لبطاقة",
+        heroReceiptTotal: "الإجمالي", heroReceiptStamp: "محفوظ",
         accSignedInAs: "مسجّل الدخول باسم",
         accProfileHead: "الملف الشخصي",
         fldNickname: "الاسم المستعار",
@@ -2035,13 +2203,14 @@ const translations = {
         appTitle: "Backlog Wallet", menu: "القائمة", navHome: "الصفحة الرئيسية", navAuth: "تسجيل الدخول / التسجيل", navFaq: "الأسئلة الشائعة", navChangelog: "سجل التغييرات", navDonate: "تبرع", language: "اللغة",
         guestMode: "وضع الضيف", loggedInAs: "مسجل الدخول باسم:",
         gameTitle: "عنوان اللعبة", price: "السعر", currency: "العملة", source: "المصدر", purchaseDate: "تاريخ الشراء", addBtn: "إضافة", saveBtn: "حفظ", cancelBtn: "إلغاء", addGame: "إضافة لعبة",
+        addFormShow: "إظهار النموذج", addFormHide: "إخفاء النموذج",
         myLibrary: "مكتبتك", colPlatform: "المنصة", colOrigPrice: "السعر الأصلي", colChfPrice: "قيمة CHF", colOptions: "خيارات", totalValue: "قيمة المكتبة",
         statTotalGames: "إجمالي الألعاب", statThisMonth: "هذا الشهر", statThisYear: "هذه السنة",
         chartsTitle: "الإحصائيات", chartOptPurchases: "المشتريات عبر الزمن", chartOptCumulative: "المجموع التراكمي", chartOptSources: "المصادر",
         granMonth: "شهر", granQuarter: "ربع سنة", granYear: "سنة",
         chartPurchases: "عدد المشتريات", chartCumulative: "إجمالي الألعاب", chartSources: "مصادر الشراء",
         steam: "Steam", keyStore: "متجر المفاتيح", noData: "لا توجد بيانات", noResults: "لا توجد نتائج",
-        liveRates: "مباشر", offlineRates: "دون اتصال", confirmDel: "هل تريد حذف هذا العنصر؟", feat5T: "ترتيب اللاعبين", feat5D: "تعرّف على مدى تقدّم مكتبتك مقارنة بمستخدمين آخرين مسجّلين.", suspiciousName: "يبدو اسم هذه اللعبة مزيفًا أو عشوائيًا - يرجى تصحيحه لإضافة العنصر.", navRanking: "الترتيب", rankingTitle: "ترتيب قيمة المكتبة", rankingColRank: "المركز", rankingColNickname: "اللاعب", rankingColValue: "القيمة (يورو)", rankingYou: "أنت", rankingEmpty: "الترتيب لا يزال فارغًا.", rankingNote: "يُحسب الترتيب مباشرة من البيانات المخزنة في الحساب لحظة عرضه - لا يمكن التلاعب به دون إضافة ألعاب فعليًا.", vsLastMonth: "مقارنة بالشهر الماضي", bannedMsg: "تم حظر هذا الحساب من قبل المسؤول.", anonNickname: "اللاعب",
+        liveRates: "مباشر", offlineRates: "دون اتصال", confirmDel: "هل تريد حذف هذا العنصر؟", feat5T: "ترتيب اللاعبين", feat5D: "تعرّف على مدى تقدّم مكتبتك مقارنة بمستخدمين آخرين مسجّلين.", suspiciousName: "يبدو اسم هذه اللعبة مزيفًا أو عشوائيًا - يرجى تصحيحه لإضافة العنصر.", priceTooHigh: "يبدو هذا السعر غير واقعي (الحد الأقصى: ما يعادل 2000 فرنك سويسري) - يرجى تصحيحه لإضافة العنصر.", navRanking: "الترتيب", rankingTitle: "ترتيب قيمة المكتبة", rankingColRank: "المركز", rankingColNickname: "اللاعب", rankingColValue: "القيمة (يورو)", rankingYou: "أنت", rankingEmpty: "الترتيب لا يزال فارغًا.", rankingNote: "يُحسب الترتيب مباشرة من البيانات المخزنة في الحساب لحظة عرضه - لا يمكن التلاعب به دون إضافة ألعاب فعليًا.", vsLastMonth: "مقارنة بالشهر الماضي", bannedMsg: "تم حظر هذا الحساب من قبل المسؤول.", anonNickname: "اللاعب",
         searchPh: "ابحث عن لعبة...", exportCsv: "تصدير CSV",
         tabLogin: "تسجيل الدخول", tabRegister: "التسجيل", tabReset: "إعادة تعيين كلمة المرور",
         email: "البريد الإلكتروني", password: "كلمة المرور", loginBtn: "دخول", registerBtn: "إنشاء حساب", resetBtn: "إرسال رابط إعادة التعيين", logoutBtn: "تسجيل الخروج",
@@ -2050,6 +2219,7 @@ const translations = {
         regPrivacyNote: "أثناء التسجيل، نحدد بلدك فقط (مثل «SA») من عنوان IP الخاص بك - لا يتم تخزين عنوان IP نفسه أبدًا. يظهر البلد في لوحة الإدارة لأغراض أمان الحسابات والإشراف عليها. التفاصيل في سياسة الخصوصية.",
         resetSent: "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني. تحقق أيضاً من مجلد الرسائل غير المرغوب فيها.",
         registerOk: "تم إنشاء الحساب. تم تسجيل دخولك تلقائياً.",
+        registerCheckEmail: "تم إنشاء الحساب! تحقق من بريدك الإلكتروني وأكّد عنوانك لتفعيل حسابك.", verifyGateTitle: "أكّد عنوان بريدك الإلكتروني", verifyGateBody: "أرسلنا رابط تأكيد إلى بريدك الإلكتروني. انقر عليه ثم عد إلى هنا وتحقق مرة أخرى.", resendVerifyBtn: "إعادة الإرسال", recheckVerifyBtn: "تحقق مرة أخرى", verifyEmailSent: "تمت إعادة إرسال بريد التأكيد.", verifyStillNotVerified: "لم يتم التأكيد بعد - تحقق من بريدك (وكذلك مجلد الرسائل غير المرغوب فيها).", verifyNowVerified: "تم تأكيد عنوان البريد الإلكتروني!",
         loginOk: "تم تسجيل الدخول بنجاح.", logoutOk: "تم تسجيل الخروج. عدت إلى وضع الضيف.",
         authErrInvalid: "البريد الإلكتروني أو كلمة المرور غير صحيحة.", authErrInUse: "هذا البريد مسجل بالفعل.", authErrWeak: "يجب أن تكون كلمة المرور 6 أحرف على الأقل.", authErrNoUser: "لم يتم العثور على حساب بهذا البريد.", authErrGeneric: "حدث خطأ. حاول مرة أخرى.",
         firebaseNotConfigured: "لم يتم إعداد Firebase. الصق الإعدادات في الملف (قسم FIREBASE CONFIG).",
@@ -2085,6 +2255,7 @@ const translations = {
         priv3: "Вы можете экспортировать или безвозвратно удалить все свои данные в любой момент - прямо из аккаунта.",
         landingFootNote: "Все функции учёта требуют бесплатного аккаунта. Настройка займёт меньше минуты.",
         heroFact1: "12 языков", heroFact2: "20+ валют", heroFact3: "Бесплатно, без карты",
+        heroReceiptTotal: "Итого", heroReceiptStamp: "СОХРАНЕНО",
         accSignedInAs: "Вы вошли как",
         accProfileHead: "Профиль",
         fldNickname: "Псевдоним",
@@ -2113,13 +2284,14 @@ const translations = {
         appTitle: "Backlog Wallet", menu: "Меню", navHome: "Главная", navAuth: "Вход / Регистрация", navFaq: "FAQ", navChangelog: "История изменений", navDonate: "Поддержать", language: "Язык",
         guestMode: "Гостевой режим", loggedInAs: "Вы вошли как:",
         gameTitle: "Название игры", price: "Цена", currency: "Валюта", source: "Источник", purchaseDate: "Дата покупки", addBtn: "Добавить", saveBtn: "Сохранить", cancelBtn: "Отмена", addGame: "Добавить игру",
+        addFormShow: "Показать форму", addFormHide: "Скрыть форму",
         myLibrary: "Ваша библиотека", colPlatform: "Платформа", colOrigPrice: "Исходная цена", colChfPrice: "Стоимость в CHF", colOptions: "Действия", totalValue: "Стоимость библиотеки",
         statTotalGames: "Всего игр", statThisMonth: "В этом месяце", statThisYear: "В этом году",
         chartsTitle: "Статистика", chartOptPurchases: "Покупки во времени", chartOptCumulative: "Нарастающий итог", chartOptSources: "Источники",
         granMonth: "Месяц", granQuarter: "Квартал", granYear: "Год",
         chartPurchases: "Количество покупок", chartCumulative: "Всего игр в собственности", chartSources: "Источники покупок",
         steam: "Steam", keyStore: "Магазин ключей", noData: "Нет данных", noResults: "Ничего не найдено",
-        liveRates: "В реальном времени", offlineRates: "Офлайн", confirmDel: "Удалить эту запись?", feat5T: "Рейтинг игроков", feat5D: "Узнайте, как ваша библиотека выглядит на фоне других зарегистрированных пользователей.", suspiciousName: "Это название игры выглядит выдуманным или мусорным - исправьте его, чтобы добавить запись.", navRanking: "Рейтинг", rankingTitle: "Рейтинг по стоимости библиотеки", rankingColRank: "Место", rankingColNickname: "Игрок", rankingColValue: "Стоимость (EUR)", rankingYou: "Вы", rankingEmpty: "Рейтинг пока пуст.", rankingNote: "Рейтинг рассчитывается напрямую из данных, сохранённых на аккаунте на момент отображения - его нельзя искусственно накрутить, не добавляя игры на самом деле.", vsLastMonth: "к прошлому месяцу", bannedMsg: "Этот аккаунт заблокирован администратором.", anonNickname: "Игрок",
+        liveRates: "В реальном времени", offlineRates: "Офлайн", confirmDel: "Удалить эту запись?", feat5T: "Рейтинг игроков", feat5D: "Узнайте, как ваша библиотека выглядит на фоне других зарегистрированных пользователей.", suspiciousName: "Это название игры выглядит выдуманным или мусорным - исправьте его, чтобы добавить запись.", priceTooHigh: "Эта цена выглядит нереалистично (лимит: эквивалент 2000 CHF) - исправьте её, чтобы добавить запись.", navRanking: "Рейтинг", rankingTitle: "Рейтинг по стоимости библиотеки", rankingColRank: "Место", rankingColNickname: "Игрок", rankingColValue: "Стоимость (EUR)", rankingYou: "Вы", rankingEmpty: "Рейтинг пока пуст.", rankingNote: "Рейтинг рассчитывается напрямую из данных, сохранённых на аккаунте на момент отображения - его нельзя искусственно накрутить, не добавляя игры на самом деле.", vsLastMonth: "к прошлому месяцу", bannedMsg: "Этот аккаунт заблокирован администратором.", anonNickname: "Игрок",
         searchPh: "Поиск игр...", exportCsv: "Экспорт в CSV",
         tabLogin: "Вход", tabRegister: "Регистрация", tabReset: "Сброс пароля",
         email: "E-mail", password: "Пароль", loginBtn: "Войти", registerBtn: "Зарегистрироваться", resetBtn: "Отправить ссылку", logoutBtn: "Выйти",
@@ -2128,6 +2300,7 @@ const translations = {
         regPrivacyNote: "При регистрации мы определяем только вашу страну (например, «RU») по IP-адресу - сам IP-адрес никогда не сохраняется. Страна отображается в панели администратора в целях безопасности и контроля учётных записей. Подробности в Политике конфиденциальности.",
         resetSent: "Ссылка для сброса пароля отправлена на указанный e-mail. Проверьте также папку со спамом.",
         registerOk: "Учётная запись создана. Вы автоматически вошли в систему.",
+        registerCheckEmail: "Аккаунт создан! Проверьте почту и подтвердите адрес, чтобы активировать аккаунт.", verifyGateTitle: "Подтвердите адрес электронной почты", verifyGateBody: "Мы отправили ссылку для подтверждения на вашу почту. Перейдите по ней, затем вернитесь сюда и проверьте снова.", resendVerifyBtn: "Отправить повторно", recheckVerifyBtn: "Проверить снова", verifyEmailSent: "Письмо с подтверждением отправлено повторно.", verifyStillNotVerified: "Ещё не подтверждено - проверьте почту (и папку со спамом).", verifyNowVerified: "Адрес электронной почты подтверждён!",
         loginOk: "Вход выполнен успешно.", logoutOk: "Вы вышли из системы. Возврат в гостевой режим.",
         authErrInvalid: "Неверный e-mail или пароль.", authErrInUse: "Этот e-mail уже зарегистрирован.", authErrWeak: "Пароль должен содержать не менее 6 символов.", authErrNoUser: "Учётная запись с таким e-mail не найдена.", authErrGeneric: "Произошла ошибка. Попробуйте ещё раз.",
         firebaseNotConfigured: "Firebase не настроен. Вставьте вашу конфигурацию в файл (раздел FIREBASE CONFIG).",
@@ -2159,6 +2332,21 @@ function isAdmin() { return !!(currentUser && currentUser.uid === ADMIN_UID); }
 const t = (key) => (translations[currentLang] && translations[currentLang][key]) || translations.pl[key] || key;
 const $ = (id) => document.getElementById(id);
 
+const BANNED_TERMS = [
+    'kurwa', 'chuj', 'chuja', 'chuju', 'pizda', 'pizdo', 'jebac', 'jebać', 'jebany', 'jebana', 'pojebane', 'wyjebane',
+    'spierdalaj', 'pierdol', 'cipa', 'cipe', 'dziwka', 'skurwiel', 'skurwysyn', 'huj', 'pojeb', 'zjeb', 'ryj',
+    'fuck', 'shit', 'cunt', 'bitch', 'whore', 'slut', 'porn', 'nigger', 'nigga', 'faggot', 'rape', 'cock', 'dick',
+    'pussy', 'sperma', 'sperm', 'semen', 'anal', 'blowjob', 'handjob'
+];
+function normalizeForFilter(s) {
+    const map = { '0': 'o', '1': 'i', '3': 'e', '4': 'a', '5': 's', '7': 't', '@': 'a', '$': 's', '!': 'i' };
+    return (s || '').toLowerCase().replace(/[013457@$!]/g, ch => map[ch] || ch).replace(/[^a-ząćęłńóśźż]/g, '');
+}
+function containsBannedTerm(name) {
+    const norm = normalizeForFilter(name);
+    return BANNED_TERMS.some(term => norm.includes(normalizeForFilter(term)));
+}
+
 function isSuspiciousGameName(name) {
     const n = (name || '').trim();
     if (n.length < 2 || n.length > 100) return true;
@@ -2167,7 +2355,14 @@ function isSuspiciousGameName(name) {
     const words = n.toLowerCase().split(/\s+/).filter(Boolean);
     if (words.length >= 2 && new Set(words).size === 1) return true; // np. "dupa dupa dupa"
     if (/^[^a-zA-ZÀ-ž\u0400-\u04FF]{0,3}(asdf|qwerty|test123|lorem|xxx+|dupa|zzz+)/i.test(n)) return true;
+    if (containsBannedTerm(n)) return true;
     return false;
+}
+
+const MAX_PRICE_CHF = 2000;
+function isPriceTooHigh(price, currency) {
+    const chf = price * (rates[currency] || 1);
+    return chf > MAX_PRICE_CHF;
 }
 
 function toggleDrawer(open) {
@@ -2516,6 +2711,7 @@ $('authForm').addEventListener('submit', async function (e) {
             const credU = await auth.createUserWithEmailAndPassword(email, pass);
             userProfile.nickname = nick;
             try { await credU.user.updateProfile({ displayName: nick }); } catch (e) {}
+            try { await credU.user.sendEmailVerification(); } catch (e) {}
             const regCountry = await detectRegistrationCountry();
             try {
                 if (db) {
@@ -2525,7 +2721,7 @@ $('authForm').addEventListener('submit', async function (e) {
                     await db.collection('nicknames').doc(nickKey).set({ email, uid: credU.user.uid });
                 }
             } catch (e) {}
-            showToast('registerOk');
+            showToast('registerCheckEmail');
             showView('home');
         } else {
             await auth.sendPasswordResetEmail(rawInput);
@@ -2619,6 +2815,10 @@ function updateAuthUI() {
     $('authTabs').style.display = logged ? 'none' : 'flex';
     $('loggedInPanel').style.display = logged ? 'flex' : 'none';
     if (logged) $('loggedEmail').textContent = (userProfile && userProfile.nickname) || currentUser.email;
+    if ($('accVerifyBanner')) {
+        const verified = logged && (currentUser.emailVerified || currentUser.providerData.some(p => p.providerId !== 'password'));
+        $('accVerifyBanner').style.display = (logged && !verified) ? 'block' : 'none';
+    }
     const navLabel = $('navAuthLabel'), navIcon = $('navAuthIcon');
     if (navLabel) navLabel.textContent = logged ? t('navAccount') : t('navAuth');
     if (navIcon) navIcon.className = logged ? 'fa-solid fa-user-gear' : 'fa-solid fa-right-to-bracket';
@@ -2646,7 +2846,8 @@ form.addEventListener('submit', function (e) {
     if (isNaN(price)) return;
     const currency = $('gameCurrency').value;
     const nameVal = $('gameName').value.trim();
-    if (isSuspiciousGameName(nameVal)) { showToast('suspiciousName'); return; } // v0.6
+    if (isSuspiciousGameName(nameVal)) { showToast('suspiciousName'); return; }
+    if (isPriceTooHigh(price, currency)) { showToast('priceTooHigh'); return; }
 
     const gameData = {
         name: nameVal,
@@ -2670,6 +2871,7 @@ form.addEventListener('submit', function (e) {
 });
 
 function editGame(index) {
+    toggleAddForm(true);
     const game = games[index];
     $('gameName').value = game.name;
     $('gamePrice').value = game.price;
@@ -2706,6 +2908,16 @@ function deleteGame(index) {
     }
 }
 
+function toggleAddForm(force) {
+    const body = $('addFormBody');
+    const show = (force !== undefined) ? force : (body.style.display === 'none');
+    body.style.display = show ? 'block' : 'none';
+    if ($('addFormToggleIcon')) $('addFormToggleIcon').classList.toggle('fa-chevron-up', show);
+    if ($('addFormToggleIcon')) $('addFormToggleIcon').classList.toggle('fa-chevron-down', !show);
+    if ($('addFormToggleText')) $('addFormToggleText').textContent = show ? t('addFormHide') : t('addFormShow');
+    if (show) setTimeout(() => $('gameName') && $('gameName').focus(), 60);
+}
+
 function toggleBulkAdd(force) {
     const panel = $('bulkAddPanel');
     const show = (force !== undefined) ? force : (panel.style.display === 'none');
@@ -2735,10 +2947,11 @@ function submitBulkAdd() {
             const name = parts[0];
             const price = parseFloat((parts[1] || '').replace(',', '.'));
             if (!name || isNaN(price) || price < 0) { skipped++; return; }
-            if (isSuspiciousGameName(name)) { skipped++; return; } // v0.6: odrzuca fikcyjne/śmieciowe nazwy
+            if (isSuspiciousGameName(name)) { skipped++; return; }
 
             let currency = (parts[2] || 'PLN').trim().toUpperCase();
             if (!TOP_CURRENCIES.includes(currency)) currency = 'PLN';
+            if (isPriceTooHigh(price, currency)) { skipped++; return; }
 
             let source = (parts[3] || 'Steam').trim();
             source = /^steam$/i.test(source) ? 'Steam' : (source ? 'Kluczykarnia' : 'Steam');
@@ -3064,8 +3277,35 @@ function initTheme() { applyTheme(localStorage.getItem('theme') || 'dark', false
 
 function updateHomeGate() {
     const logged = !!currentUser;
-    if (document.getElementById('homeApp')) document.getElementById('homeApp').style.display = logged ? 'block' : 'none';
+    const verified = logged && (currentUser.emailVerified || currentUser.providerData.some(p => p.providerId !== 'password'));
+    if (document.getElementById('homeApp')) document.getElementById('homeApp').style.display = (logged && verified) ? 'block' : 'none';
     if (document.getElementById('homeLanding')) document.getElementById('homeLanding').style.display = logged ? 'none' : 'block';
+    if (document.getElementById('verifyGate')) document.getElementById('verifyGate').style.display = (logged && !verified) ? 'block' : 'none';
+}
+
+async function resendVerificationEmail() {
+    if (!currentUser) return;
+    try {
+        await currentUser.sendEmailVerification();
+        showToast('verifyEmailSent');
+    } catch (e) {
+        showToast('authErrGeneric');
+    }
+}
+
+async function recheckVerification() {
+    if (!currentUser) return;
+    try {
+        await currentUser.reload();
+        currentUser = auth.currentUser;
+        if (currentUser && currentUser.emailVerified) {
+            showToast('verifyNowVerified');
+            updateHomeGate();
+            updateAuthUI();
+        } else {
+            showToast('verifyStillNotVerified');
+        }
+    } catch (e) {}
 }
 
 function goRegister() { showView('auth'); setAuthMode('register'); }
