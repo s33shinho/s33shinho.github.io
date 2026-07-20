@@ -876,6 +876,66 @@
             .nav-item.active { background: none; border-bottom-color: var(--steam-blue); }
             .drawer-foot { display: none; }
             .main-wrap { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+
+            /* Sekcje "Twoja biblioteka" / "Narzędzia" jako rozwijane menu (dropdown), nie jako pełnoszerokościowa lista */
+            .nav-dropdown { position: relative; display: flex; }
+            .nav-section-toggle {
+                width: auto;
+                white-space: nowrap;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 14px 14px;
+                border-radius: 0;
+                border-bottom: 2px solid transparent;
+            }
+            .nav-section-toggle:hover { color: var(--text-white); }
+            .nav-section-toggle.has-active { color: var(--steam-blue); border-bottom-color: var(--steam-blue); }
+            .nav-section-chevron { transform: none !important; transition: transform 0.18s ease; }
+
+            .nav-group {
+                position: absolute;
+                top: calc(100% + 2px);
+                left: 0;
+                min-width: 230px;
+                max-height: none;
+                overflow: visible;
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+                background: var(--bg-panel);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 6px;
+                box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-4px);
+                transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s;
+                z-index: 250;
+            }
+            html[dir="rtl"] .nav-group { left: auto; right: 0; }
+            .nav-group .nav-item {
+                width: 100%;
+                padding: 10px 12px;
+                border-radius: 5px;
+                border-bottom: none;
+            }
+            .nav-group .nav-item:hover { background: var(--bg-input); color: var(--text-white); }
+            .nav-group .nav-item.active { background: rgba(51,191,161,0.12); border-bottom: none; }
+
+            .nav-dropdown:hover .nav-group,
+            .nav-dropdown:focus-within .nav-group,
+            .nav-dropdown.dropdown-open .nav-group {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+            .nav-dropdown:hover .nav-section-chevron,
+            .nav-dropdown:focus-within .nav-section-chevron,
+            .nav-dropdown.dropdown-open .nav-section-chevron {
+                transform: rotate(180deg) !important;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -917,28 +977,32 @@
             <button class="nav-item" id="navAuthBtn" data-view="auth" onclick="showView('auth')"><i class="fa-solid fa-right-to-bracket" id="navAuthIcon"></i> <span data-i18n="navAuth" id="navAuthLabel">Logowanie / Rejestracja</span></button>
             <button class="nav-item" id="navAdminBtn" data-view="admin" onclick="showView('admin')" style="display:none;"><i class="fa-solid fa-user-shield"></i> <span>Panel administratora</span></button>
 
-            <button type="button" class="nav-section-toggle" onclick="toggleNavGroup('library')" aria-expanded="true">
-                <span data-i18n="navSectionLibrary">Twoja biblioteka</span>
-                <i class="fa-solid fa-chevron-down nav-section-chevron" id="navGroupChevron-library"></i>
-            </button>
-            <div class="nav-group" id="navGroup-library">
-                <button class="nav-item" id="navShelfBtn" data-view="shelf" onclick="showView('shelf')"><i class="fa-solid fa-border-all"></i> <span data-i18n="navShelf">Wirtualna półka</span></button>
-                <button class="nav-item" id="navAchievementsBtn" data-view="achievements" onclick="showView('achievements')"><i class="fa-solid fa-medal"></i> <span data-i18n="navAchievements">Osiągnięcia</span></button>
-                <button class="nav-item" id="navRouletteBtn" data-view="roulette" onclick="showView('roulette')"><i class="fa-solid fa-dice"></i> <span data-i18n="navRoulette">Co dziś zagrać?</span></button>
-                <button class="nav-item" id="navGoalsBtn" data-view="goals" onclick="showView('goals')" style="display:none;"><i class="fa-solid fa-piggy-bank"></i> <span data-i18n="navGoals">Cele oszczędnościowe</span></button>
-                <button class="nav-item" id="navRankingBtn" data-view="ranking" onclick="showView('ranking')" style="display:none;"><i class="fa-solid fa-ranking-star"></i> <span data-i18n="navRanking">Ranking</span></button>
-                <button class="nav-item" id="navYearReviewBtn" data-view="yearreview" onclick="showView('yearreview')" style="display:none;"><i class="fa-solid fa-gift"></i> <span data-i18n="navYearReview">Podsumowanie roku</span></button>
+            <div class="nav-dropdown">
+                <button type="button" class="nav-section-toggle" onclick="toggleNavGroup('library')" aria-expanded="true">
+                    <span data-i18n="navSectionLibrary">Twoja biblioteka</span>
+                    <i class="fa-solid fa-chevron-down nav-section-chevron" id="navGroupChevron-library"></i>
+                </button>
+                <div class="nav-group" id="navGroup-library">
+                    <button class="nav-item" id="navShelfBtn" data-view="shelf" onclick="showView('shelf')"><i class="fa-solid fa-border-all"></i> <span data-i18n="navShelf">Wirtualna półka</span></button>
+                    <button class="nav-item" id="navAchievementsBtn" data-view="achievements" onclick="showView('achievements')"><i class="fa-solid fa-medal"></i> <span data-i18n="navAchievements">Osiągnięcia</span></button>
+                    <button class="nav-item" id="navRouletteBtn" data-view="roulette" onclick="showView('roulette')"><i class="fa-solid fa-dice"></i> <span data-i18n="navRoulette">Co dziś zagrać?</span></button>
+                    <button class="nav-item" id="navGoalsBtn" data-view="goals" onclick="showView('goals')" style="display:none;"><i class="fa-solid fa-piggy-bank"></i> <span data-i18n="navGoals">Cele oszczędnościowe</span></button>
+                    <button class="nav-item" id="navRankingBtn" data-view="ranking" onclick="showView('ranking')" style="display:none;"><i class="fa-solid fa-ranking-star"></i> <span data-i18n="navRanking">Ranking</span></button>
+                    <button class="nav-item" id="navYearReviewBtn" data-view="yearreview" onclick="showView('yearreview')" style="display:none;"><i class="fa-solid fa-gift"></i> <span data-i18n="navYearReview">Podsumowanie roku</span></button>
+                </div>
             </div>
 
-            <button type="button" class="nav-section-toggle" onclick="toggleNavGroup('tools')" aria-expanded="true">
-                <span data-i18n="navSectionTools">Narzędzia</span>
-                <i class="fa-solid fa-chevron-down nav-section-chevron" id="navGroupChevron-tools"></i>
-            </button>
-            <div class="nav-group" id="navGroup-tools">
-                <button class="nav-item" data-view="rates" onclick="showView('rates')"><i class="fa-solid fa-money-bill-transfer"></i> <span data-i18n="navRates">Kursy walut</span></button>
-                <button class="nav-item" data-view="faq" onclick="showView('faq')"><i class="fa-solid fa-circle-question"></i> <span data-i18n="navFaq">FAQ</span></button>
-                <button class="nav-item" data-view="changelog" onclick="showView('changelog')"><i class="fa-solid fa-clock-rotate-left"></i> <span data-i18n="navChangelog">Changelog</span></button>
-                <button class="nav-item" data-view="donate" onclick="showView('donate')"><i class="fa-solid fa-heart"></i> <span data-i18n="navDonate">Donate</span></button>
+            <div class="nav-dropdown">
+                <button type="button" class="nav-section-toggle" onclick="toggleNavGroup('tools')" aria-expanded="true">
+                    <span data-i18n="navSectionTools">Narzędzia</span>
+                    <i class="fa-solid fa-chevron-down nav-section-chevron" id="navGroupChevron-tools"></i>
+                </button>
+                <div class="nav-group" id="navGroup-tools">
+                    <button class="nav-item" data-view="rates" onclick="showView('rates')"><i class="fa-solid fa-money-bill-transfer"></i> <span data-i18n="navRates">Kursy walut</span></button>
+                    <button class="nav-item" data-view="faq" onclick="showView('faq')"><i class="fa-solid fa-circle-question"></i> <span data-i18n="navFaq">FAQ</span></button>
+                    <button class="nav-item" data-view="changelog" onclick="showView('changelog')"><i class="fa-solid fa-clock-rotate-left"></i> <span data-i18n="navChangelog">Changelog</span></button>
+                    <button class="nav-item" data-view="donate" onclick="showView('donate')"><i class="fa-solid fa-heart"></i> <span data-i18n="navDonate">Donate</span></button>
+                </div>
             </div>
         </nav>
         <div class="drawer-foot">
@@ -2939,6 +3003,12 @@ function showView(view) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     $('view-' + view).classList.add('active');
     document.querySelectorAll('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.view === view));
+    document.querySelectorAll('.nav-dropdown').forEach(d => {
+        const grp = d.querySelector('.nav-group');
+        const toggle = d.querySelector('.nav-section-toggle');
+        if (toggle) toggle.classList.toggle('has-active', !!(grp && grp.querySelector('.nav-item.active')));
+        d.classList.remove('dropdown-open');
+    });
     toggleDrawer(false);
     window.scrollTo({ top: 0 });
     if (view === 'ranking') renderRanking(); // v0.6
@@ -3512,7 +3582,22 @@ function toggleNavGroup(key, forceState) {
     group.classList.toggle('collapsed', !expanded);
     if (btn) btn.setAttribute('aria-expanded', String(expanded));
     localStorage.setItem('navGroupExpanded_' + key, expanded ? '1' : '0');
+    // v0.9.2: on desktop the same button doubles as a dropdown trigger (for touch/no-hover devices) -
+    // only toggle that when it's a real click (forceState undefined), not during initial page-load setup
+    if (forceState === undefined) {
+        const wrap = btn ? btn.closest('.nav-dropdown') : null;
+        if (wrap) {
+            document.querySelectorAll('.nav-dropdown.dropdown-open').forEach(d => { if (d !== wrap) d.classList.remove('dropdown-open'); });
+            wrap.classList.toggle('dropdown-open');
+        }
+    }
 }
+
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-dropdown')) {
+        document.querySelectorAll('.nav-dropdown.dropdown-open').forEach(d => d.classList.remove('dropdown-open'));
+    }
+});
 
 function initNavGroups() {
     ['library', 'tools'].forEach(key => {
