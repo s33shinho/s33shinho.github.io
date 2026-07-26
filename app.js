@@ -40,7 +40,7 @@ const translations = {
         priv2: "Your library is stored only to provide the service and sync it across your devices.",
         priv3: "You can export or permanently delete all of your data at any time, straight from your account.",
         landingFootNote: "All tracking features require a free account. It takes less than a minute to set up.",
-        heroFact1: "12 languages", heroFact2: "20+ currencies", heroFact3: "Free, no card required",
+        heroFact2: "20+ currencies", heroFact3: "Free, no card required",
 heroFact4: "Steam, PlayStation, Xbox, Nintendo, GOG, Epic",         heroReceiptTotal: "Total", heroReceiptStamp: "SAVED",
         accSignedInAs: "Signed in as",
         accProfileHead: "Profile",
