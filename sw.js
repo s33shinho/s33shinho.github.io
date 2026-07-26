@@ -9,8 +9,17 @@
 // WAZNE PRZY KAZDYM DEPLOYU ZMIENIAJACYM index.html / styles.css / app.js:
 // podbij CACHE_VERSION ponizej o jeden. Bez tego przegladarki uzytkownikow
 // moga przez jakis czas dostawac stara wersje z cache zamiast nowej.
+//
+// Od 26.07.2026 dochodzi drugi mechanizm: styles.css i app.js sa wolane
+// z index.html z doklejonym "?v=2" (np. app.js?v=2). To omija cache
+// brzegowy hostingu (np. Cloudflare), ktory potrafi trzymac stara wersje
+// pliku nawet gdy service worker ponizej juz ma nowy CACHE_VERSION - bo
+// ten cache siedzi PRZED przegladarka, nie w niej. Przy kazdej zmianie
+// tych dwoch plikow podbijaj OBA numerki naraz: CACHE_VERSION tutaj
+// i "?v=" w <script>/<link> w index.html (a scieżki w APP_SHELL ponizej
+// musza je dokladnie odzwierciedlac, inaczej precache zlapie stara wersje).
 
-const CACHE_VERSION = 'v3';
+const CACHE_VERSION = 'v2';
 const CACHE_NAME = `backlog-wallet-${CACHE_VERSION}`;
 
 // Wlasne pliki - musza byc zawsze aktualne wzgledem tego co faktycznie
@@ -18,8 +27,8 @@ const CACHE_NAME = `backlog-wallet-${CACHE_VERSION}`;
 const APP_SHELL = [
   '/',
   '/index.html',
-  '/styles.css',
-  '/app.js',
+  '/styles.css?v=2',
+  '/app.js?v=2',
   '/manifest.json',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
