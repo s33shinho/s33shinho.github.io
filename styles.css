@@ -1,6 +1,5 @@
 :root {
-            /* Backlog Wallet v1.2 - "Ledger Console" palette.
-               Ink-blue base, violet as the interface accent, gold reserved strictly for money. */
+
             --bg-app: #0a0c11;
             --bg-panel: #12161f;
             --bg-dark: #0d1017;
@@ -48,7 +47,7 @@
 
             --ls-label: 0.12em;  /* male, uppercase etykiety mono: staty, badge, naglowki tabel */
             --ls-loud: 0.22em;   /* male, ale bardziej wyeksponowane odznaki/wartosci */
-            --row-stripe: rgba(255,255,255,0.035); /* v1.6: pasek co drugi wiersz tabeli - bylo 0.014, praktycznie niewidoczne */
+            --row-stripe: rgba(255,255,255,0.035);
 
             --drawer-w: 300px;
             --sidebar-w: 252px;
@@ -83,7 +82,7 @@
             --shadow-sm: 0 1px 2px rgba(14,17,25,0.06);
             --shadow-md: 0 8px 26px rgba(14,17,25,0.09);
             --shadow-lg: 0 22px 54px rgba(14,17,25,0.14);
-            --row-stripe: rgba(20,24,38,0.035); /* v1.6: w jasnym motywie ten sam bialy odcien byl niewidoczny na jasnym tle */
+            --row-stripe: rgba(20,24,38,0.035);
         }
         html[data-theme="light"] input[type=date] { color-scheme: light; }
         html[data-theme="light"] .btn-primary { color: #ffffff; }
@@ -118,7 +117,6 @@
         @media (min-width: 760px) {
             .bento-grid { grid-template-columns: repeat(4, 1fr); }
             .bento-wide { grid-column: span 2; }
-            .bento-tall { grid-column: span 2; grid-row: span 2; }
         }
         @media (max-width: 620px) { .bento-grid { grid-template-columns: 1fr; } }
         .hero::before {
@@ -192,8 +190,6 @@
         .hero-facts span { display: flex; align-items: center; gap: 6px; font-size: 12px; font-family: var(--font-mono); color: var(--text-dim); }
         .hero-facts i { color: var(--steam-blue); }
 
-        .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; padding-top: 6px; }
-        @media (max-width: 620px) { .feature-grid { grid-template-columns: 1fr; } }
         .feature-card {
             position: relative;
             background: var(--bg-panel);
@@ -217,9 +213,7 @@
         .priv-list li:last-child { border-bottom: none; }
         .priv-list li i { color: var(--ok); margin-top: 3px; flex-shrink: 0; }
         html[dir="rtl"] .priv-list li { flex-direction: row-reverse; }
-        /* v1.6.2: karta prywatnosci dostala pelna szerokosc siatki (bento-full)
-           zamiast wskiej-wysokiej kolumny, zeby nie zostawiac pustych komorek
-           obok niej. Przy tej szerokosci 3 punkty ida obok siebie, nie pod soba. */
+
         .bento-full { grid-column: 1 / -1; }
         @media (min-width: 760px) {
             .priv-list { display: flex; gap: 24px; }
@@ -421,16 +415,6 @@
         .nav-item:hover i { color: var(--text-light); }
         .nav-item.active { background: var(--accent-soft); color: var(--steam-blue); }
         .nav-item.active i { color: var(--steam-blue); }
-        .nav-section-label {
-            display: block;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: var(--text-dim);
-            padding: 16px 12px 6px;
-        }
-        .nav-section-label:first-child { padding-top: 4px; }
         .nav-section-toggle {
             display: flex;
             align-items: center;
@@ -469,11 +453,7 @@
             padding: 16px;
         }
         .view { display: none; opacity: 0; transform: translateY(6px); }
-        /* v1.5: #view-auth (logowanie + panel konta - ten sam kontener)
-           bylo dotychczas pinowane do gory strony, bez zadnego centrowania -
-           na wysokich ekranach zostawalo duzo pustki pod spodem i sprawialo
-           wrazenie "za wysoko". Wysokosc liczona wzgledem paska gornego,
-           zeby nie chowac tresci pod nim ani nie wywolywac paska przewijania. */
+
         #view-auth.active {
             display: flex;
             flex-direction: column;
@@ -576,12 +556,7 @@
         .btn-tool:hover { background: var(--bg-input-hover); border-color: var(--accent-line); color: var(--text-white); transform: translateY(-1px); }
         .btn-link { background: none; border: none; color: var(--steam-blue); height: auto; padding: 0; width: auto; font-size: 13px; border-radius: 2px; box-shadow: none; }
         .btn-link:hover { text-decoration: underline; }
-        /* v1.6: przyciski-przelaczniki (Filtry zaawansowane, Dodaj wiele naraz,
-           Ukryj liste, itd.) byly stylizowane jak zwykle linki tekstowe - bez
-           obwodki wygladaly jak przypadkowo zostawiony tekst, zwlaszcza
-           "Filtry zaawansowane" samotnie pod pelnoszerokim paskiem filtrow.
-           Ta klasa daje im ta sama "ramke", co reszta drugorzednych przyciskow
-           (.btn-tool) w apce. */
+
         .btn-chip {
             display: inline-flex; align-items: center; gap: 7px;
             background: var(--bg-raised);
@@ -652,13 +627,7 @@
         tr:nth-child(even) td { background-color: var(--row-stripe); }
         tr:hover td { background-color: var(--accent-soft); }
         td.name-cell { position: relative; padding-left: 18px; }
-        /* v1.6.3: dlugie tytuly zawijaly sie na kilka linii, robiac TEN JEDEN
-           wiersz duzo wyzszym niz reszta - a poniewaz komorki sa wyrownane
-           do srodka w pionie, cena/CHF/ikony w tym wierszu "plywaly" z duzym
-           luzem, podczas gdy sasiednie wiersze wygladaly na ciasne. Obcinamy
-           sam tekst nazwy wielokropkiem (peten tytul nadal widoczny po
-           najechaniu, przez title="" na komorce) - kazdy wiersz ma teraz
-           ta sama wysokosc, niezaleznie od dlugosci nazwy gry. */
+
         td.name-cell .name-text {
             display: inline-block; max-width: 320px; vertical-align: bottom;
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
@@ -693,9 +662,7 @@
         .year-wrap-stats span { font-family: var(--font-mono); font-size: 18px; font-weight: 600; color: var(--steam-blue); }
         .year-wrap-stats small { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; max-width: 100px; }
         .year-wrap-highlight { font-size: 13px; color: var(--text-main); border-top: 1px dashed var(--border-light); padding-top: 16px; }
-        /* v1.6: to trafialo w kolumny "Forma" i "Data zakupu" (5,6) zamiast
-           w kolumny z cenami (7,8) - reszta zostala kiedys dolozona przed
-           tymi kolumnami, a ta regula nigdy nie zostala przeliczona */
+
         #gamesTable th:nth-child(7), #gamesTable th:nth-child(8) { text-align: right; }
         #gamesTable td:nth-child(7), #gamesTable td:nth-child(8) { text-align: right; font-weight: 600; color: var(--text-white); }
         .src-steam { background: rgba(51,191,161,0.15); color: var(--steam-blue); }
@@ -707,8 +674,7 @@
         .src-epic { background: rgba(255,255,255,0.12); color: var(--text-light); }
 
         .action-icons { display: flex; gap: 4px; justify-content: flex-end; }
-        /* v1.6: forma gry (cyfrowa/fizyczna) jako maly chip zamiast golej
-           ikony z tekstem - spojne z reszta znacznikow w apce (hltb-chip itp) */
+
         .own-chip {
             display: inline-flex; align-items: center; gap: 5px;
             font-size: 11.5px; font-weight: 500;
@@ -720,9 +686,6 @@
         .own-chip[data-own="digital"] { color: var(--steam-blue); border-color: var(--accent-line); }
         .own-chip[data-own="physical"] { color: var(--coin); border-color: rgba(240,180,41,0.4); }
 
-        /* v1.6: podglad "Smart import" - edytowalna tabela wynikow parsera,
-           z wyroznieniem wierszy ktore wygladaja na cos innego niz gra
-           (doladowanie portfela, zwrot) - te sa domyslnie odznaczone */
         .smart-import-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
         .smart-import-table th {
             text-align: left; font-family: var(--font-mono); font-size: 10px;
@@ -838,7 +801,6 @@
         .goal-card-actions { display: flex; gap: 8px; align-items: center; }
         .goal-card-actions input { width: 90px; padding: 4px 8px; height: auto; }
 
-        /* v0.7.2: Wirtualna półka - wąskie pudełka jak fizyczne gry na półce */
         .shelf-wrap {
             display: flex; flex-wrap: wrap; align-items: flex-end; gap: 14px 8px; padding: 20px 16px 26px;
             border-radius: 10px;
@@ -916,7 +878,6 @@
         }
         .toast-action button:hover { text-decoration: underline; }
 
-        /* v1.4: szkielet ladowania biblioteki, zamiast pustki zanim dane dojda */
         @keyframes bwShimmer {
             0% { background-position: -200px 0; }
             100% { background-position: calc(200px + 100%) 0; }
@@ -932,7 +893,6 @@
             .skeleton-row { animation: none; opacity: 0.6; }
         }
 
-        /* v1.4: baner bledu wczytywania biblioteki, z przyciskiem ponowienia */
         .library-load-error {
             display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
             padding: 14px 16px; margin-bottom: 14px;
@@ -1068,14 +1028,6 @@
             * { transition: none !important; animation: none !important; }
         }
 
-        /* ============================================================
-           v1.2 — "Ledger Console" redesign layer.
-           Loaded last so it wins the cascade over the v1.0 sheet above.
-           Concept: the app is a wallet, so it reads like a ledger:
-           graph-paper ground, a rail down the left of every heading,
-           and money set in tabular monospace on a gold rule.
-           ============================================================ */
-
         body {
             background-color: var(--bg-app);
             background-image:
@@ -1099,8 +1051,8 @@
         h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.025em; }
 
         /* --- money: the one thing gold is allowed to touch --- */
-        .money, .dash-total-value, .stat-tile .stat-value,
-        td.col-price, .year-wrap-total {
+        .dash-total-value, .stat-tile .stat-value,
+        .year-wrap-total {
             font-family: var(--font-mono);
             font-variant-numeric: tabular-nums;
             font-feature-settings: "tnum" 1, "zero" 1;
@@ -1415,9 +1367,6 @@
             *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
         }
 
-        /* ============================================================
-           v1.2 — playtime (HowLongToBeat) module
-           ============================================================ */
         .hltb-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -1473,17 +1422,6 @@
         }
         html[dir="rtl"] .hltb-note { border-left: none; border-right: 2px solid var(--accent-line); padding-left: 0; padding-right: 12px; }
 
-        .hltb-chip {
-            display: inline-flex; align-items: center; gap: 5px;
-            font-family: var(--font-mono); font-size: 10px; letter-spacing: var(--ls-label);
-            padding: 3px 8px; border-radius: var(--r-sm);
-            border: 1px solid var(--border-light); color: var(--text-dim);
-            white-space: nowrap;
-        }
-        .hltb-chip[data-lvl="main"] { color: var(--accent-2); border-color: rgba(93,225,196,0.4); }
-        .hltb-chip[data-lvl="extra"] { color: var(--steam-blue); border-color: var(--accent-line); }
-        .hltb-chip[data-lvl="complete"] { color: var(--coin); border-color: rgba(240,180,41,0.4); }
-
         .hltb-row {
             display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center;
             padding: 11px 0; border-bottom: 1px solid var(--border);
@@ -1506,9 +1444,6 @@
         }
         html[dir="rtl"] .hltb-row-hint { text-align: left; }
 
-        /* ============================================================
-           v1.2 — year comparison
-           ============================================================ */
         .yr-compare-bar {
             display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end;
             padding: 14px 16px; margin-bottom: 18px;
