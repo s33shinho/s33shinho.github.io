@@ -808,6 +808,42 @@
         }
         .toast.show { transform: translateX(-50%) translateY(0); }
 
+        .toast-action {
+            display: flex; align-items: center; gap: 14px;
+        }
+        .toast-action button {
+            background: none; border: none; color: var(--steam-blue);
+            font-weight: 700; font-size: 13px; cursor: pointer; padding: 2px 4px;
+            font-family: inherit; flex-shrink: 0;
+        }
+        .toast-action button:hover { text-decoration: underline; }
+
+        /* v1.4: szkielet ladowania biblioteki, zamiast pustki zanim dane dojda */
+        @keyframes bwShimmer {
+            0% { background-position: -200px 0; }
+            100% { background-position: calc(200px + 100%) 0; }
+        }
+        .table-skeleton { padding: 4px 0; }
+        .skeleton-row {
+            height: 44px; border-radius: var(--r-sm); margin-bottom: 8px;
+            background: linear-gradient(90deg, var(--bg-raised) 0%, var(--bg-input-hover) 50%, var(--bg-raised) 100%);
+            background-size: 400px 100%;
+            animation: bwShimmer 1.4s ease-in-out infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .skeleton-row { animation: none; opacity: 0.6; }
+        }
+
+        /* v1.4: baner bledu wczytywania biblioteki, z przyciskiem ponowienia */
+        .library-load-error {
+            display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+            padding: 14px 16px; margin-bottom: 14px;
+            border: 1px solid rgba(255,107,125,0.35); background: rgba(255,107,125,0.08);
+            border-radius: var(--r-md); color: var(--text-light); font-size: 13.5px;
+        }
+        .library-load-error i { color: var(--err); font-size: 15px; }
+        .library-load-error span { flex: 1; min-width: 180px; }
+
         @media (max-width: 760px) {
             .user-chip { max-width: 140px; }
             .chart-area { height: 260px; padding: 10px; }

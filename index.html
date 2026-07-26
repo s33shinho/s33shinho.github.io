@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Backlog Wallet</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0f14'/%3E%3Crect x='5' y='10' width='22' height='15' rx='3.5' fill='none' stroke='%2333bfa1' stroke-width='2.2'/%3E%3Cpath d='M5 13.5h22' stroke='%2333bfa1' stroke-width='2.2'/%3E%3Ccircle cx='21.5' cy='19' r='2' fill='%2333bfa1'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0c11'/%3E%3CclipPath id='c'%3E%3Crect x='5' y='5' width='22' height='22' rx='5'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23c)'%3E%3Crect x='5' y='5' width='22' height='7.48' fill='%23f0b429'/%3E%3Crect x='5' y='13.8' width='22' height='7.48' fill='%238b7bff'/%3E%3Crect x='5' y='22.6' width='22' height='4.4' fill='%235de1c4'/%3E%3C/g%3E%3C/svg%3E">
+
+    <!-- PWA: instalowalna aplikacja z ikona i dzialaniem offline -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0a0c11">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Backlog Wallet">
 <script>
 (function () {
     let language = localStorage.getItem("appLang");
@@ -22,6 +30,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter+Tight:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Monitoring bledow (Sentry) - podmien SENTRY_DSN na wlasny adres
+         z sentry.io zanim zacznie realnie logowac bledy. Sprawdz aktualna
+         wersje bundla na https://docs.sentry.io/platforms/javascript/ -->
+    <script src="https://browser.sentry-cdn.com/8.9.2/bundle.tracing.min.js" crossorigin="anonymous"></script>
+    <script>
+        (function () {
+            var SENTRY_DSN = "PODMIEN_NA_WLASNY_DSN_Z_SENTRY.IO";
+            if (window.Sentry && SENTRY_DSN.indexOf("PODMIEN_") === -1) {
+                Sentry.init({
+                    dsn: SENTRY_DSN,
+                    environment: "production",
+                    tracesSampleRate: 0.1
+                });
+            }
+        })();
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -495,6 +520,18 @@
                     </select>
                     <button type="button" class="btn-primary" style="width:auto; padding:0 16px;" onclick="applyBulkEdit()"><span data-i18n="bulkApplyBtn">Zastosuj</span></button>
                     <button type="button" class="btn-tool" style="width:auto;" onclick="clearSelection()"><span data-i18n="bulkClearBtn">Odznacz wszystko</span></button>
+                </div>
+                <div class="table-skeleton" id="tableSkeleton" style="display:none;">
+                    <div class="skeleton-row"></div>
+                    <div class="skeleton-row"></div>
+                    <div class="skeleton-row"></div>
+                    <div class="skeleton-row"></div>
+                    <div class="skeleton-row"></div>
+                </div>
+                <div class="library-load-error" id="libraryLoadError" style="display:none;">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span id="libraryLoadErrorText" data-i18n="libraryLoadError">Couldn't load your library. Check your connection and try again.</span>
+                    <button type="button" class="btn-tool" onclick="retryLoadCloudData()"><span data-i18n="retryBtn">Retry</span></button>
                 </div>
                 <div class="table-container" id="tableWrapper">
                     <table id="gamesTable">
@@ -1107,6 +1144,10 @@
 </main>
 
     <div class="toast" id="toast"></div>
+    <div class="toast toast-action" id="undoToast">
+        <span id="undoToastText"></span>
+        <button type="button" onclick="runPendingUndo()" data-i18n="undoBtn">Undo</button>
+    </div>
 
     <div id="cookieConsent" style="display:none; position:fixed; left:0; right:0; bottom:0; z-index:600; background:var(--bg-dark); border-top:1px solid var(--border-light); padding:16px; box-shadow:0 -4px 14px rgba(0,0,0,0.5);">
         <div style="max-width:900px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; gap:14px;">
@@ -1120,5 +1161,17 @@
     </div>
 
     <script src="app.js" defer></script>
+    <script>
+        // PWA: rejestracja service workera. Nie blokuje niczego jesli sie
+        // nie uda (np. starsza przegladarka) - aplikacja dziala normalnie,
+        // po prostu bez trybu offline.
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').catch((err) => {
+                    console.warn('Service worker registration failed:', err);
+                });
+            });
+        }
+    </script>
 </body>
 </html>

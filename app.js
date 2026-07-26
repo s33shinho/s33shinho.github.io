@@ -90,8 +90,8 @@ fldStatus: "Completion status (optional)", statusNone: "- not set -", statusComp
         loginOk: "Logged in successfully.", logoutOk: "Logged out successfully.",
         authErrInvalid: "Invalid e-mail or password.", authErrInUse: "This e-mail is already registered.", authErrWeak: "Password must be at least 6 characters.", authErrNoUser: "No account found with this e-mail.", authErrGeneric: "Something went wrong. Please try again.", authErrNicknameLookup: "Couldn't verify that nickname - try logging in with your e-mail address instead.", accRegisteredSince: "Registered", importDataBtn: "Import data (JSON)", importDataNote: "Import a JSON file previously downloaded with \"Download my data\" (e.g. from another account or as a backup restore). Games are added to your current library - duplicates (by name) are skipped automatically.", importInvalidFile: "Invalid file - please choose a JSON file previously downloaded with \"Download my data\".", importResult: "Games imported: {added} (invalid lines skipped: {skipped}, duplicates: {dup}).", banGateTitle: "This account has been suspended", banGateReasonLabel: "Reason", banGateNoReason: "The administrator did not provide a reason.", banGatePermanent: "This is a permanent suspension.", banGateUntilPrefix: "Suspended until:", banGateContact: "If you believe this is a mistake, please write to the address given in the footer.", banGateBackBtn: "Back to home page", authErrTooFast: "Form filled out too quickly - please try again in a moment.", authErrTooSoon: "Too many registration attempts in a short time - please try again in a minute.", healthLabel: "Backlog health", healthGradeExemplary: "Exemplary backlog 🏆", healthGradeGood: "In good shape 💪", healthGradeAverage: "Average 😐", healthGradeGrowing: "Growing debt 😅", healthGradeOverwhelmed: "Backlog took over 😱", healthGradeUnknown: "Unknown", healthMsgExemplary: "You're keeping up with your games - respect!", healthMsgGood: "Your backlog is under control, keep it up.", healthMsgAverage: "A few games have piled up, but that's normal.", healthMsgGrowing: "Your backlog is growing faster than you're clearing it.", healthMsgOverwhelmed: "Maybe it's time to buy less and play more?", healthNoStatusMsg: "Set a status (Completed/Not completed) on your games to see your score.", healthEmptyMsg: "Add your first game to see your score.",
         firebaseNotConfigured: "Firebase is not configured. Paste your config in the file (FIREBASE CONFIG section).",
-        syncLocal: "Local data", syncCloud: "Cloud", syncSyncing: "Syncing...", syncErr: "Sync error",
-        savedLocal: "Saved locally", savedCloud: "Saved to cloud", itemDeleted: "Item deleted",
+        syncLocal: "Local data", syncCloud: "Cloud", syncSyncing: "Syncing...", syncErr: "Sync error", retryBtn: "Retry", libraryLoadError: "Couldn't load your library. Check your connection and try again.",
+        savedLocal: "Saved locally", savedCloud: "Saved to cloud", itemDeleted: "Item deleted", undoBtn: "Undo",
         emptyLib: "Your library is empty. Add your first game above.", bulkAddBtn: "Add multiple games", bulkAddHint: "Paste one game per line, in the format: Title;Price;Currency;Source;Date (YYYY-MM-DD). Currency, Source and Date are optional.", bulkAddSubmit: "Add all", bulkAddResult: "Games added: {added} (skipped invalid lines: {skipped})", bulkAddNone: "No valid entries found to add.", hideList: "Hide list", showList: "Show list", expandList: "Expand list", collapseList: "Collapse list", filterAllSources: "All sources", footerUpdated: "Last updated", navRates: "Exchange Rates", ratesColCurrency: "Currency", ratesColRate: "Rate per 1 EUR", ratesBaseNote: "All rates are shown relative to 1 EUR (base currency).", ratesUpdated: "Updated", scrollTopTitle: "Back to top", changePasswordBtn: "Change password", currentPassword: "Current password", newPassword: "New password", newPasswordConfirm: "Confirm new password", changePasswordSubmit: "Change password", passwordMismatch: "The passwords do not match.", passwordChanged: "Password changed successfully.",
         confirmDuplicate: "A game with this name is already in your library. Add it again anyway?", advFiltersToggle: "Advanced filters", priceMin: "Price from", priceMax: "Price to", dateFrom: "Date from", dateTo: "Date to", resetFilters: "Clear filters", bulkAddResultDup: "Games added: {added} (invalid lines: {skipped}, duplicates: {dup})", bulkAddAllDup: "All pasted games ({dup}) are already in your library - nothing was added.", navAchievements: "Achievements", achievementsDesc: "Unlock badges as you grow your game library.", achUnlocked: "Unlocked", achLocked: "Locked", achMaxLevel: "Max level!", achLevel: "Level {level}/{max}", achFirstGameT: "First Step", achFirstGameD: "Add your first game to the library.", achCollectorT: "Collector", achCollectorD: "Own {target} games in your library.", achDiversityT: "Multi-Platform", achDiversityD: "Own games from {target} different platforms.", achFinisherT: "Finisher", achFinisherD: "Complete {target} games from your library.", achPhysicalT: "Box Collector", achPhysicalD: "Own {target} physical games.", achInvestorT: "Big Investor", achInvestorD: "Reach a library value of {target}.", achDreamT: "Dream Fulfilled", achDreamD: "Reach at least one savings goal.", achCurrenciesT: "Multi-Currency", achCurrenciesD: "Buy games in {target} different currencies.", achVeteranT: "Collection Veteran", achVeteranD: "Keep your library going for {target} years.", achBalancedT: "Balanced Collection", achBalancedD: "Own both digital and physical games in your library.", navRoulette: "What to play?", rouletteDesc: "Can't decide what to play tonight? Roll the dice on your backlog.", rouletteBtn: "Pick a game", rouletteRerollBtn: "Pick another", rouletteEmptyLib: "Your library is empty - add a few games first to roll for one.", rouletteAllDone: "No games marked as \"Not completed\" - set that status on some games in your library so there's something to roll for.", roulettePlatformAll: "All platforms", navSectionMain: "Main", navSectionAccount: "Account", navSectionLibrary: "Your library", navSectionTools: "Tools",
         navTerms: "Terms & Conditions", navPrivacy: "Privacy Policy", rememberMe: "Remember me", footerContact: "Contact", cookieConsentText: "This site uses local browser storage (localStorage) to ensure proper functioning and remember your preferences. By continuing to use the site, you consent to this.", cookieMoreInfo: "More information", cookieDeclineBtn: "Decline", cookieAcceptBtn: "Accept",
@@ -386,6 +386,24 @@ function setBadge(state, textKey) {
     badge.innerHTML = icon + ' <span id="badgeText">' + t(textKey) + '</span>';
 }
 
+// v1.4: stany ladowania/bledu biblioteki - szkielet zamiast pustki,
+// czytelny baner z ponowieniem zamiast cichej porazki widocznej tylko w plakietce.
+function setLibraryLoading(isLoading) {
+    const skel = $('tableSkeleton');
+    const wrap = $('tableWrapper');
+    if (skel) skel.style.display = isLoading ? 'block' : 'none';
+    if (wrap) wrap.style.display = isLoading ? 'none' : '';
+}
+
+function showLibraryError(show) {
+    const el = $('libraryLoadError');
+    if (el) el.style.display = show ? 'flex' : 'none';
+}
+
+function retryLoadCloudData() {
+    if (currentUser) loadCloudData();
+}
+
 function loadGuestData() {
     try { games = JSON.parse(localStorage.getItem('guestGames') || '[]'); }
     catch (e) { games = []; }
@@ -399,6 +417,8 @@ function loadGuestData() {
 async function loadCloudData() {
     if (!db || !currentUser) return;
     setBadge('loading', 'syncSyncing');
+    showLibraryError(false);
+    setLibraryLoading(true);
     try {
         const doc = await db.collection('users').doc(currentUser.uid).get();
         banGateActive = false; // v0.9: resetuj ewentualny stary ekran bana z poprzedniej sesji
@@ -468,7 +488,9 @@ async function loadCloudData() {
     } catch (e) {
         console.error(e);
         setBadge('error', 'syncErr');
+        showLibraryError(true);
     }
+    setLibraryLoading(false);
     renderTable();
     renderGoals();
     updateLeaderboardEntry(); // v0.6.1: żeby ranking pojawił się już po zwykłym zalogowaniu, nie tylko po edycji gier
@@ -853,21 +875,51 @@ function cancelEdit() {
     $('cancelEditBtn').style.display = 'none';
 }
 
+// v1.4: usuwanie bez przerywajacego confirm() - kasuje od razu,
+// ale przez kilka sekund mozna cofnac przyciskiem w tooscie.
+let pendingUndo = null;
+let undoToastTimer = null;
+
+function showUndoToast(message, undoFn) {
+    const el = $('undoToast');
+    if (!el) return;
+    $('undoToastText').textContent = message;
+    el.classList.add('show');
+    clearTimeout(undoToastTimer);
+    pendingUndo = undoFn;
+    undoToastTimer = setTimeout(() => {
+        el.classList.remove('show');
+        pendingUndo = null;
+    }, 6000);
+}
+
+function runPendingUndo() {
+    if (pendingUndo) pendingUndo();
+    const el = $('undoToast');
+    if (el) el.classList.remove('show');
+    clearTimeout(undoToastTimer);
+    pendingUndo = null;
+}
+
 function deleteGame(index) {
-    if (confirm(t('confirmDel'))) {
-        games.splice(index, 1);
-        if (editingIndex === index) cancelEdit();
-        else if (editingIndex > index) editingIndex--;
-        const shifted = new Set();
-        selectedGames.forEach(i => {
-            if (i === index) return;
-            shifted.add(i > index ? i - 1 : i);
-        });
-        selectedGames = shifted;
+    const removedGame = games[index];
+    games.splice(index, 1);
+    if (editingIndex === index) cancelEdit();
+    else if (editingIndex > index) editingIndex--;
+    const shifted = new Set();
+    selectedGames.forEach(i => {
+        if (i === index) return;
+        shifted.add(i > index ? i - 1 : i);
+    });
+    selectedGames = shifted;
+    renderTable();
+    persistData();
+
+    showUndoToast(t('itemDeleted'), () => {
+        games.splice(index, 0, removedGame);
         renderTable();
         persistData();
-        showToast('itemDeleted');
-    }
+    });
 }
 
 function toggleSelectGame(i, checked) {
