@@ -46,6 +46,9 @@
             --shadow-md: 0 8px 26px rgba(0,0,0,0.38);
             --shadow-lg: 0 22px 54px rgba(0,0,0,0.50);
 
+            --ls-label: 0.12em;  /* male, uppercase etykiety mono: staty, badge, naglowki tabel */
+            --ls-loud: 0.22em;   /* male, ale bardziej wyeksponowane odznaki/wartosci */
+
             --drawer-w: 300px;
             --sidebar-w: 252px;
             --topbar-h: 58px;
@@ -456,6 +459,20 @@
             padding: 16px;
         }
         .view { display: none; opacity: 0; transform: translateY(6px); }
+        /* v1.5: #view-auth (logowanie + panel konta - ten sam kontener)
+           bylo dotychczas pinowane do gory strony, bez zadnego centrowania -
+           na wysokich ekranach zostawalo duzo pustki pod spodem i sprawialo
+           wrazenie "za wysoko". Wysokosc liczona wzgledem paska gornego,
+           zeby nie chowac tresci pod nim ani nie wywolywac paska przewijania. */
+        #view-auth.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: calc(100vh - var(--topbar-h) - 32px);
+        }
+        @media (max-width: 760px) {
+            #view-auth.active { min-height: calc(100vh - var(--topbar-h) - 20px); }
+        }
         .view.active {
             display: block;
             animation: viewFadeIn 0.28s ease-out forwards;
@@ -1063,7 +1080,7 @@
             font-size: 15px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.14em;
+            letter-spacing: var(--ls-label);
             font-family: var(--font-mono);
             color: var(--text-dim);
             border-bottom: 1px solid var(--border);
@@ -1090,7 +1107,7 @@
         }
         .dash-letterhead-inner { padding: 34px 26px 32px; }
         .dash-total-label {
-            font-size: 10.5px; letter-spacing: 0.22em; color: var(--text-dim);
+            font-size: 10.5px; letter-spacing: var(--ls-loud); color: var(--text-dim);
             font-family: var(--font-mono); text-transform: uppercase;
         }
         .dash-total-value {
@@ -1110,7 +1127,7 @@
         }
         .dash-mini-stats { gap: 30px; margin-top: 26px; }
         .dash-mini-stats span { font-size: 19px; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
-        .dash-mini-stats small { font-size: 10px; letter-spacing: 0.16em; font-family: var(--font-mono); }
+        .dash-mini-stats small { font-size: 10px; letter-spacing: var(--ls-label); font-family: var(--font-mono); }
 
         /* ---------------- stat tiles ---------------- */
         .stat-tile {
@@ -1138,7 +1155,7 @@
         }
         .stat-tile.stat-hero::before { background: linear-gradient(180deg, var(--steam-blue), var(--coin)); }
         .stat-tile .stat-label {
-            font-size: 9.5px; letter-spacing: 0.18em; color: var(--text-dim);
+            font-size: 9.5px; letter-spacing: var(--ls-label); color: var(--text-dim);
         }
         .stat-tile .stat-value {
             font-size: 21px; color: var(--text-white); font-weight: 600; letter-spacing: -0.02em;
@@ -1172,7 +1189,7 @@
         .nav-section-toggle {
             font-family: var(--font-mono);
             font-size: 10px;
-            letter-spacing: 0.2em;
+            letter-spacing: var(--ls-loud);
             text-transform: uppercase;
         }
 
@@ -1199,7 +1216,7 @@
         .input-group label {
             font-family: var(--font-mono);
             font-size: 10px;
-            letter-spacing: 0.16em;
+            letter-spacing: var(--ls-label);
             text-transform: uppercase;
             color: var(--text-dim);
         }
@@ -1224,7 +1241,7 @@
         thead th {
             font-family: var(--font-mono);
             font-size: 10px !important;
-            letter-spacing: 0.15em;
+            letter-spacing: var(--ls-label);
             text-transform: uppercase;
             color: var(--text-dim);
             background: var(--bg-dark);
@@ -1239,13 +1256,13 @@
         .status-badge, .sync-badge, .hero-badge {
             font-family: var(--font-mono);
             font-size: 10px;
-            letter-spacing: 0.1em;
+            letter-spacing: var(--ls-label);
             border-radius: var(--r-sm);
             font-weight: 600;
         }
         .hero-badge {
             border-radius: var(--r-pill);
-            letter-spacing: 0.2em;
+            letter-spacing: var(--ls-loud);
             font-size: 10px;
             padding: 7px 16px;
         }
@@ -1275,7 +1292,7 @@
         .mock-receipt-stamp {
             border-color: var(--accent-line);
             color: var(--steam-blue);
-            letter-spacing: 0.28em;
+            letter-spacing: var(--ls-loud);
         }
 
         /* ---------------- feature cards ---------------- */
@@ -1302,7 +1319,7 @@
         }
         .year-wrap-year { font-family: var(--font-mono); letter-spacing: 0.1em; }
         .year-wrap-total { color: var(--coin); font-weight: 700; letter-spacing: -0.04em; }
-        .year-wrap-badge { font-family: var(--font-mono); letter-spacing: 0.24em; text-transform: uppercase; font-size: 10px; }
+        .year-wrap-badge { font-family: var(--font-mono); letter-spacing: var(--ls-loud); text-transform: uppercase; font-size: 10px; }
 
         /* ---------------- page-load orchestration (one moment, not scattered) --- */
         @keyframes bwRise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
@@ -1343,7 +1360,7 @@
         .hltb-tile[data-tier="extra"]::before { background: var(--steam-blue); }
         .hltb-tile[data-tier="complete"]::before { background: var(--coin); }
         .hltb-tile .hltb-label {
-            font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.18em;
+            font-family: var(--font-mono); font-size: 9.5px; letter-spacing: var(--ls-label);
             text-transform: uppercase; color: var(--text-dim); margin-bottom: 8px;
         }
         .hltb-tile .hltb-value {
@@ -1377,7 +1394,7 @@
 
         .hltb-chip {
             display: inline-flex; align-items: center; gap: 5px;
-            font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em;
+            font-family: var(--font-mono); font-size: 10px; letter-spacing: var(--ls-label);
             padding: 3px 8px; border-radius: var(--r-sm);
             border: 1px solid var(--border-light); color: var(--text-dim);
             white-space: nowrap;
@@ -1424,7 +1441,7 @@
             border-radius: var(--r-md); padding: 16px 18px;
         }
         .yr-cmp-col h4 {
-            font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em;
+            font-family: var(--font-mono); font-size: 11px; letter-spacing: var(--ls-loud);
             text-transform: uppercase; color: var(--text-dim); margin-bottom: 14px;
             font-weight: 600;
         }
