@@ -48,6 +48,7 @@
 
             --ls-label: 0.12em;  /* male, uppercase etykiety mono: staty, badge, naglowki tabel */
             --ls-loud: 0.22em;   /* male, ale bardziej wyeksponowane odznaki/wartosci */
+            --row-stripe: rgba(255,255,255,0.035); /* v1.6: pasek co drugi wiersz tabeli - bylo 0.014, praktycznie niewidoczne */
 
             --drawer-w: 300px;
             --sidebar-w: 252px;
@@ -82,6 +83,7 @@
             --shadow-sm: 0 1px 2px rgba(14,17,25,0.06);
             --shadow-md: 0 8px 26px rgba(14,17,25,0.09);
             --shadow-lg: 0 22px 54px rgba(14,17,25,0.14);
+            --row-stripe: rgba(20,24,38,0.035); /* v1.6: w jasnym motywie ten sam bialy odcien byl niewidoczny na jasnym tle */
         }
         html[data-theme="light"] input[type=date] { color-scheme: light; }
         html[data-theme="light"] .btn-primary { color: #ffffff; }
@@ -566,6 +568,26 @@
         .btn-tool:hover { background: var(--bg-input-hover); border-color: var(--accent-line); color: var(--text-white); transform: translateY(-1px); }
         .btn-link { background: none; border: none; color: var(--steam-blue); height: auto; padding: 0; width: auto; font-size: 13px; border-radius: 2px; box-shadow: none; }
         .btn-link:hover { text-decoration: underline; }
+        /* v1.6: przyciski-przelaczniki (Filtry zaawansowane, Dodaj wiele naraz,
+           Ukryj liste, itd.) byly stylizowane jak zwykle linki tekstowe - bez
+           obwodki wygladaly jak przypadkowo zostawiony tekst, zwlaszcza
+           "Filtry zaawansowane" samotnie pod pelnoszerokim paskiem filtrow.
+           Ta klasa daje im ta sama "ramke", co reszta drugorzednych przyciskow
+           (.btn-tool) w apce. */
+        .btn-chip {
+            display: inline-flex; align-items: center; gap: 7px;
+            background: var(--bg-raised);
+            border: 1px solid var(--border-light);
+            border-radius: var(--r-sm);
+            color: var(--text-main);
+            font-size: 12.5px; font-weight: 500;
+            padding: 7px 14px;
+            height: auto; width: auto;
+            cursor: pointer;
+            transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+        }
+        .btn-chip:hover { border-color: var(--accent-line); background: var(--bg-input-hover); color: var(--text-white); }
+        .btn-chip i { color: var(--steam-blue); font-size: 12px; }
         .btn-danger-ghost { background: transparent; border: 1px solid var(--err); color: var(--err); width: auto; padding: 0 14px; box-shadow: none; }
         .btn-danger-ghost:hover { background: rgba(242,105,107,0.14); transform: translateY(-1px); }
 
@@ -619,7 +641,7 @@
         }
         th .sort-ind { font-size: 10px; margin-left: 4px; opacity: 0.8; }
         td { padding: 13px 10px; border-bottom: 1px solid var(--border); color: var(--text-light); font-size: 13px; }
-        tr:nth-child(even) td { background-color: rgba(255,255,255,0.014); }
+        tr:nth-child(even) td { background-color: var(--row-stripe); }
         tr:hover td { background-color: var(--accent-soft); }
         td.name-cell { position: relative; padding-left: 18px; }
         td.name-cell::before {
@@ -651,8 +673,11 @@
         .year-wrap-stats span { font-family: var(--font-mono); font-size: 18px; font-weight: 600; color: var(--steam-blue); }
         .year-wrap-stats small { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; max-width: 100px; }
         .year-wrap-highlight { font-size: 13px; color: var(--text-main); border-top: 1px dashed var(--border-light); padding-top: 16px; }
-        #gamesTable th:nth-child(5), #gamesTable th:nth-child(6) { text-align: right; }
-        #gamesTable td:nth-child(5), #gamesTable td:nth-child(6) { text-align: right; font-weight: 600; color: var(--text-white); }
+        /* v1.6: to trafialo w kolumny "Forma" i "Data zakupu" (5,6) zamiast
+           w kolumny z cenami (7,8) - reszta zostala kiedys dolozona przed
+           tymi kolumnami, a ta regula nigdy nie zostala przeliczona */
+        #gamesTable th:nth-child(7), #gamesTable th:nth-child(8) { text-align: right; }
+        #gamesTable td:nth-child(7), #gamesTable td:nth-child(8) { text-align: right; font-weight: 600; color: var(--text-white); }
         .src-steam { background: rgba(51,191,161,0.15); color: var(--steam-blue); }
         .src-key { background: rgba(226,161,61,0.15); color: var(--key-purple); }
         .src-playstation { background: rgba(0,112,209,0.18); color: #4da3ff; }
@@ -662,6 +687,38 @@
         .src-epic { background: rgba(255,255,255,0.12); color: var(--text-light); }
 
         .action-icons { display: flex; gap: 4px; justify-content: flex-end; }
+        /* v1.6: forma gry (cyfrowa/fizyczna) jako maly chip zamiast golej
+           ikony z tekstem - spojne z reszta znacznikow w apce (hltb-chip itp) */
+        .own-chip {
+            display: inline-flex; align-items: center; gap: 5px;
+            font-size: 11.5px; font-weight: 500;
+            padding: 3px 9px; border-radius: var(--r-sm);
+            border: 1px solid var(--border-light); color: var(--text-dim);
+            white-space: nowrap;
+        }
+        .own-chip i { font-size: 10px; }
+        .own-chip[data-own="digital"] { color: var(--steam-blue); border-color: var(--accent-line); }
+        .own-chip[data-own="physical"] { color: var(--coin); border-color: rgba(240,180,41,0.4); }
+
+        /* v1.6: podglad "Smart import" - edytowalna tabela wynikow parsera,
+           z wyroznieniem wierszy ktore wygladaja na cos innego niz gra
+           (doladowanie portfela, zwrot) - te sa domyslnie odznaczone */
+        .smart-import-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+        .smart-import-table th {
+            text-align: left; font-family: var(--font-mono); font-size: 10px;
+            text-transform: uppercase; letter-spacing: var(--ls-label);
+            color: var(--text-dim); padding: 6px 8px; border-bottom: 1px solid var(--border-light);
+        }
+        .smart-import-table td { padding: 5px 8px; border-bottom: 1px solid var(--border); }
+        .smart-import-table input[type="text"],
+        .smart-import-table input[type="number"],
+        .smart-import-table input[type="date"],
+        .smart-import-table select { font-size: 12.5px; padding: 5px 8px; }
+        .smart-row-flagged { background: rgba(255,107,125,0.06); }
+        .smart-row-flagged td:nth-child(2)::after {
+            content: "?"; display: inline-block; margin-left: 6px;
+            color: var(--err); font-weight: 700; font-size: 11px;
+        }
         .action-icons button {
             background: none; border: none; width: 32px; height: 32px;
             color: var(--text-dim); font-size: 14px; border-radius: 4px;

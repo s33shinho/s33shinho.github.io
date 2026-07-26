@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Backlog Wallet</title>
+
+    <!-- Open Graph / Twitter Card - link preview when the page is shared -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Backlog Wallet">
+    <meta property="og:description" content="Track your game purchases, monitor spending, and see how much of your backlog you've actually played.">
+    <meta property="og:url" content="https://backlogwallet.com">
+    <meta property="og:image" content="https://backlogwallet.com/icons/og-banner.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Backlog Wallet">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Backlog Wallet">
+    <meta name="twitter:description" content="Track your game purchases, monitor spending, and see how much of your backlog you've actually played.">
+    <meta name="twitter:image" content="https://backlogwallet.com/icons/og-banner.png">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0c11'/%3E%3CclipPath id='c'%3E%3Crect x='5' y='5' width='22' height='22' rx='5'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23c)'%3E%3Crect x='5' y='5' width='22' height='7.48' fill='%23f0b429'/%3E%3Crect x='5' y='13.8' width='22' height='7.48' fill='%238b7bff'/%3E%3Crect x='5' y='22.6' width='22' height='4.4' fill='%235de1c4'/%3E%3C/g%3E%3C/svg%3E">
 
     <!-- PWA: instalowalna aplikacja z ikona i dzialaniem offline -->
@@ -53,7 +67,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=3">
+    <link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
 
@@ -292,7 +306,7 @@
             <div class="card">
                 <div class="card-head">
                     <span><i class="fa-solid fa-plus" style="margin-right:6px;"></i> <span data-i18n="addGame">Dodaj grę</span></span>
-                    <button type="button" class="btn-link" id="addFormToggleBtn" onclick="toggleAddForm()">
+                    <button type="button" class="btn-chip" id="addFormToggleBtn" onclick="toggleAddForm()">
                         <span id="addFormToggleText" data-i18n="addFormShow">Pokaż formularz</span> <i class="fa-solid fa-chevron-down" id="addFormToggleIcon"></i>
                     </button>
                 </div>
@@ -403,9 +417,40 @@
                     </form>
 
                     <div style="margin-top:14px; padding-top:14px; border-top:1px solid var(--border);">
-                        <button type="button" class="btn-link" id="bulkAddToggleBtn" onclick="toggleBulkAdd()">
+                        <button type="button" class="btn-chip" id="bulkAddToggleBtn" onclick="toggleBulkAdd()">
                             <i class="fa-solid fa-layer-group"></i> <span data-i18n="bulkAddBtn">Dodaj wiele naraz</span>
                         </button>
+                        <button type="button" class="btn-chip" id="smartImportToggleBtn" onclick="toggleSmartImport()" style="margin-left:8px;">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> <span data-i18n="smartImportBtn">Smart import (Steam & more)</span>
+                        </button>
+                        <div id="smartImportPanel" style="display:none; margin-top:10px;">
+                            <p style="font-size:12px; color:var(--text-dim); margin-bottom:8px; line-height:1.5;" data-i18n="smartImportHint">
+                                Paste your Steam purchase history (or any order list/receipt) below - one purchase per line works best. Steam doesn't offer an official export, so this is a best-effort reader: it tries to find a date, a price and a title on each line. Nothing gets added until you review and confirm the results below.
+                            </p>
+                            <textarea id="smartImportTextarea" rows="6" style="height:auto; padding:10px; resize:vertical; font-family:monospace; font-size:12px; line-height:1.5;" placeholder="12 Mar, 2024   Hollow Knight   $14.99"></textarea>
+                            <div style="display:flex; gap:8px; margin-top:10px;">
+                                <button type="button" class="btn-primary" style="width:auto; padding:0 16px;" onclick="runSmartImportParse()"><i class="fa-solid fa-magnifying-glass"></i> <span data-i18n="smartImportParseBtn">Find purchases</span></button>
+                                <button type="button" class="btn-tool" style="width:auto;" onclick="toggleSmartImport(false)"><span data-i18n="cancelBtn">Anuluj</span></button>
+                            </div>
+                            <div id="smartImportPreviewWrap" style="display:none; margin-top:14px;">
+                                <p class="hltb-note" data-i18n="smartImportPreviewNote">Review each row - uncheck anything that isn't a game (wallet top-ups and refunds are pre-unchecked, but double-check). Every field can be edited directly.</p>
+                                <div style="overflow-x:auto;">
+                                    <table class="smart-import-table">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th data-i18n="gameTitle">Tytuł gry</th>
+                                                <th data-i18n="colOrigPrice">Cena Oryginalna</th>
+                                                <th data-i18n="currency">Waluta</th>
+                                                <th data-i18n="purchaseDate">Data zakupu</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="smartImportPreviewBody"></tbody>
+                                    </table>
+                                </div>
+                                <button type="button" class="btn-primary" style="width:auto; padding:0 16px; margin-top:12px;" onclick="commitSmartImport()"><i class="fa-solid fa-check"></i> <span data-i18n="smartImportCommitBtn">Add checked games</span></button>
+                            </div>
+                        </div>
                         <div id="bulkAddPanel" style="display:none; margin-top:10px;">
                             <p style="font-size:12px; color:var(--text-dim); margin-bottom:8px; line-height:1.5;" id="bulkAddHintText" data-i18n="bulkAddHint">
                                 Wklej po jednej grze w linii, w formacie: Tytuł;Cena;Waluta;Źródło;Data (RRRR-MM-DD). Waluta, Źródło i Data są opcjonalne.
@@ -424,9 +469,9 @@
                 <div class="card-head">
                     <span><i class="fa-solid fa-list" style="margin-right:6px;"></i> <span data-i18n="myLibrary">Twoja Biblioteka</span></span>
                     <div style="display:flex; gap:14px; align-items:center;">
-                        <button class="btn-link" id="hideListBtn" onclick="toggleListHidden()"><i class="fa-solid fa-eye-slash" id="hideListIcon"></i> <span id="hideListText" data-i18n="hideList">Ukryj listę</span></button>
-                        <button class="btn-link" id="expandCollapseBtn" onclick="toggleListExpand()"><i class="fa-solid fa-up-right-and-down-left-from-center" id="expandCollapseIcon"></i> <span id="expandCollapseText" data-i18n="expandList">Rozwiń listę</span></button>
-                        <button class="btn-link" onclick="exportCSV()"><i class="fa-solid fa-file-csv"></i> <span data-i18n="exportCsv">Eksport CSV</span></button>
+                        <button class="btn-chip" id="hideListBtn" onclick="toggleListHidden()"><i class="fa-solid fa-eye-slash" id="hideListIcon"></i> <span id="hideListText" data-i18n="hideList">Ukryj listę</span></button>
+                        <button class="btn-chip" id="expandCollapseBtn" onclick="toggleListExpand()"><i class="fa-solid fa-up-right-and-down-left-from-center" id="expandCollapseIcon"></i> <span id="expandCollapseText" data-i18n="expandList">Rozwiń listę</span></button>
+                        <button class="btn-chip" onclick="exportCSV()"><i class="fa-solid fa-file-csv"></i> <span data-i18n="exportCsv">Eksport CSV</span></button>
                     </div>
                 </div>
                 <div id="libraryListBody">
@@ -466,7 +511,7 @@
                     </select>
                 </div>
                 <div style="margin-bottom:12px;">
-                    <button type="button" class="btn-link" id="advFiltersToggleBtn" onclick="toggleAdvFilters()">
+                    <button type="button" class="btn-chip" id="advFiltersToggleBtn" onclick="toggleAdvFilters()">
                         <i class="fa-solid fa-sliders" id="advFiltersIcon"></i> <span data-i18n="advFiltersToggle">Filtry zaawansowane</span>
                     </button>
                     <div id="advFiltersPanel" style="display:none; margin-top:10px; flex-wrap:wrap; gap:10px; align-items:flex-end;">
@@ -629,7 +674,7 @@
                         <p class="auth-note" data-i18n="authNoteLogged"></p>
                         <button class="btn-danger-ghost" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> <span data-i18n="logoutBtn">Wyloguj</span></button>
 
-                        <button type="button" class="btn-link" onclick="toggleChangePassword()" id="changePasswordToggleBtn">
+                        <button type="button" class="btn-chip" onclick="toggleChangePassword()" id="changePasswordToggleBtn">
                             <i class="fa-solid fa-key"></i> <span data-i18n="changePasswordBtn">Zmień hasło</span>
                         </button>
                         <div id="changePasswordPanel" style="display:none; width:100%;">
@@ -1131,7 +1176,7 @@
     <p id="footerDateTime" style="margin-top:15px;font-size:12px;color:var(--text-dim);"></p>
 
     <p style="margin-top:8px;font-size:11px;color:var(--text-dim);">
-      <span class="changelog-ver">v1.5</span> &middot; <span data-i18n="footerUpdated">Ostatnia aktualizacja</span>: 26.07.2026
+      <span class="changelog-ver">v1.6</span> &middot; <span data-i18n="footerUpdated">Ostatnia aktualizacja</span>: 26.07.2026
     </p>
   </div>
 </footer>
@@ -1159,7 +1204,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=3" defer></script>
+    <script src="app.js?v=4" defer></script>
     <script>
         // PWA: rejestracja service workera. Nie blokuje niczego jesli sie
         // nie uda (np. starsza przegladarka) - aplikacja dziala normalnie,
