@@ -217,6 +217,14 @@
         .priv-list li:last-child { border-bottom: none; }
         .priv-list li i { color: var(--ok); margin-top: 3px; flex-shrink: 0; }
         html[dir="rtl"] .priv-list li { flex-direction: row-reverse; }
+        /* v1.6.2: karta prywatnosci dostala pelna szerokosc siatki (bento-full)
+           zamiast wskiej-wysokiej kolumny, zeby nie zostawiac pustych komorek
+           obok niej. Przy tej szerokosci 3 punkty ida obok siebie, nie pod soba. */
+        .bento-full { grid-column: 1 / -1; }
+        @media (min-width: 760px) {
+            .priv-list { display: flex; gap: 24px; }
+            .priv-list li { flex: 1; border-bottom: none; padding: 0; }
+        }
 
         .acc-block { width: 100%; margin-top: 18px; padding-top: 18px; border-top: 1px dashed var(--border); }
         .acc-block:first-of-type { margin-top: 8px; }
