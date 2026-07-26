@@ -652,6 +652,18 @@
         tr:nth-child(even) td { background-color: var(--row-stripe); }
         tr:hover td { background-color: var(--accent-soft); }
         td.name-cell { position: relative; padding-left: 18px; }
+        /* v1.6.3: dlugie tytuly zawijaly sie na kilka linii, robiac TEN JEDEN
+           wiersz duzo wyzszym niz reszta - a poniewaz komorki sa wyrownane
+           do srodka w pionie, cena/CHF/ikony w tym wierszu "plywaly" z duzym
+           luzem, podczas gdy sasiednie wiersze wygladaly na ciasne. Obcinamy
+           sam tekst nazwy wielokropkiem (peten tytul nadal widoczny po
+           najechaniu, przez title="" na komorce) - kazdy wiersz ma teraz
+           ta sama wysokosc, niezaleznie od dlugosci nazwy gry. */
+        td.name-cell .name-text {
+            display: inline-block; max-width: 320px; vertical-align: bottom;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        @media (max-width: 1200px) { td.name-cell .name-text { max-width: 200px; } }
         td.name-cell::before {
             content: ""; position: absolute; left: 2px; top: 50%; transform: translateY(-50%);
             width: 5px; height: 5px; border-radius: 50%; background: var(--steam-blue); opacity: 0.7;
@@ -788,7 +800,7 @@
            na to, jaki font akurat jest zaladowany */
         .auth-side-header { display: flex; align-items: center; height: 44px; margin-bottom: 18px; }
         @media (min-width: 900px) {
-            .auth-layout { display: grid; grid-template-columns: 0.85fr 1fr; gap: 32px; align-items: start; }
+            .auth-layout { display: grid; grid-template-columns: 0.85fr 1fr; gap: 32px; align-items: center; }
             .auth-side { display: block; }
             .auth-box { margin: 0; max-width: none; }
         }
@@ -937,6 +949,10 @@
             .main-wrap { padding: 10px; }
 
             #gamesTable thead { display: none; }
+            /* na mobile kazda komorka jest wlasnym blokiem (nie dzieli
+               wysokosci z sasiadami w wierszu), wiec obcinanie tytulu
+               wielokropkiem nie jest tu potrzebne - niech zawija sie normalnie */
+            td.name-cell .name-text { max-width: none; white-space: normal; overflow: visible; text-overflow: clip; }
             #gamesTable, #gamesTable tbody, #gamesTable tr, #gamesTable td { display: block; width: 100%; }
             #gamesTable tr { border: 1px solid var(--border); border-radius: var(--r-md); margin: 10px 0; background: var(--bg-input); }
             #gamesTable td { border: none; padding: 4px 12px; background: none !important; }
