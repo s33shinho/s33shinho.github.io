@@ -10,7 +10,7 @@
 // podbij CACHE_VERSION ponizej o jeden. Bez tego przegladarki uzytkownikow
 // moga przez jakis czas dostawac stara wersje z cache zamiast nowej.
 
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const CACHE_NAME = `backlog-wallet-${CACHE_VERSION}`;
 
 // Wlasne pliki - musza byc zawsze aktualne wzgledem tego co faktycznie
