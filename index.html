@@ -67,7 +67,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=10">
+    <link rel="stylesheet" href="styles.css?v=11">
 </head>
 <body>
 
@@ -246,6 +246,11 @@
             </div>
 
             <div id="homeApp" style="display:none;">
+            <div id="onThisDayBanner" class="on-this-day-banner" style="display:none;">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <span id="onThisDayText"></span>
+                <button type="button" onclick="dismissOnThisDay()" aria-label="Dismiss"><i class="fa-solid fa-xmark"></i></button>
+            </div>
             <div class="dash-letterhead">
                 <div class="dash-letterhead-inner">
                     <div class="dash-total-label"><i class="fa-solid fa-coins"></i> <span data-i18n="totalValue">Wartość biblioteki</span></div>
@@ -826,6 +831,7 @@
                             <select id="yearCompareSelect" onchange="renderYearReview()" style="width:auto; min-width:130px;"></select>
                         </div>
                         <button type="button" class="btn-tool" style="width:auto;" onclick="showAllYearsChart()"><i class="fa-solid fa-chart-column"></i> <span data-i18n="yrAllYearsBtn">Wszystkie lata</span></button>
+                        <button type="button" class="btn-tool" style="width:auto;" onclick="openWrapped()"><i class="fa-solid fa-film"></i> <span data-i18n="yrWrappedBtn">View as Wrapped</span></button>
                     </div>
                     <div id="yearReviewCard" class="year-wrap-card">
                         <div class="year-wrap-badge">Backlog Wallet</div>
@@ -838,6 +844,19 @@
                             <div><span id="yrTopMonth">-</span><small data-i18n="yrMonthLabel">Najaktywniejszy miesiąc</small></div>
                         </div>
                         <div class="year-wrap-highlight" id="yrExpensive"></div>
+                    </div>
+                    <div id="yrHeatmapWrap" style="margin-top:22px;">
+                        <div class="section-heading"><i class="fa-solid fa-calendar-days"></i> <span data-i18n="yrHeatmapHeading">Purchase activity</span></div>
+                        <div id="yrHeatmap" class="purchase-heatmap"></div>
+                        <div class="purchase-heatmap-legend">
+                            <span data-i18n="yrHeatmapLess">Less</span>
+                            <i style="background:var(--bg-input);"></i>
+                            <i style="background:rgba(139,123,255,0.25);"></i>
+                            <i style="background:rgba(139,123,255,0.5);"></i>
+                            <i style="background:rgba(139,123,255,0.75);"></i>
+                            <i style="background:var(--steam-blue);"></i>
+                            <span data-i18n="yrHeatmapMore">More</span>
+                        </div>
                     </div>
                     <div id="yrCompareWrap" style="display:none; margin-top:22px;">
                         <div class="section-heading"><i class="fa-solid fa-code-compare"></i> <span data-i18n="yrCompareHeading">Porównanie lat</span></div>
@@ -1176,7 +1195,7 @@
     <p id="footerDateTime" style="margin-top:15px;font-size:12px;color:var(--text-dim);"></p>
 
     <p style="margin-top:8px;font-size:11px;color:var(--text-dim);">
-      <span class="changelog-ver">v1.6.4</span> &middot; <span data-i18n="footerUpdated">Ostatnia aktualizacja</span>: 26.07.2026
+      <span class="changelog-ver">v1.7</span> &middot; <span data-i18n="footerUpdated">Ostatnia aktualizacja</span>: 27.07.2026
     </p>
   </div>
 </footer>
@@ -1193,6 +1212,17 @@
         <button type="button" onclick="runPendingUndo()" data-i18n="undoBtn">Undo</button>
     </div>
 
+    <div id="wrappedOverlay" class="wrapped-overlay" style="display:none;">
+        <div class="wrapped-modal">
+            <button type="button" class="wrapped-close" onclick="closeWrapped()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+            <div class="wrapped-dots" id="wrappedDots"></div>
+            <div id="wrappedSlideContent" class="wrapped-slide"></div>
+            <button type="button" class="wrapped-nav-btn wrapped-nav-prev" onclick="wrappedPrev()" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+            <button type="button" class="wrapped-nav-btn wrapped-nav-next" onclick="wrappedNext()" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+            <button type="button" class="btn-primary wrapped-download-btn" onclick="downloadWrappedSlide()"><i class="fa-solid fa-download"></i> <span data-i18n="yrDownloadBtn">Pobierz jako obraz</span></button>
+        </div>
+    </div>
+
     <div id="cookieConsent" style="display:none; position:fixed; left:0; right:0; bottom:0; z-index:600; background:var(--bg-dark); border-top:1px solid var(--border-light); padding:16px; box-shadow:0 -4px 14px rgba(0,0,0,0.5);">
         <div style="max-width:900px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; gap:14px;">
             <p id="cookieConsentText" style="flex:1; min-width:220px; color:var(--text-light); font-size:13px; line-height:1.5; margin:0;"></p>
@@ -1204,7 +1234,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=10" defer></script>
+    <script src="app.js?v=11" defer></script>
     <script>
         // PWA: rejestracja service workera. Nie blokuje niczego jesli sie
         // nie uda (np. starsza przegladarka) - aplikacja dziala normalnie,
