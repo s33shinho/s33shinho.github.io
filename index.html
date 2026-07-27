@@ -67,7 +67,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=11">
+    <link rel="stylesheet" href="styles.css?v=12">
 </head>
 <body>
 
@@ -848,6 +848,7 @@
                     <div id="yrHeatmapWrap" style="margin-top:22px;">
                         <div class="section-heading"><i class="fa-solid fa-calendar-days"></i> <span data-i18n="yrHeatmapHeading">Purchase activity</span></div>
                         <div id="yrHeatmap" class="purchase-heatmap"></div>
+                        <div id="yrHeatmapDetail" class="heatmap-day-detail"></div>
                         <div class="purchase-heatmap-legend">
                             <span data-i18n="yrHeatmapLess">Less</span>
                             <i style="background:var(--bg-input);"></i>
@@ -1195,7 +1196,7 @@
     <p id="footerDateTime" style="margin-top:15px;font-size:12px;color:var(--text-dim);"></p>
 
     <p style="margin-top:8px;font-size:11px;color:var(--text-dim);">
-      <span class="changelog-ver">v1.7</span> &middot; <span data-i18n="footerUpdated">Ostatnia aktualizacja</span>: 27.07.2026
+      <span class="changelog-ver">build 2026-07-27 01:30:01</span> &middot; <span data-i18n="footerUpdated">Ostatnia aktualizacja</span>: 27.07.2026
     </p>
   </div>
 </footer>
@@ -1234,7 +1235,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=11" defer></script>
+    <script src="app.js?v=12" defer></script>
     <script>
         // PWA: rejestracja service workera. Nie blokuje niczego jesli sie
         // nie uda (np. starsza przegladarka) - aplikacja dziala normalnie,
