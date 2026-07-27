@@ -790,6 +790,7 @@
         html[dir="rtl"] .static-content ul { margin: 0 20px 10px 0; }
         .static-content a { color: var(--steam-blue); }
         .changelog-ver { color: var(--warn); font-family: var(--font-mono); font-size: 13px; }
+        .footer-build { color: var(--text-dim); font-family: var(--font-mono); font-size: 10.5px; opacity: 0.75; }
         .goal-card { background: var(--bg-input, rgba(255,255,255,0.03)); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
         .goal-card-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
         .goal-card-title { font-weight: 600; color: var(--text-white); }
