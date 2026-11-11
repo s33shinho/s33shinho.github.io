@@ -53,7 +53,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=27">
+    <link rel="stylesheet" href="styles.css?v=28">
 </head>
 <body>
 
@@ -764,7 +764,7 @@
                         <div class="year-wrap-highlight" id="yrExpensive"></div>
                     </div>
                     <div id="yrHeatmapWrap" style="margin-top:22px;">
-                        <div class="section-heading"><i class="fa-solid fa-calendar-days"></i> <span data-i18n="yrHeatmapHeading">Purchase activity</span></div>
+                        <div class="section-heading"><span data-i18n="yrHeatmapHeading">Purchase activity</span></div>
                         <div id="yrHeatmap" class="purchase-heatmap"></div>
                         <div id="yrHeatmapDetail" class="heatmap-day-detail"></div>
                         <div class="purchase-heatmap-legend">
@@ -778,7 +778,7 @@
                         </div>
                     </div>
                     <div id="yrCompareWrap" style="display:none; margin-top:22px;">
-                        <div class="section-heading"><i class="fa-solid fa-code-compare"></i> <span data-i18n="yrCompareHeading">Year comparison</span></div>
+                        <div class="section-heading"><span data-i18n="yrCompareHeading">Year comparison</span></div>
                         <div class="yr-cmp-grid">
                             <div class="yr-cmp-col" id="yrCmpColA"></div>
                             <div class="yr-cmp-col" id="yrCmpColB"></div>
@@ -786,7 +786,7 @@
                         <div class="yr-verdict" id="yrVerdict"></div>
                     </div>
                     <div id="yrAllYearsWrap" style="display:none; margin-top:22px;">
-                        <div class="section-heading"><i class="fa-solid fa-chart-column"></i> <span data-i18n="yrAllYearsHeading">Spending year by year</span></div>
+                        <div class="section-heading"><span data-i18n="yrAllYearsHeading">Spending year by year</span></div>
                         <div class="chart-area" style="height:280px; padding:0;"><canvas id="yearsChart"></canvas></div>
                     </div>
                     <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
@@ -1068,10 +1068,11 @@
         <a href="#" onclick="showView('privacy'); return false;" data-i18n="navPrivacy">Privacy Policy</a> ·
         <a href="#" onclick="showView('terms'); return false;" data-i18n="navTerms">Terms &amp; Conditions</a> ·
         <a href="#" onclick="showView('feedback'); return false;" data-i18n="navFeedback">Send feedback</a>
+        <div class="footer-note" data-i18n="footerNote">Built by one person, updated when I get to it.</div>
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v1.8.9 &middot; build 2026-11-11 16:56:44</span>
+        <span class="footer-build">v1.8.10 &middot; build 2026-11-11 19:54:24</span>
     </div>
 </footer>
 
@@ -1109,7 +1110,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=27" defer></script>
+    <script src="app.js?v=28" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.
