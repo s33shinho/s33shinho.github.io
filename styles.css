@@ -1427,82 +1427,15 @@
             *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
         }
 
-        .hltb-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
-            margin-bottom: 22px;
-        }
-        @media (max-width: 700px) { .hltb-grid { grid-template-columns: 1fr; } }
-        .hltb-tile {
-            position: relative;
-            background: var(--bg-raised);
-            border: 1px solid var(--border);
-            border-radius: var(--r-md);
-            padding: 18px 18px 18px 21px;
-            overflow: hidden;
-        }
-        .hltb-tile::before {
-            content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-        }
-        html[dir="rtl"] .hltb-tile::before { left: auto; right: 0; }
-        .hltb-tile[data-tier="main"]::before { background: var(--accent-2); }
-        .hltb-tile[data-tier="extra"]::before { background: var(--steam-blue); }
-        .hltb-tile[data-tier="complete"]::before { background: var(--coin); }
-        .hltb-tile .hltb-label {
-            font-family: var(--font-body); font-size: 9.5px; letter-spacing: var(--ls-label);
-            text-transform: uppercase; color: var(--text-dim); margin-bottom: 8px;
-        }
-        .hltb-tile .hltb-value {
-            font-family: var(--font-mono); font-variant-numeric: tabular-nums;
-            font-size: 30px; font-weight: 700; color: var(--text-white); letter-spacing: -0.03em;
-            line-height: 1.1;
-        }
-        .hltb-tile .hltb-value small { font-size: 13px; color: var(--text-dim); font-weight: 500; margin-left: 4px; }
-        .hltb-tile .hltb-sub { font-size: 12px; color: var(--text-dim); margin-top: 8px; line-height: 1.5; }
 
-        .hltb-bar-track {
-            height: 8px; border-radius: 999px; background: var(--bg-input);
-            overflow: hidden; margin-top: 12px; display: flex;
-        }
-        .hltb-bar-done { background: linear-gradient(90deg, var(--accent-2), var(--steam-blue)); }
 
-        .hltb-legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--text-dim); margin-top: 12px; }
-        .hltb-legend i { font-size: 8px; margin-right: 6px; vertical-align: middle; }
 
-        .hltb-fields {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
-            padding: 14px; margin-top: 4px;
-            background: var(--bg-dark); border: 1px solid var(--border); border-radius: var(--r-md);
-        }
-        @media (max-width: 620px) { .hltb-fields { grid-template-columns: 1fr; } }
         .hltb-note {
             font-size: 12px; color: var(--text-dim); line-height: 1.6;
             border-left: 2px solid var(--accent-line); padding-left: 12px; margin: 10px 0 0;
         }
         html[dir="rtl"] .hltb-note { border-left: none; border-right: 2px solid var(--accent-line); padding-left: 0; padding-right: 12px; }
 
-        .hltb-row {
-            display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center;
-            padding: 11px 0; border-bottom: 1px solid var(--border);
-        }
-        .hltb-row:last-child { border-bottom: none; }
-        .hltb-row-name { font-weight: 500; color: var(--text-light); }
-        .hltb-row-times { font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); font-variant-numeric: tabular-nums; }
-        .hltb-level-pick {
-            width: auto; height: 30px; font-size: 12px; padding: 0 8px;
-            font-family: var(--font-body); min-width: 150px;
-        }
-        .hltb-explain {
-            font-size: 12px; line-height: 1.6; color: var(--text-dim);
-            margin-top: 14px; padding-top: 12px;
-            border-top: 1px solid var(--border);
-        }
-        .hltb-row-hint {
-            font-size: 10.5px; color: var(--text-dim); margin-top: 5px;
-            text-align: right; font-style: italic;
-        }
-        html[dir="rtl"] .hltb-row-hint { text-align: left; }
 
         .yr-compare-bar {
             display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end;

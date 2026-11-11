@@ -96,11 +96,8 @@ fldStatus: "Completion status (optional)", statusNone: "- not set -", statusComp
         confirmDuplicate: "A game with this name is already in your library. Add it again anyway?", advFiltersToggle: "Advanced filters", priceMin: "Price from", priceMax: "Price to", dateFrom: "Date from", dateTo: "Date to", resetFilters: "Clear filters", bulkAddResultDup: "Games added: {added} (invalid lines: {skipped}, duplicates: {dup})", bulkAddAllDup: "All pasted games ({dup}) are already in your library - nothing was added.", navAchievements: "Achievements", achievementsDesc: "Unlock badges as you grow your game library.", achUnlocked: "Unlocked", achLocked: "Locked", achMaxLevel: "Max level!", achLevel: "Level {level}/{max}", achFirstGameT: "First Step", achFirstGameD: "Add your first game to the library.", achCollectorT: "Collector", achCollectorD: "Own {target} games in your library.", achDiversityT: "Multi-Platform", achDiversityD: "Own games from {target} different platforms.", achFinisherT: "Finisher", achFinisherD: "Complete {target} games from your library.", achPhysicalT: "Box Collector", achPhysicalD: "Own {target} physical games.", achInvestorT: "Big Investor", achInvestorD: "Reach a library value of {target}.", achDreamT: "Dream Fulfilled", achDreamD: "Reach at least one savings goal.", achCurrenciesT: "Multi-Currency", achCurrenciesD: "Buy games in {target} different currencies.", achVeteranT: "Collection Veteran", achVeteranD: "Keep your library going for {target} years.", achBalancedT: "Balanced Collection", achBalancedD: "Own both digital and physical games in your library.", navRoulette: "What to play?", rouletteDesc: "Can't decide what to play tonight? Roll the dice on your backlog.", rouletteBtn: "Pick a game", rouletteRerollBtn: "Pick another", rouletteEmptyLib: "Your library is empty - add a few games first to roll for one.", rouletteAllDone: "No games marked as \"Not completed\" - set that status on some games in your library so there's something to roll for.", roulettePlatformAll: "All platforms", navSectionMain: "Main", navSectionAccount: "Account", navSectionLibrary: "Your library", navSectionTools: "Tools",
         navTerms: "Terms & Conditions", navPrivacy: "Privacy Policy", rememberMe: "Remember me", footerContact: "Contact", cookieConsentText: "This site uses local browser storage (localStorage) to ensure proper functioning and remember your preferences. By continuing to use the site, you consent to this.", cookieMoreInfo: "More information", cookieDeclineBtn: "Decline", cookieAcceptBtn: "Accept",
         faqHtml: "<h3>What is this app?</h3><p>A personal game-spending tracker. You log the title, price, source and purchase date, and the app calculates stats and draws charts.</p><h3>Do I need an account?</h3><p>Yes. Full app functionality (your game library, stats, achievements) requires a free, verified account. Without one you'll only see the welcome page.</p><h3>Will I lose guest data after logging in?</h3><p>No. On first login your guest data is merged into your cloud account.</p><h3>Where do exchange rates come from?</h3><p>From a public rates API (open.er-api.com). If the API is unavailable, fallback rates are used.</p><h3>Can the ranking be gamed?</h3><p>Not easily. It's always recalculated from the data stored on your account at the moment it's displayed, so you can't inflate it by editing anything locally in your browser. Entering a fake but plausible-sounding game is still theoretically possible - the basic filter only rejects obviously junk entries.</p><h3>Can I personalise my account?</h3><p>Yes. On the Login/Account tab you can set a nickname, your preferred display currency, and a light/dark theme.</p><h3>Is my data safe and GDPR-compliant?</h3><p>Yes. Your data is stored in Firebase (Google Cloud) and protected by access rules. You can export your data (JSON) or delete your account and all its data with one click at any time - see the Privacy Policy for details.</p><h3>How do I report a bug or get in touch?</h3><p>Email the address listed in the footer.</p>",
-        navPlaytime: "Playtime", ptDesc: "How many hours are sitting in your library, based on HowLongToBeat times.", ptProgressHeading: "Your progress", ptListHeading: "Games with times", ptSourceHeading: "Where the times come from", ptSourceNote: "HowLongToBeat has no public API. Every working library is an unofficial scraper that needs a token lifted from the site's own scripts, and howlongtobeat.com sends no CORS headers, so a browser can't query it directly from your page. That's why you enter times manually, or point the app at your own proxy (a free Cloudflare Worker works) that returns JSON with main, extra and complete fields.", ptProxyLabel: "Your own proxy address (optional)", ptProxySave: "Save", ptProxyTest: "Test connection", ptProxyInvalid: "The address has to start with https:// or be local (http://localhost).", ptProxySaved: "Saved. The “Fetch times” button on the add-game form is now active.", ptProxyCleared: "Address cleared - times are entered manually.", ptProxyNone: "Enter a proxy address first.", ptProxyTesting: "Testing…", ptProxyOk: "Working. Test response: {main} h / {extra} h / {complete} h.", ptProxyEmpty: "The server replied, but no times could be read from the response.", ptProxyFail: "Couldn't connect:", ptRemaining: "Still to play", ptEquals: "That's about {d} days non-stop", ptNoData: "No data", ptEmpty: "No game has times yet. Add them when editing a game in your library.", ptClearedLabel: "Hours already cleared", hltbFormLabel: "Completion time (HowLongToBeat)", hltbSearchPh: "Title on HowLongToBeat", hltbFetchBtn: "Fetch times", hltbMain: "Main Story (h)", hltbExtra: "Main + Extras (h)", hltbComplete: "Completionist (h)", hltbMainShort: "Main Story", hltbExtraShort: "Main + Extras", hltbCompleteShort: "Completionist", hltbFormNote: "HowLongToBeat has no public API - enter times manually, or connect your own proxy on the Playtime tab.", hltbFormNoteProxy: "Proxy connected - hit “Fetch times” to fill these fields automatically.", hltbNeedTitle: "Enter a game title first.", hltbNoProxy: "Automatic lookup needs your own proxy - set one up on the Playtime tab.", hltbSearching: "Looking up times…", hltbNotFound: "Couldn't find “{title}” on HowLongToBeat.", hltbFound: "Times filled in for “{title}”.", hltbFetchFail: "Lookup failed:", hltbLevelLabel: "How far did you get in this game?", hltbLevelNone: "- not set -", hltbLevelMain: "Main story only", hltbLevelExtra: "Main story + side content", hltbLevelComplete: "Completed 100%", yrYearLabel: "Year", yrCompareLabel: "Compare with", yrCompareNone: "— no comparison —", yrAllYearsBtn: "All years", yrCompareHeading: "Year comparison", yrAllYearsHeading: "Spending year by year", yrAvgPrice: "Average game price", yrCompletedLabel: "Completed games", yrVsTitle: "{a} compared with {b}",
-        ptBulkHeading: "Fill in your whole library", ptBulkDesc: "Goes through your games and fetches times for the ones that don't have them yet. It works one game at a time, so a large library takes a few minutes - you can stop whenever you like and everything fetched so far is kept.", ptBulkOverwrite: "Overwrite times that are already filled in", ptBulkStart: "Fetch missing times", ptBulkStop: "Stop", ptBulkStopping: "Finishing the current game…", ptBulkNeedProxy: "Connect a proxy above first - there's nowhere to fetch times from without it.", ptBulkNoneMissing: "Every game already has times. Tick “Overwrite” if you want to fetch them again.", ptBulkProgress: "{i} of {n} — {name}", ptBulkDone: "Done. Filled: {ok}, not found: {miss}, errors: {err}.", ptBulkStopped: "Stopped. Filled: {ok}.",
-        ptLevelFromStatus: "set from the “Completed” status",
-        ptClearedExplain: "The total ({base} h) is the sum of the “main + extras” times of every game that has times filled in. Each game contributes as many hours as its completion level - a game with no level set contributes nothing.",
-        changelogHtml: "<h3><span class='changelog-ver'>v1.8</span> (11.11.2026)</h3><ul><li>Redesigned the homepage to feel lighter: flat hero, smaller corner radii, calmer cards, no floating animation</li><li>New typography: Source Sans 3 for headings, menus, descriptions and game titles; IBM Plex Mono for prices, statistics, dates and numbers</li><li>Removed emoji from the interface - statuses and achievements now use icons</li><li>The \"Your library\" menu section is now visible only when signed in</li><li>Shortened the homepage: fewer feature tiles, no duplicate buttons or text, tidier sign-up buttons</li></ul><h3><span class='changelog-ver'>v1.7.1</span> (27.07.2026)</h3><ul><li>Fixed a real bug in the purchase activity heatmap: month labels (Jan, Feb, ...) were squeezed into cells too narrow for the text, so they could visually run into each other</li><li>Heatmap cells are now clickable/tappable - shows how many games were bought on that day</li></ul><h3><span class='changelog-ver'>v1.7</span> (27.07.2026)</h3><ul><li>New: a small banner on the dashboard when today matches the purchase date of a game from a previous year, like \"3 years ago today, you bought Hades\"</li><li>New: a purchase activity heatmap in Year in Review, showing which days you bought games across the year</li><li>New: \"View as Wrapped\" in Year in Review - a slide-by-slide summary of your year (total spent, games bought, favourite platform, priciest purchase, first game of the year, busiest month, completion rate), each slide downloadable as an image</li></ul><h3><span class='changelog-ver'>v1.6.4</span> (26.07.2026)</h3><ul><li>Fixed a rare crash where a slow-loading chart library could break unrelated parts of the app, like the Playtime tab</li></ul><h3><span class='changelog-ver'>v1.6.3</span> (26.07.2026)</h3><ul><li>Fixed uneven row heights when a game title wraps onto multiple lines</li><li>Fixed the login/account screen not centering properly next to the feature cards</li></ul><h3><span class='changelog-ver'>v1.6.2</span> (26.07.2026)</h3><ul><li>Fixed gaps in the homepage feature-card grid so it fills evenly at every screen size</li></ul><h3><span class='changelog-ver'>v1.6.1</span> (26.07.2026)</h3><ul><li>Fixed the \"Advanced filters\" button not lining up with the rest of the toolbar</li></ul><h3><span class='changelog-ver'>v1.6</span> (26.07.2026)</h3><ul><li>New: \"Smart import\" - paste your Steam purchase history (or any receipt/order list) and review detected games before adding them</li><li>Fixed \"Ownership\" and \"Purchase date\" columns being wrongly right-aligned</li><li>Digital/Physical badge redesigned as a proper chip</li><li>Buttons like \"Advanced filters\" and \"Add multiple games\" now have a visible border</li><li>Row striping in the table is now actually visible</li><li>Added a social preview image and description for shared links</li></ul><h3><span class='changelog-ver'>v1.5</span> (26.07.2026)</h3><ul><li>Fixed the login/account card sitting too high on tall screens instead of centering</li><li>Fixed inconsistent letter-spacing across labels and badges</li></ul><h3><span class='changelog-ver'>v1.4</span> (26.07.2026)</h3><ul><li>Deleting a game is now instant with an \"Undo\" option, instead of a confirmation popup</li><li>Added error monitoring</li><li>Added a loading skeleton and a retry option if the library fails to load</li><li>Backlog Wallet can now be installed as an app, with basic offline support</li></ul><h3><span class='changelog-ver'>v1.3.2</span> (26.07.2026)</h3><ul><li>Added an explanation for the \"Hours already cleared\" progress bar</li></ul><h3><span class='changelog-ver'>v1.3.1</span> (26.07.2026)</h3><ul><li>Completion level can now be set directly from the list</li><li>Completed games without a level set now count towards progress</li></ul><h3><span class='changelog-ver'>v1.3</span> (26.07.2026)</h3><ul><li>New: bulk-fetch HowLongToBeat times for your whole library, with a progress bar</li></ul><h3><span class='changelog-ver'>v1.2.1</span> (26.07.2026)</h3><ul><li>Fixed the HowLongToBeat proxy field rejecting local addresses</li></ul><h3><span class='changelog-ver'>v1.2</span> (26.07.2026)</h3><ul><li>Complete visual redesign - new colors, fonts and layout</li><li>New: Year in Review can now compare two years side by side</li><li>New: \"Playtime\" tab showing total completion time across your library</li><li>New: track HowLongToBeat times and completion level per game</li></ul><h3><span class='changelog-ver'>v1.1</span> (24.07.2026)</h3><ul><li>New: monthly spending counter with a percentage change vs last month</li></ul><h3><span class='changelog-ver'>v1.0.1</span> (20.07.2026)</h3><ul><li>Fixed a bug from v1.0 that broke the entire site</li></ul><h3><span class='changelog-ver'>v1.0</span> (20.07.2026)</h3><ul><li>Full redesign - new look, fixed desktop sidebar, better contrast</li><li>Fixed a page-width bug causing a horizontal scrollbar</li><li>Fixed home page content being misaligned on desktop</li></ul><h3><span class='changelog-ver'>v0.9.1</span> (17.07.2026)</h3><ul><li>New: bulk-edit game status for multiple selected games at once</li><li>Fixed the Backlog Health score calculation</li></ul><h3><span class='changelog-ver'>v0.9</span> (17.07.2026)</h3><ul><li>Fixed nickname login</li><li>New: \"Backlog Health\" score</li><li>New: two more game statuses (Endless, Won't play)</li><li>New: import data from a JSON backup</li><li>Account deletion now backs up your data first automatically</li></ul><h3><span class='changelog-ver'>v0.8.1</span> (17.07.2026)</h3><ul><li>New: \"Endless game\" and \"Won't play\" statuses</li><li>\"What to play?\" now only picks unplayed games</li></ul><h3><span class='changelog-ver'>v0.8</span> (17.07.2026)</h3><ul><li>New: \"What to play?\" random game picker</li><li>More achievement tiers, plus 3 new badges</li><li>Fixed the price filter using the wrong currency</li><li>Visual refresh - clearer contrast and borders</li></ul><h3><span class='changelog-ver'>v0.7.4</span> (16.07.2026)</h3><ul><li>New: Achievements tab</li><li>New: duplicate detection when adding games</li><li>New: advanced filters by price and purchase date</li></ul><h3><span class='changelog-ver'>v0.7.3</span> (15.07.2026)</h3><ul><li>Restored \"Key Store\" as a purchase source</li></ul><h3><span class='changelog-ver'>v0.7.2</span> (15.07.2026)</h3><ul><li>Fixed checkbox alignment in the table</li><li>Long titles on the virtual shelf no longer get cut off</li></ul><h3><span class='changelog-ver'>v0.7.1</span> (15.07.2026)</h3><ul><li>Various fixes: translations, checkbox size, scrollable side menu</li><li>Redesigned the virtual shelf to look like a real shelf</li></ul><h3><span class='changelog-ver'>v0.7</span> (15.07.2026)</h3><ul><li>New: Savings Goals tab</li><li>New: digital/physical format per game</li><li>New: bulk editing for format and purchase source</li></ul><h3><span class='changelog-ver'>v0.6.1</span> (15.07.2026)</h3><ul><li>Fixed language menu position, top-menu overflow, and a country-saving bug</li><li>Removed Google AdSense</li></ul><h3><span class='changelog-ver'>v0.6</span> (13.07.2026)</h3><ul><li>New: shareable public library link</li><li>New: Year in Review shareable card</li><li>New: optional completion status per game</li></ul><h3><span class='changelog-ver'>v0.5</span> (13.07.2026)</h3><ul><li>Email confirmation now required at registration</li><li>Added PlayStation, Xbox, Nintendo, GOG and Epic Games as sources</li><li>Fixed chart readability issues</li><li>Major homepage redesign</li></ul><h3><span class='changelog-ver'>v0.41</span> (13.07.2026)</h3><ul><li>Added sorting by date and alphabetically</li><li>Removed emoji avatars</li><li>Added nickname login</li><li>Default language is now English</li></ul><h3><span class='changelog-ver'>v0.4</span> (12.07.2026)</h3><ul><li>Renamed to Backlog Wallet</li><li>New tagline and homepage design</li><li>Added emoji avatar personalisation</li><li>Expanded FAQ and privacy policy</li></ul><h3><span class='changelog-ver'>v0.31</span> (12.07.2026)</h3><ul><li>Expanded currency choice to all 20 currencies</li><li>New: Ranking tab</li><li>Added basic protection against junk game names</li></ul><h3><span class='changelog-ver'>v0.3</span> (11.07.2026)</h3><ul><li>Full tracker now requires a free account</li><li>Light/dark theme toggle</li><li>GDPR-compliant data export and deletion</li></ul><h3><span class='changelog-ver'>v0.24</span> (11.07.2026)</h3><ul><li>Minor bug fixes and UX improvements</li></ul><h3><span class='changelog-ver'>v0.23</span> (11.07.2026)</h3><ul><li>Replaced the Steam logo with a neutral icon</li><li>Expanded currency choice</li><li>Added password change option</li></ul><h3><span class='changelog-ver'>v0.22</span> (11.07.2026)</h3><ul><li>Fixed a mobile expand/collapse bug</li><li>Added a quick language switcher</li><li>New: Exchange Rates tab</li></ul><h3><span class='changelog-ver'>v0.21</span> (11.07.2026)</h3><ul><li>Fixed a language-detection bug</li><li>Added bulk adding of games</li><li>Added a filter by purchase source</li></ul><h3><span class='changelog-ver'>v0.2</span> </h3><ul><li>Major rebuild - side menu, accounts, charts, mobile support</li></ul><h3><span class='changelog-ver'>v0.1</span> </h3><ul><li>Initial release</li></ul>",
+        yrYearLabel: "Year", yrCompareLabel: "Compare with", yrCompareNone: "— no comparison —", yrAllYearsBtn: "All years", yrCompareHeading: "Year comparison", yrAllYearsHeading: "Spending year by year", yrAvgPrice: "Average game price", yrCompletedLabel: "Completed games", yrVsTitle: "{a} compared with {b}",
+        changelogHtml: "<h3><span class='changelog-ver'>v1.8.1</span> (11.11.2026)</h3><ul><li>Removed the HowLongToBeat integration and the Playtime tab</li><li>The \"years ago today\" banner no longer comes back after you close it</li><li>Fixed the page jumping oddly when editing a game</li></ul><h3><span class='changelog-ver'>v1.8</span> (11.11.2026)</h3><ul><li>Redesigned the homepage to feel lighter: flat hero, smaller corner radii, calmer cards, no floating animation</li><li>New typography: Source Sans 3 for headings, menus, descriptions and game titles; IBM Plex Mono for prices, statistics, dates and numbers</li><li>Removed emoji from the interface - statuses and achievements now use icons</li><li>The \"Your library\" menu section is now visible only when signed in</li><li>Shortened the homepage: fewer feature tiles, no duplicate buttons or text, tidier sign-up buttons</li></ul><h3><span class='changelog-ver'>v1.7.1</span> (27.07.2026)</h3><ul><li>Fixed a real bug in the purchase activity heatmap: month labels (Jan, Feb, ...) were squeezed into cells too narrow for the text, so they could visually run into each other</li><li>Heatmap cells are now clickable/tappable - shows how many games were bought on that day</li></ul><h3><span class='changelog-ver'>v1.7</span> (27.07.2026)</h3><ul><li>New: a small banner on the dashboard when today matches the purchase date of a game from a previous year, like \"3 years ago today, you bought Hades\"</li><li>New: a purchase activity heatmap in Year in Review, showing which days you bought games across the year</li><li>New: \"View as Wrapped\" in Year in Review - a slide-by-slide summary of your year (total spent, games bought, favourite platform, priciest purchase, first game of the year, busiest month, completion rate), each slide downloadable as an image</li></ul><h3><span class='changelog-ver'>v1.6.4</span> (26.07.2026)</h3><ul><li>Fixed a rare crash where a slow-loading chart library could break unrelated parts of the app, like the Playtime tab</li></ul><h3><span class='changelog-ver'>v1.6.3</span> (26.07.2026)</h3><ul><li>Fixed uneven row heights when a game title wraps onto multiple lines</li><li>Fixed the login/account screen not centering properly next to the feature cards</li></ul><h3><span class='changelog-ver'>v1.6.2</span> (26.07.2026)</h3><ul><li>Fixed gaps in the homepage feature-card grid so it fills evenly at every screen size</li></ul><h3><span class='changelog-ver'>v1.6.1</span> (26.07.2026)</h3><ul><li>Fixed the \"Advanced filters\" button not lining up with the rest of the toolbar</li></ul><h3><span class='changelog-ver'>v1.6</span> (26.07.2026)</h3><ul><li>New: \"Smart import\" - paste your Steam purchase history (or any receipt/order list) and review detected games before adding them</li><li>Fixed \"Ownership\" and \"Purchase date\" columns being wrongly right-aligned</li><li>Digital/Physical badge redesigned as a proper chip</li><li>Buttons like \"Advanced filters\" and \"Add multiple games\" now have a visible border</li><li>Row striping in the table is now actually visible</li><li>Added a social preview image and description for shared links</li></ul><h3><span class='changelog-ver'>v1.5</span> (26.07.2026)</h3><ul><li>Fixed the login/account card sitting too high on tall screens instead of centering</li><li>Fixed inconsistent letter-spacing across labels and badges</li></ul><h3><span class='changelog-ver'>v1.4</span> (26.07.2026)</h3><ul><li>Deleting a game is now instant with an \"Undo\" option, instead of a confirmation popup</li><li>Added error monitoring</li><li>Added a loading skeleton and a retry option if the library fails to load</li><li>Backlog Wallet can now be installed as an app, with basic offline support</li></ul><h3><span class='changelog-ver'>v1.3.2</span> (26.07.2026)</h3><ul><li>Added an explanation for the \"Hours already cleared\" progress bar</li></ul><h3><span class='changelog-ver'>v1.3.1</span> (26.07.2026)</h3><ul><li>Completion level can now be set directly from the list</li><li>Completed games without a level set now count towards progress</li></ul><h3><span class='changelog-ver'>v1.3</span> (26.07.2026)</h3><ul><li>New: bulk-fetch HowLongToBeat times for your whole library, with a progress bar</li></ul><h3><span class='changelog-ver'>v1.2.1</span> (26.07.2026)</h3><ul><li>Fixed the HowLongToBeat proxy field rejecting local addresses</li></ul><h3><span class='changelog-ver'>v1.2</span> (26.07.2026)</h3><ul><li>Complete visual redesign - new colors, fonts and layout</li><li>New: Year in Review can now compare two years side by side</li><li>New: \"Playtime\" tab showing total completion time across your library</li><li>New: track HowLongToBeat times and completion level per game</li></ul><h3><span class='changelog-ver'>v1.1</span> (24.07.2026)</h3><ul><li>New: monthly spending counter with a percentage change vs last month</li></ul><h3><span class='changelog-ver'>v1.0.1</span> (20.07.2026)</h3><ul><li>Fixed a bug from v1.0 that broke the entire site</li></ul><h3><span class='changelog-ver'>v1.0</span> (20.07.2026)</h3><ul><li>Full redesign - new look, fixed desktop sidebar, better contrast</li><li>Fixed a page-width bug causing a horizontal scrollbar</li><li>Fixed home page content being misaligned on desktop</li></ul><h3><span class='changelog-ver'>v0.9.1</span> (17.07.2026)</h3><ul><li>New: bulk-edit game status for multiple selected games at once</li><li>Fixed the Backlog Health score calculation</li></ul><h3><span class='changelog-ver'>v0.9</span> (17.07.2026)</h3><ul><li>Fixed nickname login</li><li>New: \"Backlog Health\" score</li><li>New: two more game statuses (Endless, Won't play)</li><li>New: import data from a JSON backup</li><li>Account deletion now backs up your data first automatically</li></ul><h3><span class='changelog-ver'>v0.8.1</span> (17.07.2026)</h3><ul><li>New: \"Endless game\" and \"Won't play\" statuses</li><li>\"What to play?\" now only picks unplayed games</li></ul><h3><span class='changelog-ver'>v0.8</span> (17.07.2026)</h3><ul><li>New: \"What to play?\" random game picker</li><li>More achievement tiers, plus 3 new badges</li><li>Fixed the price filter using the wrong currency</li><li>Visual refresh - clearer contrast and borders</li></ul><h3><span class='changelog-ver'>v0.7.4</span> (16.07.2026)</h3><ul><li>New: Achievements tab</li><li>New: duplicate detection when adding games</li><li>New: advanced filters by price and purchase date</li></ul><h3><span class='changelog-ver'>v0.7.3</span> (15.07.2026)</h3><ul><li>Restored \"Key Store\" as a purchase source</li></ul><h3><span class='changelog-ver'>v0.7.2</span> (15.07.2026)</h3><ul><li>Fixed checkbox alignment in the table</li><li>Long titles on the virtual shelf no longer get cut off</li></ul><h3><span class='changelog-ver'>v0.7.1</span> (15.07.2026)</h3><ul><li>Various fixes: translations, checkbox size, scrollable side menu</li><li>Redesigned the virtual shelf to look like a real shelf</li></ul><h3><span class='changelog-ver'>v0.7</span> (15.07.2026)</h3><ul><li>New: Savings Goals tab</li><li>New: digital/physical format per game</li><li>New: bulk editing for format and purchase source</li></ul><h3><span class='changelog-ver'>v0.6.1</span> (15.07.2026)</h3><ul><li>Fixed language menu position, top-menu overflow, and a country-saving bug</li><li>Removed Google AdSense</li></ul><h3><span class='changelog-ver'>v0.6</span> (13.07.2026)</h3><ul><li>New: shareable public library link</li><li>New: Year in Review shareable card</li><li>New: optional completion status per game</li></ul><h3><span class='changelog-ver'>v0.5</span> (13.07.2026)</h3><ul><li>Email confirmation now required at registration</li><li>Added PlayStation, Xbox, Nintendo, GOG and Epic Games as sources</li><li>Fixed chart readability issues</li><li>Major homepage redesign</li></ul><h3><span class='changelog-ver'>v0.41</span> (13.07.2026)</h3><ul><li>Added sorting by date and alphabetically</li><li>Removed emoji avatars</li><li>Added nickname login</li><li>Default language is now English</li></ul><h3><span class='changelog-ver'>v0.4</span> (12.07.2026)</h3><ul><li>Renamed to Backlog Wallet</li><li>New tagline and homepage design</li><li>Added emoji avatar personalisation</li><li>Expanded FAQ and privacy policy</li></ul><h3><span class='changelog-ver'>v0.31</span> (12.07.2026)</h3><ul><li>Expanded currency choice to all 20 currencies</li><li>New: Ranking tab</li><li>Added basic protection against junk game names</li></ul><h3><span class='changelog-ver'>v0.3</span> (11.07.2026)</h3><ul><li>Full tracker now requires a free account</li><li>Light/dark theme toggle</li><li>GDPR-compliant data export and deletion</li></ul><h3><span class='changelog-ver'>v0.24</span> (11.07.2026)</h3><ul><li>Minor bug fixes and UX improvements</li></ul><h3><span class='changelog-ver'>v0.23</span> (11.07.2026)</h3><ul><li>Replaced the Steam logo with a neutral icon</li><li>Expanded currency choice</li><li>Added password change option</li></ul><h3><span class='changelog-ver'>v0.22</span> (11.07.2026)</h3><ul><li>Fixed a mobile expand/collapse bug</li><li>Added a quick language switcher</li><li>New: Exchange Rates tab</li></ul><h3><span class='changelog-ver'>v0.21</span> (11.07.2026)</h3><ul><li>Fixed a language-detection bug</li><li>Added bulk adding of games</li><li>Added a filter by purchase source</li></ul><h3><span class='changelog-ver'>v0.2</span> </h3><ul><li>Major rebuild - side menu, accounts, charts, mobile support</li></ul><h3><span class='changelog-ver'>v0.1</span> </h3><ul><li>Initial release</li></ul>",
         donateHtml: "<h3>Support the project</h3><p>This app is free and made as a hobby. If you find it useful, you can buy the author a coffee.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>Thank you for any support!</p>",
         termsHtml: "<h3>1. General provisions</h3><p>These Terms and Conditions govern the use of the Backlog Wallet application (the \"App\"). By using the App, you agree to the terms below.</p><h3>2. Nature of the service</h3><p>The App is a free, hobby-built tool for personal tracking of video game purchases. It is not affiliated with, endorsed by, or in any way officially connected with Valve Corporation or the Steam platform. The name \"Steam\" is used purely descriptively.</p><h3>3. User accounts</h3><p>The App can be used in guest mode (no registration required, data stored locally in your browser) or with a registered account (email/password authentication), which enables cloud synchronization. You are responsible for keeping your login credentials confidential.</p><h3>4. User obligations</h3><ul><li>You may not use the App for any unlawful purpose.</li><li>You may not attempt to compromise the security of the App or its infrastructure.</li><li>You are responsible for the content (e.g., game titles) you enter into the App.</li></ul><h3>5. Limitation of liability</h3><p>The App is provided \"as is\", without warranties of any kind. Currency exchange rates are fetched from a third-party public API and may be inaccurate. The author is not liable for any data loss, particularly for data stored locally in guest mode.</p><h3>6. Changes to these terms</h3><p>We reserve the right to modify these Terms at any time. Continued use of the App after changes constitutes acceptance of the updated Terms.</p><h3>7. Contact</h3><p>For questions about these Terms, please use the contact details provided in the footer.</p>",
         privacyHtml: "<h3>1. Data controller</h3><p>The data controller for personal data processed within the App is [YOUR FULL NAME OR COMPANY NAME - PLEASE FILL IN] (owner of Backlog Wallet), who can be reached using the contact details provided in the footer.</p><h3>2. What data we process</h3><ul><li><strong>Guest mode:</strong> your game library data (title, price, source, date) is stored only locally in your browser (localStorage) and is never sent to our servers.</li><li><strong>User accounts:</strong> if you register, we process your email address and your game library data, stored via Firebase (Google) to enable synchronization across devices.</li><li><strong>Preferences:</strong> your chosen interface language and cookie consent choice are stored locally in your browser.</li><li><strong>Registration country:</strong> when you create an account, we determine your country (e.g. \"PL\") from your IP address using a third-party IP geolocation service. We never store the IP address itself - only the resulting country code, which is visible to the site administrator for account security and oversight purposes.</li></ul><h3>3. Local storage</h3><p>The App uses local browser storage mechanisms (localStorage) required for it to function and to remember your preferences.</p><h3>4. Data sharing</h3><p>We do not sell user data. Data may be processed by service providers (Firebase/Google, and, during registration, a third-party IP geolocation service) solely to the extent necessary to provide the App's functionality.</p><h3>5. Your rights</h3><p>You have the right to access, correct, delete, and port your data, as well as the right to request restriction of processing and to object to processing based on legitimate interest. You can request deletion of your account and cloud data by contacting the administrator. You can delete guest data yourself by clearing this site's browser data.</p><h3>6. Security</h3><p>We rely on Firebase's standard security measures to protect your data; however, no method of transmission over the internet is 100% secure.</p><h3>7. Contact</h3><p>For privacy-related questions, please use the contact details provided in the footer.</p><h3>Legal bases for processing (GDPR)</h3><ul><li><strong>Performance of a contract (Art. 6(1)(b) GDPR):</strong> operating your account and synchronising your library across devices.</li><li><strong>Legitimate interest (Art. 6(1)(f) GDPR):</strong> keeping the app secure and working correctly, and detecting the registration country for basic account oversight and abuse prevention.</li></ul><h3>Data retention</h3><p>We keep your account and library data until you delete your account. You can do this yourself at any time from the \"Your account\" panel using the delete-account-and-data option. Preferences stored locally in your browser (language, theme, currency, consent) can be removed by clearing this site's browser data.</p><h3>International transfers</h3><p>We rely on Google services (Firebase), which may involve processing outside the European Economic Area. Google uses Standard Contractual Clauses and other legally recognised safeguards for such transfers.</p><h3>Withdrawing consent and complaints</h3><p>You can withdraw cookie consent at any time (via the consent banner or your browser settings), without affecting the lawfulness of processing carried out beforehand. You have the right to lodge a complaint with the data-protection supervisory authority in your country of residence.</p>",
@@ -187,7 +184,6 @@ function showView(view) {
     window.scrollTo({ top: 0 });
     if (view === 'ranking') renderRanking();
     if (view === 'yearreview') initYearReview();
-    if (view === 'playtime') renderPlaytime();
     if (view === 'goals') renderGoals();
     if (view === 'shelf') renderShelf();
     if (view === 'achievements') renderAchievements();
@@ -735,15 +731,13 @@ function updateAuthUI() {
     updateHomeGate();
     const libWrap = $('navLibraryWrap');
     if (libWrap) libWrap.style.display = logged ? '' : 'none';
-    if (!logged && ['shelf', 'achievements', 'roulette', 'ranking', 'yearreview', 'playtime', 'goals'].some(v => $('view-' + v) && $('view-' + v).classList.contains('active'))) showView('home');
+    if (!logged && ['shelf', 'achievements', 'roulette', 'ranking', 'yearreview', 'goals'].some(v => $('view-' + v) && $('view-' + v).classList.contains('active'))) showView('home');
     const navRanking = $('navRankingBtn');
     if (navRanking) navRanking.style.display = logged ? '' : 'none';
     const navYearReview = $('navYearReviewBtn');
     if (navYearReview) navYearReview.style.display = logged ? '' : 'none';
     const navGoals = $('navGoalsBtn');
     if (navGoals) navGoals.style.display = logged ? '' : 'none';
-    const navPlaytime = $('navPlaytimeBtn');
-    if (navPlaytime) navPlaytime.style.display = logged ? '' : 'none';
     const navAdmin = $('navAdminBtn');
     if (navAdmin) navAdmin.style.display = isAdmin() ? '' : 'none';
 }
@@ -813,11 +807,7 @@ form.addEventListener('submit', function (e) {
         date: $('purchaseDate').value,
         status: $('gameStatus').value || null,
         ownership: $('gameOwnership').value || 'digital',
-        priceChf: price * rates[currency],
-        hltbMain: numOrNull($('hltbMain').value),
-        hltbExtra: numOrNull($('hltbExtra').value),
-        hltbComplete: numOrNull($('hltbComplete').value),
-        completionLevel: $('completionLevel').value || null
+        priceChf: price * rates[currency]
     };
 
     if (editingIndex > -1) {
@@ -842,19 +832,15 @@ function editGame(index) {
     $('purchaseDate').value = game.date;
     $('gameStatus').value = game.status || '';
     $('gameOwnership').value = game.ownership || 'digital';
-    $('hltbMain').value = (game.hltbMain != null) ? game.hltbMain : '';
-    $('hltbExtra').value = (game.hltbExtra != null) ? game.hltbExtra : '';
-    $('hltbComplete').value = (game.hltbComplete != null) ? game.hltbComplete : '';
-    $('completionLevel').value = game.completionLevel || '';
-    $('hltbSearchInput').value = game.name || '';
 
     editingIndex = index;
     $('submitBtn').querySelector('span').textContent = t('saveBtn');
     $('submitBtn').style.backgroundColor = '#e6a32e';
     $('submitBtn').style.color = '#000';
     $('cancelEditBtn').style.display = 'inline-flex';
-    $('gameName').focus();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const formCard = $('addFormBody').closest('.card') || $('addFormBody');
+    formCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    $('gameName').focus({ preventScroll: true });
 }
 
 function cancelEdit() {
@@ -974,7 +960,7 @@ function toggleAddForm(force) {
     if ($('addFormToggleIcon')) $('addFormToggleIcon').classList.toggle('fa-chevron-up', show);
     if ($('addFormToggleIcon')) $('addFormToggleIcon').classList.toggle('fa-chevron-down', !show);
     if ($('addFormToggleText')) $('addFormToggleText').textContent = show ? t('addFormHide') : t('addFormShow');
-    if (show) setTimeout(() => $('gameName') && $('gameName').focus(), 60);
+    if (show && force === undefined) setTimeout(() => $('gameName') && $('gameName').focus({ preventScroll: true }), 60);
 }
 
 function toggleBulkAdd(force) {
@@ -1711,7 +1697,9 @@ function renderOnThisDay() {
     if (!banner) return;
 
     const todayKey = new Date().toISOString().slice(0, 10);
-    if (sessionStorage.getItem('onThisDayDismissed') === todayKey) {
+    let dismissed = null;
+    try { dismissed = localStorage.getItem('onThisDayDismissed'); } catch (e) {}
+    if (dismissed === todayKey) {
         banner.style.display = 'none';
         return;
     }
@@ -1748,7 +1736,7 @@ function renderOnThisDay() {
 function dismissOnThisDay() {
     const banner = $('onThisDayBanner');
     if (banner) banner.style.display = 'none';
-    sessionStorage.setItem('onThisDayDismissed', new Date().toISOString().slice(0, 10));
+    try { localStorage.setItem('onThisDayDismissed', new Date().toISOString().slice(0, 10)); } catch (e) {}
 }
 
 function renderTable() {
@@ -2402,12 +2390,11 @@ function yearStats(year) {
 
     const priciest = yGames.slice().sort((a, b) => (b.priceChf || 0) - (a.priceChf || 0))[0] || null;
     const completed = yGames.filter(g => g.status === 'completed').length;
-    const hours = yGames.reduce((s, g) => s + (g.hltbMain || 0), 0);
 
     return {
         year, games: yGames, count: yGames.length, totalChf,
         avgChf: yGames.length ? totalChf / yGames.length : 0,
-        topPlatform, topMonth, priciest, completed, hours,
+        topPlatform, topMonth, priciest, completed,
         physical: yGames.filter(g => g.ownership === 'physical').length
     };
 }
@@ -2835,357 +2822,6 @@ async function downloadYearReviewImage() {
     link.click();
 }
 
-
-/* HowLongToBeat publishes no official API. Every working client is a
-   scraper that needs a token lifted from the site's own JS bundle, and
-   howlongtobeat.com sends no CORS headers, so a page served from
-   GitHub Pages cannot call it directly from the browser.
-
-   So this module works two ways:
-     1. Manual entry — always available, no dependencies.
-     2. A proxy URL the user supplies themselves (Cloudflare Worker,
-        Vercel function, self-hosted service). We append the encoded
-        title and expect JSON back. */
-
-const HLTB_PROXY_KEY = 'hltbProxyUrl';
-
-function numOrNull(v) {
-    if (v === '' || v === null || v === undefined) return null;
-    const n = parseFloat(v);
-    return (isNaN(n) || n < 0) ? null : n;
-}
-
-function fmtHours(h) {
-    if (!h) return '0';
-    if (h < 10) return h.toFixed(1).replace(/\.0$/, '');
-    return Math.round(h).toString();
-}
-
-function hltbProxyUrl() {
-    return (localStorage.getItem(HLTB_PROXY_KEY) || '').trim();
-}
-
-function saveHltbProxy() {
-    const val = ($('hltbProxyUrl').value || '').trim();
-    // https wszędzie, ale http dopuszczone dla lokalnego proxy na tej maszynie
-    const localOk = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?\//i.test(val);
-    if (val && !/^https:\/\//i.test(val) && !localOk) {
-        $('ptProxyStatus').textContent = t('ptProxyInvalid');
-        return;
-    }
-    localStorage.setItem(HLTB_PROXY_KEY, val);
-    $('ptProxyStatus').textContent = val ? t('ptProxySaved') : t('ptProxyCleared');
-    updateHltbFormNote();
-}
-
-async function testHltbProxy() {
-    const status = $('ptProxyStatus');
-    const url = ($('hltbProxyUrl').value || '').trim();
-    if (!url) { status.textContent = t('ptProxyNone'); return; }
-    status.textContent = t('ptProxyTesting');
-    try {
-        const res = await hltbFetch(url, 'Hollow Knight');
-        status.textContent = res
-            ? t('ptProxyOk').replace('{main}', fmtHours(res.main)).replace('{extra}', fmtHours(res.extra)).replace('{complete}', fmtHours(res.complete))
-            : t('ptProxyEmpty');
-    } catch (e) {
-        status.textContent = t('ptProxyFail') + ' ' + (e && e.message ? e.message : '');
-    }
-}
-
-/* Accepts a few common response shapes so most community wrappers
-   work without the user having to reshape their output. */
-function normalizeHltbResponse(data) {
-    if (!data) return null;
-    let g = data;
-    if (Array.isArray(data)) g = data[0];
-    else if (Array.isArray(data.data)) g = data.data[0];
-    else if (Array.isArray(data.results)) g = data.results[0];
-    if (!g) return null;
-
-    // values arrive as plain numbers, as "52h 39m", or as seconds - handle all three
-    const toHours = (raw) => {
-        if (typeof raw === 'number') return raw;
-        const str = String(raw).trim();
-        const hm = str.match(/(\d+(?:\.\d+)?)\s*h(?:ours?)?(?:\s*(\d+)\s*m)?/i);
-        if (hm) return parseFloat(hm[1]) + (hm[2] ? parseInt(hm[2], 10) / 60 : 0);
-        const mOnly = str.match(/^(\d+)\s*m(?:in)?/i);
-        if (mOnly) return parseInt(mOnly[1], 10) / 60;
-        const plain = parseFloat(str.replace(/[^\d.]/g, ''));
-        return isNaN(plain) ? null : plain;
-    };
-    const pick = (...keys) => {
-        for (const k of keys) {
-            if (g[k] !== undefined && g[k] !== null && g[k] !== '') {
-                const n = toHours(g[k]);
-                if (n !== null && !isNaN(n) && n > 0) return Math.round(n * 10) / 10;
-            }
-        }
-        return null;
-    };
-    const out = {
-        name: g.name || g.title || g.game_name || '',
-        main: pick('gameplayMain', 'mainStory', 'main', 'comp_main', 'main_story'),
-        extra: pick('gameplayMainExtra', 'mainStoryWithExtras', 'extra', 'comp_plus', 'main_extra'),
-        complete: pick('gameplayCompletionist', 'completionist', 'complete', 'comp_100')
-    };
-    // some sources report seconds rather than hours
-    ['main', 'extra', 'complete'].forEach(k => {
-        if (out[k] && out[k] > 1000) out[k] = Math.round((out[k] / 3600) * 10) / 10;
-    });
-    return (out.main || out.extra || out.complete) ? out : null;
-}
-
-async function hltbFetch(proxy, title) {
-    const url = proxy.includes('{q}')
-        ? proxy.replace('{q}', encodeURIComponent(title))
-        : proxy + encodeURIComponent(title);
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 12000);
-    try {
-        const r = await fetch(url, { signal: controller.signal, headers: { 'Accept': 'application/json' } });
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        return normalizeHltbResponse(await r.json());
-    } finally {
-        clearTimeout(timer);
-    }
-}
-
-async function hltbLookupForForm() {
-    const title = ($('hltbSearchInput').value || $('gameName').value || '').trim();
-    const note = $('hltbFormNote');
-    if (!title) { note.textContent = t('hltbNeedTitle'); return; }
-
-    const proxy = hltbProxyUrl();
-    if (!proxy) {
-        note.textContent = t('hltbNoProxy');
-        showView('playtime');
-        return;
-    }
-    note.textContent = t('hltbSearching');
-    try {
-        const res = await hltbFetch(proxy, title);
-        if (!res) { note.textContent = t('hltbNotFound').replace('{title}', title); return; }
-        if (res.main) $('hltbMain').value = res.main;
-        if (res.extra) $('hltbExtra').value = res.extra;
-        if (res.complete) $('hltbComplete').value = res.complete;
-        note.textContent = t('hltbFound').replace('{title}', res.name || title);
-    } catch (e) {
-        note.textContent = t('hltbFetchFail') + ' ' + (e && e.message ? e.message : '');
-    }
-}
-
-function updateHltbFormNote() {
-    const note = $('hltbFormNote');
-    if (note) note.textContent = hltbProxyUrl() ? t('hltbFormNoteProxy') : t('hltbFormNote');
-}
-
-/* If no completion level is set but the game's status is "completed",
-   treat it as a main-story clear - otherwise completed games wouldn't
-   count towards progress at all. */
-function effectiveLevel(g) {
-    if (g.completionLevel) return g.completionLevel;
-    if (g.status === 'completed') return 'main';
-    return null;
-}
-
-function isInferredLevel(g) {
-    return !g.completionLevel && g.status === 'completed';
-}
-
-/* The hours a game still owes you, given how far you say you got. */
-function hltbRemaining(g, tier) {
-    const target = tier === 'main' ? g.hltbMain : (tier === 'extra' ? g.hltbExtra : g.hltbComplete);
-    if (!target) return 0;
-    const lvl = effectiveLevel(g);
-    if (lvl === 'complete') return 0;
-    if (lvl === 'extra') return Math.max(0, target - (g.hltbExtra || g.hltbMain || 0));
-    if (lvl === 'main') return Math.max(0, target - (g.hltbMain || 0));
-    return target;
-}
-
-// Leci po jednej grze, bo lokalne proxy i tak obsluguje zapytania szeregowo,
-// a przy okazji nie zasypujemy HowLongToBeat.
-let bulkHltbRunning = false;
-let bulkHltbStop = false;
-
-function stopBulkHltb() {
-    bulkHltbStop = true;
-    $('ptBulkStatus').textContent = t('ptBulkStopping');
-}
-
-function hasHltbTimes(g) {
-    return !!(g.hltbMain || g.hltbExtra || g.hltbComplete);
-}
-
-async function bulkFetchHltb() {
-    if (bulkHltbRunning) return;
-
-    const proxy = hltbProxyUrl();
-    if (!proxy) {
-        $('ptBulkSummary').style.display = 'block';
-        $('ptBulkSummary').textContent = t('ptBulkNeedProxy');
-        return;
-    }
-
-    const overwrite = $('ptBulkOverwrite').checked;
-    const targets = games
-        .map((g, i) => ({ g: g, i: i }))
-        .filter(x => overwrite || !hasHltbTimes(x.g));
-
-    if (!targets.length) {
-        $('ptBulkSummary').style.display = 'block';
-        $('ptBulkSummary').textContent = t('ptBulkNoneMissing');
-        return;
-    }
-
-    bulkHltbRunning = true;
-    bulkHltbStop = false;
-    $('ptBulkStartBtn').disabled = true;
-    $('ptBulkStopBtn').style.display = 'inline-flex';
-    $('ptBulkProgressWrap').style.display = 'block';
-    $('ptBulkSummary').style.display = 'none';
-
-    let ok = 0, miss = 0, err = 0, done = 0;
-
-    for (const item of targets) {
-        if (bulkHltbStop) break;
-
-        done++;
-        $('ptBulkBar').style.width = ((done / targets.length) * 100).toFixed(1) + '%';
-        $('ptBulkStatus').textContent = t('ptBulkProgress')
-            .replace('{i}', done).replace('{n}', targets.length)
-            .replace('{name}', item.g.name);
-
-        try {
-            const res = await hltbFetch(proxy, item.g.name);
-            if (res && (res.main || res.extra || res.complete)) {
-                if (res.main) item.g.hltbMain = res.main;
-                if (res.extra) item.g.hltbExtra = res.extra;
-                if (res.complete) item.g.hltbComplete = res.complete;
-                ok++;
-            } else {
-                miss++;
-            }
-        } catch (e) {
-            err++;
-        }
-
-        // zapisujemy na biezaco, zeby nic nie przepadlo przy przerwaniu
-        if (done % 5 === 0) persistData();
-    }
-
-    persistData();
-    renderTable();
-    renderPlaytime();
-
-    bulkHltbRunning = false;
-    $('ptBulkStartBtn').disabled = false;
-    $('ptBulkStopBtn').style.display = 'none';
-    $('ptBulkProgressWrap').style.display = 'none';
-    $('ptBulkSummary').style.display = 'block';
-    $('ptBulkSummary').textContent = (bulkHltbStop ? t('ptBulkStopped') : t('ptBulkDone'))
-        .replace('{ok}', ok).replace('{miss}', miss).replace('{err}', err);
-}
-
-function setCompletionLevel(index, value) {
-    const g = games[index];
-    if (!g) return;
-    g.completionLevel = value || null;
-    persistData();
-    renderTable();
-    renderPlaytime();
-}
-
-function renderPlaytime() {
-    const saved = localStorage.getItem(HLTB_PROXY_KEY) || '';
-    if ($('hltbProxyUrl')) $('hltbProxyUrl').value = saved;
-    const noteEl = document.querySelector('[data-i18n="ptSourceNote"]');
-    if (noteEl) noteEl.textContent = t('ptSourceNote');
-
-    const timed = games.filter(g => g.hltbMain || g.hltbExtra || g.hltbComplete);
-    const sum = (k) => timed.reduce((s, g) => s + (g[k] || 0), 0);
-
-    const totals = { main: sum('hltbMain'), extra: sum('hltbExtra'), complete: sum('hltbComplete') };
-    const tiers = ['main', 'extra', 'complete'];
-    const idMap = { main: 'ptMainTotal', extra: 'ptExtraTotal', complete: 'ptCompleteTotal' };
-    const subMap = { main: 'ptMainSub', extra: 'ptExtraSub', complete: 'ptCompleteSub' };
-
-    tiers.forEach(tier => {
-        $(idMap[tier]).innerHTML = `${fmtHours(totals[tier])}<small>h</small>`;
-        const remaining = timed.reduce((s, g) => s + hltbRemaining(g, tier), 0);
-        const days = totals[tier] / 24;
-        $(subMap[tier]).innerHTML = totals[tier]
-            ? `${escapeHtml(t('ptRemaining'))}: <strong style="color:var(--text-light);">${fmtHours(remaining)} h</strong><br>${escapeHtml(t('ptEquals').replace('{d}', days.toFixed(1)))}`
-            : escapeHtml(t('ptNoData'));
-    });
-
-    // progress: hours cleared vs hours logged, at the Main + Extras level
-    const body = $('ptProgressBody');
-    if (timed.length === 0) {
-        body.innerHTML = `<p class="auth-note">${escapeHtml(t('ptEmpty'))}</p>`;
-        $('ptList').innerHTML = '';
-        updateHltbFormNote();
-        return;
-    }
-
-    const clearedHours = timed.reduce((s, g) => {
-        const lvl = effectiveLevel(g);
-        if (lvl === 'complete') return s + (g.hltbComplete || g.hltbExtra || g.hltbMain || 0);
-        if (lvl === 'extra') return s + (g.hltbExtra || g.hltbMain || 0);
-        if (lvl === 'main') return s + (g.hltbMain || 0);
-        return s;
-    }, 0);
-    const baseHours = timed.reduce((s, g) => s + (g.hltbExtra || g.hltbMain || 0), 0);
-    const pct = baseHours ? Math.min(100, (clearedHours / baseHours) * 100) : 0;
-
-    const byLevel = { main: 0, extra: 0, complete: 0, none: 0 };
-    timed.forEach(g => { byLevel[effectiveLevel(g) || 'none']++; });
-
-    body.innerHTML = `
-        <div class="hltb-tile" style="padding:18px 18px 18px 21px;">
-            <div class="hltb-label">${escapeHtml(t('ptClearedLabel'))}</div>
-            <div class="hltb-value">${fmtHours(clearedHours)}<small>h / ${fmtHours(baseHours)} h</small></div>
-            <div class="hltb-bar-track"><div class="hltb-bar-done" style="width:${pct.toFixed(1)}%"></div></div>
-            <div class="hltb-legend">
-                <span><i class="fa-solid fa-circle" style="color:var(--accent-2);"></i>${escapeHtml(t('hltbLevelMain'))}: ${byLevel.main}</span>
-                <span><i class="fa-solid fa-circle" style="color:var(--steam-blue);"></i>${escapeHtml(t('hltbLevelExtra'))}: ${byLevel.extra}</span>
-                <span><i class="fa-solid fa-circle" style="color:var(--coin);"></i>${escapeHtml(t('hltbLevelComplete'))}: ${byLevel.complete}</span>
-                <span><i class="fa-solid fa-circle" style="color:var(--text-dim);"></i>${escapeHtml(t('hltbLevelNone'))}: ${byLevel.none}</span>
-            </div>
-            <div class="hltb-explain">${escapeHtml(t('ptClearedExplain').replace('{base}', fmtHours(baseHours)))}</div>
-        </div>`;
-
-    const lvlLabel = { main: t('hltbLevelMain'), extra: t('hltbLevelExtra'), complete: t('hltbLevelComplete') };
-    $('ptList').innerHTML = timed
-        .slice()
-        .sort((a, b) => (b.hltbExtra || b.hltbMain || 0) - (a.hltbExtra || a.hltbMain || 0))
-        .map(g => {
-            const idx = games.indexOf(g);
-            const lvl = effectiveLevel(g);
-            const opt = (val, label) =>
-                `<option value="${val}"${lvl === val ? ' selected' : ''}>${escapeHtml(label)}</option>`;
-            const picker = `<select class="hltb-level-pick" onchange="setCompletionLevel(${idx}, this.value)">
-                    <option value=""${!lvl ? ' selected' : ''}>${escapeHtml(t('hltbLevelNone'))}</option>
-                    ${opt('main', lvlLabel.main)}
-                    ${opt('extra', lvlLabel.extra)}
-                    ${opt('complete', lvlLabel.complete)}
-                </select>`;
-            const hint = isInferredLevel(g)
-                ? `<div class="hltb-row-hint">${escapeHtml(t('ptLevelFromStatus'))}</div>` : '';
-            const times = [g.hltbMain, g.hltbExtra, g.hltbComplete]
-                .map(v => v ? fmtHours(v) + 'h' : '—').join(' / ');
-            return `<div class="hltb-row">
-                <div>
-                    <div class="hltb-row-name">${escapeHtml(g.name)}</div>
-                    <div class="hltb-row-times">${times}</div>
-                </div>
-                <div>${picker}${hint}</div>
-            </div>`;
-        }).join('');
-
-    updateHltbFormNote();
-}
 
 function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight) {
     const words = text.split(' ');

@@ -67,7 +67,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=17">
+    <link rel="stylesheet" href="styles.css?v=18">
 </head>
 <body>
 
@@ -115,7 +115,6 @@
                     <button class="nav-item" id="navGoalsBtn" data-view="goals" onclick="showView('goals')" style="display:none;"><i class="fa-solid fa-piggy-bank"></i> <span data-i18n="navGoals">Cele oszczędnościowe</span></button>
                     <button class="nav-item" id="navRankingBtn" data-view="ranking" onclick="showView('ranking')" style="display:none;"><i class="fa-solid fa-ranking-star"></i> <span data-i18n="navRanking">Ranking</span></button>
                     <button class="nav-item" id="navYearReviewBtn" data-view="yearreview" onclick="showView('yearreview')" style="display:none;"><i class="fa-solid fa-gift"></i> <span data-i18n="navYearReview">Podsumowanie roku</span></button>
-                    <button class="nav-item" id="navPlaytimeBtn" data-view="playtime" onclick="showView('playtime')" style="display:none;"><i class="fa-solid fa-hourglass-half"></i> <span data-i18n="navPlaytime">Czas gry</span></button>
                 </div>
             </div>
 
@@ -370,37 +369,6 @@
                                 <option value="not_completed" data-i18n-opt="statusNotCompleted">Nieukończona</option>
                                 <option value="endless" data-i18n-opt="statusEndless">Gra bez końca</option>
                                 <option value="wont_play" data-i18n-opt="statusWontPlay">Nie zagram</option>
-                            </select>
-                        </div>
-                        <div class="input-group span-2">
-                            <label data-i18n="hltbFormLabel">Czas przejścia (HowLongToBeat)</label>
-                            <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
-                                <input type="text" id="hltbSearchInput" autocomplete="off" style="flex:1; min-width:160px;" data-i18n-ph="hltbSearchPh" placeholder="Tytuł na HowLongToBeat">
-                                <button type="button" class="btn-tool" style="width:auto;" onclick="hltbLookupForForm()"><i class="fa-solid fa-magnifying-glass"></i> <span data-i18n="hltbFetchBtn">Pobierz czasy</span></button>
-                            </div>
-                            <div class="hltb-fields">
-                                <div class="input-group">
-                                    <label for="hltbMain" data-i18n="hltbMain">Main Story (h)</label>
-                                    <input type="number" id="hltbMain" step="0.5" min="0" inputmode="decimal" placeholder="0">
-                                </div>
-                                <div class="input-group">
-                                    <label for="hltbExtra" data-i18n="hltbExtra">Main + Extras (h)</label>
-                                    <input type="number" id="hltbExtra" step="0.5" min="0" inputmode="decimal" placeholder="0">
-                                </div>
-                                <div class="input-group">
-                                    <label for="hltbComplete" data-i18n="hltbComplete">Completionist (h)</label>
-                                    <input type="number" id="hltbComplete" step="0.5" min="0" inputmode="decimal" placeholder="0">
-                                </div>
-                            </div>
-                            <p class="hltb-note" id="hltbFormNote" data-i18n="hltbFormNote">HowLongToBeat nie ma publicznego API - wpisz czasy ręcznie lub podłącz własny serwer pośredniczący w zakładce Czas gry.</p>
-                        </div>
-                        <div class="input-group span-2">
-                            <label for="completionLevel" data-i18n="hltbLevelLabel">Jak bardzo przeszedłeś tę grę?</label>
-                            <select id="completionLevel">
-                                <option value="" data-i18n-opt="hltbLevelNone">- nie ustawiono -</option>
-                                <option value="main" data-i18n-opt="hltbLevelMain">Tylko główny wątek</option>
-                                <option value="extra" data-i18n-opt="hltbLevelExtra">Główny wątek + zadania poboczne</option>
-                                <option value="complete" data-i18n-opt="hltbLevelComplete">Ukończona w 100%</option>
                             </select>
                         </div>
                         <div class="input-group span-2" style="flex-direction:row; gap:8px;">
@@ -867,69 +835,6 @@
             </div>
         </section>
 
-        <section class="view" id="view-playtime">
-            <div class="card">
-                <div class="card-head">
-                    <span><i class="fa-solid fa-hourglass-half" style="margin-right:6px;"></i> <span data-i18n="navPlaytime">Czas gry</span></span>
-                </div>
-                <div class="card-body">
-                    <p class="auth-note" data-i18n="ptDesc" style="margin-bottom:16px;">Ile godzin kryje się w Twojej bibliotece - według czasów z HowLongToBeat.</p>
-
-                    <div class="hltb-grid">
-                        <div class="hltb-tile" data-tier="main">
-                            <div class="hltb-label" data-i18n="hltbMainShort">Main Story</div>
-                            <div class="hltb-value" id="ptMainTotal">0<small>h</small></div>
-                            <div class="hltb-sub" id="ptMainSub"></div>
-                        </div>
-                        <div class="hltb-tile" data-tier="extra">
-                            <div class="hltb-label" data-i18n="hltbExtraShort">Main + Extras</div>
-                            <div class="hltb-value" id="ptExtraTotal">0<small>h</small></div>
-                            <div class="hltb-sub" id="ptExtraSub"></div>
-                        </div>
-                        <div class="hltb-tile" data-tier="complete">
-                            <div class="hltb-label" data-i18n="hltbCompleteShort">Completionist</div>
-                            <div class="hltb-value" id="ptCompleteTotal">0<small>h</small></div>
-                            <div class="hltb-sub" id="ptCompleteSub"></div>
-                        </div>
-                    </div>
-
-                    <div class="section-heading"><i class="fa-solid fa-bars-progress"></i> <span data-i18n="ptProgressHeading">Twój postęp</span></div>
-                    <div id="ptProgressBody"></div>
-
-                    <div class="section-heading"><i class="fa-solid fa-list-ul"></i> <span data-i18n="ptListHeading">Gry z czasami</span></div>
-                    <div id="ptList"></div>
-
-                    <div class="section-heading"><i class="fa-solid fa-plug"></i> <span data-i18n="ptSourceHeading">Skąd biorą się czasy</span></div>
-                    <p class="hltb-note" data-i18n="ptSourceNote"></p>
-                    <div class="input-group" style="margin-top:14px; max-width:520px;">
-                        <label for="hltbProxyUrl" data-i18n="ptProxyLabel">Adres własnego serwera pośredniczącego (opcjonalnie)</label>
-                        <input type="text" id="hltbProxyUrl" autocomplete="off" placeholder="https://twoj-serwer.example/hltb?q=">
-                    </div>
-                    <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
-                        <button type="button" class="btn-primary" style="width:auto; padding:0 18px;" onclick="saveHltbProxy()"><span data-i18n="ptProxySave">Zapisz</span></button>
-                        <button type="button" class="btn-tool" style="width:auto;" onclick="testHltbProxy()"><span data-i18n="ptProxyTest">Sprawdź połączenie</span></button>
-                    </div>
-                    <p class="hltb-note" id="ptProxyStatus" style="margin-top:12px;"></p>
-
-                    <div class="section-heading"><i class="fa-solid fa-wand-magic-sparkles"></i> <span data-i18n="ptBulkHeading">Uzupełnij całą bibliotekę</span></div>
-                    <p class="auth-note" data-i18n="ptBulkDesc" style="margin-bottom:14px;"></p>
-                    <label style="display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-main); margin-bottom:12px; cursor:pointer;">
-                        <input type="checkbox" id="ptBulkOverwrite" style="width:auto; height:auto; margin:0;">
-                        <span data-i18n="ptBulkOverwrite">Nadpisz czasy, które już są wpisane</span>
-                    </label>
-                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                        <button type="button" class="btn-primary" id="ptBulkStartBtn" style="width:auto; padding:0 18px;" onclick="bulkFetchHltb()"><i class="fa-solid fa-download"></i> <span data-i18n="ptBulkStart">Uzupełnij brakujące czasy</span></button>
-                        <button type="button" class="btn-tool" id="ptBulkStopBtn" style="width:auto; display:none;" onclick="stopBulkHltb()"><span data-i18n="ptBulkStop">Zatrzymaj</span></button>
-                    </div>
-                    <div id="ptBulkProgressWrap" style="display:none; margin-top:14px;">
-                        <div class="hltb-bar-track"><div class="hltb-bar-done" id="ptBulkBar" style="width:0%"></div></div>
-                        <p class="hltb-note" id="ptBulkStatus" style="margin-top:10px;"></p>
-                    </div>
-                    <p class="hltb-note" id="ptBulkSummary" style="margin-top:12px; display:none;"></p>
-                </div>
-            </div>
-        </section>
-
         <section class="view" id="view-goals">
             <div class="card">
                 <div class="card-head">
@@ -1180,7 +1085,7 @@
     <p id="footerDateTime" style="margin-top:15px;font-size:12px;color:var(--text-dim);"></p>
 
     <p style="margin-top:8px;font-size:11px;color:var(--text-dim);">
-      <span class="footer-build">v1.8 &middot; build 2026-11-11 12:59:10</span>
+      <span class="footer-build">v1.8.1 &middot; build 2026-11-11 13:20:20</span>
     </p>
   </div>
 </footer>
@@ -1219,7 +1124,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=17" defer></script>
+    <script src="app.js?v=18" defer></script>
     <script>
         // PWA: rejestracja service workera. Nie blokuje niczego jesli sie
         // nie uda (np. starsza przegladarka) - aplikacja dziala normalnie,
