@@ -67,7 +67,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=18">
+    <link rel="stylesheet" href="styles.css?v=20">
 </head>
 <body>
 
@@ -1050,6 +1050,33 @@
             </div>
         </div>
 
+        <section class="view" id="view-feedback">
+            <div class="card">
+                <div class="card-head"><span data-i18n="navFeedback">Send feedback</span></div>
+                <div class="card-body">
+                    <p class="auth-note" data-i18n="feedbackDesc" style="margin-bottom:16px;">Got an idea for improving Backlog Wallet? Send it here.</p>
+                    <form id="feedbackForm" class="form-grid" autocomplete="off">
+                        <div class="input-group span-2">
+                            <label for="feedbackSubject" data-i18n="feedbackSubject">Subject</label>
+                            <input type="text" id="feedbackSubject" maxlength="120" required>
+                        </div>
+                        <div class="input-group span-2">
+                            <label for="feedbackMessage" data-i18n="feedbackMessage">Message</label>
+                            <textarea id="feedbackMessage" rows="7" maxlength="2000" required style="height:auto; padding:10px; resize:vertical; line-height:1.5;"></textarea>
+                        </div>
+                        <div style="position:absolute; left:-9999px;" aria-hidden="true">
+                            <input type="checkbox" id="feedbackBot" tabindex="-1" autocomplete="off">
+                        </div>
+                        <div class="input-group span-2" style="flex-direction:row; gap:12px; align-items:center; flex-wrap:wrap;">
+                            <button type="submit" id="feedbackSubmit" class="btn-primary" style="width:auto; padding:0 22px;"><span data-i18n="feedbackSend">Send</span></button>
+                            <div id="feedbackMsg" class="auth-msg" role="status"></div>
+                        </div>
+                        <p class="auth-note span-2" data-i18n="feedbackNote" style="font-size:12px;">Messages are delivered by email through Web3Forms. Please don't include sensitive personal data.</p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
         <section class="view" id="view-donate">
             <div class="card">
                 <div class="card-head"><span data-i18n="navDonate">Donate</span></div>
@@ -1079,13 +1106,14 @@
     <p>
       <a href="#" onclick="showView('privacy'); return false;" data-i18n="navPrivacy">Privacy Policy</a> ·
       <a href="#" onclick="showView('terms'); return false;" data-i18n="navTerms">Terms of Service</a> ·
+      <a href="#" onclick="showView('feedback'); return false;" data-i18n="navFeedback">Send feedback</a> ·
       <span data-i18n="footerContact">Contact</span>: <a href="mailto:info@backlogwallet.com">info@backlogwallet.com</a>
     </p>
 
     <p id="footerDateTime" style="margin-top:15px;font-size:12px;color:var(--text-dim);"></p>
 
     <p style="margin-top:8px;font-size:11px;color:var(--text-dim);">
-      <span class="footer-build">v1.8.1 &middot; build 2026-11-11 13:20:20</span>
+      <span class="footer-build">v1.8.2 &middot; build 2026-11-11 14:18:02</span>
     </p>
   </div>
 </footer>
@@ -1124,7 +1152,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=18" defer></script>
+    <script src="app.js?v=20" defer></script>
     <script>
         // PWA: rejestracja service workera. Nie blokuje niczego jesli sie
         // nie uda (np. starsza przegladarka) - aplikacja dziala normalnie,
