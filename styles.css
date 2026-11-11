@@ -150,9 +150,11 @@
         .hero .lead { color: var(--text-main); font-size: 16.5px; line-height: 1.65; max-width: 52ch; margin: 0 0 26px; }
         .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; }
         .hero-cta .btn-primary, .hero-cta .btn-tool { width: auto; padding: 0 22px; height: 44px; font-size: 15px; border-radius: 6px; }
-        .hero-note { margin-top: 18px; font-size: 13px; color: var(--text-dim); }
-        .hero-facts { display: flex; gap: 8px 22px; flex-wrap: wrap; margin-top: 22px; }
-        .hero-facts span { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--text-dim); }
+        .hero-cta .btn-primary { box-shadow: none; }
+        @media (max-width: 560px) { .hero-cta .btn-primary, .hero-cta .btn-tool { flex: 1 1 100%; justify-content: center; } }
+        .hero-note { margin-top: 14px; font-size: 13px; line-height: 1.5; color: var(--text-dim); }
+        .hero-facts { display: flex; gap: 6px 22px; flex-wrap: wrap; margin-top: 10px; }
+        .hero-facts span { display: flex; align-items: center; gap: 7px; font-size: 13px; line-height: 1.4; color: var(--text-dim); }
         .hero-facts i { color: var(--steam-blue); }
 
         .feature-card {
