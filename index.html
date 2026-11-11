@@ -53,7 +53,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=26">
+    <link rel="stylesheet" href="styles.css?v=27">
 </head>
 <body>
 
@@ -340,6 +340,7 @@
                                 <option value="" data-i18n-opt="statusNone">- not set -</option>
                                 <option value="completed" data-i18n-opt="statusCompleted">Completed</option>
                                 <option value="not_completed" data-i18n-opt="statusNotCompleted">Not completed</option>
+                                <option value="in_progress" data-i18n-opt="statusInProgress">In progress</option>
                                 <option value="endless" data-i18n-opt="statusEndless">Endless game</option>
                                 <option value="wont_play" data-i18n-opt="statusWontPlay">Won't play</option>
                             </select>
@@ -486,6 +487,7 @@
                         <option value="" data-i18n-opt="bulkNoChange">— no change —</option>
                         <option value="completed" data-i18n-opt="statusCompleted">Completed</option>
                         <option value="not_completed" data-i18n-opt="statusNotCompleted">Not completed</option>
+                        <option value="in_progress" data-i18n-opt="statusInProgress">In progress</option>
                         <option value="endless" data-i18n-opt="statusEndless">Endless game</option>
                         <option value="wont_play" data-i18n-opt="statusWontPlay">Won't play</option>
                         <option value="__clear__" data-i18n-opt="bulkClearStatus">Clear status (unset)</option>
@@ -1069,7 +1071,7 @@
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v1.8.8 &middot; build 2026-11-11 16:46:05</span>
+        <span class="footer-build">v1.8.9 &middot; build 2026-11-11 16:56:44</span>
     </div>
 </footer>
 
@@ -1107,7 +1109,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=26" defer></script>
+    <script src="app.js?v=27" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.

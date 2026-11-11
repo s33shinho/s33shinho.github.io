@@ -11,7 +11,7 @@
 // serving the old version from cache for a while.
 //
 // There is a second mechanism: styles.css and app.js are loaded from
-// index.html with a "?v=" suffix (e.g. app.js?v=26). It gets around the
+// index.html with a "?v=" suffix (e.g. app.js?v=27). It gets around the
 // host's edge cache (e.g. Cloudflare), which can keep an old copy of a file
 // even when the service worker below already has a new CACHE_VERSION - that
 // cache sits in front of the browser, not inside it. Whenever those two files
@@ -19,7 +19,7 @@
 // <script>/<link> tags in index.html (the paths in APP_SHELL below must match
 // them exactly, otherwise the precache grabs the old version).
 
-const CACHE_VERSION = 'v26';
+const CACHE_VERSION = 'v27';
 const CACHE_NAME = `backlog-wallet-${CACHE_VERSION}`;
 
 // Our own files - they must always match what is actually deployed.
@@ -27,8 +27,8 @@ const CACHE_NAME = `backlog-wallet-${CACHE_VERSION}`;
 const APP_SHELL = [
   '/',
   '/index.html',
-  '/styles.css?v=26',
-  '/app.js?v=26',
+  '/styles.css?v=27',
+  '/app.js?v=27',
   '/manifest.json',
   '/icons/icon-192.png',
   '/icons/icon-512.png',

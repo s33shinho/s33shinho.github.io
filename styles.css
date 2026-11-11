@@ -558,7 +558,8 @@
         .source-txt { font-size: 11px; padding: 2px 6px; border-radius: 2px; white-space: nowrap; }
         .status-badge { font-size: 12px; margin-left: 4px; }
         .status-completed { color: var(--ok); }
-        .status-not-completed { color: var(--warn); }
+        .status-not-completed { color: var(--err); }
+        .status-in-progress { color: var(--warn); }
         .status-endless { color: var(--steam-blue); }
         .status-wont-play { color: var(--text-dim); }
         .year-wrap-card {
@@ -1363,3 +1364,20 @@
         }
         .contact-line { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 13.5px; color: var(--text-dim); }
         .contact-line a { color: var(--steam-blue); }
+
+        /* per-row status button */
+        .action-icons button.st { font-size: 15px; }
+        .action-icons button.st:hover { background: var(--accent-soft); }
+        .st-none { color: var(--text-dim); opacity: 0.55; }
+        .st-completed { color: var(--ok); }
+        .st-not { color: var(--err); }
+        .st-progress { color: var(--warn); }
+        .st-endless { color: var(--steam-blue); }
+        .st-wont { color: var(--text-dim); }
+
+        /* footer on phones: links, then the meta lines, evenly stacked */
+        .footer-links { display: flex; flex-wrap: wrap; gap: 4px 8px; }
+        @media (max-width: 620px) {
+            .site-footer { flex-direction: column; gap: 12px; }
+            .footer-meta { flex-direction: column; gap: 2px; }
+        }
