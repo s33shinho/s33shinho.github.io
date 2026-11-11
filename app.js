@@ -26,7 +26,7 @@ const translations = {
         heroLead: "Backlog Wallet is a personal tool for logging the games you buy and understanding how much you spend over time. Add each title with its price, store and purchase date, and get instant statistics, currency conversion and clear charts of your library. Track whether each game is digital or physical, and save up for the titles you want with savings goals.",
         ctaRegister: "Create a free account",
         ctaHaveAccount: "I already have an account",
-        featuresHead: "What you can do",
+        
         feat1T: "Track every purchase",
         feat1D: "Log titles, prices, stores and dates - manually or by pasting a whole list at once.",
         feat2T: "See your spending",
@@ -40,7 +40,7 @@ const translations = {
         priv2: "Your library is stored only to provide the service and sync it across your devices.",
         priv3: "You can export or permanently delete all of your data at any time, straight from your account.",
         landingFootNote: "All tracking features require a free account. It takes less than a minute to set up.",
-        heroFact2: "20+ currencies", heroFact3: "Free, no card required",
+        
 heroFact4: "Steam, PlayStation, Xbox, Nintendo, GOG, Epic",         heroReceiptTotal: "Total", heroReceiptStamp: "SAVED",
         accSignedInAs: "Signed in as",
         accProfileHead: "Profile",
@@ -64,11 +64,11 @@ accShareHead: "Share your library", accShareNote: "Enable to generate a public r
         priceSortDesc: "Most expensive first",
         priceSortAsc: "Cheapest first", sortDateNewest: "Newest first", sortDateOldest: "Oldest first", sortNameAsc: "A-Z", sortNameDesc: "Z-A",
         themeToggleTitle: "Switch light / dark theme",
-        authNoteRegister: "Create a free account to use the tracker and sync your library across devices.",
-        gateTitle: "This section needs an account",
-        gateText: "Log in or create a free account to use the game tracker.",
+        
+        
+        
         appTitle: "Backlog Wallet", menu: "Menu", navHome: "Home", navAuth: "Login / Register", navFaq: "FAQ", navChangelog: "Changelog", navDonate: "Donate", language: "Language",
-        guestMode: "Not signed in", loggedInAs: "Logged in as:",
+        guestMode: "Not signed in", 
         gameTitle: "Game Title", price: "Price", currency: "Currency", source: "Source", purchaseDate: "Purchase Date", addBtn: "Add", saveBtn: "Save", cancelBtn: "Cancel", addGame: "Add game",
 fldStatus: "Completion status (optional)", statusNone: "- not set -", statusCompleted: "Completed", statusNotCompleted: "Not completed", statusEndless: "Endless game", statusWontPlay: "Won't play",         addFormShow: "Show form", addFormHide: "Hide form",
         myLibrary: "Your Library", colPlatform: "Platform", colOrigPrice: "Original Price", colChfPrice: "CHF Value", colOptions: "Options", totalValue: "Library value",
@@ -76,8 +76,8 @@ fldStatus: "Completion status (optional)", statusNone: "- not set -", statusComp
         chartsTitle: "Statistics", chartOptPurchases: "Purchases over time", chartOptCumulative: "Cumulative total", chartOptSources: "Sources",
         granMonth: "Month", granQuarter: "Quarter", granYear: "Year",
         chartPurchases: "Number of purchases", chartCumulative: "Total games owned", chartSources: "Purchase sources",
-        steam: "Steam", keyStore: "Key Store", noData: "No data", noResults: "No search results",
-        liveRates: "Live", offlineRates: "Offline", confirmDel: "Delete this item?", feat5T: "Player ranking", feat5D: "See how your library stacks up against other signed-in users.", feat6T: "Savings goals", feat6D: "Set a target amount for a game you want and track how much you've saved.", suspiciousName: "That game title looks fake or made up - please fix it to add the entry.", priceTooHigh: "That price looks unrealistic (limit: 2000 CHF equivalent) - please fix it to add the entry.", navYearReview: "Year in Review", yrTotalSpent: "Spent this year", yrGamesLabel: "Games bought", yrPlatformLabel: "Favorite platform", yrMonthLabel: "Most active month", yrMostExpensive: "Priciest purchase", yrDownloadBtn: "Download as image", yrEmpty: "No games this year.", navRanking: "Ranking", rankingTitle: "Library Value Ranking", rankingColRank: "Rank", rankingColNickname: "Player", rankingColValue: "Value (EUR)", rankingYou: "You", rankingEmpty: "The ranking is still empty.", rankingNote: "The ranking is calculated directly from the data stored on each account at the moment it's displayed - it can't be manually inflated without actually adding games.", vsLastMonth: "vs last month", bannedMsg: "This account has been banned by the administrator.", anonNickname: "Player", fldOwnership: "Ownership", ownDigital: "Digital", ownPhysical: "Physical", filterAllOwnership: "All formats", chartOptOwnership: "Digital vs Physical", bulkBarSelected: "Selected: {n}", bulkSetOwnershipLabel: "Set format:", bulkSetSourceLabel: "Set source:", bulkSetStatusLabel: "Set status:", bulkClearStatus: "Clear status (unset)", bulkNoChange: "— no change —", bulkApplyBtn: "Apply", bulkClearBtn: "Deselect all", bulkSelectAllBtn: "Select all", bulkNoSelection: "No games selected.", bulkApplied: "Updated {n} games.", navGoals: "Savings Goals", goalsDesc: "Save up for games you want and track your progress.", goalName: "Game title", goalTargetAmount: "Target amount", goalSavedAmount: "Saved so far", goalAddBtn: "Add goal", goalEmpty: "You don't have any savings goals yet.", goalRemaining: "Remaining", goalReached: "Goal reached!", goalDeleteConfirm: "Delete this goal?", goalUpdateSaved: "Update", navShelf: "Virtual Shelf", shelfDesc: "Your library as a virtual game shelf - covers are generated automatically based on the title and platform.", shelfEmpty: "Your shelf is still empty - add your first game in the Library tab.",
+        steam: "Steam", keyStore: "Key Store", noResults: "No search results",
+        liveRates: "Live", offlineRates: "Offline", suspiciousName: "That game title looks fake or made up - please fix it to add the entry.", priceTooHigh: "That price looks unrealistic (limit: 2000 CHF equivalent) - please fix it to add the entry.", navYearReview: "Year in Review", yrTotalSpent: "Spent this year", yrGamesLabel: "Games bought", yrPlatformLabel: "Favorite platform", yrMonthLabel: "Most active month", yrMostExpensive: "Priciest purchase", yrDownloadBtn: "Download as image", yrEmpty: "No games this year.", navRanking: "Ranking", rankingTitle: "Library Value Ranking", rankingColRank: "Rank", rankingColNickname: "Player", rankingColValue: "Value (EUR)", rankingYou: "You", rankingEmpty: "The ranking is still empty.", rankingNote: "The ranking is calculated directly from the data stored on each account at the moment it's displayed - it can't be manually inflated without actually adding games.", vsLastMonth: "vs last month", anonNickname: "Player", fldOwnership: "Ownership", ownDigital: "Digital", ownPhysical: "Physical", filterAllOwnership: "All formats", chartOptOwnership: "Digital vs Physical", bulkBarSelected: "Selected: {n}", bulkSetOwnershipLabel: "Set format:", bulkSetSourceLabel: "Set source:", bulkSetStatusLabel: "Set status:", bulkClearStatus: "Clear status (unset)", bulkNoChange: "— no change —", bulkApplyBtn: "Apply", bulkClearBtn: "Deselect all", bulkSelectAllBtn: "Select all", bulkNoSelection: "No games selected.", bulkApplied: "Updated {n} games.", navGoals: "Savings Goals", goalsDesc: "Save up for games you want and track your progress.", goalName: "Game title", goalTargetAmount: "Target amount", goalSavedAmount: "Saved so far", goalAddBtn: "Add goal", goalEmpty: "You don't have any savings goals yet.", goalRemaining: "Remaining", goalReached: "Goal reached!", goalDeleteConfirm: "Delete this goal?", goalUpdateSaved: "Update", navShelf: "Virtual Shelf", shelfDesc: "Your library as a virtual game shelf - covers are generated automatically based on the title and platform.", shelfEmpty: "Your shelf is still empty - add your first game in the Library tab.",
         searchPh: "Search games...", exportCsv: "Export CSV",
         tabLogin: "Login", tabRegister: "Register", tabReset: "Reset password",
         email: "E-mail", password: "Password", loginBtn: "Log in", registerBtn: "Sign up", resetBtn: "Send reset link", logoutBtn: "Log out",
@@ -85,22 +85,22 @@ fldStatus: "Completion status (optional)", statusNone: "- not set -", statusComp
         authNoteLogged: "Your library is synced to the cloud and available on any device after logging in.",
         regPrivacyNote: "During registration we determine only your country (e.g. \"PL\") from your IP address - the IP address itself is never stored. The country is visible in the administrator panel for account security/oversight purposes. See the Privacy Policy for details.",
         resetSent: "A password reset link has been sent to your e-mail. Check your spam folder too.",
-        registerOk: "Account created. You are now logged in.",
+        
         registerCheckEmail: "Account created! Check your inbox and confirm your email to activate your account.", verifyGateTitle: "Confirm your email address", verifyGateBody: "We've sent a confirmation link to your email. Click it, then come back here and check again.", resendVerifyBtn: "Resend email", recheckVerifyBtn: "Check again", verifyEmailSent: "Confirmation email resent.", verifyStillNotVerified: "Still not confirmed - check your inbox (and spam folder).", verifyNowVerified: "Email address confirmed!",
         loginOk: "Logged in successfully.", logoutOk: "Logged out successfully.",
         authErrInvalid: "Invalid e-mail or password.", authErrInUse: "This e-mail is already registered.", authErrWeak: "Password must be at least 6 characters.", authErrNoUser: "No account found with this e-mail.", authErrGeneric: "Something went wrong. Please try again.", authErrNicknameLookup: "Couldn't verify that nickname - try logging in with your e-mail address instead.", accRegisteredSince: "Registered", importDataBtn: "Import data (JSON)", importDataNote: "Import a JSON file previously downloaded with \"Download my data\" (e.g. from another account or as a backup restore). Games are added to your current library - duplicates (by name) are skipped automatically.", importInvalidFile: "Invalid file - please choose a JSON file previously downloaded with \"Download my data\".", importResult: "Games imported: {added} (invalid lines skipped: {skipped}, duplicates: {dup}).", banGateTitle: "This account has been suspended", banGateReasonLabel: "Reason", banGateNoReason: "The administrator did not provide a reason.", banGatePermanent: "This is a permanent suspension.", banGateUntilPrefix: "Suspended until:", banGateContact: "If you believe this is a mistake, please write to the address given in the footer.", banGateBackBtn: "Back to home page", authErrTooFast: "Form filled out too quickly - please try again in a moment.", authErrTooSoon: "Too many registration attempts in a short time - please try again in a minute.", healthLabel: "Backlog health", healthGradeExemplary: "Exemplary backlog", healthGradeGood: "In good shape", healthGradeAverage: "Average", healthGradeGrowing: "Growing debt", healthGradeOverwhelmed: "Backlog took over", healthGradeUnknown: "Unknown", healthMsgExemplary: "You're keeping up with your games - respect!", healthMsgGood: "Your backlog is under control, keep it up.", healthMsgAverage: "A few games have piled up, but that's normal.", healthMsgGrowing: "Your backlog is growing faster than you're clearing it.", healthMsgOverwhelmed: "Maybe it's time to buy less and play more?", healthNoStatusMsg: "Set a status (Completed/Not completed) on your games to see your score.", healthEmptyMsg: "Add your first game to see your score.",
         firebaseNotConfigured: "Firebase is not configured. Paste your config in the file (FIREBASE CONFIG section).",
         syncLocal: "Local data", syncCloud: "Cloud", syncSyncing: "Syncing...", syncErr: "Sync error", retryBtn: "Retry", libraryLoadError: "Couldn't load your library. Check your connection and try again.",
         savedLocal: "Saved locally", savedCloud: "Saved to cloud", itemDeleted: "Item deleted", navFeedback: "Send feedback", feedbackDesc: "Got an idea for improving Backlog Wallet? Send it here.", feedbackSubject: "Subject", feedbackMessage: "Message", feedbackSend: "Send", feedbackSending: "Sending...", feedbackOk: "Thanks! Your message was sent.", feedbackFail: "Could not send the message. Please try again later.", feedbackWait: "Please wait a moment before sending another message.", feedbackNote: "Messages are delivered by email through Web3Forms. Please don't include sensitive personal data.", undoBtn: "Undo", smartImportBtn: "Smart import (Steam & more)", smartImportHint: "Paste your Steam purchase history (or any order list/receipt) below - one purchase per line works best. Steam doesn't offer an official export, so this is a best-effort reader: it tries to find a date, a price and a title on each line. Nothing gets added until you review and confirm the results below.", smartImportParseBtn: "Find purchases", smartImportPreviewNote: "Review each row - uncheck anything that isn't a game (wallet top-ups and refunds are pre-unchecked, but double-check). Every field can be edited directly.", smartImportCommitBtn: "Add checked games", onThisDayText: "{years} year(s) ago today, you bought {name}", onThisDayExtra: " (and {n} more)", yrHeatmapHeading: "Purchase activity", yrHeatmapLess: "Less", yrHeatmapMore: "More", yrWrappedBtn: "View as Wrapped", yrWrappedIntro: "Your year in games", yrWrappedOutro: "That was {year}. See you next year.", yrFirstGame: "First game bought", yrHeatmapDayCount: "{date}: {count} game(s) bought", yrHeatmapDayNone: "{date}: nothing bought",
-        emptyLib: "Your library is empty. Add your first game above.", bulkAddBtn: "Add multiple games", bulkAddHint: "Paste one game per line, in the format: Title;Price;Currency;Source;Date (YYYY-MM-DD). Currency, Source and Date are optional.", bulkAddSubmit: "Add all", bulkAddResult: "Games added: {added} (skipped invalid lines: {skipped})", bulkAddNone: "No valid entries found to add.", hideList: "Hide list", showList: "Show list", expandList: "Expand list", collapseList: "Collapse list", filterAllSources: "All sources", footerUpdated: "Last updated", navRates: "Exchange Rates", ratesColCurrency: "Currency", ratesColRate: "Rate per 1 EUR", ratesBaseNote: "All rates are shown relative to 1 EUR (base currency).", ratesUpdated: "Updated", scrollTopTitle: "Back to top", changePasswordBtn: "Change password", currentPassword: "Current password", newPassword: "New password", newPasswordConfirm: "Confirm new password", changePasswordSubmit: "Change password", passwordMismatch: "The passwords do not match.", passwordChanged: "Password changed successfully.",
-        confirmDuplicate: "A game with this name is already in your library. Add it again anyway?", advFiltersToggle: "Advanced filters", priceMin: "Price from", priceMax: "Price to", dateFrom: "Date from", dateTo: "Date to", resetFilters: "Clear filters", bulkAddResultDup: "Games added: {added} (invalid lines: {skipped}, duplicates: {dup})", bulkAddAllDup: "All pasted games ({dup}) are already in your library - nothing was added.", navAchievements: "Achievements", achievementsDesc: "Unlock badges as you grow your game library.", achUnlocked: "Unlocked", achLocked: "Locked", achMaxLevel: "Max level!", achLevel: "Level {level}/{max}", achFirstGameT: "First Step", achFirstGameD: "Add your first game to the library.", achCollectorT: "Collector", achCollectorD: "Own {target} games in your library.", achDiversityT: "Multi-Platform", achDiversityD: "Own games from {target} different platforms.", achFinisherT: "Finisher", achFinisherD: "Complete {target} games from your library.", achPhysicalT: "Box Collector", achPhysicalD: "Own {target} physical games.", achInvestorT: "Big Investor", achInvestorD: "Reach a library value of {target}.", achDreamT: "Dream Fulfilled", achDreamD: "Reach at least one savings goal.", achCurrenciesT: "Multi-Currency", achCurrenciesD: "Buy games in {target} different currencies.", achVeteranT: "Collection Veteran", achVeteranD: "Keep your library going for {target} years.", achBalancedT: "Balanced Collection", achBalancedD: "Own both digital and physical games in your library.", navRoulette: "What to play?", rouletteDesc: "Can't decide what to play tonight? Roll the dice on your backlog.", rouletteBtn: "Pick a game", rouletteRerollBtn: "Pick another", rouletteEmptyLib: "Your library is empty - add a few games first to roll for one.", rouletteAllDone: "No games marked as \"Not completed\" - set that status on some games in your library so there's something to roll for.", roulettePlatformAll: "All platforms", navSectionMain: "Main", navSectionAccount: "Account", navSectionLibrary: "Your library", navSectionTools: "Tools",
+        emptyLib: "Your library is empty. Add your first game above.", bulkAddBtn: "Add multiple games", bulkAddHint: "Paste one game per line, in the format: Title;Price;Currency;Source;Date (YYYY-MM-DD). Currency, Source and Date are optional.", bulkAddSubmit: "Add all", bulkAddResult: "Games added: {added} (skipped invalid lines: {skipped})", bulkAddNone: "No valid entries found to add.", hideList: "Hide list", showList: "Show list", expandList: "Expand list", collapseList: "Collapse list", filterAllSources: "All sources", navRates: "Exchange Rates", ratesColCurrency: "Currency", ratesColRate: "Rate per 1 EUR", ratesBaseNote: "All rates are shown relative to 1 EUR (base currency).", ratesUpdated: "Updated", scrollTopTitle: "Back to top", changePasswordBtn: "Change password", currentPassword: "Current password", newPassword: "New password", newPasswordConfirm: "Confirm new password", changePasswordSubmit: "Change password", passwordMismatch: "The passwords do not match.", passwordChanged: "Password changed successfully.",
+        confirmDuplicate: "A game with this name is already in your library. Add it again anyway?", advFiltersToggle: "Advanced filters", priceMin: "Price from", priceMax: "Price to", dateFrom: "Date from", dateTo: "Date to", resetFilters: "Clear filters", bulkAddResultDup: "Games added: {added} (invalid lines: {skipped}, duplicates: {dup})", bulkAddAllDup: "All pasted games ({dup}) are already in your library - nothing was added.", navAchievements: "Achievements", achievementsDesc: "Unlock badges as you grow your game library.", achUnlocked: "Unlocked", achLocked: "Locked", achMaxLevel: "Max level!", achLevel: "Level {level}/{max}", achFirstGameT: "First Step", achFirstGameD: "Add your first game to the library.", achCollectorT: "Collector", achCollectorD: "Own {target} games in your library.", achDiversityT: "Multi-Platform", achDiversityD: "Own games from {target} different platforms.", achFinisherT: "Finisher", achFinisherD: "Complete {target} games from your library.", achPhysicalT: "Box Collector", achPhysicalD: "Own {target} physical games.", achInvestorT: "Big Investor", achInvestorD: "Reach a library value of {target}.", achDreamT: "Dream Fulfilled", achDreamD: "Reach at least one savings goal.", achCurrenciesT: "Multi-Currency", achCurrenciesD: "Buy games in {target} different currencies.", achVeteranT: "Collection Veteran", achVeteranD: "Keep your library going for {target} years.", achBalancedT: "Balanced Collection", achBalancedD: "Own both digital and physical games in your library.", navRoulette: "What to play?", rouletteDesc: "Can't decide what to play tonight? Roll the dice on your backlog.", rouletteBtn: "Pick a game", rouletteRerollBtn: "Pick another", rouletteEmptyLib: "Your library is empty - add a few games first to roll for one.", rouletteAllDone: "No games marked as \"Not completed\" - set that status on some games in your library so there's something to roll for.", roulettePlatformAll: "All platforms", navSectionLibrary: "Your library", navSectionTools: "Tools",
         navTerms: "Terms & Conditions", navPrivacy: "Privacy Policy", rememberMe: "Remember me", footerContact: "Contact", cookieConsentText: "This site uses local browser storage (localStorage) to ensure proper functioning and remember your preferences. By continuing to use the site, you consent to this.", cookieMoreInfo: "More information", cookieDeclineBtn: "Decline", cookieAcceptBtn: "Accept",
         faqHtml: "<h3>What is this app?</h3><p>A personal game-spending tracker. You log the title, price, source and purchase date, and the app calculates stats and draws charts.</p><h3>Do I need an account?</h3><p>Yes. Full app functionality (your game library, stats, achievements) requires a free, verified account. Without one you'll only see the welcome page.</p><h3>Will I lose guest data after logging in?</h3><p>No. On first login your guest data is merged into your cloud account.</p><h3>Where do exchange rates come from?</h3><p>From a public rates API (open.er-api.com). If the API is unavailable, fallback rates are used.</p><h3>Can the ranking be gamed?</h3><p>Not easily. It's always recalculated from the data stored on your account at the moment it's displayed, so you can't inflate it by editing anything locally in your browser. Entering a fake but plausible-sounding game is still theoretically possible - the basic filter only rejects obviously junk entries.</p><h3>Can I personalise my account?</h3><p>Yes. On the Login/Account tab you can set a nickname, your preferred display currency, and a light/dark theme.</p><h3>Is my data safe and GDPR-compliant?</h3><p>Yes. Your data is stored in Firebase (Google Cloud) and protected by access rules. You can export your data (JSON) or delete your account and all its data with one click at any time - see the Privacy Policy for details.</p><h3>How do I report a bug or get in touch?</h3><p>Email the address listed in the footer.</p>",
         yrYearLabel: "Year", yrCompareLabel: "Compare with", yrCompareNone: "— no comparison —", yrAllYearsBtn: "All years", yrCompareHeading: "Year comparison", yrAllYearsHeading: "Spending year by year", yrAvgPrice: "Average game price", yrCompletedLabel: "Completed games", yrVsTitle: "{a} compared with {b}",
-        changelogHtml: "<h3><span class='changelog-ver'>v1.8.2</span> (11.11.2026)</h3><ul><li>New: a feedback form in the footer - send ideas for improving the site straight to the author by email</li></ul><h3><span class='changelog-ver'>v1.8.1</span> (11.11.2026)</h3><ul><li>Removed the HowLongToBeat integration and the Playtime tab</li><li>The \"years ago today\" banner no longer comes back after you close it</li><li>Fixed the page jumping oddly when editing a game</li></ul><h3><span class='changelog-ver'>v1.8</span> (11.11.2026)</h3><ul><li>Redesigned the homepage to feel lighter: flat hero, smaller corner radii, calmer cards, no floating animation</li><li>New typography: Source Sans 3 for headings, menus, descriptions and game titles; IBM Plex Mono for prices, statistics, dates and numbers</li><li>Removed emoji from the interface - statuses and achievements now use icons</li><li>The \"Your library\" menu section is now visible only when signed in</li><li>Shortened the homepage: fewer feature tiles, no duplicate buttons or text, tidier sign-up buttons</li></ul><h3><span class='changelog-ver'>v1.7.1</span> (27.07.2026)</h3><ul><li>Fixed a real bug in the purchase activity heatmap: month labels (Jan, Feb, ...) were squeezed into cells too narrow for the text, so they could visually run into each other</li><li>Heatmap cells are now clickable/tappable - shows how many games were bought on that day</li></ul><h3><span class='changelog-ver'>v1.7</span> (27.07.2026)</h3><ul><li>New: a small banner on the dashboard when today matches the purchase date of a game from a previous year, like \"3 years ago today, you bought Hades\"</li><li>New: a purchase activity heatmap in Year in Review, showing which days you bought games across the year</li><li>New: \"View as Wrapped\" in Year in Review - a slide-by-slide summary of your year (total spent, games bought, favourite platform, priciest purchase, first game of the year, busiest month, completion rate), each slide downloadable as an image</li></ul><h3><span class='changelog-ver'>v1.6.4</span> (26.07.2026)</h3><ul><li>Fixed a rare crash where a slow-loading chart library could break unrelated parts of the app, like the Playtime tab</li></ul><h3><span class='changelog-ver'>v1.6.3</span> (26.07.2026)</h3><ul><li>Fixed uneven row heights when a game title wraps onto multiple lines</li><li>Fixed the login/account screen not centering properly next to the feature cards</li></ul><h3><span class='changelog-ver'>v1.6.2</span> (26.07.2026)</h3><ul><li>Fixed gaps in the homepage feature-card grid so it fills evenly at every screen size</li></ul><h3><span class='changelog-ver'>v1.6.1</span> (26.07.2026)</h3><ul><li>Fixed the \"Advanced filters\" button not lining up with the rest of the toolbar</li></ul><h3><span class='changelog-ver'>v1.6</span> (26.07.2026)</h3><ul><li>New: \"Smart import\" - paste your Steam purchase history (or any receipt/order list) and review detected games before adding them</li><li>Fixed \"Ownership\" and \"Purchase date\" columns being wrongly right-aligned</li><li>Digital/Physical badge redesigned as a proper chip</li><li>Buttons like \"Advanced filters\" and \"Add multiple games\" now have a visible border</li><li>Row striping in the table is now actually visible</li><li>Added a social preview image and description for shared links</li></ul><h3><span class='changelog-ver'>v1.5</span> (26.07.2026)</h3><ul><li>Fixed the login/account card sitting too high on tall screens instead of centering</li><li>Fixed inconsistent letter-spacing across labels and badges</li></ul><h3><span class='changelog-ver'>v1.4</span> (26.07.2026)</h3><ul><li>Deleting a game is now instant with an \"Undo\" option, instead of a confirmation popup</li><li>Added error monitoring</li><li>Added a loading skeleton and a retry option if the library fails to load</li><li>Backlog Wallet can now be installed as an app, with basic offline support</li></ul><h3><span class='changelog-ver'>v1.3.2</span> (26.07.2026)</h3><ul><li>Added an explanation for the \"Hours already cleared\" progress bar</li></ul><h3><span class='changelog-ver'>v1.3.1</span> (26.07.2026)</h3><ul><li>Completion level can now be set directly from the list</li><li>Completed games without a level set now count towards progress</li></ul><h3><span class='changelog-ver'>v1.3</span> (26.07.2026)</h3><ul><li>New: bulk-fetch HowLongToBeat times for your whole library, with a progress bar</li></ul><h3><span class='changelog-ver'>v1.2.1</span> (26.07.2026)</h3><ul><li>Fixed the HowLongToBeat proxy field rejecting local addresses</li></ul><h3><span class='changelog-ver'>v1.2</span> (26.07.2026)</h3><ul><li>Complete visual redesign - new colors, fonts and layout</li><li>New: Year in Review can now compare two years side by side</li><li>New: \"Playtime\" tab showing total completion time across your library</li><li>New: track HowLongToBeat times and completion level per game</li></ul><h3><span class='changelog-ver'>v1.1</span> (24.07.2026)</h3><ul><li>New: monthly spending counter with a percentage change vs last month</li></ul><h3><span class='changelog-ver'>v1.0.1</span> (20.07.2026)</h3><ul><li>Fixed a bug from v1.0 that broke the entire site</li></ul><h3><span class='changelog-ver'>v1.0</span> (20.07.2026)</h3><ul><li>Full redesign - new look, fixed desktop sidebar, better contrast</li><li>Fixed a page-width bug causing a horizontal scrollbar</li><li>Fixed home page content being misaligned on desktop</li></ul><h3><span class='changelog-ver'>v0.9.1</span> (17.07.2026)</h3><ul><li>New: bulk-edit game status for multiple selected games at once</li><li>Fixed the Backlog Health score calculation</li></ul><h3><span class='changelog-ver'>v0.9</span> (17.07.2026)</h3><ul><li>Fixed nickname login</li><li>New: \"Backlog Health\" score</li><li>New: two more game statuses (Endless, Won't play)</li><li>New: import data from a JSON backup</li><li>Account deletion now backs up your data first automatically</li></ul><h3><span class='changelog-ver'>v0.8.1</span> (17.07.2026)</h3><ul><li>New: \"Endless game\" and \"Won't play\" statuses</li><li>\"What to play?\" now only picks unplayed games</li></ul><h3><span class='changelog-ver'>v0.8</span> (17.07.2026)</h3><ul><li>New: \"What to play?\" random game picker</li><li>More achievement tiers, plus 3 new badges</li><li>Fixed the price filter using the wrong currency</li><li>Visual refresh - clearer contrast and borders</li></ul><h3><span class='changelog-ver'>v0.7.4</span> (16.07.2026)</h3><ul><li>New: Achievements tab</li><li>New: duplicate detection when adding games</li><li>New: advanced filters by price and purchase date</li></ul><h3><span class='changelog-ver'>v0.7.3</span> (15.07.2026)</h3><ul><li>Restored \"Key Store\" as a purchase source</li></ul><h3><span class='changelog-ver'>v0.7.2</span> (15.07.2026)</h3><ul><li>Fixed checkbox alignment in the table</li><li>Long titles on the virtual shelf no longer get cut off</li></ul><h3><span class='changelog-ver'>v0.7.1</span> (15.07.2026)</h3><ul><li>Various fixes: translations, checkbox size, scrollable side menu</li><li>Redesigned the virtual shelf to look like a real shelf</li></ul><h3><span class='changelog-ver'>v0.7</span> (15.07.2026)</h3><ul><li>New: Savings Goals tab</li><li>New: digital/physical format per game</li><li>New: bulk editing for format and purchase source</li></ul><h3><span class='changelog-ver'>v0.6.1</span> (15.07.2026)</h3><ul><li>Fixed language menu position, top-menu overflow, and a country-saving bug</li><li>Removed Google AdSense</li></ul><h3><span class='changelog-ver'>v0.6</span> (13.07.2026)</h3><ul><li>New: shareable public library link</li><li>New: Year in Review shareable card</li><li>New: optional completion status per game</li></ul><h3><span class='changelog-ver'>v0.5</span> (13.07.2026)</h3><ul><li>Email confirmation now required at registration</li><li>Added PlayStation, Xbox, Nintendo, GOG and Epic Games as sources</li><li>Fixed chart readability issues</li><li>Major homepage redesign</li></ul><h3><span class='changelog-ver'>v0.41</span> (13.07.2026)</h3><ul><li>Added sorting by date and alphabetically</li><li>Removed emoji avatars</li><li>Added nickname login</li><li>Default language is now English</li></ul><h3><span class='changelog-ver'>v0.4</span> (12.07.2026)</h3><ul><li>Renamed to Backlog Wallet</li><li>New tagline and homepage design</li><li>Added emoji avatar personalisation</li><li>Expanded FAQ and privacy policy</li></ul><h3><span class='changelog-ver'>v0.31</span> (12.07.2026)</h3><ul><li>Expanded currency choice to all 20 currencies</li><li>New: Ranking tab</li><li>Added basic protection against junk game names</li></ul><h3><span class='changelog-ver'>v0.3</span> (11.07.2026)</h3><ul><li>Full tracker now requires a free account</li><li>Light/dark theme toggle</li><li>GDPR-compliant data export and deletion</li></ul><h3><span class='changelog-ver'>v0.24</span> (11.07.2026)</h3><ul><li>Minor bug fixes and UX improvements</li></ul><h3><span class='changelog-ver'>v0.23</span> (11.07.2026)</h3><ul><li>Replaced the Steam logo with a neutral icon</li><li>Expanded currency choice</li><li>Added password change option</li></ul><h3><span class='changelog-ver'>v0.22</span> (11.07.2026)</h3><ul><li>Fixed a mobile expand/collapse bug</li><li>Added a quick language switcher</li><li>New: Exchange Rates tab</li></ul><h3><span class='changelog-ver'>v0.21</span> (11.07.2026)</h3><ul><li>Fixed a language-detection bug</li><li>Added bulk adding of games</li><li>Added a filter by purchase source</li></ul><h3><span class='changelog-ver'>v0.2</span> </h3><ul><li>Major rebuild - side menu, accounts, charts, mobile support</li></ul><h3><span class='changelog-ver'>v0.1</span> </h3><ul><li>Initial release</li></ul>",
+        changelogHtml: "<h3><span class='changelog-ver'>v1.8.4</span> (11.11.2026)</h3><ul><li>Fixed leftover Polish text: the whole interface is now English everywhere, including the admin panel, shared library pages and confirmation messages</li></ul><h3><span class='changelog-ver'>v1.8.3</span> (11.11.2026)</h3><ul><li>Updated the Privacy Policy: named the data controller and added information about the feedback form (Web3Forms)</li><li>Added a page description for search engines and link previews</li><li>Faster loading: removed an unused monitoring script and pinned the chart library version</li></ul><h3><span class='changelog-ver'>v1.8.2</span> (11.11.2026)</h3><ul><li>New: a feedback form in the footer - send ideas for improving the site straight to the author by email</li></ul><h3><span class='changelog-ver'>v1.8.1</span> (11.11.2026)</h3><ul><li>Removed the HowLongToBeat integration and the Playtime tab</li><li>The \"years ago today\" banner no longer comes back after you close it</li><li>Fixed the page jumping oddly when editing a game</li></ul><h3><span class='changelog-ver'>v1.8</span> (11.11.2026)</h3><ul><li>Redesigned the homepage to feel lighter: flat hero, smaller corner radii, calmer cards, no floating animation</li><li>New typography: Source Sans 3 for headings, menus, descriptions and game titles; IBM Plex Mono for prices, statistics, dates and numbers</li><li>Removed emoji from the interface - statuses and achievements now use icons</li><li>The \"Your library\" menu section is now visible only when signed in</li><li>Shortened the homepage: fewer feature tiles, no duplicate buttons or text, tidier sign-up buttons</li></ul><h3><span class='changelog-ver'>v1.7.1</span> (27.07.2026)</h3><ul><li>Fixed a real bug in the purchase activity heatmap: month labels (Jan, Feb, ...) were squeezed into cells too narrow for the text, so they could visually run into each other</li><li>Heatmap cells are now clickable/tappable - shows how many games were bought on that day</li></ul><h3><span class='changelog-ver'>v1.7</span> (27.07.2026)</h3><ul><li>New: a small banner on the dashboard when today matches the purchase date of a game from a previous year, like \"3 years ago today, you bought Hades\"</li><li>New: a purchase activity heatmap in Year in Review, showing which days you bought games across the year</li><li>New: \"View as Wrapped\" in Year in Review - a slide-by-slide summary of your year (total spent, games bought, favourite platform, priciest purchase, first game of the year, busiest month, completion rate), each slide downloadable as an image</li></ul><h3><span class='changelog-ver'>v1.6.4</span> (26.07.2026)</h3><ul><li>Fixed a rare crash where a slow-loading chart library could break unrelated parts of the app, like the Playtime tab</li></ul><h3><span class='changelog-ver'>v1.6.3</span> (26.07.2026)</h3><ul><li>Fixed uneven row heights when a game title wraps onto multiple lines</li><li>Fixed the login/account screen not centering properly next to the feature cards</li></ul><h3><span class='changelog-ver'>v1.6.2</span> (26.07.2026)</h3><ul><li>Fixed gaps in the homepage feature-card grid so it fills evenly at every screen size</li></ul><h3><span class='changelog-ver'>v1.6.1</span> (26.07.2026)</h3><ul><li>Fixed the \"Advanced filters\" button not lining up with the rest of the toolbar</li></ul><h3><span class='changelog-ver'>v1.6</span> (26.07.2026)</h3><ul><li>New: \"Smart import\" - paste your Steam purchase history (or any receipt/order list) and review detected games before adding them</li><li>Fixed \"Ownership\" and \"Purchase date\" columns being wrongly right-aligned</li><li>Digital/Physical badge redesigned as a proper chip</li><li>Buttons like \"Advanced filters\" and \"Add multiple games\" now have a visible border</li><li>Row striping in the table is now actually visible</li><li>Added a social preview image and description for shared links</li></ul><h3><span class='changelog-ver'>v1.5</span> (26.07.2026)</h3><ul><li>Fixed the login/account card sitting too high on tall screens instead of centering</li><li>Fixed inconsistent letter-spacing across labels and badges</li></ul><h3><span class='changelog-ver'>v1.4</span> (26.07.2026)</h3><ul><li>Deleting a game is now instant with an \"Undo\" option, instead of a confirmation popup</li><li>Added error monitoring</li><li>Added a loading skeleton and a retry option if the library fails to load</li><li>Backlog Wallet can now be installed as an app, with basic offline support</li></ul><h3><span class='changelog-ver'>v1.3.2</span> (26.07.2026)</h3><ul><li>Added an explanation for the \"Hours already cleared\" progress bar</li></ul><h3><span class='changelog-ver'>v1.3.1</span> (26.07.2026)</h3><ul><li>Completion level can now be set directly from the list</li><li>Completed games without a level set now count towards progress</li></ul><h3><span class='changelog-ver'>v1.3</span> (26.07.2026)</h3><ul><li>New: bulk-fetch HowLongToBeat times for your whole library, with a progress bar</li></ul><h3><span class='changelog-ver'>v1.2.1</span> (26.07.2026)</h3><ul><li>Fixed the HowLongToBeat proxy field rejecting local addresses</li></ul><h3><span class='changelog-ver'>v1.2</span> (26.07.2026)</h3><ul><li>Complete visual redesign - new colors, fonts and layout</li><li>New: Year in Review can now compare two years side by side</li><li>New: \"Playtime\" tab showing total completion time across your library</li><li>New: track HowLongToBeat times and completion level per game</li></ul><h3><span class='changelog-ver'>v1.1</span> (24.07.2026)</h3><ul><li>New: monthly spending counter with a percentage change vs last month</li></ul><h3><span class='changelog-ver'>v1.0.1</span> (20.07.2026)</h3><ul><li>Fixed a bug from v1.0 that broke the entire site</li></ul><h3><span class='changelog-ver'>v1.0</span> (20.07.2026)</h3><ul><li>Full redesign - new look, fixed desktop sidebar, better contrast</li><li>Fixed a page-width bug causing a horizontal scrollbar</li><li>Fixed home page content being misaligned on desktop</li></ul><h3><span class='changelog-ver'>v0.9.1</span> (17.07.2026)</h3><ul><li>New: bulk-edit game status for multiple selected games at once</li><li>Fixed the Backlog Health score calculation</li></ul><h3><span class='changelog-ver'>v0.9</span> (17.07.2026)</h3><ul><li>Fixed nickname login</li><li>New: \"Backlog Health\" score</li><li>New: two more game statuses (Endless, Won't play)</li><li>New: import data from a JSON backup</li><li>Account deletion now backs up your data first automatically</li></ul><h3><span class='changelog-ver'>v0.8.1</span> (17.07.2026)</h3><ul><li>New: \"Endless game\" and \"Won't play\" statuses</li><li>\"What to play?\" now only picks unplayed games</li></ul><h3><span class='changelog-ver'>v0.8</span> (17.07.2026)</h3><ul><li>New: \"What to play?\" random game picker</li><li>More achievement tiers, plus 3 new badges</li><li>Fixed the price filter using the wrong currency</li><li>Visual refresh - clearer contrast and borders</li></ul><h3><span class='changelog-ver'>v0.7.4</span> (16.07.2026)</h3><ul><li>New: Achievements tab</li><li>New: duplicate detection when adding games</li><li>New: advanced filters by price and purchase date</li></ul><h3><span class='changelog-ver'>v0.7.3</span> (15.07.2026)</h3><ul><li>Restored \"Key Store\" as a purchase source</li></ul><h3><span class='changelog-ver'>v0.7.2</span> (15.07.2026)</h3><ul><li>Fixed checkbox alignment in the table</li><li>Long titles on the virtual shelf no longer get cut off</li></ul><h3><span class='changelog-ver'>v0.7.1</span> (15.07.2026)</h3><ul><li>Various fixes: translations, checkbox size, scrollable side menu</li><li>Redesigned the virtual shelf to look like a real shelf</li></ul><h3><span class='changelog-ver'>v0.7</span> (15.07.2026)</h3><ul><li>New: Savings Goals tab</li><li>New: digital/physical format per game</li><li>New: bulk editing for format and purchase source</li></ul><h3><span class='changelog-ver'>v0.6.1</span> (15.07.2026)</h3><ul><li>Fixed language menu position, top-menu overflow, and a country-saving bug</li><li>Removed Google AdSense</li></ul><h3><span class='changelog-ver'>v0.6</span> (13.07.2026)</h3><ul><li>New: shareable public library link</li><li>New: Year in Review shareable card</li><li>New: optional completion status per game</li></ul><h3><span class='changelog-ver'>v0.5</span> (13.07.2026)</h3><ul><li>Email confirmation now required at registration</li><li>Added PlayStation, Xbox, Nintendo, GOG and Epic Games as sources</li><li>Fixed chart readability issues</li><li>Major homepage redesign</li></ul><h3><span class='changelog-ver'>v0.41</span> (13.07.2026)</h3><ul><li>Added sorting by date and alphabetically</li><li>Removed emoji avatars</li><li>Added nickname login</li><li>Default language is now English</li></ul><h3><span class='changelog-ver'>v0.4</span> (12.07.2026)</h3><ul><li>Renamed to Backlog Wallet</li><li>New tagline and homepage design</li><li>Added emoji avatar personalisation</li><li>Expanded FAQ and privacy policy</li></ul><h3><span class='changelog-ver'>v0.31</span> (12.07.2026)</h3><ul><li>Expanded currency choice to all 20 currencies</li><li>New: Ranking tab</li><li>Added basic protection against junk game names</li></ul><h3><span class='changelog-ver'>v0.3</span> (11.07.2026)</h3><ul><li>Full tracker now requires a free account</li><li>Light/dark theme toggle</li><li>GDPR-compliant data export and deletion</li></ul><h3><span class='changelog-ver'>v0.24</span> (11.07.2026)</h3><ul><li>Minor bug fixes and UX improvements</li></ul><h3><span class='changelog-ver'>v0.23</span> (11.07.2026)</h3><ul><li>Replaced the Steam logo with a neutral icon</li><li>Expanded currency choice</li><li>Added password change option</li></ul><h3><span class='changelog-ver'>v0.22</span> (11.07.2026)</h3><ul><li>Fixed a mobile expand/collapse bug</li><li>Added a quick language switcher</li><li>New: Exchange Rates tab</li></ul><h3><span class='changelog-ver'>v0.21</span> (11.07.2026)</h3><ul><li>Fixed a language-detection bug</li><li>Added bulk adding of games</li><li>Added a filter by purchase source</li></ul><h3><span class='changelog-ver'>v0.2</span> </h3><ul><li>Major rebuild - side menu, accounts, charts, mobile support</li></ul><h3><span class='changelog-ver'>v0.1</span> </h3><ul><li>Initial release</li></ul>",
         donateHtml: "<h3>Support the project</h3><p>This app is free and made as a hobby. If you find it useful, you can buy the author a coffee.</p><p><a href='https://buymeacoffee.com/' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p><a href='https://ko-fi.com/' target='_blank' rel='noopener'><i class='fa-solid fa-heart'></i> Ko-fi</a></p><p>Thank you for any support!</p>",
         termsHtml: "<h3>1. General provisions</h3><p>These Terms and Conditions govern the use of the Backlog Wallet application (the \"App\"). By using the App, you agree to the terms below.</p><h3>2. Nature of the service</h3><p>The App is a free, hobby-built tool for personal tracking of video game purchases. It is not affiliated with, endorsed by, or in any way officially connected with Valve Corporation or the Steam platform. The name \"Steam\" is used purely descriptively.</p><h3>3. User accounts</h3><p>The App can be used in guest mode (no registration required, data stored locally in your browser) or with a registered account (email/password authentication), which enables cloud synchronization. You are responsible for keeping your login credentials confidential.</p><h3>4. User obligations</h3><ul><li>You may not use the App for any unlawful purpose.</li><li>You may not attempt to compromise the security of the App or its infrastructure.</li><li>You are responsible for the content (e.g., game titles) you enter into the App.</li></ul><h3>5. Limitation of liability</h3><p>The App is provided \"as is\", without warranties of any kind. Currency exchange rates are fetched from a third-party public API and may be inaccurate. The author is not liable for any data loss, particularly for data stored locally in guest mode.</p><h3>6. Changes to these terms</h3><p>We reserve the right to modify these Terms at any time. Continued use of the App after changes constitutes acceptance of the updated Terms.</p><h3>7. Contact</h3><p>For questions about these Terms, please use the contact details provided in the footer.</p>",
-        privacyHtml: "<h3>1. Data controller</h3><p>The data controller for personal data processed within the App is [YOUR FULL NAME OR COMPANY NAME - PLEASE FILL IN] (owner of Backlog Wallet), who can be reached using the contact details provided in the footer.</p><h3>2. What data we process</h3><ul><li><strong>Guest mode:</strong> your game library data (title, price, source, date) is stored only locally in your browser (localStorage) and is never sent to our servers.</li><li><strong>User accounts:</strong> if you register, we process your email address and your game library data, stored via Firebase (Google) to enable synchronization across devices.</li><li><strong>Preferences:</strong> your chosen interface language and cookie consent choice are stored locally in your browser.</li><li><strong>Registration country:</strong> when you create an account, we determine your country (e.g. \"PL\") from your IP address using a third-party IP geolocation service. We never store the IP address itself - only the resulting country code, which is visible to the site administrator for account security and oversight purposes.</li></ul><h3>3. Local storage</h3><p>The App uses local browser storage mechanisms (localStorage) required for it to function and to remember your preferences.</p><h3>4. Data sharing</h3><p>We do not sell user data. Data may be processed by service providers (Firebase/Google, and, during registration, a third-party IP geolocation service) solely to the extent necessary to provide the App's functionality.</p><h3>5. Your rights</h3><p>You have the right to access, correct, delete, and port your data, as well as the right to request restriction of processing and to object to processing based on legitimate interest. You can request deletion of your account and cloud data by contacting the administrator. You can delete guest data yourself by clearing this site's browser data.</p><h3>6. Security</h3><p>We rely on Firebase's standard security measures to protect your data; however, no method of transmission over the internet is 100% secure.</p><h3>7. Contact</h3><p>For privacy-related questions, please use the contact details provided in the footer.</p><h3>Legal bases for processing (GDPR)</h3><ul><li><strong>Performance of a contract (Art. 6(1)(b) GDPR):</strong> operating your account and synchronising your library across devices.</li><li><strong>Legitimate interest (Art. 6(1)(f) GDPR):</strong> keeping the app secure and working correctly, and detecting the registration country for basic account oversight and abuse prevention.</li></ul><h3>Data retention</h3><p>We keep your account and library data until you delete your account. You can do this yourself at any time from the \"Your account\" panel using the delete-account-and-data option. Preferences stored locally in your browser (language, theme, currency, consent) can be removed by clearing this site's browser data.</p><h3>International transfers</h3><p>We rely on Google services (Firebase), which may involve processing outside the European Economic Area. Google uses Standard Contractual Clauses and other legally recognised safeguards for such transfers.</p><h3>Withdrawing consent and complaints</h3><p>You can withdraw cookie consent at any time (via the consent banner or your browser settings), without affecting the lawfulness of processing carried out beforehand. You have the right to lodge a complaint with the data-protection supervisory authority in your country of residence.</p>",
+        privacyHtml: "<h3>1. Data controller</h3><p>The data controller for personal data processed within the App is Backlog Wallet, which can be reached using the contact details provided in the footer.</p><h3>2. What data we process</h3><ul><li><strong>Guest mode:</strong> your game library data (title, price, source, date) is stored only locally in your browser (localStorage) and is never sent to our servers.</li><li><strong>User accounts:</strong> if you register, we process your email address and your game library data, stored via Firebase (Google) to enable synchronization across devices.</li><li><strong>Preferences:</strong> your chosen interface language and cookie consent choice are stored locally in your browser.</li><li><strong>Registration country:</strong> when you create an account, we determine your country (e.g. \"PL\") from your IP address using a third-party IP geolocation service. We never store the IP address itself - only the resulting country code, which is visible to the site administrator for account security and oversight purposes.</li><li><strong>Feedback form:</strong> if you use the feedback form in the footer, the subject and message you type are sent to us by email through the Web3Forms service. Please do not include sensitive personal data in your message.</li></ul><h3>3. Local storage</h3><p>The App uses local browser storage mechanisms (localStorage) required for it to function and to remember your preferences.</p><h3>4. Data sharing</h3><p>We do not sell user data. Data may be processed by service providers (Firebase/Google, and, during registration, a third-party IP geolocation service, and, if you send a message through the feedback form, Web3Forms) solely to the extent necessary to provide the App's functionality.</p><h3>5. Your rights</h3><p>You have the right to access, correct, delete, and port your data, as well as the right to request restriction of processing and to object to processing based on legitimate interest. You can request deletion of your account and cloud data by contacting the administrator. You can delete guest data yourself by clearing this site's browser data.</p><h3>6. Security</h3><p>We rely on Firebase's standard security measures to protect your data; however, no method of transmission over the internet is 100% secure.</p><h3>7. Contact</h3><p>For privacy-related questions, please use the contact details provided in the footer.</p><h3>Legal bases for processing (GDPR)</h3><ul><li><strong>Performance of a contract (Art. 6(1)(b) GDPR):</strong> operating your account and synchronising your library across devices.</li><li><strong>Legitimate interest (Art. 6(1)(f) GDPR):</strong> keeping the app secure and working correctly, and detecting the registration country for basic account oversight and abuse prevention.</li><li><strong>Legitimate interest (Art. 6(1)(f) GDPR):</strong> reading and answering the feedback you choose to send us.</li></ul><h3>Data retention</h3><p>We keep your account and library data until you delete your account. You can do this yourself at any time from the \"Your account\" panel using the delete-account-and-data option. Preferences stored locally in your browser (language, theme, currency, consent) can be removed by clearing this site's browser data.</p><h3>International transfers</h3><p>We rely on Google services (Firebase), which may involve processing outside the European Economic Area. Google uses Standard Contractual Clauses and other legally recognised safeguards for such transfers.</p><h3>Withdrawing consent and complaints</h3><p>You can withdraw cookie consent at any time (via the consent banner or your browser settings), without affecting the lawfulness of processing carried out beforehand. You have the right to lodge a complaint with the data-protection supervisory authority in your country of residence.</p>",
     }
 };
 
@@ -1354,11 +1354,6 @@ function flashNewGames(newGames) {
     }, 2200);
 }
 
-function focusAddGameForm() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setTimeout(() => { const el = $('gameName'); if (el) el.focus(); }, 350);
-}
-
 function renderGoals() {
     const list = $('goalsList');
     if (!list) return;
@@ -1691,8 +1686,8 @@ function shelfDisplaySource(source) {
 }
 
 // "On this day" - looks for a game bought on today's month/day in a past year.
-// Dismissal only lasts for the browser session (sessionStorage), since the
-// banner's content changes every day anyway - no need to persist it further.
+// Dismissal is remembered for the current day (localStorage); the banner's
+// content changes daily, so it can show again on a later date.
 function renderOnThisDay() {
     const banner = $('onThisDayBanner');
     if (!banner) return;
@@ -2612,7 +2607,7 @@ function showAllYearsChart() {
     });
 }
 
-// v1.7: "Wrapped" - podsumowanie roku jako seria pelnoekranowych slajdow,
+// "Wrapped" - podsumowanie roku jako seria pelnoekranowych slajdow,
 // zbudowanych na tych samych danych co karta Year in Review (yearStats()).
 let wrappedSlides = [];
 let wrappedIndex = 0;
@@ -2620,7 +2615,6 @@ let wrappedIndex = 0;
 function buildWrappedSlides(year) {
     const A = yearStats(year);
     const firstGame = A.games.slice().sort((a, b) => (a.date || '').localeCompare(b.date || ''))[0] || null;
-    const cheapest = A.games.slice().sort((a, b) => (a.priceChf || 0) - (b.priceChf || 0))[0] || null;
 
     const slides = [];
     slides.push({ kind: 'intro', year });
@@ -2950,7 +2944,7 @@ async function togglePublicShare(enabled) {
         updatePublicShareUI();
         showToastText(enabled ? t('shareEnabledMsg') : t('shareDisabledMsg'));
     } catch (e) {
-        showToastText('Nie udało się zmienić ustawienia udostępniania.');
+        showToastText('Could not change the sharing setting.');
         if ($('publicShareToggle')) $('publicShareToggle').checked = publicShareEnabled;
     }
 }
@@ -2968,18 +2962,18 @@ async function initPublicShareIfNeeded() {
     document.body.querySelectorAll(':scope > header, :scope > .drawer-overlay, :scope > .drawer, :scope > main').forEach(el => el.style.display = 'none');
     const view = $('publicShareView');
     view.style.display = 'block';
-    if (!db) { $('publicShareBody').innerHTML = '<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i> Nie udało się połączyć z bazą danych.</div>'; return true; }
+    if (!db) { $('publicShareBody').innerHTML = '<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i> Could not connect to the database.</div>'; return true; }
     try {
         const doc = await db.collection('users').doc(uid).get();
         if (!doc.exists || doc.data().publicShare !== true) {
-            $('publicShareBody').innerHTML = '<div class="empty-state"><i class="fa-solid fa-lock"></i> Ten link jest nieprawidłowy albo biblioteka nie jest już udostępniana.</div>';
+            $('publicShareBody').innerHTML = '<div class="empty-state"><i class="fa-solid fa-lock"></i> This link is invalid or the library is no longer shared.</div>';
             return true;
         }
         const d = doc.data();
         const nick = (d.profile && d.profile.nickname) || 'Gracz';
         const pubGames = Array.isArray(d.games) ? d.games : [];
         const totalChf = pubGames.reduce((s, g) => s + (g.priceChf || 0), 0);
-        $('publicShareTitle').textContent = `Biblioteka: ${nick}`;
+        $('publicShareTitle').textContent = `Library: ${nick}`;
         const rows = pubGames.slice().sort((a, b) => (b.date || '').localeCompare(a.date || ''))
             .map(g => {
                 const meta = platformMeta(g.source || 'Steam');
@@ -2988,15 +2982,15 @@ async function initPublicShareIfNeeded() {
             }).join('');
         $('publicShareBody').innerHTML = `
             <div class="stats-row" style="margin-bottom:20px;">
-                <div class="stat-tile"><div class="stat-label"><i class="fa-solid fa-gamepad"></i> Gry</div><div class="stat-value">${pubGames.length}</div></div>
-                <div class="stat-tile stat-hero"><div class="stat-label"><i class="fa-solid fa-coins"></i> Wartość biblioteki</div><div class="stat-value">${totalChf.toFixed(2)} <small>CHF</small></div></div>
+                <div class="stat-tile"><div class="stat-label"><i class="fa-solid fa-gamepad"></i> Games</div><div class="stat-value">${pubGames.length}</div></div>
+                <div class="stat-tile stat-hero"><div class="stat-label"><i class="fa-solid fa-coins"></i> Library value</div><div class="stat-value">${totalChf.toFixed(2)} <small>CHF</small></div></div>
             </div>
             <div class="table-container" style="max-height:500px; padding:0;">
-                <table><thead><tr><th>Tytuł</th><th>Platforma</th><th>Data</th><th style="text-align:right;">Cena</th></tr></thead><tbody>${rows || '<tr><td colspan="4" style="text-align:center; color:var(--text-dim);">Brak gier.</td></tr>'}</tbody></table>
+                <table><thead><tr><th>Title</th><th>Platform</th><th>Date</th><th style="text-align:right;">Price</th></tr></thead><tbody>${rows || '<tr><td colspan="4" style="text-align:center; color:var(--text-dim);">No games.</td></tr>'}</tbody></table>
             </div>
         `;
     } catch (e) {
-        $('publicShareBody').innerHTML = '<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i> Nie udało się wczytać biblioteki.</div>';
+        $('publicShareBody').innerHTML = '<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i> Could not load the library.</div>';
     }
     return true;
 }
@@ -3042,10 +3036,10 @@ async function loadAdminPanel() {
 
         rows.forEach(r => {
             const tr = document.createElement('tr');
-            tr.innerHTML = `<td>${escapeHtml(r.nick)}</td><td>${r.country}</td><td style="white-space:nowrap;">${r.registeredLabel}</td><td>${r.uGamesLen}</td><td>${r.userChf.toFixed(2)}</td><td>${r.banned ? 'Zbanowany' : 'Aktywny'}</td>
+            tr.innerHTML = `<td>${escapeHtml(r.nick)}</td><td>${r.country}</td><td style="white-space:nowrap;">${r.registeredLabel}</td><td>${r.uGamesLen}</td><td>${r.userChf.toFixed(2)}</td><td>${r.banned ? 'Banned' : 'Active'}</td>
                 <td style="display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end;">
                     <button type="button" class="btn-tool" style="width:auto; padding:4px 10px;" onclick="showAdminUserDetail('${r.uid}')"><i class="fa-solid fa-eye"></i></button>
-                    <button type="button" class="btn-tool" style="width:auto; padding:4px 10px;" onclick="${r.banned ? `unbanUser('${r.uid}')` : `openBanModal('${r.uid}')`}">${r.banned ? 'Odbanuj' : 'Zbanuj'}</button>
+                    <button type="button" class="btn-tool" style="width:auto; padding:4px 10px;" onclick="${r.banned ? `unbanUser('${r.uid}')` : `openBanModal('${r.uid}')`}">${r.banned ? 'Unban' : 'Ban'}</button>
                     <button type="button" class="btn-danger-ghost" style="width:auto; padding:4px 10px;" onclick="deleteUserRecords('${r.uid}')"><i class="fa-solid fa-trash"></i></button>
                 </td>`;
             usersTbody.appendChild(tr);
@@ -3056,7 +3050,7 @@ async function loadAdminPanel() {
         $('adminStatAvgPrice').textContent = priceCount ? (priceSumEur / priceCount).toFixed(2) : '-';
         const totalSourced = steamCount + keyCount;
         $('adminStatSourceSplit').textContent = totalSourced
-            ? `Steam ${Math.round(steamCount / totalSourced * 100)}% / Kluczykarnia ${Math.round(keyCount / totalSourced * 100)}%`
+            ? `Steam ${Math.round(steamCount / totalSourced * 100)}% / Key Store ${Math.round(keyCount / totalSourced * 100)}%`
             : '-';
 
         const topGamesTbody = $('adminTopGamesTbody');
@@ -3086,21 +3080,21 @@ async function loadAdminPanel() {
         $('adminVisitsYear').textContent = yearCount;
     } catch (e) {
         console.error(e);
-        showToastText('Błąd wczytywania panelu administratora (sprawdź reguły Firestore).');
+        showToastText('Failed to load the admin panel (check the Firestore rules).');
     }
 }
 
 function showAdminUserDetail(uid) {
     const d = adminUsersCache[uid];
     if (!d) return;
-    const nick = (d.profile && d.profile.nickname) || '(brak pseudonimu)';
+    const nick = (d.profile && d.profile.nickname) || '(no nickname)';
     const country = d.regCountry || '-';
     const banned = d.banned === true;
     const theme = (d.profile && d.profile.theme) || '-';
     const uGames = Array.isArray(d.games) ? d.games : [];
     const totalChf = uGames.reduce((s, g) => s + (g.priceChf || 0), 0);
     const registeredAt = d.registeredAt ? new Date(d.registeredAt) : null;
-    const registeredLabel = registeredAt && !isNaN(registeredAt) ? registeredAt.toLocaleString('pl-PL', { dateStyle: 'medium', timeStyle: 'short' }) : '-';
+    const registeredLabel = registeredAt && !isNaN(registeredAt) ? registeredAt.toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' }) : '-';
 
     const platformCounts = {};
     uGames.forEach(g => {
@@ -3109,46 +3103,46 @@ function showAdminUserDetail(uid) {
     });
     const platformChips = Object.entries(platformCounts).sort((a, b) => b[1] - a[1])
         .map(([src, count]) => `<span class="source-txt ${platformMeta(src).cls}" style="margin-right:8px; display:inline-block; margin-bottom:6px;">${escapeHtml(src)}: ${count}</span>`)
-        .join('') || '<span style="color:var(--text-dim);">Brak gier</span>';
+        .join('') || '<span style="color:var(--text-dim);">No games</span>';
 
     let banInfoHtml = '';
     if (banned) {
         const until = d.banUntil ? new Date(d.banUntil) : null;
-        const untilLabel = until ? until.toLocaleString('pl-PL', { dateStyle: 'medium', timeStyle: 'short' }) : 'Bezterminowo';
+        const untilLabel = until ? until.toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' }) : 'Permanent';
         banInfoHtml = `<div style="margin-bottom:16px; padding:12px 14px; background:var(--bg-input); border:1px solid var(--err); border-radius:8px;">
-            <strong style="color:var(--err);"><i class="fa-solid fa-ban"></i> Konto zbanowane</strong><br>
-            <span style="font-size:13px;">Powód: ${escapeHtml(d.banReason || '(brak powodu)')}</span><br>
-            <span style="font-size:13px; color:var(--text-dim);">Do: ${untilLabel}</span>
+            <strong style="color:var(--err);"><i class="fa-solid fa-ban"></i> Account banned</strong><br>
+            <span style="font-size:13px;">Reason: ${escapeHtml(d.banReason || '(no reason given)')}</span><br>
+            <span style="font-size:13px; color:var(--text-dim);">Until: ${untilLabel}</span>
         </div>`;
     }
 
     let rows = uGames.slice().sort((a, b) => (b.date || '').localeCompare(a.date || ''))
         .map(g => `<tr><td>${escapeHtml(g.name)}</td><td>${escapeHtml(g.source || 'Steam')}</td><td>${g.date || '-'}</td><td>${(g.price || 0).toFixed(2)} ${escapeHtml(g.currency || '')}</td></tr>`)
         .join('');
-    if (!rows) rows = `<tr><td colspan="4" style="text-align:center; color:var(--text-dim);">Brak gier na koncie.</td></tr>`;
+    if (!rows) rows = `<tr><td colspan="4" style="text-align:center; color:var(--text-dim);">No games on this account.</td></tr>`;
 
-    $('adminModalTitle').textContent = 'Podgląd konta: ' + nick;
+    $('adminModalTitle').textContent = 'Account details: ' + nick;
     $('adminModalBody').innerHTML = `
         ${banInfoHtml}
         <div class="stats-row" style="margin-bottom:16px;">
             <div class="stat-tile"><div class="stat-label">UID</div><div class="stat-value" style="font-size:12px; word-break:break-all;">${escapeHtml(uid)}</div></div>
-            <div class="stat-tile"><div class="stat-label">Kraj</div><div class="stat-value">${escapeHtml(String(country))}</div></div>
-            <div class="stat-tile"><div class="stat-label">Zarejestrowano</div><div class="stat-value" style="font-size:14px;">${registeredLabel}</div></div>
-            <div class="stat-tile"><div class="stat-label">Motyw</div><div class="stat-value" style="font-size:16px;">${escapeHtml(String(theme))}</div></div>
-            <div class="stat-tile"><div class="stat-label">Status</div><div class="stat-value" style="font-size:16px;">${banned ? 'Zbanowany' : 'Aktywny'}</div></div>
-            <div class="stat-tile stat-hero"><div class="stat-label">Wartość biblioteki</div><div class="stat-value">${totalChf.toFixed(2)} <small>CHF</small></div></div>
+            <div class="stat-tile"><div class="stat-label">Country</div><div class="stat-value">${escapeHtml(String(country))}</div></div>
+            <div class="stat-tile"><div class="stat-label">Registered</div><div class="stat-value" style="font-size:14px;">${registeredLabel}</div></div>
+            <div class="stat-tile"><div class="stat-label">Theme</div><div class="stat-value" style="font-size:16px;">${escapeHtml(String(theme))}</div></div>
+            <div class="stat-tile"><div class="stat-label">Status</div><div class="stat-value" style="font-size:16px;">${banned ? 'Banned' : 'Active'}</div></div>
+            <div class="stat-tile stat-hero"><div class="stat-label">Library value</div><div class="stat-value">${totalChf.toFixed(2)} <small>CHF</small></div></div>
         </div>
-        <h4 class="acc-h">Platformy</h4>
+        <h4 class="acc-h">Platforms</h4>
         <div style="margin-bottom:18px;">${platformChips}</div>
-        <h4 class="acc-h">Gry na koncie (${uGames.length})</h4>
+        <h4 class="acc-h">Games on this account (${uGames.length})</h4>
         <div class="table-container" style="max-height:300px;">
-            <table><thead><tr><th>Tytuł</th><th>Platforma</th><th>Data</th><th>Cena</th></tr></thead><tbody>${rows}</tbody></table>
+            <table><thead><tr><th>Title</th><th>Platform</th><th>Date</th><th>Price</th></tr></thead><tbody>${rows}</tbody></table>
         </div>
         <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
             ${banned
-                ? `<button type="button" class="btn-tool" onclick="unbanUser('${uid}'); closeAdminUserModal();">Odbanuj konto</button>`
-                : `<button type="button" class="btn-danger-ghost" onclick="closeAdminUserModal(); openBanModal('${uid}');">Zbanuj konto</button>`}
-            <button type="button" class="btn-danger-ghost" onclick="deleteUserRecords('${uid}')"><i class="fa-solid fa-trash"></i> Usuń wszystkie dane konta</button>
+                ? `<button type="button" class="btn-tool" onclick="unbanUser('${uid}'); closeAdminUserModal();">Unban account</button>`
+                : `<button type="button" class="btn-danger-ghost" onclick="closeAdminUserModal(); openBanModal('${uid}');">Ban account</button>`}
+            <button type="button" class="btn-danger-ghost" onclick="deleteUserRecords('${uid}')"><i class="fa-solid fa-trash"></i> Delete all account data</button>
         </div>
     `;
     $('adminUserModal').style.display = 'block';
@@ -3164,17 +3158,17 @@ async function deleteUserRecords(uid) {
     if (!db || !isAdmin()) return;
     const d = adminUsersCache[uid] || {};
     const nick = (d.profile && d.profile.nickname) || uid;
-    if (!confirm(`Na pewno usunąć WSZYSTKIE dane konta "${nick}"?\n\nTo usunie bibliotekę gier, profil, pozycję w rankingu i wpis pseudonimu z bazy. Konto logowania (e-mail/hasło) pozostanie aktywne w Firebase Authentication - to trzeba usunąć osobno z konsoli Firebase.\n\nTej operacji NIE da się cofnąć.`)) return;
+    if (!confirm(`Really delete ALL data of the account "${nick}"?\n\nThis removes the game library, profile, leaderboard entry and nickname record from the database. The sign-in account (e-mail/password) stays active in Firebase Authentication - it has to be deleted separately from the Firebase console.\n\nThis cannot be undone.`)) return;
     try {
         const nickKey = (d.profile && d.profile.nickname) ? d.profile.nickname.toLowerCase() : null;
         await db.collection('users').doc(uid).delete();
         try { await db.collection('leaderboard').doc(uid).delete(); } catch (e) {}
         if (nickKey) { try { await db.collection('nicknames').doc(nickKey).delete(); } catch (e) {} }
         closeAdminUserModal();
-        showToastText('Dane konta zostały usunięte.');
+        showToastText('Account data has been deleted.');
         loadAdminPanel();
     } catch (e) {
-        showToastText('Nie udało się usunąć danych konta (sprawdź reguły Firestore).');
+        showToastText('Could not delete the account data (check the Firestore rules).');
     }
 }
 
@@ -3185,7 +3179,7 @@ function openBanModal(uid) {
     banTargetUid = uid;
     const d = adminUsersCache[uid] || {};
     const nick = (d.profile && d.profile.nickname) || uid.slice(0, 8) + '…';
-    $('banModalTitle').textContent = 'Zbanuj użytkownika: ' + nick;
+    $('banModalTitle').textContent = 'Ban user: ' + nick;
     $('banReasonInput').value = '';
     $('banDurationSelect').value = 'permanent';
     $('banModal').style.display = 'block';
@@ -3201,7 +3195,7 @@ function closeBanModal() {
 async function confirmBanUser() {
     if (!banTargetUid || !db || !isAdmin()) return;
     const reason = $('banReasonInput').value.trim();
-    if (!reason) { showToastText('Podaj powód bana - użytkownik go zobaczy.'); return; }
+    if (!reason) { showToastText('Enter a ban reason - the user will see it.'); return; }
     const duration = $('banDurationSelect').value;
     let banUntil = null;
     if (duration !== 'permanent') {
@@ -3221,16 +3215,16 @@ async function confirmBanUser() {
         try { await db.collection('leaderboard').doc(uid).delete(); } catch (e) {} // usuń z rankingu
         closeBanModal();
         closeAdminUserModal();
-        showToastText('Użytkownik zbanowany.');
+        showToastText('User banned.');
         loadAdminPanel();
     } catch (e) {
-        showToastText('Nie udało się zbanować użytkownika (sprawdź reguły Firestore).');
+        showToastText('Could not ban the user (check the Firestore rules).');
     }
 }
 
 async function unbanUser(uid) {
     if (!db || !isAdmin()) return;
-    if (!confirm('Odbanować tego użytkownika?')) return;
+    if (!confirm('Unban this user?')) return;
     try {
         await db.collection('users').doc(uid).set({
             banned: false,
@@ -3238,10 +3232,10 @@ async function unbanUser(uid) {
             banUntil: firebase.firestore.FieldValue.delete()
         }, { merge: true });
         closeAdminUserModal();
-        showToastText('Użytkownik odbanowany.');
+        showToastText('User unbanned.');
         loadAdminPanel();
     } catch (e) {
-        showToastText('Nie udało się odbanować użytkownika (sprawdź reguły Firestore).');
+        showToastText('Could not unban the user (check the Firestore rules).');
     }
 }
 
@@ -3266,11 +3260,11 @@ async function forceSyncLeaderboard() {
                 done++;
             } catch (e) { failed++; }
         }
-        showToastText(`Zsynchronizowano ranking: ${done} kont${failed ? ', błędy: ' + failed : ''}.`);
+        showToastText(`Leaderboard synced: ${done} accounts${failed ? ', errors: ' + failed : ''}.`);
         renderRanking();
     } catch (e) {
         console.error(e);
-        showToastText('Nie udało się zsynchronizować rankingu.');
+        showToastText('Could not sync the leaderboard.');
     }
 }
 

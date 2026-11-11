@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Backlog Wallet</title>
+    <meta name="description" content="Track your game purchases, monitor spending over time, and see how your library grows. Free, with 20+ currencies.">
 
     <!-- Open Graph / Twitter Card - link preview when the page is shared -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Backlog Wallet">
-    <meta property="og:description" content="Track your game purchases, monitor spending, and see how much of your backlog you've actually played.">
+    <meta property="og:description" content="Track your game purchases, monitor spending over time, and see how your library grows. Free, with 20+ currencies.">
     <meta property="og:url" content="https://backlogwallet.com">
     <meta property="og:image" content="https://backlogwallet.com/icons/og-banner.png">
     <meta property="og:image:width" content="1200">
@@ -16,7 +17,7 @@
     <meta property="og:site_name" content="Backlog Wallet">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Backlog Wallet">
-    <meta name="twitter:description" content="Track your game purchases, monitor spending, and see how much of your backlog you've actually played.">
+    <meta name="twitter:description" content="Track your game purchases, monitor spending over time, and see how your library grows. Free, with 20+ currencies.">
     <meta name="twitter:image" content="https://backlogwallet.com/icons/og-banner.png">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0c11'/%3E%3CclipPath id='c'%3E%3Crect x='5' y='5' width='22' height='22' rx='5'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23c)'%3E%3Crect x='5' y='5' width='22' height='7.48' fill='%23f0b429'/%3E%3Crect x='5' y='13.8' width='22' height='7.48' fill='%238b7bff'/%3E%3Crect x='5' y='22.6' width='22' height='4.4' fill='%235de1c4'/%3E%3C/g%3E%3C/svg%3E">
 
@@ -44,36 +45,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Monitoring bledow (Sentry) - podmien SENTRY_DSN na wlasny adres
-         z sentry.io zanim zacznie realnie logowac bledy. Sprawdz aktualna
-         wersje bundla na https://docs.sentry.io/platforms/javascript/ -->
-    <script src="https://browser.sentry-cdn.com/8.9.2/bundle.tracing.min.js" crossorigin="anonymous"></script>
-    <script>
-        (function () {
-            var SENTRY_DSN = "PODMIEN_NA_WLASNY_DSN_Z_SENTRY.IO";
-            if (window.Sentry && SENTRY_DSN.indexOf("PODMIEN_") === -1) {
-                Sentry.init({
-                    dsn: SENTRY_DSN,
-                    environment: "production",
-                    tracesSampleRate: 0.1
-                });
-            }
-        })();
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7"></script>
 
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=20">
+    <link rel="stylesheet" href="styles.css?v=22">
 </head>
 <body>
 
     <header class="topbar">
         <button class="hamburger" id="menuBtn" aria-label="Menu" onclick="toggleDrawer(true)"><i class="fa-solid fa-bars"></i></button>
-        <h1 id="logoTitle" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor:pointer;" title="Powrót na górę">
+        <h1 id="logoTitle" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor:pointer;" title="Back to top">
             <span data-i18n="appTitle">Backlog Wallet</span>
         </h1>
         <button class="hamburger" id="langQuickBtn" aria-label="Language" onclick="toggleLangMenu()">
@@ -83,10 +67,10 @@
         <span id="syncBadge" class="sync-badge offline"><i class="fa-solid fa-hard-drive"></i> <span id="badgeText"></span></span>
         <div class="user-chip guest" id="userChip" title="">
             <i class="fa-solid fa-user"></i>
-            <span id="userChipText" data-i18n="guestMode">Tryb gościa</span>
+            <span id="userChipText" data-i18n="guestMode">Not signed in</span>
         </div>
-        <button class="hamburger" id="themeToggleBtn" onclick="toggleTheme()" data-i18n-title="themeToggleTitle" title="Motyw"><i class="fa-solid fa-moon"></i></button>
-        <button class="hamburger" id="quickLogoutBtn" style="display:none;width:auto;padding:0 12px;" onclick="doLogout()" data-i18n-title="logoutBtn" title="Wyloguj">
+        <button class="hamburger" id="themeToggleBtn" onclick="toggleTheme()" data-i18n-title="themeToggleTitle" title="Switch light / dark theme"><i class="fa-solid fa-moon"></i></button>
+        <button class="hamburger" id="quickLogoutBtn" style="display:none;width:auto;padding:0 12px;" onclick="doLogout()" data-i18n-title="logoutBtn" title="Log out">
             <i class="fa-solid fa-right-from-bracket"></i>
         </button>
     </header>
@@ -98,33 +82,33 @@
             <button class="drawer-close" onclick="toggleDrawer(false)" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <nav>
-            <button class="nav-item active" data-view="home" onclick="showView('home')"><i class="fa-solid fa-house"></i> <span data-i18n="navHome">Strona główna</span></button>
+            <button class="nav-item active" data-view="home" onclick="showView('home')"><i class="fa-solid fa-house"></i> <span data-i18n="navHome">Home</span></button>
 
-            <button class="nav-item" id="navAuthBtn" data-view="auth" onclick="showView('auth')"><i class="fa-solid fa-right-to-bracket" id="navAuthIcon"></i> <span data-i18n="navAuth" id="navAuthLabel">Logowanie / Rejestracja</span></button>
-            <button class="nav-item" id="navAdminBtn" data-view="admin" onclick="showView('admin')" style="display:none;"><i class="fa-solid fa-user-shield"></i> <span>Panel administratora</span></button>
+            <button class="nav-item" id="navAuthBtn" data-view="auth" onclick="showView('auth')"><i class="fa-solid fa-right-to-bracket" id="navAuthIcon"></i> <span data-i18n="navAuth" id="navAuthLabel">Login / Register</span></button>
+            <button class="nav-item" id="navAdminBtn" data-view="admin" onclick="showView('admin')" style="display:none;"><i class="fa-solid fa-user-shield"></i> <span>Admin panel</span></button>
 
             <div class="nav-dropdown" id="navLibraryWrap" style="display:none;">
                 <button type="button" class="nav-section-toggle" onclick="toggleNavGroup('library')" aria-expanded="true">
-                    <span data-i18n="navSectionLibrary">Twoja biblioteka</span>
+                    <span data-i18n="navSectionLibrary">Your library</span>
                     <i class="fa-solid fa-chevron-down nav-section-chevron" id="navGroupChevron-library"></i>
                 </button>
                 <div class="nav-group" id="navGroup-library">
-                    <button class="nav-item" id="navShelfBtn" data-view="shelf" onclick="showView('shelf')"><i class="fa-solid fa-border-all"></i> <span data-i18n="navShelf">Wirtualna półka</span></button>
-                    <button class="nav-item" id="navAchievementsBtn" data-view="achievements" onclick="showView('achievements')"><i class="fa-solid fa-medal"></i> <span data-i18n="navAchievements">Osiągnięcia</span></button>
-                    <button class="nav-item" id="navRouletteBtn" data-view="roulette" onclick="showView('roulette')"><i class="fa-solid fa-dice"></i> <span data-i18n="navRoulette">Co dziś zagrać?</span></button>
-                    <button class="nav-item" id="navGoalsBtn" data-view="goals" onclick="showView('goals')" style="display:none;"><i class="fa-solid fa-piggy-bank"></i> <span data-i18n="navGoals">Cele oszczędnościowe</span></button>
+                    <button class="nav-item" id="navShelfBtn" data-view="shelf" onclick="showView('shelf')"><i class="fa-solid fa-border-all"></i> <span data-i18n="navShelf">Virtual Shelf</span></button>
+                    <button class="nav-item" id="navAchievementsBtn" data-view="achievements" onclick="showView('achievements')"><i class="fa-solid fa-medal"></i> <span data-i18n="navAchievements">Achievements</span></button>
+                    <button class="nav-item" id="navRouletteBtn" data-view="roulette" onclick="showView('roulette')"><i class="fa-solid fa-dice"></i> <span data-i18n="navRoulette">What to play?</span></button>
+                    <button class="nav-item" id="navGoalsBtn" data-view="goals" onclick="showView('goals')" style="display:none;"><i class="fa-solid fa-piggy-bank"></i> <span data-i18n="navGoals">Savings Goals</span></button>
                     <button class="nav-item" id="navRankingBtn" data-view="ranking" onclick="showView('ranking')" style="display:none;"><i class="fa-solid fa-ranking-star"></i> <span data-i18n="navRanking">Ranking</span></button>
-                    <button class="nav-item" id="navYearReviewBtn" data-view="yearreview" onclick="showView('yearreview')" style="display:none;"><i class="fa-solid fa-gift"></i> <span data-i18n="navYearReview">Podsumowanie roku</span></button>
+                    <button class="nav-item" id="navYearReviewBtn" data-view="yearreview" onclick="showView('yearreview')" style="display:none;"><i class="fa-solid fa-gift"></i> <span data-i18n="navYearReview">Year in Review</span></button>
                 </div>
             </div>
 
             <div class="nav-dropdown">
                 <button type="button" class="nav-section-toggle" onclick="toggleNavGroup('tools')" aria-expanded="true">
-                    <span data-i18n="navSectionTools">Narzędzia</span>
+                    <span data-i18n="navSectionTools">Tools</span>
                     <i class="fa-solid fa-chevron-down nav-section-chevron" id="navGroupChevron-tools"></i>
                 </button>
                 <div class="nav-group" id="navGroup-tools">
-                    <button class="nav-item" data-view="rates" onclick="showView('rates')"><i class="fa-solid fa-money-bill-transfer"></i> <span data-i18n="navRates">Kursy walut</span></button>
+                    <button class="nav-item" data-view="rates" onclick="showView('rates')"><i class="fa-solid fa-money-bill-transfer"></i> <span data-i18n="navRates">Exchange Rates</span></button>
                     <button class="nav-item" data-view="faq" onclick="showView('faq')"><i class="fa-solid fa-circle-question"></i> <span data-i18n="navFaq">FAQ</span></button>
                     <button class="nav-item" data-view="changelog" onclick="showView('changelog')"><i class="fa-solid fa-clock-rotate-left"></i> <span data-i18n="navChangelog">Changelog</span></button>
                     <button class="nav-item" data-view="donate" onclick="showView('donate')"><i class="fa-solid fa-heart"></i> <span data-i18n="navDonate">Donate</span></button>
@@ -133,7 +117,7 @@
         </nav>
         <div class="drawer-foot">
             <div class="input-group">
-                <label data-i18n="language">Język</label>
+                <label data-i18n="language">Language</label>
                 <select id="langSwitcher" onchange="changeLanguage(this.value)">
                     <option value="en">English</option>
                 </select>
@@ -145,11 +129,11 @@
         <div class="main-wrap" style="max-width:900px; margin:0 auto; padding:32px 20px;">
             <div class="card">
                 <div class="card-head">
-                    <span><i class="fa-solid fa-share-nodes"></i> <span id="publicShareTitle">Biblioteka gier</span></span>
+                    <span><i class="fa-solid fa-share-nodes"></i> <span id="publicShareTitle">Shared library</span></span>
                     <a href="/" class="btn-link"><i class="fa-solid fa-house"></i> Backlog Wallet</a>
                 </div>
                 <div class="card-body" id="publicShareBody">
-                    <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i> Ładowanie…</div>
+                    <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i> Loading…</div>
                 </div>
             </div>
         </div>
@@ -166,13 +150,13 @@
                             <div class="hero-badge">
                                 Backlog Wallet
                             </div>
-                            <h2 data-i18n="heroTagline">Twoje wydatki na gry - policzone i przejrzyste.</h2>
-                            <p class="lead" data-i18n="heroLead"></p>
+                            <h2 data-i18n="heroTagline">Track easy. Spend smart.</h2>
+                            <p class="lead" data-i18n="heroLead">Backlog Wallet is a personal tool for logging the games you buy and understanding how much you spend over time. Add each title with its price, store and purchase date, and get instant statistics, currency conversion and clear charts of your library. Track whether each game is digital or physical, and save up for the titles you want with savings goals.</p>
                             <div class="hero-cta">
-                                <button class="btn-primary" onclick="goRegister()"><i class="fa-solid fa-user-plus"></i> <span data-i18n="ctaRegister">Załóż darmowe konto</span></button>
-                                <button class="btn-tool" onclick="goLogin()"><span data-i18n="ctaHaveAccount">Mam już konto</span></button>
+                                <button class="btn-primary" onclick="goRegister()"><i class="fa-solid fa-user-plus"></i> <span data-i18n="ctaRegister">Create a free account</span></button>
+                                <button class="btn-tool" onclick="goLogin()"><span data-i18n="ctaHaveAccount">I already have an account</span></button>
                             </div>
-                            <p class="hero-note" data-i18n="landingFootNote"></p>
+                            <p class="hero-note" data-i18n="landingFootNote">All tracking features require a free account. It takes less than a minute to set up.</p>
                             <div class="hero-facts">
                                 <span><i class="fa-solid fa-gamepad"></i> <span data-i18n="heroFact4">Steam, PlayStation, Xbox, Nintendo, GOG, Epic</span></span>
                             </div>
@@ -183,22 +167,22 @@
                             <div class="mock-receipt-row"><span>Baldur's Gate 3</span><span>199,20</span></div>
                             <div class="mock-receipt-row"><span>Stardew Valley</span><span>38,98</span></div>
                             <div class="mock-receipt-div"></div>
-                            <div class="mock-receipt-total"><span data-i18n="heroReceiptTotal">Suma</span><span>332,26</span></div>
-                            <div class="mock-receipt-stamp" data-i18n="heroReceiptStamp">ZAPISANE</div>
+                            <div class="mock-receipt-total"><span data-i18n="heroReceiptTotal">Total</span><span>332,26</span></div>
+                            <div class="mock-receipt-stamp" data-i18n="heroReceiptStamp">SAVED</div>
                         </div>
                     </div>
                 </section>
 
                 <div class="bento-grid">
-                    <div class="feature-card bento-wide"><i class="fa-solid fa-list-check"></i><h4 data-i18n="feat1T"></h4><p data-i18n="feat1D"></p></div>
-                    <div class="feature-card"><i class="fa-solid fa-chart-line"></i><h4 data-i18n="feat2T"></h4><p data-i18n="feat2D"></p></div>
-                    <div class="feature-card"><i class="fa-solid fa-coins"></i><h4 data-i18n="feat3T"></h4><p data-i18n="feat3D"></p></div>
+                    <div class="feature-card bento-wide"><i class="fa-solid fa-list-check"></i><h4 data-i18n="feat1T">Track every purchase</h4><p data-i18n="feat1D">Log titles, prices, stores and dates - manually or by pasting a whole list at once.</p></div>
+                    <div class="feature-card"><i class="fa-solid fa-chart-line"></i><h4 data-i18n="feat2T">See your spending</h4><p data-i18n="feat2D">Live totals, monthly and yearly counts, and charts of purchases over time.</p></div>
+                    <div class="feature-card"><i class="fa-solid fa-coins"></i><h4 data-i18n="feat3T">Any currency</h4><p data-i18n="feat3D">Convert your library value into 20+ world currencies using live exchange rates.</p></div>
                     <div class="feature-card bento-full">
-                        <h4 data-i18n="privHead" style="margin-bottom:10px;">Prywatność przede wszystkim</h4>
+                        <h4 data-i18n="privHead" style="margin-bottom:10px;">Your privacy comes first</h4>
                         <ul class="priv-list">
-                            <li><i class="fa-solid fa-ban"></i> <span data-i18n="priv1"></span></li>
-                            <li><i class="fa-solid fa-database"></i> <span data-i18n="priv2"></span></li>
-                            <li><i class="fa-solid fa-download"></i> <span data-i18n="priv3"></span></li>
+                            <li><i class="fa-solid fa-ban"></i> <span data-i18n="priv1">We never sell your data, and we never share it for third-party marketing.</span></li>
+                            <li><i class="fa-solid fa-database"></i> <span data-i18n="priv2">Your library is stored only to provide the service and sync it across your devices.</span></li>
+                            <li><i class="fa-solid fa-download"></i> <span data-i18n="priv3">You can export or permanently delete all of your data at any time, straight from your account.</span></li>
                         </ul>
                     </div>
                 </div>
@@ -208,12 +192,12 @@
                 <div class="card">
                     <div class="card-body" style="text-align:center; padding:40px 24px;">
                         <i class="fa-solid fa-envelope-circle-check" style="font-size:38px; color:var(--warn); margin-bottom:16px; display:block;"></i>
-                        <h3 style="font-family:var(--font-display); font-size:22px; color:var(--text-white); margin-bottom:10px;" data-i18n="verifyGateTitle">Potwierdź adres e-mail</h3>
-                        <p style="max-width:480px; margin:0 auto 20px; color:var(--text-main); line-height:1.6;" data-i18n="verifyGateBody">Wysłaliśmy link potwierdzający na Twój adres e-mail. Kliknij go, a potem wróć tutaj i sprawdź ponownie.</p>
+                        <h3 style="font-family:var(--font-display); font-size:22px; color:var(--text-white); margin-bottom:10px;" data-i18n="verifyGateTitle">Confirm your email address</h3>
+                        <p style="max-width:480px; margin:0 auto 20px; color:var(--text-main); line-height:1.6;" data-i18n="verifyGateBody">We've sent a confirmation link to your email. Click it, then come back here and check again.</p>
                         <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-                            <button type="button" class="btn-primary" style="width:auto; padding:0 20px;" onclick="recheckVerification()"><i class="fa-solid fa-rotate"></i> <span data-i18n="recheckVerifyBtn">Sprawdź ponownie</span></button>
-                            <button type="button" class="btn-tool" style="width:auto; padding:0 20px;" onclick="resendVerificationEmail()"><i class="fa-solid fa-paper-plane"></i> <span data-i18n="resendVerifyBtn">Wyślij ponownie</span></button>
-                            <button type="button" class="btn-tool" style="width:auto; padding:0 20px;" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> <span data-i18n="logoutBtn">Wyloguj</span></button>
+                            <button type="button" class="btn-primary" style="width:auto; padding:0 20px;" onclick="recheckVerification()"><i class="fa-solid fa-rotate"></i> <span data-i18n="recheckVerifyBtn">Check again</span></button>
+                            <button type="button" class="btn-tool" style="width:auto; padding:0 20px;" onclick="resendVerificationEmail()"><i class="fa-solid fa-paper-plane"></i> <span data-i18n="resendVerifyBtn">Resend email</span></button>
+                            <button type="button" class="btn-tool" style="width:auto; padding:0 20px;" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> <span data-i18n="logoutBtn">Log out</span></button>
                         </div>
                     </div>
                 </div>
@@ -223,11 +207,11 @@
                 <div class="card">
                     <div class="card-body" style="text-align:center; padding:40px 24px;">
                         <i class="fa-solid fa-ban" style="font-size:38px; color:var(--err); margin-bottom:16px; display:block;"></i>
-                        <h3 style="font-family:var(--font-display); font-size:22px; color:var(--text-white); margin-bottom:10px;" data-i18n="banGateTitle">To konto zostało zablokowane</h3>
-                        <p style="max-width:480px; margin:0 auto 6px; color:var(--text-main); line-height:1.6;"><strong data-i18n="banGateReasonLabel">Powód</strong>: <span id="banGateReason"></span></p>
+                        <h3 style="font-family:var(--font-display); font-size:22px; color:var(--text-white); margin-bottom:10px;" data-i18n="banGateTitle">This account has been suspended</h3>
+                        <p style="max-width:480px; margin:0 auto 6px; color:var(--text-main); line-height:1.6;"><strong data-i18n="banGateReasonLabel">Reason</strong>: <span id="banGateReason"></span></p>
                         <p style="max-width:480px; margin:0 auto 20px; color:var(--text-dim); line-height:1.6;" id="banGateUntil"></p>
-                        <p style="max-width:480px; margin:0 auto 20px; color:var(--text-main); line-height:1.6;" data-i18n="banGateContact">Jeśli uważasz, że to pomyłka, napisz na adres podany w stopce strony.</p>
-                        <button type="button" class="btn-tool" style="width:auto; padding:0 20px;" onclick="dismissBanGate()"><i class="fa-solid fa-arrow-left"></i> <span data-i18n="banGateBackBtn">Wróć do strony głównej</span></button>
+                        <p style="max-width:480px; margin:0 auto 20px; color:var(--text-main); line-height:1.6;" data-i18n="banGateContact">If you believe this is a mistake, please write to the address given in the footer.</p>
+                        <button type="button" class="btn-tool" style="width:auto; padding:0 20px;" onclick="dismissBanGate()"><i class="fa-solid fa-arrow-left"></i> <span data-i18n="banGateBackBtn">Back to home page</span></button>
                     </div>
                 </div>
             </div>
@@ -240,7 +224,7 @@
             </div>
             <div class="dash-letterhead">
                 <div class="dash-letterhead-inner">
-                    <div class="dash-total-label"><i class="fa-solid fa-coins"></i> <span data-i18n="totalValue">Wartość biblioteki</span></div>
+                    <div class="dash-total-label"><i class="fa-solid fa-coins"></i> <span data-i18n="totalValue">Library value</span></div>
                     <div class="dash-total-value"><span id="totalAmount">0.00</span>
                         <select id="totalCurrency" onchange="onTotalCurrencyChange()">
                             <option value="EUR">EUR</option>
@@ -267,10 +251,10 @@
                         </select>
                     </div>
                     <div class="dash-mini-stats">
-                        <div><span id="statTotal">0</span><small data-i18n="statTotalGames">Liczba gier</small></div>
-                        <div><span id="statMonth">0</span> <span id="statMonthTrend" style="font-size:12px; font-weight:400;"></span><small data-i18n="statThisMonth">W tym miesiącu</small></div>
-                        <div><span id="statYear">0</span><small data-i18n="statThisYear">W tym roku</small></div>
-                        <div><span id="statSpentMonth">0</span> <span id="statSpentMonthTrend" style="font-size:12px; font-weight:400;"></span><small data-i18n="statSpentThisMonth">Wydano w tym miesiącu</small></div>
+                        <div><span id="statTotal">0</span><small data-i18n="statTotalGames">Games total</small></div>
+                        <div><span id="statMonth">0</span> <span id="statMonthTrend" style="font-size:12px; font-weight:400;"></span><small data-i18n="statThisMonth">This month</small></div>
+                        <div><span id="statYear">0</span><small data-i18n="statThisYear">This year</small></div>
+                        <div><span id="statSpentMonth">0</span> <span id="statSpentMonthTrend" style="font-size:12px; font-weight:400;"></span><small data-i18n="statSpentThisMonth">Spent this month</small></div>
                     </div>
                 </div>
             </div>
@@ -288,7 +272,7 @@
                         </div>
                     </div>
                     <div style="flex:1; min-width:200px;">
-                        <div style="font-family:var(--font-body); font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--text-dim); margin-bottom:4px;" data-i18n="healthLabel">Kondycja backlogu</div>
+                        <div style="font-family:var(--font-body); font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--text-dim); margin-bottom:4px;" data-i18n="healthLabel">Backlog health</div>
                         <div id="healthGrade" style="font-family:var(--font-display); font-size:20px; font-weight:600; color:var(--text-white); margin-bottom:6px;">-</div>
                         <div id="healthMessage" style="font-size:13px; color:var(--text-main); line-height:1.5;">-</div>
                     </div>
@@ -297,23 +281,23 @@
 
             <div class="card">
                 <div class="card-head">
-                    <span><i class="fa-solid fa-plus" style="margin-right:6px;"></i> <span data-i18n="addGame">Dodaj grę</span></span>
+                    <span><i class="fa-solid fa-plus" style="margin-right:6px;"></i> <span data-i18n="addGame">Add game</span></span>
                     <button type="button" class="btn-chip" id="addFormToggleBtn" onclick="toggleAddForm()">
-                        <span id="addFormToggleText" data-i18n="addFormShow">Pokaż formularz</span> <i class="fa-solid fa-chevron-down" id="addFormToggleIcon"></i>
+                        <span id="addFormToggleText" data-i18n="addFormShow">Show form</span> <i class="fa-solid fa-chevron-down" id="addFormToggleIcon"></i>
                     </button>
                 </div>
                 <div class="card-body" id="addFormBody" style="display:none;">
                     <form id="addGameForm" class="form-grid">
                         <div class="input-group span-2">
-                            <label for="gameName" data-i18n="gameTitle">Tytuł gry</label>
+                            <label for="gameName" data-i18n="gameTitle">Game Title</label>
                             <input type="text" id="gameName" required autocomplete="off">
                         </div>
                         <div class="input-group">
-                            <label for="gamePrice" data-i18n="price">Cena</label>
+                            <label for="gamePrice" data-i18n="price">Price</label>
                             <input type="number" id="gamePrice" step="0.01" min="0" inputmode="decimal" required>
                         </div>
                         <div class="input-group">
-                            <label for="gameCurrency" data-i18n="currency">Waluta</label>
+                            <label for="gameCurrency" data-i18n="currency">Currency</label>
                             <select id="gameCurrency" required>
                                 <option value="PLN">PLN</option>
                                 <option value="EUR">EUR</option>
@@ -339,7 +323,7 @@
                             </select>
                         </div>
                         <div class="input-group">
-                            <label for="gameSource" data-i18n="source">Źródło</label>
+                            <label for="gameSource" data-i18n="source">Source</label>
                             <select id="gameSource" required>
                                 <option value="Steam">Steam</option>
                                 <option value="PlayStation">PlayStation</option>
@@ -347,51 +331,49 @@
                                 <option value="Nintendo">Nintendo</option>
                                 <option value="GOG">GOG</option>
                                 <option value="Epic Games">Epic Games</option>
-                                <option value="Kluczykarnia" data-i18n-opt="keyStore">Kluczykarnia</option>
+                                <option value="Kluczykarnia" data-i18n-opt="keyStore">Key Store</option>
                             </select>
                         </div>
                         <div class="input-group">
-                            <label for="purchaseDate" data-i18n="purchaseDate">Data zakupu</label>
+                            <label for="purchaseDate" data-i18n="purchaseDate">Purchase Date</label>
                             <input type="date" id="purchaseDate" required>
                         </div>
                         <div class="input-group">
-                            <label for="gameOwnership" data-i18n="fldOwnership">Forma gry</label>
+                            <label for="gameOwnership" data-i18n="fldOwnership">Ownership</label>
                             <select id="gameOwnership">
-                                <option value="digital" data-i18n-opt="ownDigital">Cyfrowa</option>
-                                <option value="physical" data-i18n-opt="ownPhysical">Fizyczna</option>
+                                <option value="digital" data-i18n-opt="ownDigital">Digital</option>
+                                <option value="physical" data-i18n-opt="ownPhysical">Physical</option>
                             </select>
                         </div>
                         <div class="input-group">
-                            <label for="gameStatus" data-i18n="fldStatus">Status ukończenia (opcjonalnie)</label>
+                            <label for="gameStatus" data-i18n="fldStatus">Completion status (optional)</label>
                             <select id="gameStatus">
-                                <option value="" data-i18n-opt="statusNone">- nie ustawiono -</option>
-                                <option value="completed" data-i18n-opt="statusCompleted">Ukończona</option>
-                                <option value="not_completed" data-i18n-opt="statusNotCompleted">Nieukończona</option>
-                                <option value="endless" data-i18n-opt="statusEndless">Gra bez końca</option>
-                                <option value="wont_play" data-i18n-opt="statusWontPlay">Nie zagram</option>
+                                <option value="" data-i18n-opt="statusNone">- not set -</option>
+                                <option value="completed" data-i18n-opt="statusCompleted">Completed</option>
+                                <option value="not_completed" data-i18n-opt="statusNotCompleted">Not completed</option>
+                                <option value="endless" data-i18n-opt="statusEndless">Endless game</option>
+                                <option value="wont_play" data-i18n-opt="statusWontPlay">Won't play</option>
                             </select>
                         </div>
                         <div class="input-group span-2" style="flex-direction:row; gap:8px;">
-                            <button type="submit" id="submitBtn" class="btn-primary" style="min-width:110px;"><span data-i18n="addBtn">Dodaj</span></button>
-                            <button type="button" id="cancelEditBtn" class="btn-tool" style="display:none;" onclick="cancelEdit()"><span data-i18n="cancelBtn">Anuluj</span></button>
+                            <button type="submit" id="submitBtn" class="btn-primary" style="min-width:110px;"><span data-i18n="addBtn">Add</span></button>
+                            <button type="button" id="cancelEditBtn" class="btn-tool" style="display:none;" onclick="cancelEdit()"><span data-i18n="cancelBtn">Cancel</span></button>
                         </div>
                     </form>
 
                     <div style="margin-top:14px; padding-top:14px; border-top:1px solid var(--border);">
                         <button type="button" class="btn-chip" id="bulkAddToggleBtn" onclick="toggleBulkAdd()">
-                            <i class="fa-solid fa-layer-group"></i> <span data-i18n="bulkAddBtn">Dodaj wiele naraz</span>
+                            <i class="fa-solid fa-layer-group"></i> <span data-i18n="bulkAddBtn">Add multiple games</span>
                         </button>
                         <button type="button" class="btn-chip" id="smartImportToggleBtn" onclick="toggleSmartImport()" style="margin-left:8px;">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i> <span data-i18n="smartImportBtn">Smart import (Steam & more)</span>
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> <span data-i18n="smartImportBtn">Smart import (Steam &amp; more)</span>
                         </button>
                         <div id="smartImportPanel" style="display:none; margin-top:10px;">
-                            <p style="font-size:12px; color:var(--text-dim); margin-bottom:8px; line-height:1.5;" data-i18n="smartImportHint">
-                                Paste your Steam purchase history (or any order list/receipt) below - one purchase per line works best. Steam doesn't offer an official export, so this is a best-effort reader: it tries to find a date, a price and a title on each line. Nothing gets added until you review and confirm the results below.
-                            </p>
+                            <p style="font-size:12px; color:var(--text-dim); margin-bottom:8px; line-height:1.5;" data-i18n="smartImportHint">Paste your Steam purchase history (or any order list/receipt) below - one purchase per line works best. Steam doesn't offer an official export, so this is a best-effort reader: it tries to find a date, a price and a title on each line. Nothing gets added until you review and confirm the results below.</p>
                             <textarea id="smartImportTextarea" rows="6" style="height:auto; padding:10px; resize:vertical; font-family:var(--font-mono); font-size:12px; line-height:1.5;" placeholder="12 Mar, 2024   Hollow Knight   $14.99"></textarea>
                             <div style="display:flex; gap:8px; margin-top:10px;">
                                 <button type="button" class="btn-primary" style="width:auto; padding:0 16px;" onclick="runSmartImportParse()"><i class="fa-solid fa-magnifying-glass"></i> <span data-i18n="smartImportParseBtn">Find purchases</span></button>
-                                <button type="button" class="btn-tool" style="width:auto;" onclick="toggleSmartImport(false)"><span data-i18n="cancelBtn">Anuluj</span></button>
+                                <button type="button" class="btn-tool" style="width:auto;" onclick="toggleSmartImport(false)"><span data-i18n="cancelBtn">Cancel</span></button>
                             </div>
                             <div id="smartImportPreviewWrap" style="display:none; margin-top:14px;">
                                 <p class="hltb-note" data-i18n="smartImportPreviewNote">Review each row - uncheck anything that isn't a game (wallet top-ups and refunds are pre-unchecked, but double-check). Every field can be edited directly.</p>
@@ -400,10 +382,10 @@
                                         <thead>
                                             <tr>
                                                 <th></th>
-                                                <th data-i18n="gameTitle">Tytuł gry</th>
-                                                <th data-i18n="colOrigPrice">Cena Oryginalna</th>
-                                                <th data-i18n="currency">Waluta</th>
-                                                <th data-i18n="purchaseDate">Data zakupu</th>
+                                                <th data-i18n="gameTitle">Game Title</th>
+                                                <th data-i18n="colOrigPrice">Original Price</th>
+                                                <th data-i18n="currency">Currency</th>
+                                                <th data-i18n="purchaseDate">Purchase Date</th>
                                             </tr>
                                         </thead>
                                         <tbody id="smartImportPreviewBody"></tbody>
@@ -413,13 +395,11 @@
                             </div>
                         </div>
                         <div id="bulkAddPanel" style="display:none; margin-top:10px;">
-                            <p style="font-size:12px; color:var(--text-dim); margin-bottom:8px; line-height:1.5;" id="bulkAddHintText" data-i18n="bulkAddHint">
-                                Wklej po jednej grze w linii, w formacie: Tytuł;Cena;Waluta;Źródło;Data (RRRR-MM-DD). Waluta, Źródło i Data są opcjonalne.
-                            </p>
+                            <p style="font-size:12px; color:var(--text-dim); margin-bottom:8px; line-height:1.5;" id="bulkAddHintText" data-i18n="bulkAddHint">Paste one game per line, in the format: Title;Price;Currency;Source;Date (YYYY-MM-DD). Currency, Source and Date are optional.</p>
                             <textarea id="bulkAddTextarea" rows="6" style="height:auto; padding:10px; resize:vertical; font-family:var(--font-mono); font-size:12px; line-height:1.5;" placeholder="Hollow Knight;54.99;PLN;Steam;2024-03-12"></textarea>
                             <div style="display:flex; gap:8px; margin-top:10px;">
-                                <button type="button" class="btn-primary" style="width:auto; padding:0 16px;" onclick="submitBulkAdd()"><span data-i18n="bulkAddSubmit">Dodaj wszystkie</span></button>
-                                <button type="button" class="btn-tool" style="width:auto;" onclick="toggleBulkAdd(false)"><span data-i18n="cancelBtn">Anuluj</span></button>
+                                <button type="button" class="btn-primary" style="width:auto; padding:0 16px;" onclick="submitBulkAdd()"><span data-i18n="bulkAddSubmit">Add all</span></button>
+                                <button type="button" class="btn-tool" style="width:auto;" onclick="toggleBulkAdd(false)"><span data-i18n="cancelBtn">Cancel</span></button>
                             </div>
                         </div>
                     </div>
@@ -428,103 +408,103 @@
 
             <div class="card">
                 <div class="card-head">
-                    <span><i class="fa-solid fa-list" style="margin-right:6px;"></i> <span data-i18n="myLibrary">Twoja Biblioteka</span></span>
+                    <span><i class="fa-solid fa-list" style="margin-right:6px;"></i> <span data-i18n="myLibrary">Your Library</span></span>
                     <div style="display:flex; gap:14px; align-items:center;">
-                        <button class="btn-chip" id="hideListBtn" onclick="toggleListHidden()"><i class="fa-solid fa-eye-slash" id="hideListIcon"></i> <span id="hideListText" data-i18n="hideList">Ukryj listę</span></button>
-                        <button class="btn-chip" id="expandCollapseBtn" onclick="toggleListExpand()"><i class="fa-solid fa-up-right-and-down-left-from-center" id="expandCollapseIcon"></i> <span id="expandCollapseText" data-i18n="expandList">Rozwiń listę</span></button>
-                        <button class="btn-chip" onclick="exportCSV()"><i class="fa-solid fa-file-csv"></i> <span data-i18n="exportCsv">Eksport CSV</span></button>
+                        <button class="btn-chip" id="hideListBtn" onclick="toggleListHidden()"><i class="fa-solid fa-eye-slash" id="hideListIcon"></i> <span id="hideListText" data-i18n="hideList">Hide list</span></button>
+                        <button class="btn-chip" id="expandCollapseBtn" onclick="toggleListExpand()"><i class="fa-solid fa-up-right-and-down-left-from-center" id="expandCollapseIcon"></i> <span id="expandCollapseText" data-i18n="expandList">Expand list</span></button>
+                        <button class="btn-chip" onclick="exportCSV()"><i class="fa-solid fa-file-csv"></i> <span data-i18n="exportCsv">Export CSV</span></button>
                     </div>
                 </div>
                 <div id="libraryListBody">
                 <div class="table-tools">
                     <label style="display:flex; align-items:center; gap:8px; width:auto; cursor:pointer; padding:0 4px; white-space:nowrap;">
                         <input type="checkbox" id="selectAllCbTools" onchange="toggleSelectAll(this.checked)">
-                        <span data-i18n="bulkSelectAllBtn" style="font-size:13px; color:var(--text-main);">Zaznacz wszystko</span>
+                        <span data-i18n="bulkSelectAllBtn" style="font-size:13px; color:var(--text-main);">Select all</span>
                     </label>
                     <div class="search-box">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="search" id="searchInput" oninput="renderTable()" data-i18n-ph="searchPh" placeholder="Szukaj gry...">
+                        <input type="search" id="searchInput" oninput="renderTable()" data-i18n-ph="searchPh" placeholder="Search games...">
                         <span class="search-shortcut-hint">/</span>
                     </div>
                     <select id="sourceFilter" onchange="renderTable()" style="width:auto; min-width:140px;">
-                        <option value="all" data-i18n-opt="filterAllSources">Wszystkie źródła</option>
+                        <option value="all" data-i18n-opt="filterAllSources">All sources</option>
                         <option value="Steam" data-i18n-opt="steam">Steam</option>
                         <option value="PlayStation">PlayStation</option>
                         <option value="Xbox">Xbox</option>
                         <option value="Nintendo">Nintendo</option>
                         <option value="GOG">GOG</option>
                         <option value="Epic Games">Epic Games</option>
-                        <option value="Kluczykarnia" data-i18n-opt="keyStore">Kluczykarnia</option>
+                        <option value="Kluczykarnia" data-i18n-opt="keyStore">Key Store</option>
                     </select>
                     <select id="ownershipFilter" onchange="renderTable()" style="width:auto; min-width:140px;">
-                        <option value="all" data-i18n-opt="filterAllOwnership">Wszystkie formy</option>
-                        <option value="digital" data-i18n-opt="ownDigital">Cyfrowa</option>
-                        <option value="physical" data-i18n-opt="ownPhysical">Fizyczna</option>
+                        <option value="all" data-i18n-opt="filterAllOwnership">All formats</option>
+                        <option value="digital" data-i18n-opt="ownDigital">Digital</option>
+                        <option value="physical" data-i18n-opt="ownPhysical">Physical</option>
                     </select>
                     <select id="priceSort" onchange="onPriceSort(this.value)" style="width:auto; min-width:150px;">
-                        <option value="none" data-i18n-opt="priceSortNone">Sortuj…</option>
-                        <option value="desc" data-i18n-opt="priceSortDesc">Najdroższe najpierw</option>
-                        <option value="asc" data-i18n-opt="priceSortAsc">Najtańsze najpierw</option>
-                        <option value="dateNewest" data-i18n-opt="sortDateNewest">Najnowsze najpierw</option>
-                        <option value="dateOldest" data-i18n-opt="sortDateOldest">Najstarsze najpierw</option>
-                        <option value="nameAsc" data-i18n-opt="sortNameAsc">Alfabetycznie A-Z</option>
-                        <option value="nameDesc" data-i18n-opt="sortNameDesc">Alfabetycznie Z-A</option>
+                        <option value="none" data-i18n-opt="priceSortNone">Sort…</option>
+                        <option value="desc" data-i18n-opt="priceSortDesc">Most expensive first</option>
+                        <option value="asc" data-i18n-opt="priceSortAsc">Cheapest first</option>
+                        <option value="dateNewest" data-i18n-opt="sortDateNewest">Newest first</option>
+                        <option value="dateOldest" data-i18n-opt="sortDateOldest">Oldest first</option>
+                        <option value="nameAsc" data-i18n-opt="sortNameAsc">A-Z</option>
+                        <option value="nameDesc" data-i18n-opt="sortNameDesc">Z-A</option>
                     </select>
                 </div>
                 <div style="margin-bottom:16px; padding:0 24px;">
                     <button type="button" class="btn-chip" id="advFiltersToggleBtn" onclick="toggleAdvFilters()">
-                        <i class="fa-solid fa-sliders" id="advFiltersIcon"></i> <span data-i18n="advFiltersToggle">Filtry zaawansowane</span>
+                        <i class="fa-solid fa-sliders" id="advFiltersIcon"></i> <span data-i18n="advFiltersToggle">Advanced filters</span>
                     </button>
                     <div id="advFiltersPanel" style="display:none; margin-top:10px; flex-wrap:wrap; gap:10px; align-items:flex-end;">
                         <div class="input-group" style="width:auto; min-width:110px;">
-                            <label for="priceMinFilter" id="priceMinFilterLbl" data-i18n="priceMin">Cena od</label>
+                            <label for="priceMinFilter" id="priceMinFilterLbl" data-i18n="priceMin">Price from</label>
                             <input type="number" id="priceMinFilter" step="0.01" min="0" oninput="renderTable()" style="width:110px;">
                         </div>
                         <div class="input-group" style="width:auto; min-width:110px;">
-                            <label for="priceMaxFilter" id="priceMaxFilterLbl" data-i18n="priceMax">Cena do</label>
+                            <label for="priceMaxFilter" id="priceMaxFilterLbl" data-i18n="priceMax">Price to</label>
                             <input type="number" id="priceMaxFilter" step="0.01" min="0" oninput="renderTable()" style="width:110px;">
                         </div>
                         <div class="input-group" style="width:auto; min-width:150px;">
-                            <label for="dateFromFilter" data-i18n="dateFrom">Data od</label>
+                            <label for="dateFromFilter" data-i18n="dateFrom">Date from</label>
                             <input type="date" id="dateFromFilter" onchange="renderTable()">
                         </div>
                         <div class="input-group" style="width:auto; min-width:150px;">
-                            <label for="dateToFilter" data-i18n="dateTo">Data do</label>
+                            <label for="dateToFilter" data-i18n="dateTo">Date to</label>
                             <input type="date" id="dateToFilter" onchange="renderTable()">
                         </div>
-                        <button type="button" class="btn-tool" style="width:auto;" onclick="resetAdvancedFilters()"><span data-i18n="resetFilters">Wyczyść filtry</span></button>
+                        <button type="button" class="btn-tool" style="width:auto;" onclick="resetAdvancedFilters()"><span data-i18n="resetFilters">Clear filters</span></button>
                     </div>
                 </div>
                 <div id="bulkEditBar" style="display:none; align-items:center; flex-wrap:wrap; gap:10px; padding:10px 12px; margin-bottom:10px; background:var(--bg-input, rgba(255,255,255,0.04)); border:1px solid var(--border); border-radius:8px;">
                     <strong id="bulkSelectedCount" style="color:var(--steam-blue); white-space:nowrap;"></strong>
-                    <span data-i18n="bulkSetOwnershipLabel" style="color:var(--text-dim); font-size:13px;">Ustaw formę:</span>
+                    <span data-i18n="bulkSetOwnershipLabel" style="color:var(--text-dim); font-size:13px;">Set format:</span>
                     <select id="bulkOwnershipSelect" style="width:auto; min-width:130px;">
-                        <option value="" data-i18n-opt="bulkNoChange">— bez zmian —</option>
-                        <option value="digital" data-i18n-opt="ownDigital">Cyfrowa</option>
-                        <option value="physical" data-i18n-opt="ownPhysical">Fizyczna</option>
+                        <option value="" data-i18n-opt="bulkNoChange">— no change —</option>
+                        <option value="digital" data-i18n-opt="ownDigital">Digital</option>
+                        <option value="physical" data-i18n-opt="ownPhysical">Physical</option>
                     </select>
-                    <span data-i18n="bulkSetSourceLabel" style="color:var(--text-dim); font-size:13px;">Ustaw źródło:</span>
+                    <span data-i18n="bulkSetSourceLabel" style="color:var(--text-dim); font-size:13px;">Set source:</span>
                     <select id="bulkSourceSelect" style="width:auto; min-width:140px;">
-                        <option value="" data-i18n-opt="bulkNoChange">— bez zmian —</option>
+                        <option value="" data-i18n-opt="bulkNoChange">— no change —</option>
                         <option value="Steam">Steam</option>
                         <option value="PlayStation">PlayStation</option>
                         <option value="Xbox">Xbox</option>
                         <option value="Nintendo">Nintendo</option>
                         <option value="GOG">GOG</option>
                         <option value="Epic Games">Epic Games</option>
-                        <option value="Kluczykarnia" data-i18n-opt="keyStore">Kluczykarnia</option>
+                        <option value="Kluczykarnia" data-i18n-opt="keyStore">Key Store</option>
                     </select>
-                    <span data-i18n="bulkSetStatusLabel" style="color:var(--text-dim); font-size:13px;">Ustaw status:</span>
+                    <span data-i18n="bulkSetStatusLabel" style="color:var(--text-dim); font-size:13px;">Set status:</span>
                     <select id="bulkStatusSelect" style="width:auto; min-width:160px;">
-                        <option value="" data-i18n-opt="bulkNoChange">— bez zmian —</option>
-                        <option value="completed" data-i18n-opt="statusCompleted">Ukończona</option>
-                        <option value="not_completed" data-i18n-opt="statusNotCompleted">Nieukończona</option>
-                        <option value="endless" data-i18n-opt="statusEndless">Gra bez końca</option>
-                        <option value="wont_play" data-i18n-opt="statusWontPlay">Nie zagram</option>
-                        <option value="__clear__" data-i18n-opt="bulkClearStatus">Wyczyść status (nie ustawiono)</option>
+                        <option value="" data-i18n-opt="bulkNoChange">— no change —</option>
+                        <option value="completed" data-i18n-opt="statusCompleted">Completed</option>
+                        <option value="not_completed" data-i18n-opt="statusNotCompleted">Not completed</option>
+                        <option value="endless" data-i18n-opt="statusEndless">Endless game</option>
+                        <option value="wont_play" data-i18n-opt="statusWontPlay">Won't play</option>
+                        <option value="__clear__" data-i18n-opt="bulkClearStatus">Clear status (unset)</option>
                     </select>
-                    <button type="button" class="btn-primary" style="width:auto; padding:0 16px;" onclick="applyBulkEdit()"><span data-i18n="bulkApplyBtn">Zastosuj</span></button>
-                    <button type="button" class="btn-tool" style="width:auto;" onclick="clearSelection()"><span data-i18n="bulkClearBtn">Odznacz wszystko</span></button>
+                    <button type="button" class="btn-primary" style="width:auto; padding:0 16px;" onclick="applyBulkEdit()"><span data-i18n="bulkApplyBtn">Apply</span></button>
+                    <button type="button" class="btn-tool" style="width:auto;" onclick="clearSelection()"><span data-i18n="bulkClearBtn">Deselect all</span></button>
                 </div>
                 <div class="table-skeleton" id="tableSkeleton" style="display:none;">
                     <div class="skeleton-row"></div>
@@ -544,13 +524,13 @@
                             <tr>
                                 <th style="width:34px; text-align:left;"><input type="checkbox" id="selectAllCb" onchange="toggleSelectAll(this.checked)"></th>
                                 <th style="width:40px;">#</th>
-                                <th onclick="setSort('name')"><span data-i18n="gameTitle">Tytuł gry</span><span class="sort-ind" id="si-name"></span></th>
-                                <th onclick="setSort('source')"><span data-i18n="colPlatform">Platforma</span><span class="sort-ind" id="si-source"></span></th>
-                                <th onclick="setSort('ownership')"><span data-i18n="fldOwnership">Forma</span><span class="sort-ind" id="si-ownership"></span></th>
-                                <th onclick="setSort('date')"><span data-i18n="purchaseDate">Data zakupu</span><span class="sort-ind" id="si-date"></span></th>
-                                <th onclick="setSort('price')"><span data-i18n="colOrigPrice">Cena Oryginalna</span><span class="sort-ind" id="si-price"></span></th>
-                                <th onclick="setSort('priceChf')"><span data-i18n="colChfPrice">Wartość CHF</span><span class="sort-ind" id="si-priceChf"></span></th>
-                                <th style="text-align:right;" data-i18n="colOptions">Opcje</th>
+                                <th onclick="setSort('name')"><span data-i18n="gameTitle">Game Title</span><span class="sort-ind" id="si-name"></span></th>
+                                <th onclick="setSort('source')"><span data-i18n="colPlatform">Platform</span><span class="sort-ind" id="si-source"></span></th>
+                                <th onclick="setSort('ownership')"><span data-i18n="fldOwnership">Ownership</span><span class="sort-ind" id="si-ownership"></span></th>
+                                <th onclick="setSort('date')"><span data-i18n="purchaseDate">Purchase Date</span><span class="sort-ind" id="si-date"></span></th>
+                                <th onclick="setSort('price')"><span data-i18n="colOrigPrice">Original Price</span><span class="sort-ind" id="si-price"></span></th>
+                                <th onclick="setSort('priceChf')"><span data-i18n="colChfPrice">CHF Value</span><span class="sort-ind" id="si-priceChf"></span></th>
+                                <th style="text-align:right;" data-i18n="colOptions">Options</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -561,18 +541,18 @@
 
             <div class="card">
                 <div class="card-head">
-                    <span><i class="fa-solid fa-chart-column" style="margin-right:6px;"></i> <span data-i18n="chartsTitle">Statystyki</span></span>
+                    <span><i class="fa-solid fa-chart-column" style="margin-right:6px;"></i> <span data-i18n="chartsTitle">Statistics</span></span>
                     <div class="chart-controls">
                         <select id="chartType" onchange="updateCharts()">
-                            <option value="purchases" data-i18n-opt="chartOptPurchases">Zakupy w czasie</option>
-                            <option value="cumulative" data-i18n-opt="chartOptCumulative">Suma rosnąca</option>
-                            <option value="sources" data-i18n-opt="chartOptSources">Źródła</option>
-                            <option value="ownership" data-i18n-opt="chartOptOwnership">Cyfrowe vs Fizyczne</option>
+                            <option value="purchases" data-i18n-opt="chartOptPurchases">Purchases over time</option>
+                            <option value="cumulative" data-i18n-opt="chartOptCumulative">Cumulative total</option>
+                            <option value="sources" data-i18n-opt="chartOptSources">Sources</option>
+                            <option value="ownership" data-i18n-opt="chartOptOwnership">Digital vs Physical</option>
                         </select>
                         <select id="chartGranularity" onchange="updateCharts()">
-                            <option value="month" data-i18n-opt="granMonth">Miesiąc</option>
-                            <option value="quarter" data-i18n-opt="granQuarter">Kwartał</option>
-                            <option value="year" data-i18n-opt="granYear">Rok</option>
+                            <option value="month" data-i18n-opt="granMonth">Month</option>
+                            <option value="quarter" data-i18n-opt="granQuarter">Quarter</option>
+                            <option value="year" data-i18n-opt="granYear">Year</option>
                         </select>
                     </div>
                 </div>
@@ -586,15 +566,15 @@
             <div class="auth-layout">
                 <aside class="auth-side">
                     <div class="auth-side-header"><div class="hero-badge" style="margin:0;">Backlog Wallet</div></div>
-                    <div class="feature-card" style="margin-bottom:14px;"><i class="fa-solid fa-list-check"></i><h4 data-i18n="feat1T"></h4><p data-i18n="feat1D"></p></div>
-                    <div class="feature-card" style="margin-bottom:14px;"><i class="fa-solid fa-coins"></i><h4 data-i18n="feat3T"></h4><p data-i18n="feat3D"></p></div>
-                    <div class="feature-card"><i class="fa-solid fa-cloud"></i><h4 data-i18n="feat4T"></h4><p data-i18n="feat4D"></p></div>
+                    <div class="feature-card" style="margin-bottom:14px;"><i class="fa-solid fa-list-check"></i><h4 data-i18n="feat1T">Track every purchase</h4><p data-i18n="feat1D">Log titles, prices, stores and dates - manually or by pasting a whole list at once.</p></div>
+                    <div class="feature-card" style="margin-bottom:14px;"><i class="fa-solid fa-coins"></i><h4 data-i18n="feat3T">Any currency</h4><p data-i18n="feat3D">Convert your library value into 20+ world currencies using live exchange rates.</p></div>
+                    <div class="feature-card"><i class="fa-solid fa-cloud"></i><h4 data-i18n="feat4T">Sync across devices</h4><p data-i18n="feat4D">Your library is saved to your account and available wherever you sign in.</p></div>
                 </aside>
             <div class="card auth-box">
                 <div class="auth-tabs" id="authTabs">
-                    <button class="auth-tab active" data-mode="login" onclick="setAuthMode('login')" data-i18n="tabLogin">Logowanie</button>
-                    <button class="auth-tab" data-mode="register" onclick="setAuthMode('register')" data-i18n="tabRegister">Rejestracja</button>
-                    <button class="auth-tab" data-mode="reset" onclick="setAuthMode('reset')" data-i18n="tabReset">Reset hasła</button>
+                    <button class="auth-tab active" data-mode="login" onclick="setAuthMode('login')" data-i18n="tabLogin">Login</button>
+                    <button class="auth-tab" data-mode="register" onclick="setAuthMode('register')" data-i18n="tabRegister">Register</button>
+                    <button class="auth-tab" data-mode="reset" onclick="setAuthMode('reset')" data-i18n="tabReset">Reset password</button>
                 </div>
                 <div class="card-body">
                     <div id="authForms">
@@ -609,101 +589,101 @@
                                 <input type="text" id="authWebsite" name="website" tabindex="-1" autocomplete="off">
                             </div>
                             <div class="input-group" id="nicknameGroup" style="display:none;">
-                                <label for="authNickname" data-i18n="regNickname">Pseudonim</label>
+                                <label for="authNickname" data-i18n="regNickname">Nickname</label>
                                 <input type="text" id="authNickname" maxlength="32" autocomplete="nickname">
                             </div>
-                            <p class="auth-note" id="regPrivacyNote" style="display:none;" data-i18n="regPrivacyNote"></p>
+                            <p class="auth-note" id="regPrivacyNote" style="display:none;" data-i18n="regPrivacyNote">During registration we determine only your country (e.g. "PL") from your IP address - the IP address itself is never stored. The country is visible in the administrator panel for account security/oversight purposes. See the Privacy Policy for details.</p>
                             <div class="input-group" id="passGroup">
-                                <label for="authPass" data-i18n="password">Hasło</label>
+                                <label for="authPass" data-i18n="password">Password</label>
                                 <input type="password" id="authPass" autocomplete="current-password" minlength="6">
                             </div>
                             <div class="input-group" id="rememberGroup" style="flex-direction:row; align-items:center; gap:8px;">
                                 <input type="checkbox" id="rememberMe" style="width:auto; height:auto;" checked>
-                                <label for="rememberMe" style="text-transform:none; font-size:13px; color:var(--text-light);" data-i18n="rememberMe">Zapamiętaj mnie</label>
+                                <label for="rememberMe" style="text-transform:none; font-size:13px; color:var(--text-light);" data-i18n="rememberMe">Remember me</label>
                             </div>
-                            <button type="submit" class="btn-primary" id="authSubmitBtn" style="margin-top:4px;"><span data-i18n="loginBtn">Zaloguj się</span></button>
+                            <button type="submit" class="btn-primary" id="authSubmitBtn" style="margin-top:4px;"><span data-i18n="loginBtn">Log in</span></button>
                         </form>
-                        <p class="auth-note" style="margin-top:14px;" id="authNote" data-i18n="authNoteGuest"></p>
+                        <p class="auth-note" style="margin-top:14px;" id="authNote" data-i18n="authNoteGuest">Full app functionality requires a free account - register or log in to access your game library.</p>
                     </div>
                     <div id="loggedInPanel" class="logged-in-panel" style="display:none;">
-                        <div class="acc-greeting"><span data-i18n="accSignedInAs">Zalogowano jako</span>: <strong id="loggedEmail"></strong></div>
-                        <div class="auth-note" style="width:100%; margin-top:-8px;"><span data-i18n="accRegisteredSince">Zarejestrowano</span>: <span id="accRegisteredAt">-</span></div>
+                        <div class="acc-greeting"><span data-i18n="accSignedInAs">Signed in as</span>: <strong id="loggedEmail"></strong></div>
+                        <div class="auth-note" style="width:100%; margin-top:-8px;"><span data-i18n="accRegisteredSince">Registered</span>: <span id="accRegisteredAt">-</span></div>
                         <div class="auth-msg show error" id="accVerifyBanner" style="display:none; width:100%;">
-                            <span data-i18n="verifyGateTitle">Potwierdź adres e-mail</span> -
-                            <button type="button" class="btn-link" style="color:inherit; text-decoration:underline;" onclick="resendVerificationEmail()"><span data-i18n="resendVerifyBtn">Wyślij ponownie</span></button>
+                            <span data-i18n="verifyGateTitle">Confirm your email address</span> -
+                            <button type="button" class="btn-link" style="color:inherit; text-decoration:underline;" onclick="resendVerificationEmail()"><span data-i18n="resendVerifyBtn">Resend email</span></button>
                         </div>
-                        <p class="auth-note" data-i18n="authNoteLogged"></p>
-                        <button class="btn-danger-ghost" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> <span data-i18n="logoutBtn">Wyloguj</span></button>
+                        <p class="auth-note" data-i18n="authNoteLogged">Your library is synced to the cloud and available on any device after logging in.</p>
+                        <button class="btn-danger-ghost" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> <span data-i18n="logoutBtn">Log out</span></button>
 
                         <button type="button" class="btn-chip" onclick="toggleChangePassword()" id="changePasswordToggleBtn">
-                            <i class="fa-solid fa-key"></i> <span data-i18n="changePasswordBtn">Zmień hasło</span>
+                            <i class="fa-solid fa-key"></i> <span data-i18n="changePasswordBtn">Change password</span>
                         </button>
                         <div id="changePasswordPanel" style="display:none; width:100%;">
                             <div class="auth-msg" id="changePasswordMsg"></div>
                             <form id="changePasswordForm" class="auth-form" style="margin-top:10px;">
                                 <div class="input-group">
-                                    <label for="currentPassword" data-i18n="currentPassword">Obecne hasło</label>
+                                    <label for="currentPassword" data-i18n="currentPassword">Current password</label>
                                     <input type="password" id="currentPassword" required autocomplete="current-password" minlength="6">
                                 </div>
                                 <div class="input-group">
-                                    <label for="newPassword" data-i18n="newPassword">Nowe hasło</label>
+                                    <label for="newPassword" data-i18n="newPassword">New password</label>
                                     <input type="password" id="newPassword" required autocomplete="new-password" minlength="6">
                                 </div>
                                 <div class="input-group">
-                                    <label for="newPasswordConfirm" data-i18n="newPasswordConfirm">Powtórz nowe hasło</label>
+                                    <label for="newPasswordConfirm" data-i18n="newPasswordConfirm">Confirm new password</label>
                                     <input type="password" id="newPasswordConfirm" required autocomplete="new-password" minlength="6">
                                 </div>
-                                <button type="submit" class="btn-primary" style="width:auto; padding:0 16px;"><span data-i18n="changePasswordSubmit">Zmień hasło</span></button>
+                                <button type="submit" class="btn-primary" style="width:auto; padding:0 16px;"><span data-i18n="changePasswordSubmit">Change password</span></button>
                             </form>
                         </div>
                         <div class="acc-block">
-                            <h4 class="acc-h" data-i18n="accProfileHead">Profil</h4>
+                            <h4 class="acc-h" data-i18n="accProfileHead">Profile</h4>
                             <div class="auth-msg" id="profileMsg"></div>
                             <form id="profileForm" class="auth-form" style="margin-top:6px;">
                                 <div class="input-group">
-                                    <label for="profNickname" data-i18n="fldNickname">Pseudonim</label>
-                                    <input type="text" id="profNickname" maxlength="32" autocomplete="nickname" data-i18n-ph="nicknamePh">
+                                    <label for="profNickname" data-i18n="fldNickname">Nickname</label>
+                                    <input type="text" id="profNickname" maxlength="32" autocomplete="nickname" data-i18n-ph="nicknamePh" placeholder="e.g. GamerPL">
                                 </div>
                                 <div class="input-group">
-                                    <label for="profCurrency" data-i18n="fldPrefCurrency">Preferowana waluta wyświetlania</label>
+                                    <label for="profCurrency" data-i18n="fldPrefCurrency">Preferred display currency</label>
                                     <select id="profCurrency"><option value="EUR">EUR</option><option value="PLN">PLN</option><option value="CHF">CHF</option><option value="USD">USD</option><option value="GBP">GBP</option><option value="CZK">CZK</option><option value="HUF">HUF</option><option value="SEK">SEK</option><option value="NOK">NOK</option><option value="DKK">DKK</option><option value="JPY">JPY</option><option value="CNY">CNY</option><option value="HKD">HKD</option><option value="SGD">SGD</option><option value="KRW">KRW</option><option value="INR">INR</option><option value="AUD">AUD</option><option value="CAD">CAD</option><option value="NZD">NZD</option><option value="TRY">TRY</option><option value="BRL">BRL</option></select>
                                 </div>
                                 <div class="input-group">
-                                    <label for="profTheme" data-i18n="fldTheme">Motyw</label>
+                                    <label for="profTheme" data-i18n="fldTheme">Theme</label>
                                     <select id="profTheme" onchange="applyTheme(this.value, false)">
-                                        <option value="dark" data-i18n-opt="optThemeDark">Ciemny</option>
-                                        <option value="light" data-i18n-opt="optThemeLight">Jasny</option>
+                                        <option value="dark" data-i18n-opt="optThemeDark">Dark</option>
+                                        <option value="light" data-i18n-opt="optThemeLight">Light</option>
                                     </select>
                                 </div>
-                                <button type="submit" class="btn-primary" style="width:auto; padding:0 16px;"><span data-i18n="saveProfileBtn">Zapisz zmiany</span></button>
+                                <button type="submit" class="btn-primary" style="width:auto; padding:0 16px;"><span data-i18n="saveProfileBtn">Save changes</span></button>
                             </form>
                         </div>
 
                         <div class="acc-block">
-                            <h4 class="acc-h" data-i18n="accShareHead">Udostępnij bibliotekę</h4>
-                            <p class="auth-note" data-i18n="accShareNote">Włącz, aby wygenerować publiczny link tylko do odczytu - każdy, kto go dostanie, zobaczy Twój pseudonim i listę gier (bez adresu e-mail).</p>
+                            <h4 class="acc-h" data-i18n="accShareHead">Share your library</h4>
+                            <p class="auth-note" data-i18n="accShareNote">Enable to generate a public read-only link - anyone with it will see your nickname and game list (not your email).</p>
                             <div style="display:flex; align-items:center; gap:10px; margin-top:10px;">
                                 <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:14px; color:var(--text-light);">
                                     <input type="checkbox" id="publicShareToggle" onchange="togglePublicShare(this.checked)" style="width:auto; height:auto;">
-                                    <span data-i18n="accShareEnable">Udostępnij publicznie</span>
+                                    <span data-i18n="accShareEnable">Share publicly</span>
                                 </label>
                             </div>
                             <div id="publicShareLinkBox" style="display:none; margin-top:12px; gap:8px; flex-wrap:wrap; align-items:center;">
                                 <input type="text" id="publicShareLink" readonly style="flex:1; min-width:200px; font-family:var(--font-mono); font-size:12px;">
-                                <button type="button" class="btn-tool" onclick="copyPublicShareLink()"><i class="fa-solid fa-copy"></i> <span data-i18n="copyLinkBtn">Kopiuj link</span></button>
+                                <button type="button" class="btn-tool" onclick="copyPublicShareLink()"><i class="fa-solid fa-copy"></i> <span data-i18n="copyLinkBtn">Copy link</span></button>
                             </div>
                         </div>
 
                         <div class="acc-block">
-                            <h4 class="acc-h" data-i18n="accDataHead">Twoje dane i prywatność (RODO)</h4>
-                            <p class="auth-note" data-i18n="accDataNote"></p>
+                            <h4 class="acc-h" data-i18n="accDataHead">Your data &amp; privacy (GDPR)</h4>
+                            <p class="auth-note" data-i18n="accDataNote">You are in control of your data. Export a full copy at any time, or permanently delete your account and everything stored with it.</p>
                             <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
-                                <button type="button" class="btn-tool" onclick="exportMyData()"><i class="fa-solid fa-download"></i> <span data-i18n="exportDataBtn">Pobierz moje dane (JSON)</span></button>
-                                <button type="button" class="btn-tool" onclick="$('importFileInput').click()"><i class="fa-solid fa-upload"></i> <span data-i18n="importDataBtn">Importuj dane (JSON)</span></button>
+                                <button type="button" class="btn-tool" onclick="exportMyData()"><i class="fa-solid fa-download"></i> <span data-i18n="exportDataBtn">Export my data (JSON)</span></button>
+                                <button type="button" class="btn-tool" onclick="$('importFileInput').click()"><i class="fa-solid fa-upload"></i> <span data-i18n="importDataBtn">Import data (JSON)</span></button>
                                 <input type="file" id="importFileInput" accept="application/json,.json" style="display:none;" onchange="handleImportFile(event)">
-                                <button type="button" class="btn-danger-ghost" onclick="deleteMyAccount()"><i class="fa-solid fa-trash"></i> <span data-i18n="deleteAccountBtn">Usuń konto i wszystkie dane</span></button>
+                                <button type="button" class="btn-danger-ghost" onclick="deleteMyAccount()"><i class="fa-solid fa-trash"></i> <span data-i18n="deleteAccountBtn">Delete account and all data</span></button>
                             </div>
-                            <p class="auth-note" style="margin-top:10px; font-size:12px;" data-i18n="importDataNote">Zaimportuj plik JSON pobrany wcześniej przyciskiem „Pobierz moje dane” (np. z innego konta lub jako przywrócenie kopii zapasowej). Gry są dodawane do obecnej biblioteki - duplikaty (po nazwie) są automatycznie pomijane.</p>
+                            <p class="auth-note" style="margin-top:10px; font-size:12px;" data-i18n="importDataNote">Import a JSON file previously downloaded with "Download my data" (e.g. from another account or as a backup restore). Games are added to your current library - duplicates (by name) are skipped automatically.</p>
                         </div>
                     </div>
                 </div>
@@ -728,45 +708,45 @@
         <section class="view" id="view-rates">
             <div class="card">
                 <div class="card-head">
-                    <span data-i18n="navRates">Kursy walut</span>
+                    <span data-i18n="navRates">Exchange Rates</span>
                     <span id="ratesBadge" class="sync-badge offline"><i class="fa-solid fa-hard-drive"></i> <span id="ratesBadgeText"></span></span>
                 </div>
                 <div class="card-body">
-                    <p class="auth-note" data-i18n="ratesBaseNote" style="margin-bottom:12px;">Wszystkie kursy podane są względem 1 EUR (waluta bazowa).</p>
+                    <p class="auth-note" data-i18n="ratesBaseNote" style="margin-bottom:12px;">All rates are shown relative to 1 EUR (base currency).</p>
                     <div class="table-container" style="max-height:none;">
                         <table id="ratesTable">
                             <thead>
                                 <tr>
-                                    <th data-i18n="ratesColCurrency">Waluta</th>
-                                    <th data-i18n="ratesColRate">Kurs za 1 EUR</th>
+                                    <th data-i18n="ratesColCurrency">Currency</th>
+                                    <th data-i18n="ratesColRate">Rate per 1 EUR</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
                         </table>
                     </div>
-                    <p class="auth-note" style="margin-top:12px; font-size:11px;"><span data-i18n="ratesUpdated">Zaktualizowano</span>: <span id="ratesUpdatedTime">-</span></p>
+                    <p class="auth-note" style="margin-top:12px; font-size:11px;"><span data-i18n="ratesUpdated">Updated</span>: <span id="ratesUpdatedTime">-</span></p>
                 </div>
             </div>
         </section>
 
         <section class="view" id="view-ranking">
             <div class="card">
-                <div class="card-head"><span data-i18n="rankingTitle">Ranking wartości bibliotek</span></div>
+                <div class="card-head"><span data-i18n="rankingTitle">Library Value Ranking</span></div>
                 <div class="card-body">
-                    <p class="auth-note" data-i18n="rankingNote" style="margin-bottom:12px;"></p>
+                    <p class="auth-note" data-i18n="rankingNote" style="margin-bottom:12px;">The ranking is calculated directly from the data stored on each account at the moment it's displayed - it can't be manually inflated without actually adding games.</p>
                     <div class="table-container" style="max-height:none;">
                         <table id="rankingTable">
                             <thead>
                                 <tr>
-                                    <th data-i18n="rankingColRank">Miejsce</th>
-                                    <th data-i18n="rankingColNickname">Gracz</th>
-                                    <th data-i18n="rankingColValue">Wartość (EUR)</th>
+                                    <th data-i18n="rankingColRank">Rank</th>
+                                    <th data-i18n="rankingColNickname">Player</th>
+                                    <th data-i18n="rankingColValue">Value (EUR)</th>
                                 </tr>
                             </thead>
                             <tbody id="rankingTbody"></tbody>
                         </table>
                     </div>
-                    <p id="rankingEmptyMsg" class="auth-note" data-i18n="rankingEmpty" style="display:none; margin-top:12px;"></p>
+                    <p id="rankingEmptyMsg" class="auth-note" data-i18n="rankingEmpty" style="display:none; margin-top:12px;">The ranking is still empty.</p>
                 </div>
             </div>
         </section>
@@ -774,30 +754,30 @@
         <section class="view" id="view-yearreview">
             <div class="card">
                 <div class="card-head">
-                    <span><i class="fa-solid fa-gift" style="margin-right:6px;"></i> <span data-i18n="navYearReview">Podsumowanie roku</span></span>
+                    <span><i class="fa-solid fa-gift" style="margin-right:6px;"></i> <span data-i18n="navYearReview">Year in Review</span></span>
                 </div>
                 <div class="card-body">
                     <div class="yr-compare-bar">
                         <div class="input-group">
-                            <label for="yearReviewSelect" data-i18n="yrYearLabel">Rok</label>
+                            <label for="yearReviewSelect" data-i18n="yrYearLabel">Year</label>
                             <select id="yearReviewSelect" onchange="renderYearReview()" style="width:auto; min-width:110px;"></select>
                         </div>
                         <div class="input-group">
-                            <label for="yearCompareSelect" data-i18n="yrCompareLabel">Porównaj z</label>
+                            <label for="yearCompareSelect" data-i18n="yrCompareLabel">Compare with</label>
                             <select id="yearCompareSelect" onchange="renderYearReview()" style="width:auto; min-width:130px;"></select>
                         </div>
-                        <button type="button" class="btn-tool" style="width:auto;" onclick="showAllYearsChart()"><i class="fa-solid fa-chart-column"></i> <span data-i18n="yrAllYearsBtn">Wszystkie lata</span></button>
+                        <button type="button" class="btn-tool" style="width:auto;" onclick="showAllYearsChart()"><i class="fa-solid fa-chart-column"></i> <span data-i18n="yrAllYearsBtn">All years</span></button>
                         <button type="button" class="btn-tool" style="width:auto;" onclick="openWrapped()"><i class="fa-solid fa-film"></i> <span data-i18n="yrWrappedBtn">View as Wrapped</span></button>
                     </div>
                     <div id="yearReviewCard" class="year-wrap-card">
                         <div class="year-wrap-badge">Backlog Wallet</div>
                         <div class="year-wrap-year" id="yrYear">2026</div>
-                        <div class="year-wrap-total-label" data-i18n="yrTotalSpent">Wydane w tym roku</div>
+                        <div class="year-wrap-total-label" data-i18n="yrTotalSpent">Spent this year</div>
                         <div class="year-wrap-total" id="yrTotal">0.00 <small>CHF</small></div>
                         <div class="year-wrap-stats">
-                            <div><span id="yrGames">0</span><small data-i18n="yrGamesLabel">Kupionych gier</small></div>
-                            <div><span id="yrTopPlatform">-</span><small data-i18n="yrPlatformLabel">Ulubiona platforma</small></div>
-                            <div><span id="yrTopMonth">-</span><small data-i18n="yrMonthLabel">Najaktywniejszy miesiąc</small></div>
+                            <div><span id="yrGames">0</span><small data-i18n="yrGamesLabel">Games bought</small></div>
+                            <div><span id="yrTopPlatform">-</span><small data-i18n="yrPlatformLabel">Favorite platform</small></div>
+                            <div><span id="yrTopMonth">-</span><small data-i18n="yrMonthLabel">Most active month</small></div>
                         </div>
                         <div class="year-wrap-highlight" id="yrExpensive"></div>
                     </div>
@@ -816,7 +796,7 @@
                         </div>
                     </div>
                     <div id="yrCompareWrap" style="display:none; margin-top:22px;">
-                        <div class="section-heading"><i class="fa-solid fa-code-compare"></i> <span data-i18n="yrCompareHeading">Porównanie lat</span></div>
+                        <div class="section-heading"><i class="fa-solid fa-code-compare"></i> <span data-i18n="yrCompareHeading">Year comparison</span></div>
                         <div class="yr-cmp-grid">
                             <div class="yr-cmp-col" id="yrCmpColA"></div>
                             <div class="yr-cmp-col" id="yrCmpColB"></div>
@@ -824,13 +804,13 @@
                         <div class="yr-verdict" id="yrVerdict"></div>
                     </div>
                     <div id="yrAllYearsWrap" style="display:none; margin-top:22px;">
-                        <div class="section-heading"><i class="fa-solid fa-chart-column"></i> <span data-i18n="yrAllYearsHeading">Wydatki rok po roku</span></div>
+                        <div class="section-heading"><i class="fa-solid fa-chart-column"></i> <span data-i18n="yrAllYearsHeading">Spending year by year</span></div>
                         <div class="chart-area" style="height:280px; padding:0;"><canvas id="yearsChart"></canvas></div>
                     </div>
                     <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
-                        <button type="button" class="btn-primary" style="width:auto; padding:0 20px;" onclick="downloadYearReviewImage()"><i class="fa-solid fa-download"></i> <span data-i18n="yrDownloadBtn">Pobierz jako obraz</span></button>
+                        <button type="button" class="btn-primary" style="width:auto; padding:0 20px;" onclick="downloadYearReviewImage()"><i class="fa-solid fa-download"></i> <span data-i18n="yrDownloadBtn">Download as image</span></button>
                     </div>
-                    <p id="yrEmptyMsg" class="auth-note" style="display:none; margin-top:12px;" data-i18n="yrEmpty">Brak gier w tym roku.</p>
+                    <p id="yrEmptyMsg" class="auth-note" style="display:none; margin-top:12px;" data-i18n="yrEmpty">No games this year.</p>
                 </div>
             </div>
         </section>
@@ -838,21 +818,21 @@
         <section class="view" id="view-goals">
             <div class="card">
                 <div class="card-head">
-                    <span><i class="fa-solid fa-piggy-bank" style="margin-right:6px;"></i> <span data-i18n="navGoals">Cele oszczędnościowe</span></span>
+                    <span><i class="fa-solid fa-piggy-bank" style="margin-right:6px;"></i> <span data-i18n="navGoals">Savings Goals</span></span>
                 </div>
                 <div class="card-body">
-                    <p class="auth-note" data-i18n="goalsDesc" style="margin-bottom:14px;">Odkładaj na wymarzone gry i śledź swój postęp.</p>
+                    <p class="auth-note" data-i18n="goalsDesc" style="margin-bottom:14px;">Save up for games you want and track your progress.</p>
                     <form id="addGoalForm" class="form-grid">
                         <div class="input-group span-2">
-                            <label for="goalName" data-i18n="goalName">Nazwa gry</label>
+                            <label for="goalName" data-i18n="goalName">Game title</label>
                             <input type="text" id="goalName" required autocomplete="off">
                         </div>
                         <div class="input-group">
-                            <label for="goalTargetAmount" data-i18n="goalTargetAmount">Kwota docelowa</label>
+                            <label for="goalTargetAmount" data-i18n="goalTargetAmount">Target amount</label>
                             <input type="number" id="goalTargetAmount" step="0.01" min="0" inputmode="decimal" required>
                         </div>
                         <div class="input-group">
-                            <label for="goalCurrency" data-i18n="currency">Waluta</label>
+                            <label for="goalCurrency" data-i18n="currency">Currency</label>
                             <select id="goalCurrency" required>
                                 <option value="PLN">PLN</option>
                                 <option value="EUR">EUR</option>
@@ -878,15 +858,15 @@
                             </select>
                         </div>
                         <div class="input-group">
-                            <label for="goalSavedAmount" data-i18n="goalSavedAmount">Odłożono dotychczas</label>
+                            <label for="goalSavedAmount" data-i18n="goalSavedAmount">Saved so far</label>
                             <input type="number" id="goalSavedAmount" step="0.01" min="0" inputmode="decimal" value="0">
                         </div>
                         <div class="input-group span-2">
-                            <button type="submit" class="btn-primary" style="min-width:110px;"><span data-i18n="goalAddBtn">Dodaj cel</span></button>
+                            <button type="submit" class="btn-primary" style="min-width:110px;"><span data-i18n="goalAddBtn">Add goal</span></button>
                         </div>
                     </form>
                     <div id="goalsList" style="margin-top:20px; display:flex; flex-direction:column; gap:14px;"></div>
-                    <p id="goalsEmptyMsg" class="auth-note" style="display:none; margin-top:12px;" data-i18n="goalEmpty">Nie masz jeszcze żadnych celów oszczędnościowych.</p>
+                    <p id="goalsEmptyMsg" class="auth-note" style="display:none; margin-top:12px;" data-i18n="goalEmpty">You don't have any savings goals yet.</p>
                 </div>
             </div>
         </section>
@@ -894,29 +874,29 @@
         <section class="view" id="view-shelf">
             <div class="card">
                 <div class="card-head">
-                    <span><i class="fa-solid fa-border-all" style="margin-right:6px;"></i> <span data-i18n="navShelf">Wirtualna półka</span></span>
+                    <span><i class="fa-solid fa-border-all" style="margin-right:6px;"></i> <span data-i18n="navShelf">Virtual Shelf</span></span>
                     <div style="display:flex; gap:10px; flex-wrap:wrap;">
                         <select id="shelfOwnershipFilter" onchange="renderShelf()" style="width:auto; min-width:140px;">
-                            <option value="all" data-i18n-opt="filterAllOwnership">Wszystkie formy</option>
-                            <option value="digital" data-i18n-opt="ownDigital">Cyfrowa</option>
-                            <option value="physical" data-i18n-opt="ownPhysical">Fizyczna</option>
+                            <option value="all" data-i18n-opt="filterAllOwnership">All formats</option>
+                            <option value="digital" data-i18n-opt="ownDigital">Digital</option>
+                            <option value="physical" data-i18n-opt="ownPhysical">Physical</option>
                         </select>
                         <select id="shelfSourceFilter" onchange="renderShelf()" style="width:auto; min-width:140px;">
-                            <option value="all" data-i18n-opt="filterAllSources">Wszystkie źródła</option>
+                            <option value="all" data-i18n-opt="filterAllSources">All sources</option>
                             <option value="Steam" data-i18n-opt="steam">Steam</option>
                             <option value="PlayStation">PlayStation</option>
                             <option value="Xbox">Xbox</option>
                             <option value="Nintendo">Nintendo</option>
                             <option value="GOG">GOG</option>
                             <option value="Epic Games">Epic Games</option>
-                            <option value="Kluczykarnia" data-i18n-opt="keyStore">Kluczykarnia</option>
+                            <option value="Kluczykarnia" data-i18n-opt="keyStore">Key Store</option>
                         </select>
                     </div>
                 </div>
                 <div class="card-body">
-                    <p class="auth-note" data-i18n="shelfDesc" style="margin-bottom:14px;">Twoja biblioteka jako wirtualna półka z grami - okładki generowane są automatycznie na podstawie tytułu i platformy.</p>
+                    <p class="auth-note" data-i18n="shelfDesc" style="margin-bottom:14px;">Your library as a virtual game shelf - covers are generated automatically based on the title and platform.</p>
                     <div id="shelfWrap" class="shelf-wrap"></div>
-                    <p id="shelfEmptyMsg" class="auth-note" style="display:none; margin-top:12px;" data-i18n="shelfEmpty">Twoja półka jest jeszcze pusta - dodaj swoją pierwszą grę w zakładce Biblioteka.</p>
+                    <p id="shelfEmptyMsg" class="auth-note" style="display:none; margin-top:12px;" data-i18n="shelfEmpty">Your shelf is still empty - add your first game in the Library tab.</p>
                 </div>
             </div>
         </section>
@@ -924,10 +904,10 @@
         <section class="view" id="view-achievements">
             <div class="card">
                 <div class="card-head">
-                    <span><i class="fa-solid fa-medal" style="margin-right:6px;"></i> <span data-i18n="navAchievements">Osiągnięcia</span></span>
+                    <span><i class="fa-solid fa-medal" style="margin-right:6px;"></i> <span data-i18n="navAchievements">Achievements</span></span>
                 </div>
                 <div class="card-body">
-                    <p class="auth-note" data-i18n="achievementsDesc" style="margin-bottom:14px;">Odblokowuj odznaki w miarę rozbudowy swojej biblioteki gier.</p>
+                    <p class="auth-note" data-i18n="achievementsDesc" style="margin-bottom:14px;">Unlock badges as you grow your game library.</p>
                     <div id="achievementsList" style="display:flex; flex-direction:column; gap:14px;"></div>
                 </div>
             </div>
@@ -936,25 +916,25 @@
         <section class="view" id="view-roulette">
             <div class="card">
                 <div class="card-head">
-                    <span><i class="fa-solid fa-dice" style="margin-right:6px;"></i> <span data-i18n="navRoulette">Co dziś zagrać?</span></span>
+                    <span><i class="fa-solid fa-dice" style="margin-right:6px;"></i> <span data-i18n="navRoulette">What to play?</span></span>
                 </div>
                 <div class="card-body">
-                    <p class="auth-note" data-i18n="rouletteDesc" style="margin-bottom:16px;">Nie możesz się zdecydować, w co dziś zagrać? Wylosuj grę ze swojego backlogu.</p>
+                    <p class="auth-note" data-i18n="rouletteDesc" style="margin-bottom:16px;">Can't decide what to play tonight? Roll the dice on your backlog.</p>
                     <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end; margin-bottom:18px;">
                         <div class="input-group" style="width:auto; min-width:170px;">
-                            <label for="roulettePlatformFilter" data-i18n="source">Źródło</label>
+                            <label for="roulettePlatformFilter" data-i18n="source">Source</label>
                             <select id="roulettePlatformFilter">
-                                <option value="all" data-i18n-opt="roulettePlatformAll">Wszystkie platformy</option>
+                                <option value="all" data-i18n-opt="roulettePlatformAll">All platforms</option>
                                 <option value="Steam" data-i18n-opt="steam">Steam</option>
                                 <option value="PlayStation">PlayStation</option>
                                 <option value="Xbox">Xbox</option>
                                 <option value="Nintendo">Nintendo</option>
                                 <option value="GOG">GOG</option>
                                 <option value="Epic Games">Epic Games</option>
-                                <option value="Kluczykarnia" data-i18n-opt="keyStore">Kluczykarnia</option>
+                                <option value="Kluczykarnia" data-i18n-opt="keyStore">Key Store</option>
                             </select>
                         </div>
-                        <button type="button" class="btn-primary" style="width:auto; padding:0 20px;" id="rouletteRollBtn" onclick="rollBacklogRoulette()"><i class="fa-solid fa-dice"></i> <span data-i18n="rouletteBtn">Wylosuj grę</span></button>
+                        <button type="button" class="btn-primary" style="width:auto; padding:0 20px;" id="rouletteRollBtn" onclick="rollBacklogRoulette()"><i class="fa-solid fa-dice"></i> <span data-i18n="rouletteBtn">Pick a game</span></button>
                     </div>
                     <div id="rouletteResult"></div>
                 </div>
@@ -963,49 +943,49 @@
 
         <section class="view" id="view-admin">
             <div class="card">
-                <div class="card-head"><span>Panel administratora</span></div>
+                <div class="card-head"><span>Admin panel</span></div>
                 <div class="card-body">
                     <div class="stats-row" id="adminStatTiles">
-                        <div class="stat-tile"><div class="stat-label"><i class="fa-solid fa-gamepad"></i> Suma dodanych gier (wszyscy)</div><div class="stat-value"><span id="adminStatTotalGames">-</span></div></div>
-                        <div class="stat-tile"><div class="stat-label"><i class="fa-solid fa-users"></i> Liczba kont</div><div class="stat-value"><span id="adminStatUsers">-</span></div></div>
-                        <div class="stat-tile"><div class="stat-label"><i class="fa-solid fa-coins"></i> Śr. cena gry (EUR)</div><div class="stat-value"><span id="adminStatAvgPrice">-</span></div></div>
-                        <div class="stat-tile"><div class="stat-label"><i class="fa-solid fa-chart-pie"></i> Steam vs Kluczykarnia</div><div class="stat-value" style="font-size:16px;"><span id="adminStatSourceSplit">-</span></div></div>
+                        <div class="stat-tile"><div class="stat-label"><i class="fa-solid fa-gamepad"></i> Total games added (all users)</div><div class="stat-value"><span id="adminStatTotalGames">-</span></div></div>
+                        <div class="stat-tile"><div class="stat-label"><i class="fa-solid fa-users"></i> Accounts</div><div class="stat-value"><span id="adminStatUsers">-</span></div></div>
+                        <div class="stat-tile"><div class="stat-label"><i class="fa-solid fa-coins"></i> Avg. game price (EUR)</div><div class="stat-value"><span id="adminStatAvgPrice">-</span></div></div>
+                        <div class="stat-tile"><div class="stat-label"><i class="fa-solid fa-chart-pie"></i> Steam vs Key Store</div><div class="stat-value" style="font-size:16px;"><span id="adminStatSourceSplit">-</span></div></div>
                     </div>
 
                     <div class="acc-block">
-                        <h4 class="acc-h">Odwiedziny strony</h4>
+                        <h4 class="acc-h">Site visits</h4>
                         <div class="stats-row">
-                            <div class="stat-tile"><div class="stat-label">Dziś</div><div class="stat-value"><span id="adminVisitsDay">-</span></div></div>
-                            <div class="stat-tile"><div class="stat-label">Ten miesiąc</div><div class="stat-value"><span id="adminVisitsMonth">-</span></div></div>
-                            <div class="stat-tile"><div class="stat-label">Ten rok</div><div class="stat-value"><span id="adminVisitsYear">-</span></div></div>
+                            <div class="stat-tile"><div class="stat-label">Today</div><div class="stat-value"><span id="adminVisitsDay">-</span></div></div>
+                            <div class="stat-tile"><div class="stat-label">This month</div><div class="stat-value"><span id="adminVisitsMonth">-</span></div></div>
+                            <div class="stat-tile"><div class="stat-label">This year</div><div class="stat-value"><span id="adminVisitsYear">-</span></div></div>
                         </div>
-                        <p class="auth-note" style="margin-top:8px; font-size:11px;">Licznik działa bez własnego serwera (plan Firebase Spark), więc jest to szacunek best-effort: 1 wizyta = 1 nowa sesja przeglądarki. Nie odróżnia botów/scraperów.</p>
+                        <p class="auth-note" style="margin-top:8px; font-size:11px;">The counter runs without its own server (Firebase Spark plan), so it is a best-effort estimate: 1 visit = 1 new browser session. It cannot tell bots and scrapers apart.</p>
                     </div>
 
                     <div class="acc-block">
-                        <h4 class="acc-h">Najczęściej dodawane gry</h4>
+                        <h4 class="acc-h">Most added games</h4>
                         <div class="table-container" style="max-height:320px;">
                             <table id="adminTopGamesTable">
-                                <thead><tr><th>Gra</th><th>Liczba dodań</th></tr></thead>
+                                <thead><tr><th>Game</th><th>Times added</th></tr></thead>
                                 <tbody id="adminTopGamesTbody"></tbody>
                             </table>
                         </div>
                     </div>
 
                     <div class="acc-block">
-                        <h4 class="acc-h">Użytkownicy</h4>
+                        <h4 class="acc-h">Users</h4>
                         <div class="table-container" style="max-height:400px;">
                             <table id="adminUsersTable">
-                                <thead><tr><th>Nick / e-mail</th><th>Kraj</th><th>Zarejestrowano</th><th>Gier</th><th>Wartość (CHF)</th><th>Status</th><th style="text-align:right;">Akcja</th></tr></thead>
+                                <thead><tr><th>Nick / e-mail</th><th>Country</th><th>Registered</th><th>Games</th><th>Value (CHF)</th><th>Status</th><th style="text-align:right;">Action</th></tr></thead>
                                 <tbody id="adminUsersTbody"></tbody>
                             </table>
                         </div>
                     </div>
 
                     <div class="acc-block">
-                        <button type="button" class="btn-tool" onclick="loadAdminPanel()"><i class="fa-solid fa-rotate"></i> Odśwież dane</button>
-                        <button type="button" class="btn-tool" style="margin-top:8px;" onclick="forceSyncLeaderboard()"><i class="fa-solid fa-ranking-star"></i> Wymuś synchronizację rankingu (wszystkie konta)</button>
-                        <p class="auth-note" style="margin-top:8px; font-size:11px;">Użyj tego, jeśli w rankingu brakuje kont, które nie logowały się od czasu ostatniej aktualizacji strony.</p>
+                        <button type="button" class="btn-tool" onclick="loadAdminPanel()"><i class="fa-solid fa-rotate"></i> Refresh data</button>
+                        <button type="button" class="btn-tool" style="margin-top:8px;" onclick="forceSyncLeaderboard()"><i class="fa-solid fa-ranking-star"></i> Force leaderboard sync (all accounts)</button>
+                        <p class="auth-note" style="margin-top:8px; font-size:11px;">Use this if the leaderboard is missing accounts that have not signed in since the last site update.</p>
                     </div>
                 </div>
             </div>
@@ -1014,7 +994,7 @@
         <div class="drawer-overlay" id="adminModalOverlay" style="display:none;" onclick="closeAdminUserModal()"></div>
         <div class="card" id="adminUserModal" style="display:none; position:fixed; top:5%; left:50%; transform:translateX(-50%); width:min(640px,92vw); max-height:90vh; overflow:auto; z-index:400;">
             <div class="card-head">
-                <span><i class="fa-solid fa-user"></i> <span id="adminModalTitle">Podgląd konta</span></span>
+                <span><i class="fa-solid fa-user"></i> <span id="adminModalTitle">Account details</span></span>
                 <button type="button" class="btn-link" onclick="closeAdminUserModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="card-body" id="adminModalBody"></div>
@@ -1023,29 +1003,29 @@
         <div class="drawer-overlay" id="banModalOverlay" style="display:none;" onclick="closeBanModal()"></div>
         <div class="card" id="banModal" style="display:none; position:fixed; top:10%; left:50%; transform:translateX(-50%); width:min(480px,92vw); max-height:90vh; overflow:auto; z-index:410;">
             <div class="card-head">
-                <span><i class="fa-solid fa-ban"></i> <span id="banModalTitle">Zbanuj użytkownika</span></span>
+                <span><i class="fa-solid fa-ban"></i> <span id="banModalTitle">Ban user</span></span>
                 <button type="button" class="btn-link" onclick="closeBanModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="card-body">
                 <div class="input-group">
-                    <label for="banReasonInput">Powód bana (widoczny dla użytkownika)</label>
-                    <textarea id="banReasonInput" rows="3" style="resize:vertical;" placeholder="np. Wulgarne nazwy gier / spam / obraźliwy pseudonim..."></textarea>
+                    <label for="banReasonInput">Ban reason (visible to the user)</label>
+                    <textarea id="banReasonInput" rows="3" style="resize:vertical;" placeholder="e.g. Offensive game names / spam / abusive nickname..."></textarea>
                 </div>
                 <div class="input-group" style="margin-top:12px;">
-                    <label for="banDurationSelect">Czas trwania</label>
+                    <label for="banDurationSelect">Duration</label>
                     <select id="banDurationSelect">
-                        <option value="permanent">Bezterminowo</option>
-                        <option value="1">1 dzień</option>
-                        <option value="3">3 dni</option>
-                        <option value="7">7 dni</option>
-                        <option value="14">14 dni</option>
-                        <option value="30">30 dni</option>
-                        <option value="90">90 dni</option>
+                        <option value="permanent">Permanent</option>
+                        <option value="1">1 day</option>
+                        <option value="3">3 days</option>
+                        <option value="7">7 days</option>
+                        <option value="14">14 days</option>
+                        <option value="30">30 days</option>
+                        <option value="90">90 days</option>
                     </select>
                 </div>
                 <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
-                    <button type="button" class="btn-danger-ghost" onclick="confirmBanUser()"><i class="fa-solid fa-ban"></i> Potwierdź bana</button>
-                    <button type="button" class="btn-tool" onclick="closeBanModal()">Anuluj</button>
+                    <button type="button" class="btn-danger-ghost" onclick="confirmBanUser()"><i class="fa-solid fa-ban"></i> Confirm ban</button>
+                    <button type="button" class="btn-tool" onclick="closeBanModal()">Cancel</button>
                 </div>
             </div>
         </div>
@@ -1087,14 +1067,14 @@
 
         <section class="view" id="view-terms">
             <div class="card">
-                <div class="card-head"><span data-i18n="navTerms">Regulamin</span></div>
+                <div class="card-head"><span data-i18n="navTerms">Terms &amp; Conditions</span></div>
                 <div class="card-body static-content" id="termsContent"></div>
             </div>
         </section>
 
         <section class="view" id="view-privacy">
             <div class="card">
-                <div class="card-head"><span data-i18n="navPrivacy">Polityka prywatności</span></div>
+                <div class="card-head"><span data-i18n="navPrivacy">Privacy Policy</span></div>
                 <div class="card-body static-content" id="privacyContent"></div>
             </div>
         </section>
@@ -1105,7 +1085,7 @@
 
     <p>
       <a href="#" onclick="showView('privacy'); return false;" data-i18n="navPrivacy">Privacy Policy</a> ·
-      <a href="#" onclick="showView('terms'); return false;" data-i18n="navTerms">Terms of Service</a> ·
+      <a href="#" onclick="showView('terms'); return false;" data-i18n="navTerms">Terms &amp; Conditions</a> ·
       <a href="#" onclick="showView('feedback'); return false;" data-i18n="navFeedback">Send feedback</a> ·
       <span data-i18n="footerContact">Contact</span>: <a href="mailto:info@backlogwallet.com">info@backlogwallet.com</a>
     </p>
@@ -1113,7 +1093,7 @@
     <p id="footerDateTime" style="margin-top:15px;font-size:12px;color:var(--text-dim);"></p>
 
     <p style="margin-top:8px;font-size:11px;color:var(--text-dim);">
-      <span class="footer-build">v1.8.2 &middot; build 2026-11-11 14:18:02</span>
+      <span class="footer-build">v1.8.4 &middot; build 2026-11-11 15:05:51</span>
     </p>
   </div>
 </footer>
@@ -1137,7 +1117,7 @@
             <div id="wrappedSlideContent" class="wrapped-slide"></div>
             <button type="button" class="wrapped-nav-btn wrapped-nav-prev" onclick="wrappedPrev()" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
             <button type="button" class="wrapped-nav-btn wrapped-nav-next" onclick="wrappedNext()" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
-            <button type="button" class="btn-primary wrapped-download-btn" onclick="downloadWrappedSlide()"><i class="fa-solid fa-download"></i> <span data-i18n="yrDownloadBtn">Pobierz jako obraz</span></button>
+            <button type="button" class="btn-primary wrapped-download-btn" onclick="downloadWrappedSlide()"><i class="fa-solid fa-download"></i> <span data-i18n="yrDownloadBtn">Download as image</span></button>
         </div>
     </div>
 
@@ -1152,7 +1132,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=20" defer></script>
+    <script src="app.js?v=22" defer></script>
     <script>
         // PWA: rejestracja service workera. Nie blokuje niczego jesli sie
         // nie uda (np. starsza przegladarka) - aplikacja dziala normalnie,
