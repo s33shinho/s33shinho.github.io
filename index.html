@@ -67,7 +67,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=15">
+    <link rel="stylesheet" href="styles.css?v=16">
 </head>
 <body>
 
@@ -103,7 +103,7 @@
             <button class="nav-item" id="navAuthBtn" data-view="auth" onclick="showView('auth')"><i class="fa-solid fa-right-to-bracket" id="navAuthIcon"></i> <span data-i18n="navAuth" id="navAuthLabel">Logowanie / Rejestracja</span></button>
             <button class="nav-item" id="navAdminBtn" data-view="admin" onclick="showView('admin')" style="display:none;"><i class="fa-solid fa-user-shield"></i> <span>Panel administratora</span></button>
 
-            <div class="nav-dropdown">
+            <div class="nav-dropdown" id="navLibraryWrap" style="display:none;">
                 <button type="button" class="nav-section-toggle" onclick="toggleNavGroup('library')" aria-expanded="true">
                     <span data-i18n="navSectionLibrary">Twoja biblioteka</span>
                     <i class="fa-solid fa-chevron-down nav-section-chevron" id="navGroupChevron-library"></i>
@@ -175,9 +175,7 @@
                             </div>
                             <p class="hero-note" data-i18n="landingFootNote"></p>
                             <div class="hero-facts">
-                                <span><i class="fa-solid fa-coins"></i> <span data-i18n="heroFact2">20+ currencies</span></span>
                                 <span><i class="fa-solid fa-gamepad"></i> <span data-i18n="heroFact4">Steam, PlayStation, Xbox, Nintendo, GOG, Epic</span></span>
-                                <span><i class="fa-solid fa-lock"></i> <span data-i18n="heroFact3">Free, no card required</span></span>
                             </div>
                         </div>
                         <div class="mock-receipt" aria-hidden="true">
@@ -192,26 +190,17 @@
                     </div>
                 </section>
 
-                <h3 class="section-heading"><span data-i18n="featuresHead">Co możesz robić</span></h3>
                 <div class="bento-grid">
                     <div class="feature-card bento-wide"><i class="fa-solid fa-list-check"></i><h4 data-i18n="feat1T"></h4><p data-i18n="feat1D"></p></div>
                     <div class="feature-card"><i class="fa-solid fa-chart-line"></i><h4 data-i18n="feat2T"></h4><p data-i18n="feat2D"></p></div>
                     <div class="feature-card"><i class="fa-solid fa-coins"></i><h4 data-i18n="feat3T"></h4><p data-i18n="feat3D"></p></div>
-                    <div class="feature-card bento-wide"><i class="fa-solid fa-cloud"></i><h4 data-i18n="feat4T"></h4><p data-i18n="feat4D"></p></div>
-                    <div class="feature-card"><i class="fa-solid fa-ranking-star"></i><h4 data-i18n="feat5T"></h4><p data-i18n="feat5D"></p></div>
-                    <div class="feature-card"><i class="fa-solid fa-piggy-bank"></i><h4 data-i18n="feat6T"></h4><p data-i18n="feat6D"></p></div>
-                    <div class="feature-card bento-full" style="display:flex; flex-direction:column;">
-                        <i class="fa-solid fa-shield-halved"></i>
-                        <h4 data-i18n="privHead" style="margin-bottom:12px;">Prywatność przede wszystkim</h4>
-                        <ul class="priv-list" style="flex:1;">
+                    <div class="feature-card bento-full">
+                        <h4 data-i18n="privHead" style="margin-bottom:10px;">Prywatność przede wszystkim</h4>
+                        <ul class="priv-list">
                             <li><i class="fa-solid fa-ban"></i> <span data-i18n="priv1"></span></li>
                             <li><i class="fa-solid fa-database"></i> <span data-i18n="priv2"></span></li>
                             <li><i class="fa-solid fa-download"></i> <span data-i18n="priv3"></span></li>
                         </ul>
-                        <div style="margin-top:16px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
-                            <button class="btn-primary" style="width:auto; padding:0 20px;" onclick="goRegister()"><i class="fa-solid fa-user-plus"></i> <span data-i18n="ctaRegister">Załóż darmowe konto</span></button>
-                            <a href="#" onclick="showView('privacy'); return false;" class="btn-link" data-i18n="navPrivacy">Polityka prywatności</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1195,7 +1184,7 @@
     <p id="footerDateTime" style="margin-top:15px;font-size:12px;color:var(--text-dim);"></p>
 
     <p style="margin-top:8px;font-size:11px;color:var(--text-dim);">
-      <span class="footer-build">v1.8 &middot; build 2026-11-11 12:05:11</span>
+      <span class="footer-build">v1.8 &middot; build 2026-11-11 12:35:46</span>
     </p>
   </div>
 </footer>
@@ -1234,7 +1223,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=15" defer></script>
+    <script src="app.js?v=16" defer></script>
     <script>
         // PWA: rejestracja service workera. Nie blokuje niczego jesli sie
         // nie uda (np. starsza przegladarka) - aplikacja dziala normalnie,
