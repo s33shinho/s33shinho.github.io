@@ -53,7 +53,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=25">
+    <link rel="stylesheet" href="styles.css?v=26">
 </head>
 <body>
 
@@ -224,8 +224,7 @@
             </div>
             <div class="summary">
                 <div>
-                    <span class="summary-label" data-i18n="totalValue">Library value</span>
-                    <span class="summary-value"><span id="totalAmount">0.00</span> <select id="totalCurrency" onchange="onTotalCurrencyChange()">
+                    <div class="summary-head"><span class="summary-label" data-i18n="totalValue">Library value</span> <select id="totalCurrency" onchange="onTotalCurrencyChange()">
                     <option value="EUR">EUR</option>
                     <option value="PLN">PLN</option>
                     <option value="CHF">CHF</option>
@@ -247,7 +246,8 @@
                     <option value="NZD">NZD</option>
                     <option value="TRY">TRY</option>
                     <option value="BRL">BRL</option>
-                    </select></span>
+                    </select></div>
+                    <span class="summary-value"><span id="totalAmount">0.00</span></span>
                 </div>
                 <div class="summary-stats">
                     <div><span class="summary-num"><b id="statTotal">0</b></span><small data-i18n="statTotalGames">Games total</small></div>
@@ -1012,7 +1012,7 @@
 
         <section class="view" id="view-feedback">
             <div class="card">
-                <div class="card-head"><span data-i18n="navFeedback">Send feedback</span></div>
+                <div class="card-head"><span data-i18n="navFeedback">Feedback &amp; contact</span></div>
                 <div class="card-body">
                     <p class="auth-note" data-i18n="feedbackDesc" style="margin-bottom:16px;">Got an idea for improving Backlog Wallet? Send it here.</p>
                     <form id="feedbackForm" class="form-grid" autocomplete="off">
@@ -1033,6 +1033,7 @@
                         </div>
                         <p class="auth-note span-2" data-i18n="feedbackNote" style="font-size:12px;">Messages are delivered by email through Web3Forms. Please don't include sensitive personal data.</p>
                     </form>
+                    <p class="contact-line"><span data-i18n="feedbackMail">Prefer e-mail?</span> <a href="mailto:info@backlogwallet.com">info@backlogwallet.com</a></p>
                 </div>
             </div>
         </section>
@@ -1064,12 +1065,11 @@
     <div class="footer-links">
         <a href="#" onclick="showView('privacy'); return false;" data-i18n="navPrivacy">Privacy Policy</a> ·
         <a href="#" onclick="showView('terms'); return false;" data-i18n="navTerms">Terms &amp; Conditions</a> ·
-        <a href="#" onclick="showView('feedback'); return false;" data-i18n="navFeedback">Send feedback</a> ·
-        <span data-i18n="footerContact">Contact</span>: <a href="mailto:info@backlogwallet.com">info@backlogwallet.com</a>
+        <a href="#" onclick="showView('feedback'); return false;" data-i18n="navFeedback">Send feedback</a>
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v1.8.7 &middot; build 2026-11-11 16:33:48</span>
+        <span class="footer-build">v1.8.8 &middot; build 2026-11-11 16:46:05</span>
     </div>
 </footer>
 
@@ -1107,7 +1107,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=25" defer></script>
+    <script src="app.js?v=26" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.
