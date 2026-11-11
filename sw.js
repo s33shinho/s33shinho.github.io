@@ -1,34 +1,34 @@
-// Backlog Wallet — service worker
+// Backlog Wallet - service worker
 //
-// Cel: dziala jak instalowalna aplikacja i otwiera sie tez bez sieci.
-// Cache'ujemy WYLACZNIE statyczna powloke (HTML/CSS/JS/ikony/czcionki/
-// biblioteki z CDN). Firebase Auth i zapytania do Firestore NIGDY nie sa
-// przechwytywane tu ponizej - lecca zawsze prosto do sieci, bo to zywe
-// dane uzytkownika, nie cos co wolno pokazac naklejone.
+// Goal: behave like an installable app and open without a network too.
+// We cache ONLY the static shell (HTML/CSS/JS/icons/fonts/CDN libraries).
+// Firebase Auth and Firestore requests are NEVER intercepted below - they
+// always go straight to the network, because that is live user data and must
+// not be served from a stale copy.
 //
-// WAZNE PRZY KAZDYM DEPLOYU ZMIENIAJACYM index.html / styles.css / app.js:
-// podbij CACHE_VERSION ponizej o jeden. Bez tego przegladarki uzytkownikow
-// moga przez jakis czas dostawac stara wersje z cache zamiast nowej.
+// IMPORTANT for every deploy that changes index.html / styles.css / app.js:
+// bump CACHE_VERSION below by one. Without it, users' browsers may keep
+// serving the old version from cache for a while.
 //
-// Od 26.07.2026 dochodzi drugi mechanizm: styles.css i app.js sa wolane
-// z index.html z doklejonym "?v=" (np. app.js?v=22). To omija cache
-// brzegowy hostingu (np. Cloudflare), ktory potrafi trzymac stara wersje
-// pliku nawet gdy service worker ponizej juz ma nowy CACHE_VERSION - bo
-// ten cache siedzi PRZED przegladarka, nie w niej. Przy kazdej zmianie
-// tych dwoch plikow podbijaj OBA numerki naraz: CACHE_VERSION tutaj
-// i "?v=" w <script>/<link> w index.html (a scieżki w APP_SHELL ponizej
-// musza je dokladnie odzwierciedlac, inaczej precache zlapie stara wersje).
+// There is a second mechanism: styles.css and app.js are loaded from
+// index.html with a "?v=" suffix (e.g. app.js?v=23). It gets around the
+// host's edge cache (e.g. Cloudflare), which can keep an old copy of a file
+// even when the service worker below already has a new CACHE_VERSION - that
+// cache sits in front of the browser, not inside it. Whenever those two files
+// change, bump BOTH numbers together: CACHE_VERSION here and "?v=" in the
+// <script>/<link> tags in index.html (the paths in APP_SHELL below must match
+// them exactly, otherwise the precache grabs the old version).
 
-const CACHE_VERSION = 'v22';
+const CACHE_VERSION = 'v23';
 const CACHE_NAME = `backlog-wallet-${CACHE_VERSION}`;
 
-// Wlasne pliki - musza byc zawsze aktualne wzgledem tego co faktycznie
-// jest wdrozone. Sciezki wzgledne do korzenia strony.
+// Our own files - they must always match what is actually deployed.
+// Paths are relative to the site root.
 const APP_SHELL = [
   '/',
   '/index.html',
-  '/styles.css?v=22',
-  '/app.js?v=22',
+  '/styles.css?v=23',
+  '/app.js?v=23',
   '/manifest.json',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
@@ -36,10 +36,9 @@ const APP_SHELL = [
   '/icons/og-banner.png'
 ];
 
-// Zewnetrzne biblioteki - warto je miec offline, ale to nie nasze pliki,
-// wiec cache'ujemy je "najlepiej jak sie da" (stale-while-revalidate),
-// bez wymagania ich obecnosci przy instalacji (zeby brak sieci przy pierwszej
-// wizycie na wolnym laczu nie wywalil calej instalacji service workera).
+// External libraries - worth having offline, but they are not our files, so we cache them
+// on a best-effort basis (stale-while-revalidate) without requiring them at install time
+// (so a missing network on the first visit does not break the whole service worker install).
 const RUNTIME_CACHEABLE_HOSTS = [
   'cdn.jsdelivr.net',
   'www.gstatic.com',
@@ -90,8 +89,8 @@ self.addEventListener('fetch', (event) => {
   if (isNeverCached(url)) return;
   if (!isAppShellRequest(url) && !isRuntimeCacheableRequest(url)) return;
 
-  // stale-while-revalidate: oddaj od razu z cache jesli jest, a w tle
-  // pobierz swiezsza wersje na nastepny raz. Offline -> zostaje cache.
+  // stale-while-revalidate: answer from the cache right away if there is one, and fetch
+  // a fresher copy in the background for next time. Offline -> the cache stays.
   event.respondWith(
     caches.open(CACHE_NAME).then((cache) =>
       cache.match(req).then((cached) => {

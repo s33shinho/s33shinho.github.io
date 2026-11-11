@@ -38,6 +38,8 @@
     }
 
     window.userLanguage = language;
+    // set the theme before first paint so the page does not flash dark on a light setting
+    if (localStorage.getItem("theme") === "light") document.documentElement.setAttribute("data-theme", "light");
 })();
 </script>
 
@@ -51,7 +53,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=22">
+    <link rel="stylesheet" href="styles.css?v=23">
 </head>
 <body>
 
@@ -147,52 +149,50 @@
                 <section class="hero hero-fullbleed">
                     <div class="hero-inner hero-grid">
                         <div class="hero-copy">
-                            <div class="hero-badge">
-                                Backlog Wallet
-                            </div>
-                            <h2 data-i18n="heroTagline">Track easy. Spend smart.</h2>
-                            <p class="lead" data-i18n="heroLead">Backlog Wallet is a personal tool for logging the games you buy and understanding how much you spend over time. Add each title with its price, store and purchase date, and get instant statistics, currency conversion and clear charts of your library. Track whether each game is digital or physical, and save up for the titles you want with savings goals.</p>
+                            <h2 data-i18n="heroTagline">A ledger for the games you buy.</h2>
+                            <p class="lead" data-i18n="heroLead">Log what you paid, where you bought it and when. Backlog Wallet adds it up, converts it to your currency and shows how much of your library is still unplayed.</p>
                             <div class="hero-cta">
-                                <button class="btn-primary" onclick="goRegister()"><i class="fa-solid fa-user-plus"></i> <span data-i18n="ctaRegister">Create a free account</span></button>
-                                <button class="btn-tool" onclick="goLogin()"><span data-i18n="ctaHaveAccount">I already have an account</span></button>
+                                <button class="btn-primary" onclick="goRegister()"><span data-i18n="ctaRegister">Create a free account</span></button>
+                                <button class="btn-tool" onclick="goLogin()"><span data-i18n="ctaHaveAccount">Log in</span></button>
                             </div>
-                            <p class="hero-note" data-i18n="landingFootNote">All tracking features require a free account. It takes less than a minute to set up.</p>
+                            <p class="hero-note" data-i18n="landingFootNote">An account is needed to save your library. Setup takes about a minute.</p>
                             <div class="hero-facts">
-                                <span><i class="fa-solid fa-gamepad"></i> <span data-i18n="heroFact4">Steam, PlayStation, Xbox, Nintendo, GOG, Epic</span></span>
+                                <span data-i18n="heroFact4">Steam, PlayStation, Xbox, Nintendo, GOG, Epic, key stores, physical copies</span>
                             </div>
                         </div>
-                        <div class="mock-receipt" aria-hidden="true">
-                            <div class="mock-receipt-row"><span>Hollow Knight</span><span>54,99</span></div>
-                            <div class="mock-receipt-row"><span>Hades</span><span>39,09</span></div>
-                            <div class="mock-receipt-row"><span>Baldur's Gate 3</span><span>199,20</span></div>
-                            <div class="mock-receipt-row"><span>Stardew Valley</span><span>38,98</span></div>
-                            <div class="mock-receipt-div"></div>
-                            <div class="mock-receipt-total"><span data-i18n="heroReceiptTotal">Total</span><span>332,26</span></div>
-                            <div class="mock-receipt-stamp" data-i18n="heroReceiptStamp">SAVED</div>
+                        <div class="app-preview" aria-hidden="true">
+                            <div class="ap-bar"><span data-i18n="previewLabel">Example library</span><b>111.20 EUR</b></div>
+                            <div class="ap-row ap-head"><span>Title</span><span>Store</span><span>Price</span></div>
+                            <div class="ap-row"><span>Hollow Knight</span><span>Steam</span><span>14.99</span></div>
+                            <div class="ap-row"><span>Hades</span><span>GOG</span><span>18.74</span></div>
+                            <div class="ap-row"><span>Baldur's Gate 3</span><span>Steam</span><span>59.99</span></div>
+                            <div class="ap-row"><span>Stardew Valley</span><span>Steam</span><span>9.99</span></div>
+                            <div class="ap-row"><span>Disco Elysium</span><span>GOG</span><span>7.49</span></div>
+                            <div class="ap-note" data-i18n="previewNote">Example data</div>
                         </div>
                     </div>
                 </section>
 
-                <div class="bento-grid">
-                    <div class="feature-card bento-wide"><i class="fa-solid fa-list-check"></i><h4 data-i18n="feat1T">Track every purchase</h4><p data-i18n="feat1D">Log titles, prices, stores and dates - manually or by pasting a whole list at once.</p></div>
-                    <div class="feature-card"><i class="fa-solid fa-chart-line"></i><h4 data-i18n="feat2T">See your spending</h4><p data-i18n="feat2D">Live totals, monthly and yearly counts, and charts of purchases over time.</p></div>
-                    <div class="feature-card"><i class="fa-solid fa-coins"></i><h4 data-i18n="feat3T">Any currency</h4><p data-i18n="feat3D">Convert your library value into 20+ world currencies using live exchange rates.</p></div>
-                    <div class="feature-card bento-full">
-                        <h4 data-i18n="privHead" style="margin-bottom:10px;">Your privacy comes first</h4>
-                        <ul class="priv-list">
-                            <li><i class="fa-solid fa-ban"></i> <span data-i18n="priv1">We never sell your data, and we never share it for third-party marketing.</span></li>
-                            <li><i class="fa-solid fa-database"></i> <span data-i18n="priv2">Your library is stored only to provide the service and sync it across your devices.</span></li>
-                            <li><i class="fa-solid fa-download"></i> <span data-i18n="priv3">You can export or permanently delete all of your data at any time, straight from your account.</span></li>
-                        </ul>
-                    </div>
+                <div class="points">
+                    <div class="points-row"><h3 data-i18n="feat1T">Purchases</h3><p data-i18n="feat1D">Title, price, store, date, digital or physical. Add games one at a time, or paste a whole list.</p></div>
+                    <div class="points-row"><h3 data-i18n="feat2T">Spending</h3><p data-i18n="feat2D">Totals per month and per year, charts, savings goals and a summary of your year.</p></div>
+                    <div class="points-row"><h3 data-i18n="feat3T">Currencies</h3><p data-i18n="feat3D">Prices stay as you paid them. Totals can be shown in any of 20+ currencies using live rates.</p></div>
+                    <div class="points-row"><h3 data-i18n="feat4T">Sync</h3><p data-i18n="feat4D">Your library lives in your account, so it is the same on your phone and your computer.</p></div>
+                    <div class="points-row"><h3 data-i18n="privHead">Privacy</h3><div><p data-i18n="priv1">Your data is not sold and not shared for marketing.</p><p data-i18n="priv2">It is stored only to run the app and sync your library.</p><p data-i18n="priv3">You can export or delete everything from your account at any time.</p></div></div>
+                </div>
+
+                <div class="why">
+                    <h3 data-i18n="whyHead">Why this exists</h3>
+                    <p data-i18n="whyBody">I buy more games than I play, and I never knew what I had actually spent. Spreadsheets got tedious, so I built this for myself and then opened it up. It is a small one-person project, and the feedback form goes straight to my inbox.</p>
+                    <button type="button" class="btn-link" onclick="showView('feedback')" data-i18n="whyLink">Send feedback</button>
                 </div>
             </div>
 
             <div id="verifyGate" style="display:none;">
                 <div class="card">
-                    <div class="card-body" style="text-align:center; padding:40px 24px;">
-                        <i class="fa-solid fa-envelope-circle-check" style="font-size:38px; color:var(--warn); margin-bottom:16px; display:block;"></i>
-                        <h3 style="font-family:var(--font-display); font-size:22px; color:var(--text-white); margin-bottom:10px;" data-i18n="verifyGateTitle">Confirm your email address</h3>
+                    <div class="card-body gate-body">
+                        <i class="fa-solid fa-envelope-circle-check gate-icon gate-icon-warn"></i>
+                        <h3 class="gate-title" data-i18n="verifyGateTitle">Confirm your email address</h3>
                         <p style="max-width:480px; margin:0 auto 20px; color:var(--text-main); line-height:1.6;" data-i18n="verifyGateBody">We've sent a confirmation link to your email. Click it, then come back here and check again.</p>
                         <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
                             <button type="button" class="btn-primary" style="width:auto; padding:0 20px;" onclick="recheckVerification()"><i class="fa-solid fa-rotate"></i> <span data-i18n="recheckVerifyBtn">Check again</span></button>
@@ -205,9 +205,9 @@
 
             <div id="banGate" style="display:none;">
                 <div class="card">
-                    <div class="card-body" style="text-align:center; padding:40px 24px;">
-                        <i class="fa-solid fa-ban" style="font-size:38px; color:var(--err); margin-bottom:16px; display:block;"></i>
-                        <h3 style="font-family:var(--font-display); font-size:22px; color:var(--text-white); margin-bottom:10px;" data-i18n="banGateTitle">This account has been suspended</h3>
+                    <div class="card-body gate-body">
+                        <i class="fa-solid fa-ban gate-icon gate-icon-err"></i>
+                        <h3 class="gate-title" data-i18n="banGateTitle">This account has been suspended</h3>
                         <p style="max-width:480px; margin:0 auto 6px; color:var(--text-main); line-height:1.6;"><strong data-i18n="banGateReasonLabel">Reason</strong>: <span id="banGateReason"></span></p>
                         <p style="max-width:480px; margin:0 auto 20px; color:var(--text-dim); line-height:1.6;" id="banGateUntil"></p>
                         <p style="max-width:480px; margin:0 auto 20px; color:var(--text-main); line-height:1.6;" data-i18n="banGateContact">If you believe this is a mistake, please write to the address given in the footer.</p>
@@ -566,9 +566,9 @@
             <div class="auth-layout">
                 <aside class="auth-side">
                     <div class="auth-side-header"><div class="hero-badge" style="margin:0;">Backlog Wallet</div></div>
-                    <div class="feature-card" style="margin-bottom:14px;"><i class="fa-solid fa-list-check"></i><h4 data-i18n="feat1T">Track every purchase</h4><p data-i18n="feat1D">Log titles, prices, stores and dates - manually or by pasting a whole list at once.</p></div>
-                    <div class="feature-card" style="margin-bottom:14px;"><i class="fa-solid fa-coins"></i><h4 data-i18n="feat3T">Any currency</h4><p data-i18n="feat3D">Convert your library value into 20+ world currencies using live exchange rates.</p></div>
-                    <div class="feature-card"><i class="fa-solid fa-cloud"></i><h4 data-i18n="feat4T">Sync across devices</h4><p data-i18n="feat4D">Your library is saved to your account and available wherever you sign in.</p></div>
+                    <div class="feature-card" style="margin-bottom:14px;"><h4 data-i18n="feat1T">Track every purchase</h4><p data-i18n="feat1D">Log titles, prices, stores and dates - manually or by pasting a whole list at once.</p></div>
+                    <div class="feature-card" style="margin-bottom:14px;"><h4 data-i18n="feat3T">Any currency</h4><p data-i18n="feat3D">Convert your library value into 20+ world currencies using live exchange rates.</p></div>
+                    <div class="feature-card"><h4 data-i18n="feat4T">Sync across devices</h4><p data-i18n="feat4D">Your library is saved to your account and available wherever you sign in.</p></div>
                 </aside>
             <div class="card auth-box">
                 <div class="auth-tabs" id="authTabs">
@@ -1093,7 +1093,7 @@
     <p id="footerDateTime" style="margin-top:15px;font-size:12px;color:var(--text-dim);"></p>
 
     <p style="margin-top:8px;font-size:11px;color:var(--text-dim);">
-      <span class="footer-build">v1.8.4 &middot; build 2026-11-11 15:05:51</span>
+      <span class="footer-build">v1.8.5 &middot; build 2026-11-11 15:45:53</span>
     </p>
   </div>
 </footer>
@@ -1132,11 +1132,10 @@
         </div>
     </div>
 
-    <script src="app.js?v=22" defer></script>
+    <script src="app.js?v=23" defer></script>
     <script>
-        // PWA: rejestracja service workera. Nie blokuje niczego jesli sie
-        // nie uda (np. starsza przegladarka) - aplikacja dziala normalnie,
-        // po prostu bez trybu offline.
+        // PWA: register the service worker. It blocks nothing if it fails
+        // (e.g. an older browser) - the app works normally, just without offline mode.
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js').catch((err) => {
