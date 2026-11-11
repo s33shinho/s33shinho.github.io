@@ -19,7 +19,7 @@
     <meta name="twitter:title" content="Backlog Wallet">
     <meta name="twitter:description" content="Track your game purchases, monitor spending over time, and see how your library grows. Free, with 20+ currencies.">
     <meta name="twitter:image" content="https://backlogwallet.com/icons/og-banner.png">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0c11'/%3E%3CclipPath id='c'%3E%3Crect x='5' y='5' width='22' height='22' rx='5'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23c)'%3E%3Crect x='5' y='5' width='22' height='7.48' fill='%23f0b429'/%3E%3Crect x='5' y='13.8' width='22' height='7.48' fill='%238b7bff'/%3E%3Crect x='5' y='22.6' width='22' height='4.4' fill='%235de1c4'/%3E%3C/g%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0c11'/%3E%3Crect x='3' y='7' width='26' height='18' rx='3.5' fill='%233a78c2'/%3E%3Ctext x='16' y='20' font-family='ui-monospace,Menlo,Consolas,monospace' font-size='11' font-weight='700' fill='white' text-anchor='middle'%3EBW%3C/text%3E%3C/svg%3E">
 
     <!-- PWA: instalowalna aplikacja z ikona i dzialaniem offline -->
     <link rel="manifest" href="manifest.json">
@@ -53,7 +53,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=23">
+    <link rel="stylesheet" href="styles.css?v=24">
 </head>
 <body>
 
@@ -131,7 +131,7 @@
         <div class="main-wrap" style="max-width:900px; margin:0 auto; padding:32px 20px;">
             <div class="card">
                 <div class="card-head">
-                    <span><i class="fa-solid fa-share-nodes"></i> <span id="publicShareTitle">Shared library</span></span>
+                    <span><span id="publicShareTitle">Shared library</span></span>
                     <a href="/" class="btn-link"><i class="fa-solid fa-house"></i> Backlog Wallet</a>
                 </div>
                 <div class="card-body" id="publicShareBody">
@@ -195,9 +195,9 @@
                         <h3 class="gate-title" data-i18n="verifyGateTitle">Confirm your email address</h3>
                         <p style="max-width:480px; margin:0 auto 20px; color:var(--text-main); line-height:1.6;" data-i18n="verifyGateBody">We've sent a confirmation link to your email. Click it, then come back here and check again.</p>
                         <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-                            <button type="button" class="btn-primary" style="width:auto; padding:0 20px;" onclick="recheckVerification()"><i class="fa-solid fa-rotate"></i> <span data-i18n="recheckVerifyBtn">Check again</span></button>
-                            <button type="button" class="btn-tool" style="width:auto; padding:0 20px;" onclick="resendVerificationEmail()"><i class="fa-solid fa-paper-plane"></i> <span data-i18n="resendVerifyBtn">Resend email</span></button>
-                            <button type="button" class="btn-tool" style="width:auto; padding:0 20px;" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> <span data-i18n="logoutBtn">Log out</span></button>
+                            <button type="button" class="btn-primary" style="width:auto; padding:0 20px;" onclick="recheckVerification()"><span data-i18n="recheckVerifyBtn">Check again</span></button>
+                            <button type="button" class="btn-tool" style="width:auto; padding:0 20px;" onclick="resendVerificationEmail()"><span data-i18n="resendVerifyBtn">Resend email</span></button>
+                            <button type="button" class="btn-tool" style="width:auto; padding:0 20px;" onclick="doLogout()"><span data-i18n="logoutBtn">Log out</span></button>
                         </div>
                     </div>
                 </div>
@@ -211,7 +211,7 @@
                         <p style="max-width:480px; margin:0 auto 6px; color:var(--text-main); line-height:1.6;"><strong data-i18n="banGateReasonLabel">Reason</strong>: <span id="banGateReason"></span></p>
                         <p style="max-width:480px; margin:0 auto 20px; color:var(--text-dim); line-height:1.6;" id="banGateUntil"></p>
                         <p style="max-width:480px; margin:0 auto 20px; color:var(--text-main); line-height:1.6;" data-i18n="banGateContact">If you believe this is a mistake, please write to the address given in the footer.</p>
-                        <button type="button" class="btn-tool" style="width:auto; padding:0 20px;" onclick="dismissBanGate()"><i class="fa-solid fa-arrow-left"></i> <span data-i18n="banGateBackBtn">Back to home page</span></button>
+                        <button type="button" class="btn-tool" style="width:auto; padding:0 20px;" onclick="dismissBanGate()"><span data-i18n="banGateBackBtn">Back to home page</span></button>
                     </div>
                 </div>
             </div>
@@ -222,66 +222,55 @@
                 <span id="onThisDayText"></span>
                 <button type="button" onclick="dismissOnThisDay()" aria-label="Dismiss"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div class="dash-letterhead">
-                <div class="dash-letterhead-inner">
-                    <div class="dash-total-label"><i class="fa-solid fa-coins"></i> <span data-i18n="totalValue">Library value</span></div>
-                    <div class="dash-total-value"><span id="totalAmount">0.00</span>
-                        <select id="totalCurrency" onchange="onTotalCurrencyChange()">
-                            <option value="EUR">EUR</option>
-                            <option value="PLN">PLN</option>
-                            <option value="CHF">CHF</option>
-                            <option value="USD">USD</option>
-                            <option value="GBP">GBP</option>
-                            <option value="CZK">CZK</option>
-                            <option value="HUF">HUF</option>
-                            <option value="SEK">SEK</option>
-                            <option value="NOK">NOK</option>
-                            <option value="DKK">DKK</option>
-                            <option value="JPY">JPY</option>
-                            <option value="CNY">CNY</option>
-                            <option value="HKD">HKD</option>
-                            <option value="SGD">SGD</option>
-                            <option value="KRW">KRW</option>
-                            <option value="INR">INR</option>
-                            <option value="AUD">AUD</option>
-                            <option value="CAD">CAD</option>
-                            <option value="NZD">NZD</option>
-                            <option value="TRY">TRY</option>
-                            <option value="BRL">BRL</option>
-                        </select>
-                    </div>
-                    <div class="dash-mini-stats">
-                        <div><span id="statTotal">0</span><small data-i18n="statTotalGames">Games total</small></div>
-                        <div><span id="statMonth">0</span> <span id="statMonthTrend" style="font-size:12px; font-weight:400;"></span><small data-i18n="statThisMonth">This month</small></div>
-                        <div><span id="statYear">0</span><small data-i18n="statThisYear">This year</small></div>
-                        <div><span id="statSpentMonth">0</span> <span id="statSpentMonthTrend" style="font-size:12px; font-weight:400;"></span><small data-i18n="statSpentThisMonth">Spent this month</small></div>
-                    </div>
+            <div class="summary">
+                <div>
+                    <span class="summary-label" data-i18n="totalValue">Library value</span>
+                    <span class="summary-value"><span id="totalAmount">0.00</span> <select id="totalCurrency" onchange="onTotalCurrencyChange()">
+                    <option value="EUR">EUR</option>
+                    <option value="PLN">PLN</option>
+                    <option value="CHF">CHF</option>
+                    <option value="USD">USD</option>
+                    <option value="GBP">GBP</option>
+                    <option value="CZK">CZK</option>
+                    <option value="HUF">HUF</option>
+                    <option value="SEK">SEK</option>
+                    <option value="NOK">NOK</option>
+                    <option value="DKK">DKK</option>
+                    <option value="JPY">JPY</option>
+                    <option value="CNY">CNY</option>
+                    <option value="HKD">HKD</option>
+                    <option value="SGD">SGD</option>
+                    <option value="KRW">KRW</option>
+                    <option value="INR">INR</option>
+                    <option value="AUD">AUD</option>
+                    <option value="CAD">CAD</option>
+                    <option value="NZD">NZD</option>
+                    <option value="TRY">TRY</option>
+                    <option value="BRL">BRL</option>
+                    </select></span>
+                </div>
+                <div class="summary-stats">
+                    <div><span class="summary-num"><b id="statTotal">0</b></span><small data-i18n="statTotalGames">Games total</small></div>
+                    <div><span class="summary-num"><b id="statMonth">0</b> <span class="trend" id="statMonthTrend"></span></span><small data-i18n="statThisMonth">This month</small></div>
+                    <div><span class="summary-num"><b id="statYear">0</b></span><small data-i18n="statThisYear">This year</small></div>
+                    <div><span class="summary-num"><b id="statSpentMonth">0</b> <span class="trend" id="statSpentMonthTrend"></span></span><small data-i18n="statSpentThisMonth">Spent this month</small></div>
                 </div>
             </div>
 
-            <div class="card" id="healthCard">
-                <div class="card-body" style="display:flex; align-items:center; gap:24px; flex-wrap:wrap; padding:24px;">
-                    <div style="position:relative; width:110px; height:110px; flex-shrink:0;">
-                        <svg width="110" height="110" viewBox="0 0 110 110" style="transform:rotate(-90deg);">
-                            <circle cx="55" cy="55" r="48" fill="none" stroke="var(--bg-input)" stroke-width="10"></circle>
-                            <circle id="healthRing" cx="55" cy="55" r="48" fill="none" stroke="var(--steam-blue)" stroke-width="10" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="301.6" style="transition:stroke-dashoffset 1s ease, stroke 0.5s ease;"></circle>
-                        </svg>
-                        <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;">
-                            <span id="healthScoreNum" style="font-family:var(--font-mono); font-size:28px; font-weight:700; color:var(--text-white);">-</span>
-                            <span style="font-family:var(--font-mono); font-size:10px; color:var(--text-dim); text-transform:uppercase;">/100</span>
-                        </div>
+            <div class="card health-card" id="healthCard">
+                <div class="card-body">
+                    <div class="health-top">
+                        <span class="health-label" data-i18n="healthLabel">Backlog health</span>
+                        <span class="health-result"><span id="healthGrade">-</span> <span class="health-score"><span id="healthScoreNum">-</span>/100</span></span>
                     </div>
-                    <div style="flex:1; min-width:200px;">
-                        <div style="font-family:var(--font-body); font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--text-dim); margin-bottom:4px;" data-i18n="healthLabel">Backlog health</div>
-                        <div id="healthGrade" style="font-family:var(--font-display); font-size:20px; font-weight:600; color:var(--text-white); margin-bottom:6px;">-</div>
-                        <div id="healthMessage" style="font-size:13px; color:var(--text-main); line-height:1.5;">-</div>
-                    </div>
+                    <div class="health-bar"><div id="healthFill"></div></div>
+                    <div class="health-msg" id="healthMessage">-</div>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-head">
-                    <span><i class="fa-solid fa-plus" style="margin-right:6px;"></i> <span data-i18n="addGame">Add game</span></span>
+                    <span><span data-i18n="addGame">Add game</span></span>
                     <button type="button" class="btn-chip" id="addFormToggleBtn" onclick="toggleAddForm()">
                         <span id="addFormToggleText" data-i18n="addFormShow">Show form</span> <i class="fa-solid fa-chevron-down" id="addFormToggleIcon"></i>
                     </button>
@@ -362,17 +351,15 @@
                     </form>
 
                     <div style="margin-top:14px; padding-top:14px; border-top:1px solid var(--border);">
-                        <button type="button" class="btn-chip" id="bulkAddToggleBtn" onclick="toggleBulkAdd()">
-                            <i class="fa-solid fa-layer-group"></i> <span data-i18n="bulkAddBtn">Add multiple games</span>
+                        <button type="button" class="btn-chip" id="bulkAddToggleBtn" onclick="toggleBulkAdd()"><span data-i18n="bulkAddBtn">Add multiple games</span>
                         </button>
-                        <button type="button" class="btn-chip" id="smartImportToggleBtn" onclick="toggleSmartImport()" style="margin-left:8px;">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i> <span data-i18n="smartImportBtn">Smart import (Steam &amp; more)</span>
+                        <button type="button" class="btn-chip" id="smartImportToggleBtn" onclick="toggleSmartImport()" style="margin-left:8px;"><span data-i18n="smartImportBtn">Smart import (Steam &amp; more)</span>
                         </button>
                         <div id="smartImportPanel" style="display:none; margin-top:10px;">
                             <p style="font-size:12px; color:var(--text-dim); margin-bottom:8px; line-height:1.5;" data-i18n="smartImportHint">Paste your Steam purchase history (or any order list/receipt) below - one purchase per line works best. Steam doesn't offer an official export, so this is a best-effort reader: it tries to find a date, a price and a title on each line. Nothing gets added until you review and confirm the results below.</p>
                             <textarea id="smartImportTextarea" rows="6" style="height:auto; padding:10px; resize:vertical; font-family:var(--font-mono); font-size:12px; line-height:1.5;" placeholder="12 Mar, 2024   Hollow Knight   $14.99"></textarea>
                             <div style="display:flex; gap:8px; margin-top:10px;">
-                                <button type="button" class="btn-primary" style="width:auto; padding:0 16px;" onclick="runSmartImportParse()"><i class="fa-solid fa-magnifying-glass"></i> <span data-i18n="smartImportParseBtn">Find purchases</span></button>
+                                <button type="button" class="btn-primary" style="width:auto; padding:0 16px;" onclick="runSmartImportParse()"><span data-i18n="smartImportParseBtn">Find purchases</span></button>
                                 <button type="button" class="btn-tool" style="width:auto;" onclick="toggleSmartImport(false)"><span data-i18n="cancelBtn">Cancel</span></button>
                             </div>
                             <div id="smartImportPreviewWrap" style="display:none; margin-top:14px;">
@@ -391,7 +378,7 @@
                                         <tbody id="smartImportPreviewBody"></tbody>
                                     </table>
                                 </div>
-                                <button type="button" class="btn-primary" style="width:auto; padding:0 16px; margin-top:12px;" onclick="commitSmartImport()"><i class="fa-solid fa-check"></i> <span data-i18n="smartImportCommitBtn">Add checked games</span></button>
+                                <button type="button" class="btn-primary" style="width:auto; padding:0 16px; margin-top:12px;" onclick="commitSmartImport()"><span data-i18n="smartImportCommitBtn">Add checked games</span></button>
                             </div>
                         </div>
                         <div id="bulkAddPanel" style="display:none; margin-top:10px;">
@@ -408,11 +395,11 @@
 
             <div class="card">
                 <div class="card-head">
-                    <span><i class="fa-solid fa-list" style="margin-right:6px;"></i> <span data-i18n="myLibrary">Your Library</span></span>
+                    <span><span data-i18n="myLibrary">Your Library</span></span>
                     <div style="display:flex; gap:14px; align-items:center;">
                         <button class="btn-chip" id="hideListBtn" onclick="toggleListHidden()"><i class="fa-solid fa-eye-slash" id="hideListIcon"></i> <span id="hideListText" data-i18n="hideList">Hide list</span></button>
                         <button class="btn-chip" id="expandCollapseBtn" onclick="toggleListExpand()"><i class="fa-solid fa-up-right-and-down-left-from-center" id="expandCollapseIcon"></i> <span id="expandCollapseText" data-i18n="expandList">Expand list</span></button>
-                        <button class="btn-chip" onclick="exportCSV()"><i class="fa-solid fa-file-csv"></i> <span data-i18n="exportCsv">Export CSV</span></button>
+                        <button class="btn-chip" onclick="exportCSV()"><span data-i18n="exportCsv">Export CSV</span></button>
                     </div>
                 </div>
                 <div id="libraryListBody">
@@ -541,7 +528,7 @@
 
             <div class="card">
                 <div class="card-head">
-                    <span><i class="fa-solid fa-chart-column" style="margin-right:6px;"></i> <span data-i18n="chartsTitle">Statistics</span></span>
+                    <span><span data-i18n="chartsTitle">Statistics</span></span>
                     <div class="chart-controls">
                         <select id="chartType" onchange="updateCharts()">
                             <option value="purchases" data-i18n-opt="chartOptPurchases">Purchases over time</option>
@@ -564,12 +551,6 @@
 
         <section class="view" id="view-auth">
             <div class="auth-layout">
-                <aside class="auth-side">
-                    <div class="auth-side-header"><div class="hero-badge" style="margin:0;">Backlog Wallet</div></div>
-                    <div class="feature-card" style="margin-bottom:14px;"><h4 data-i18n="feat1T">Track every purchase</h4><p data-i18n="feat1D">Log titles, prices, stores and dates - manually or by pasting a whole list at once.</p></div>
-                    <div class="feature-card" style="margin-bottom:14px;"><h4 data-i18n="feat3T">Any currency</h4><p data-i18n="feat3D">Convert your library value into 20+ world currencies using live exchange rates.</p></div>
-                    <div class="feature-card"><h4 data-i18n="feat4T">Sync across devices</h4><p data-i18n="feat4D">Your library is saved to your account and available wherever you sign in.</p></div>
-                </aside>
             <div class="card auth-box">
                 <div class="auth-tabs" id="authTabs">
                     <button class="auth-tab active" data-mode="login" onclick="setAuthMode('login')" data-i18n="tabLogin">Login</button>
@@ -613,10 +594,9 @@
                             <button type="button" class="btn-link" style="color:inherit; text-decoration:underline;" onclick="resendVerificationEmail()"><span data-i18n="resendVerifyBtn">Resend email</span></button>
                         </div>
                         <p class="auth-note" data-i18n="authNoteLogged">Your library is synced to the cloud and available on any device after logging in.</p>
-                        <button class="btn-danger-ghost" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> <span data-i18n="logoutBtn">Log out</span></button>
+                        <button class="btn-danger-ghost" onclick="doLogout()"><span data-i18n="logoutBtn">Log out</span></button>
 
-                        <button type="button" class="btn-chip" onclick="toggleChangePassword()" id="changePasswordToggleBtn">
-                            <i class="fa-solid fa-key"></i> <span data-i18n="changePasswordBtn">Change password</span>
+                        <button type="button" class="btn-chip" onclick="toggleChangePassword()" id="changePasswordToggleBtn"><span data-i18n="changePasswordBtn">Change password</span>
                         </button>
                         <div id="changePasswordPanel" style="display:none; width:100%;">
                             <div class="auth-msg" id="changePasswordMsg"></div>
@@ -670,7 +650,7 @@
                             </div>
                             <div id="publicShareLinkBox" style="display:none; margin-top:12px; gap:8px; flex-wrap:wrap; align-items:center;">
                                 <input type="text" id="publicShareLink" readonly style="flex:1; min-width:200px; font-family:var(--font-mono); font-size:12px;">
-                                <button type="button" class="btn-tool" onclick="copyPublicShareLink()"><i class="fa-solid fa-copy"></i> <span data-i18n="copyLinkBtn">Copy link</span></button>
+                                <button type="button" class="btn-tool" onclick="copyPublicShareLink()"><span data-i18n="copyLinkBtn">Copy link</span></button>
                             </div>
                         </div>
 
@@ -678,8 +658,8 @@
                             <h4 class="acc-h" data-i18n="accDataHead">Your data &amp; privacy (GDPR)</h4>
                             <p class="auth-note" data-i18n="accDataNote">You are in control of your data. Export a full copy at any time, or permanently delete your account and everything stored with it.</p>
                             <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
-                                <button type="button" class="btn-tool" onclick="exportMyData()"><i class="fa-solid fa-download"></i> <span data-i18n="exportDataBtn">Export my data (JSON)</span></button>
-                                <button type="button" class="btn-tool" onclick="$('importFileInput').click()"><i class="fa-solid fa-upload"></i> <span data-i18n="importDataBtn">Import data (JSON)</span></button>
+                                <button type="button" class="btn-tool" onclick="exportMyData()"><span data-i18n="exportDataBtn">Export my data (JSON)</span></button>
+                                <button type="button" class="btn-tool" onclick="$('importFileInput').click()"><span data-i18n="importDataBtn">Import data (JSON)</span></button>
                                 <input type="file" id="importFileInput" accept="application/json,.json" style="display:none;" onchange="handleImportFile(event)">
                                 <button type="button" class="btn-danger-ghost" onclick="deleteMyAccount()"><i class="fa-solid fa-trash"></i> <span data-i18n="deleteAccountBtn">Delete account and all data</span></button>
                             </div>
@@ -754,7 +734,7 @@
         <section class="view" id="view-yearreview">
             <div class="card">
                 <div class="card-head">
-                    <span><i class="fa-solid fa-gift" style="margin-right:6px;"></i> <span data-i18n="navYearReview">Year in Review</span></span>
+                    <span><span data-i18n="navYearReview">Year in Review</span></span>
                 </div>
                 <div class="card-body">
                     <div class="yr-compare-bar">
@@ -766,8 +746,8 @@
                             <label for="yearCompareSelect" data-i18n="yrCompareLabel">Compare with</label>
                             <select id="yearCompareSelect" onchange="renderYearReview()" style="width:auto; min-width:130px;"></select>
                         </div>
-                        <button type="button" class="btn-tool" style="width:auto;" onclick="showAllYearsChart()"><i class="fa-solid fa-chart-column"></i> <span data-i18n="yrAllYearsBtn">All years</span></button>
-                        <button type="button" class="btn-tool" style="width:auto;" onclick="openWrapped()"><i class="fa-solid fa-film"></i> <span data-i18n="yrWrappedBtn">View as Wrapped</span></button>
+                        <button type="button" class="btn-tool" style="width:auto;" onclick="showAllYearsChart()"><span data-i18n="yrAllYearsBtn">All years</span></button>
+                        <button type="button" class="btn-tool" style="width:auto;" onclick="openWrapped()"><span data-i18n="yrWrappedBtn">View as Wrapped</span></button>
                     </div>
                     <div id="yearReviewCard" class="year-wrap-card">
                         <div class="year-wrap-badge">Backlog Wallet</div>
@@ -808,7 +788,7 @@
                         <div class="chart-area" style="height:280px; padding:0;"><canvas id="yearsChart"></canvas></div>
                     </div>
                     <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
-                        <button type="button" class="btn-primary" style="width:auto; padding:0 20px;" onclick="downloadYearReviewImage()"><i class="fa-solid fa-download"></i> <span data-i18n="yrDownloadBtn">Download as image</span></button>
+                        <button type="button" class="btn-primary" style="width:auto; padding:0 20px;" onclick="downloadYearReviewImage()"><span data-i18n="yrDownloadBtn">Download as image</span></button>
                     </div>
                     <p id="yrEmptyMsg" class="auth-note" style="display:none; margin-top:12px;" data-i18n="yrEmpty">No games this year.</p>
                 </div>
@@ -818,7 +798,7 @@
         <section class="view" id="view-goals">
             <div class="card">
                 <div class="card-head">
-                    <span><i class="fa-solid fa-piggy-bank" style="margin-right:6px;"></i> <span data-i18n="navGoals">Savings Goals</span></span>
+                    <span><span data-i18n="navGoals">Savings Goals</span></span>
                 </div>
                 <div class="card-body">
                     <p class="auth-note" data-i18n="goalsDesc" style="margin-bottom:14px;">Save up for games you want and track your progress.</p>
@@ -874,7 +854,7 @@
         <section class="view" id="view-shelf">
             <div class="card">
                 <div class="card-head">
-                    <span><i class="fa-solid fa-border-all" style="margin-right:6px;"></i> <span data-i18n="navShelf">Virtual Shelf</span></span>
+                    <span><span data-i18n="navShelf">Virtual Shelf</span></span>
                     <div style="display:flex; gap:10px; flex-wrap:wrap;">
                         <select id="shelfOwnershipFilter" onchange="renderShelf()" style="width:auto; min-width:140px;">
                             <option value="all" data-i18n-opt="filterAllOwnership">All formats</option>
@@ -904,7 +884,7 @@
         <section class="view" id="view-achievements">
             <div class="card">
                 <div class="card-head">
-                    <span><i class="fa-solid fa-medal" style="margin-right:6px;"></i> <span data-i18n="navAchievements">Achievements</span></span>
+                    <span><span data-i18n="navAchievements">Achievements</span></span>
                 </div>
                 <div class="card-body">
                     <p class="auth-note" data-i18n="achievementsDesc" style="margin-bottom:14px;">Unlock badges as you grow your game library.</p>
@@ -916,7 +896,7 @@
         <section class="view" id="view-roulette">
             <div class="card">
                 <div class="card-head">
-                    <span><i class="fa-solid fa-dice" style="margin-right:6px;"></i> <span data-i18n="navRoulette">What to play?</span></span>
+                    <span><span data-i18n="navRoulette">What to play?</span></span>
                 </div>
                 <div class="card-body">
                     <p class="auth-note" data-i18n="rouletteDesc" style="margin-bottom:16px;">Can't decide what to play tonight? Roll the dice on your backlog.</p>
@@ -934,7 +914,7 @@
                                 <option value="Kluczykarnia" data-i18n-opt="keyStore">Key Store</option>
                             </select>
                         </div>
-                        <button type="button" class="btn-primary" style="width:auto; padding:0 20px;" id="rouletteRollBtn" onclick="rollBacklogRoulette()"><i class="fa-solid fa-dice"></i> <span data-i18n="rouletteBtn">Pick a game</span></button>
+                        <button type="button" class="btn-primary" style="width:auto; padding:0 20px;" id="rouletteRollBtn" onclick="rollBacklogRoulette()"><span data-i18n="rouletteBtn">Pick a game</span></button>
                     </div>
                     <div id="rouletteResult"></div>
                 </div>
@@ -994,7 +974,7 @@
         <div class="drawer-overlay" id="adminModalOverlay" style="display:none;" onclick="closeAdminUserModal()"></div>
         <div class="card" id="adminUserModal" style="display:none; position:fixed; top:5%; left:50%; transform:translateX(-50%); width:min(640px,92vw); max-height:90vh; overflow:auto; z-index:400;">
             <div class="card-head">
-                <span><i class="fa-solid fa-user"></i> <span id="adminModalTitle">Account details</span></span>
+                <span><span id="adminModalTitle">Account details</span></span>
                 <button type="button" class="btn-link" onclick="closeAdminUserModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="card-body" id="adminModalBody"></div>
@@ -1003,7 +983,7 @@
         <div class="drawer-overlay" id="banModalOverlay" style="display:none;" onclick="closeBanModal()"></div>
         <div class="card" id="banModal" style="display:none; position:fixed; top:10%; left:50%; transform:translateX(-50%); width:min(480px,92vw); max-height:90vh; overflow:auto; z-index:410;">
             <div class="card-head">
-                <span><i class="fa-solid fa-ban"></i> <span id="banModalTitle">Ban user</span></span>
+                <span><span id="banModalTitle">Ban user</span></span>
                 <button type="button" class="btn-link" onclick="closeBanModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="card-body">
@@ -1080,22 +1060,17 @@
         </section>
 
     
-<footer class="card" id="siteFooter" style="margin-top:20px;">
-  <div class="card-body static-content" style="text-align:center;max-width:900px;margin:auto;">
-
-    <p>
-      <a href="#" onclick="showView('privacy'); return false;" data-i18n="navPrivacy">Privacy Policy</a> ·
-      <a href="#" onclick="showView('terms'); return false;" data-i18n="navTerms">Terms &amp; Conditions</a> ·
-      <a href="#" onclick="showView('feedback'); return false;" data-i18n="navFeedback">Send feedback</a> ·
-      <span data-i18n="footerContact">Contact</span>: <a href="mailto:info@backlogwallet.com">info@backlogwallet.com</a>
-    </p>
-
-    <p id="footerDateTime" style="margin-top:15px;font-size:12px;color:var(--text-dim);"></p>
-
-    <p style="margin-top:8px;font-size:11px;color:var(--text-dim);">
-      <span class="footer-build">v1.8.5 &middot; build 2026-11-11 15:45:53</span>
-    </p>
-  </div>
+<footer class="site-footer" id="siteFooter">
+    <div class="footer-links">
+        <a href="#" onclick="showView('privacy'); return false;" data-i18n="navPrivacy">Privacy Policy</a> ·
+        <a href="#" onclick="showView('terms'); return false;" data-i18n="navTerms">Terms &amp; Conditions</a> ·
+        <a href="#" onclick="showView('feedback'); return false;" data-i18n="navFeedback">Send feedback</a> ·
+        <span data-i18n="footerContact">Contact</span>: <a href="mailto:info@backlogwallet.com">info@backlogwallet.com</a>
+    </div>
+    <div class="footer-meta">
+        <span id="footerDateTime"></span>
+        <span class="footer-build">v1.8.6 &middot; build 2026-11-11 16:24:13</span>
+    </div>
 </footer>
 
 <button id="backToTopBtn" class="hamburger" style="position:fixed;bottom:20px;right:20px;display:none;z-index:150;" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" title="Back to top">
@@ -1117,7 +1092,7 @@
             <div id="wrappedSlideContent" class="wrapped-slide"></div>
             <button type="button" class="wrapped-nav-btn wrapped-nav-prev" onclick="wrappedPrev()" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
             <button type="button" class="wrapped-nav-btn wrapped-nav-next" onclick="wrappedNext()" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
-            <button type="button" class="btn-primary wrapped-download-btn" onclick="downloadWrappedSlide()"><i class="fa-solid fa-download"></i> <span data-i18n="yrDownloadBtn">Download as image</span></button>
+            <button type="button" class="btn-primary wrapped-download-btn" onclick="downloadWrappedSlide()"><span data-i18n="yrDownloadBtn">Download as image</span></button>
         </div>
     </div>
 
@@ -1132,7 +1107,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=23" defer></script>
+    <script src="app.js?v=24" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.

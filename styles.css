@@ -634,24 +634,6 @@
             gap: 12px;
             margin-bottom: 18px;
         }
-        .dash-letterhead {
-            position: relative;
-            background:
-                radial-gradient(ellipse 640px 320px at 8% -10%, rgba(106,168,232,0.16), transparent 62%),
-                var(--bg-panel);
-            border: 1px solid var(--border);
-            border-radius: var(--r-lg);
-            box-shadow: var(--shadow-md);
-            margin-bottom: 28px;
-        }
-        .dash-letterhead-inner { max-width: 1100px; margin: 0 auto; padding: 30px 24px; text-align: center; }
-        .dash-total-label { font-family: var(--font-body); font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-dim); margin-bottom: 10px; }
-        .dash-total-value { font-family: var(--font-mono); font-size: clamp(38px, 8vw, 64px); font-weight: 600; color: var(--steam-blue); display: flex; align-items: baseline; gap: 10px; justify-content: center; }
-        .dash-total-value select { width: auto; height: 32px; font-size: 14px; font-family: var(--font-mono); }
-        .dash-mini-stats { display: flex; gap: 36px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
-        .dash-mini-stats > div { display: flex; flex-direction: column; align-items: center; }
-        .dash-mini-stats span { font-family: var(--font-mono); font-size: 20px; font-weight: 600; color: var(--text-white); }
-        .dash-mini-stats small { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
         .stat-tile {
             background: var(--bg-input);
             border: 1px solid var(--border);
@@ -676,15 +658,6 @@
         .chart-area { position: relative; height: 320px; padding: 16px; }
 
         .auth-box { max-width: 420px; margin: 0 auto; }
-        .auth-side { display: none; }
-        /* same height as .auth-tab (also a fixed 44px) so the two top bars always line up,
-           whichever font happens to be loaded */
-        .auth-side-header { display: flex; align-items: center; height: 44px; margin-bottom: 18px; }
-        @media (min-width: 900px) {
-            .auth-layout { display: grid; grid-template-columns: 0.85fr 1fr; gap: 32px; align-items: center; }
-            .auth-side { display: block; }
-            .auth-box { margin: 0; max-width: none; }
-        }
         .auth-form { display: flex; flex-direction: column; gap: 12px; }
         .auth-tabs { display: flex; border-bottom: 1px solid var(--border); }
         .auth-tab {
@@ -1083,7 +1056,7 @@
         h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.01em; }
 
         /* money and numbers use the mono face */
-        .dash-total-value, .stat-tile .stat-value,
+        .summary-value, .stat-tile .stat-value,
         .year-wrap-total {
             font-family: var(--font-mono);
             font-variant-numeric: tabular-nums;
@@ -1123,20 +1096,6 @@
             padding-bottom: 10px; margin: 24px 0 16px;
         }
         .section-heading i { color: var(--text-dim); font-size: 13px; }
-
-        /* ---------------- dashboard letterhead ---------------- */
-        .dash-letterhead {
-            background: var(--bg-panel);
-            border: 1px solid var(--border);
-            border-radius: var(--r-lg);
-            box-shadow: none;
-        }
-        .dash-letterhead-inner { padding: 28px 24px; }
-        .dash-total-label { font-size: 11px; letter-spacing: var(--ls-label); color: var(--text-dim); text-transform: uppercase; }
-        .dash-total-value { color: var(--text-white); font-weight: 600; letter-spacing: -0.03em; }
-        .dash-mini-stats { gap: 28px; margin-top: 22px; }
-        .dash-mini-stats span { font-size: 18px; }
-        .dash-mini-stats small { font-size: 10.5px; letter-spacing: var(--ls-label); font-family: var(--font-body); }
 
         /* ---------------- stat tiles ---------------- */
         .stat-tile {
@@ -1342,3 +1301,45 @@
         /* nav labels were inheriting the button's centred layout */
         .nav-item, .nav-section-toggle { justify-content: flex-start; }
         .nav-section-toggle { justify-content: space-between; }
+
+        /* ---------------- dashboard summary + health (v1.8.6) ---------------- */
+        .summary {
+            display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between;
+            gap: 16px 32px; padding: 18px 22px; margin-bottom: 18px;
+            background: var(--bg-panel); border: 1px solid var(--border); border-radius: var(--r-lg);
+        }
+        .summary-label, .summary-stats small, .health-label {
+            display: block; font-size: 10.5px; text-transform: uppercase;
+            letter-spacing: var(--ls-label); color: var(--text-dim);
+        }
+        .summary-label { margin-bottom: 4px; }
+        .summary-value {
+            display: flex; align-items: baseline; gap: 10px;
+            font-size: clamp(26px, 5vw, 34px); font-weight: 600; letter-spacing: -0.02em; color: var(--text-white);
+        }
+        .summary-value select { width: auto; height: 30px; font-size: 13px; font-family: var(--font-mono); }
+        .summary-stats { display: flex; flex-wrap: wrap; gap: 10px 28px; }
+        .summary-stats > div { display: flex; flex-direction: column; }
+        .summary-num b { font-family: var(--font-mono); font-size: 17px; font-weight: 600; color: var(--text-white); }
+        .summary-stats small { margin-top: 2px; }
+        .trend { font-size: 12px; font-weight: 400; }
+
+        .health-card .card-body { padding: 16px 22px 18px; }
+        .health-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 10px; }
+        .health-result { display: flex; align-items: baseline; gap: 10px; }
+        #healthGrade { font-weight: 600; color: var(--text-white); }
+        .health-score { font-family: var(--font-mono); font-size: 13px; color: var(--text-dim); }
+        .health-bar { height: 6px; background: var(--bg-input); border-radius: 3px; overflow: hidden; }
+        #healthFill { height: 100%; width: 0; background: var(--steam-blue); transition: width 0.4s ease; }
+        .health-msg { margin-top: 10px; font-size: 13.5px; color: var(--text-main); }
+
+        /* ---------------- footer (v1.8.6) ---------------- */
+        .site-footer {
+            display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 24px;
+            margin-top: 28px; padding: 16px 0 8px; border-top: 1px solid var(--border);
+            font-size: 13px; color: var(--text-dim);
+        }
+        .site-footer a { color: var(--text-main); }
+        .site-footer a:hover { color: var(--steam-blue); }
+        .footer-meta { display: flex; flex-wrap: wrap; gap: 4px 14px; font-family: var(--font-mono); font-size: 11px; }
+        .footer-meta .footer-build { opacity: 1; }
