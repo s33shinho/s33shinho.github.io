@@ -51,7 +51,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=33">
+    <link rel="stylesheet" href="styles.css?v=35">
 </head>
 <body>
 
@@ -255,17 +255,8 @@
                 </div>
             </div>
 
-            <div class="card health-card" id="healthCard">
-                <div class="card-body">
-                    <div class="health-top">
-                        <span class="health-label" data-i18n="healthLabel">Backlog health</span>
-                        <span class="health-result"><span id="healthGrade">-</span> <span class="health-score"><span id="healthScoreNum">-</span>/100</span></span>
-                    </div>
-                    <div class="health-bar"><div id="healthFill"></div></div>
-                    <div class="health-msg" id="healthMessage">-</div>
-                </div>
-            </div>
-
+            <div class="home-grid">
+            <div class="home-main">
             <div class="card">
                 <div class="card-head">
                     <span><span data-i18n="addGame">Add game</span></span>
@@ -546,6 +537,28 @@
                 <div class="chart-area">
                     <canvas id="mainChart"></canvas>
                 </div>
+            </div>
+            </div>
+            <aside class="home-side">
+            <div class="card health-card" id="healthCard">
+                <div class="card-body">
+                    <div class="health-top">
+                        <span class="health-label" data-i18n="healthLabel">Backlog health</span>
+                        <span class="health-result"><span id="healthGrade">-</span> <span class="health-score"><span id="healthScoreNum">-</span>/100</span></span>
+                    </div>
+                    <div class="health-bar"><div id="healthFill"></div></div>
+                    <div class="health-msg" id="healthMessage">-</div>
+                </div>
+            </div>
+            <div class="card side-card" id="storeCard">
+                <div class="card-head"><span data-i18n="sideStoreTitle">Spending by store</span></div>
+                <div class="card-body" id="storeBars"></div>
+            </div>
+            <div class="card side-card" id="infoCard">
+                <div class="card-head"><span data-i18n="sideInfoTitle">Library info</span></div>
+                <div class="card-body"><dl class="kv" id="infoList"></dl></div>
+            </div>
+            </aside>
             </div>
             </div></section>
 
@@ -1091,7 +1104,7 @@
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v1.8.15 &middot; build 2026-11-12 10:05:33</span>
+        <span class="footer-build">v1.9 &middot; build 2026-11-12 10:26:23</span>
     </div>
 </footer>
 
@@ -1128,7 +1141,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=33" defer></script>
+    <script src="app.js?v=35" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.
