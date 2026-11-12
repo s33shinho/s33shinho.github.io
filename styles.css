@@ -1,3 +1,10 @@
+/* fonts are served from this site (vendor/fonts), subset to Latin + Latin Extended; licences in the same folder */
+@font-face { font-family: 'Source Sans 3'; font-style: normal; font-weight: 200 900; font-display: swap; src: url('vendor/fonts/SourceSans3-var.woff') format('woff'); }
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('vendor/fonts/IBMPlexMono-Regular.woff') format('woff'); }
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url('vendor/fonts/IBMPlexMono-Medium.woff') format('woff'); }
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 600; font-display: swap; src: url('vendor/fonts/IBMPlexMono-SemiBold.woff') format('woff'); }
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('vendor/fonts/IBMPlexMono-Bold.woff') format('woff'); }
+
 :root {
 
             --bg-app: #0a0c11;

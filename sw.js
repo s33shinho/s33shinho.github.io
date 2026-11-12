@@ -19,7 +19,7 @@
 // <script>/<link> tags in index.html (the paths in APP_SHELL below must match
 // them exactly, otherwise the precache grabs the old version).
 
-const CACHE_VERSION = 'v31';
+const CACHE_VERSION = 'v32';
 const CACHE_NAME = `backlog-wallet-${CACHE_VERSION}`;
 
 // Our own files - they must always match what is actually deployed.
@@ -27,9 +27,17 @@ const CACHE_NAME = `backlog-wallet-${CACHE_VERSION}`;
 const APP_SHELL = [
   '/',
   '/index.html',
-  '/styles.css?v=31',
-  '/app.js?v=31',
+  '/styles.css?v=32',
+  '/app.js?v=32',
   '/manifest.json',
+  '/vendor/fontawesome/css/all.min.css',
+  '/vendor/fontawesome/webfonts/fa-solid-900.woff2',
+  '/vendor/fontawesome/webfonts/fa-regular-400.woff2',
+  '/vendor/fonts/SourceSans3-var.woff',
+  '/vendor/fonts/IBMPlexMono-Regular.woff',
+  '/vendor/fonts/IBMPlexMono-Medium.woff',
+  '/vendor/fonts/IBMPlexMono-SemiBold.woff',
+  '/vendor/fonts/IBMPlexMono-Bold.woff',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
   '/icons/icon-maskable-512.png',
@@ -41,10 +49,7 @@ const APP_SHELL = [
 // (so a missing network on the first visit does not break the whole service worker install).
 const RUNTIME_CACHEABLE_HOSTS = [
   'cdn.jsdelivr.net',
-  'www.gstatic.com',
-  'cdnjs.cloudflare.com',
-  'fonts.googleapis.com',
-  'fonts.gstatic.com'
+  'www.gstatic.com'
 ];
 
 self.addEventListener('install', (event) => {
