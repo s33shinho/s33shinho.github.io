@@ -43,6 +43,7 @@
 })();
 </script>
 
+    <meta name="referrer" content="strict-origin">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,7 +54,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=29">
+    <link rel="stylesheet" href="styles.css?v=30">
 </head>
 <body>
 
@@ -729,7 +730,7 @@
             <div class="card">
                 <div class="card-head"><span data-i18n="rankingTitle">Library Value Ranking</span></div>
                 <div class="card-body">
-                    <p class="auth-note" data-i18n="rankingNote" style="margin-bottom:12px;">The ranking is calculated directly from the data stored on each account at the moment it's displayed - it can't be manually inflated without actually adding games.</p>
+                    <p class="auth-note" data-i18n="rankingNote" style="margin-bottom:12px;">Each entry is worked out from the library on that account when it is saved. This is a ranking for fun, and entries that look fake can be removed.</p>
                     <div class="table-container" style="max-height:none;">
                         <table id="rankingTable">
                             <thead>
@@ -972,7 +973,7 @@
                         <h4 class="acc-h">Users</h4>
                         <div class="table-container" style="max-height:400px;">
                             <table id="adminUsersTable">
-                                <thead><tr><th>Nick / e-mail</th><th>Country</th><th>Registered</th><th>Games</th><th>Value (CHF)</th><th>Status</th><th style="text-align:right;">Action</th></tr></thead>
+                                <thead><tr><th>Nick / e-mail</th><th>Registered</th><th>Games</th><th>Value (CHF)</th><th>Status</th><th style="text-align:right;">Action</th></tr></thead>
                                 <tbody id="adminUsersTbody"></tbody>
                             </table>
                         </div>
@@ -1086,7 +1087,7 @@
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v1.8.11 &middot; build 2026-11-12 07:34:01</span>
+        <span class="footer-build">v1.8.12 &middot; build 2026-11-12 07:43:18</span>
     </div>
 </footer>
 
@@ -1123,7 +1124,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=29" defer></script>
+    <script src="app.js?v=30" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.
