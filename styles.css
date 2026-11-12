@@ -19,7 +19,7 @@
 
             --text-main: #a8b2c4;
             --text-light: #dde3ee;
-            --text-dim: #78829a;
+            --text-dim: #8791a8;
             --text-white: #f2f5fa;
 
             /* interface accent */
@@ -73,13 +73,13 @@
             --border-light: #c9ccd8;
             --text-main: #4b5162;
             --text-light: #1b1f2b;
-            --text-dim: #6d7488;
+            --text-dim: #5d6477;
             --text-white: #0e1119;
             --steam-blue: #2b64ad;
             --accent-2: #2b64ad;
             --accent-soft: rgba(43,100,173,0.09);
             --accent-line: rgba(43,100,173,0.26);
-            --coin: #a9740a;
+            --coin: #8f6008;
             --coin-soft: rgba(169,116,10,0.10);
             --key-purple: #a9740a;
             --btn-green: #2b64ad;
@@ -1685,3 +1685,14 @@ td.name-cell .name-text { max-width: 340px; }
 /* year card in the new palette */
 .year-wrap-card { background: var(--bg-raised); border-radius: var(--r-lg); box-shadow: none; }
 .year-wrap-total { border-bottom: none; color: var(--coin); }
+
+/* ---- accessibility (v2.2) ---- */
+.skip-link { position: fixed; top: 8px; left: 8px; z-index: 1000; padding: 10px 16px; background: var(--steam-blue); color: #0b1017; font-weight: 700; border-radius: var(--radius, 4px); text-decoration: none; transform: translateY(-200%); }
+.skip-link:focus { transform: none; }
+.topbar h1 a { color: inherit; text-decoration: none; }
+.topbar h1 a:focus-visible { outline: 2px solid var(--steam-blue); outline-offset: 3px; }
+th[aria-sort] { cursor: pointer; }
+th[tabindex]:focus-visible { outline: 2px solid var(--steam-blue); outline-offset: -2px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+main:focus { outline: none; }
+h2[tabindex="-1"]:focus, .card-head[tabindex="-1"]:focus { outline: none; }

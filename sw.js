@@ -19,7 +19,7 @@
 // <script>/<link> tags in index.html (the paths in APP_SHELL below must match
 // them exactly, otherwise the precache grabs the old version).
 
-const CACHE_VERSION = 'v40';
+const CACHE_VERSION = 'v41';
 const CACHE_NAME = `backlog-wallet-${CACHE_VERSION}`;
 
 // Our own files - they must always match what is actually deployed.
@@ -27,9 +27,14 @@ const CACHE_NAME = `backlog-wallet-${CACHE_VERSION}`;
 const APP_SHELL = [
   '/',
   '/index.html',
-  '/styles.css?v=40',
-  '/app.js?v=40',
+  '/styles.css?v=41',
+  '/app.js?v=41',
   '/manifest.json',
+  '/static.css?v=1',
+  '/features/',
+  '/faq/',
+  '/privacy/',
+  '/terms/',
   '/vendor/fontawesome/css/all.min.css',
   '/vendor/fontawesome/webfonts/fa-solid-900.woff2',
   '/vendor/fontawesome/webfonts/fa-regular-400.woff2',
@@ -96,15 +101,18 @@ self.addEventListener('fetch', (event) => {
 
   // stale-while-revalidate: answer from the cache right away if there is one, and fetch
   // a fresher copy in the background for next time. Offline -> the cache stays.
+  // page loads like /?view=faq or /?source=pwa share one cached shell, so the query part is ignored
+  const isPage = req.mode === 'navigate';
   event.respondWith(
     caches.open(CACHE_NAME).then((cache) =>
-      cache.match(req).then((cached) => {
+      cache.match(req, { ignoreSearch: isPage }).then((cached) => {
         const network = fetch(req)
           .then((res) => {
-            if (res && res.status === 200) cache.put(req, res.clone());
+            if (res && res.status === 200 && !isPage) cache.put(req, res.clone());
+            else if (res && res.status === 200 && !url.search) cache.put(req, res.clone());
             return res;
           })
-          .catch(() => cached);
+          .catch(() => cached || (isPage ? cache.match('/index.html') : undefined));
         return cached || network;
       })
     )
