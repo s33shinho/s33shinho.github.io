@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://cdn.jsdelivr.net https://apis.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.firebaseapp.com https://www.gstatic.com https://cdn.jsdelivr.net https://open.er-api.com https://api.web3forms.com; frame-src https://*.firebaseapp.com https://accounts.google.com; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Backlog Wallet</title>
     <meta name="description" content="Track your game purchases, monitor spending over time, and see how your library grows. Free, with 20+ currencies.">
@@ -51,7 +52,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=33">
+    <link rel="stylesheet" href="styles.css?v=34">
 </head>
 <body>
 
@@ -1091,7 +1092,7 @@
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v1.8.15 &middot; build 2026-11-12 10:05:33</span>
+        <span class="footer-build">v1.8.16 &middot; build 2026-11-12 10:06:20</span>
     </div>
 </footer>
 
@@ -1128,7 +1129,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=33" defer></script>
+    <script src="app.js?v=34" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.
