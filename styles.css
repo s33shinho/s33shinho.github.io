@@ -1445,3 +1445,13 @@
 
         /* footer note */
         .footer-note { flex-basis: 100%; margin-top: 6px; font-size: 12.5px; color: var(--text-dim); }
+
+/* short version at the top of the privacy policy */
+.policy-summary { border: 1px solid var(--border); border-left: 3px solid var(--steam-blue); background: var(--bg-panel); padding: 12px 16px; margin: 12px 0 18px; border-radius: 6px; }
+.policy-summary ul { margin: 6px 0 8px 18px; }
+.policy-summary p { margin: 0; color: var(--text-dim); font-size: 13px; }
+/* "what we store about you" */
+.stored-table { width: 100%; border-collapse: collapse; margin: 8px 0 6px; font-size: 14px; }
+.stored-table th, .stored-table td { text-align: left; padding: 7px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+.stored-table th { width: 46%; font-weight: 400; color: var(--text-dim); padding-right: 12px; }
+.stored-table td { color: var(--text-light); word-break: break-word; }

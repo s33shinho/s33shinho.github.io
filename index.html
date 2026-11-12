@@ -51,7 +51,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=32">
+    <link rel="stylesheet" href="styles.css?v=33">
 </head>
 <body>
 
@@ -580,6 +580,7 @@
                             <div class="input-group" id="passGroup">
                                 <label for="authPass" data-i18n="password">Password</label>
                                 <input type="password" id="authPass" autocomplete="current-password" minlength="6">
+                                <p class="auth-note" id="regPassHint" data-i18n="regPassHint" style="display:none; margin-top:6px;">Use at least 8 characters.</p>
                             </div>
                             <div class="input-group" id="rememberGroup" style="flex-direction:row; align-items:center; gap:8px;">
                                 <input type="checkbox" id="rememberMe" style="width:auto; height:auto;" checked>
@@ -610,11 +611,11 @@
                                 </div>
                                 <div class="input-group">
                                     <label for="newPassword" data-i18n="newPassword">New password</label>
-                                    <input type="password" id="newPassword" required autocomplete="new-password" minlength="6">
+                                    <input type="password" id="newPassword" required autocomplete="new-password" minlength="8">
                                 </div>
                                 <div class="input-group">
                                     <label for="newPasswordConfirm" data-i18n="newPasswordConfirm">Confirm new password</label>
-                                    <input type="password" id="newPasswordConfirm" required autocomplete="new-password" minlength="6">
+                                    <input type="password" id="newPasswordConfirm" required autocomplete="new-password" minlength="8">
                                 </div>
                                 <button type="submit" class="btn-primary" style="width:auto; padding:0 16px;"><span data-i18n="changePasswordSubmit">Change password</span></button>
                             </form>
@@ -666,6 +667,12 @@
                                     <span data-i18n="accRankEnable">Show me in the ranking</span>
                                 </label>
                             </div>
+                        </div>
+
+                        <div class="acc-block">
+                            <h4 class="acc-h" data-i18n="accStoredHead">What we store about you</h4>
+                            <table class="stored-table" id="storedSummary"></table>
+                            <p class="auth-note" data-i18n="accStoredNote">That is all of it.</p>
                         </div>
 
                         <div class="acc-block">
@@ -1084,7 +1091,7 @@
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v1.8.14 &middot; build 2026-11-12 08:12:12</span>
+        <span class="footer-build">v1.8.15 &middot; build 2026-11-12 10:05:33</span>
     </div>
 </footer>
 
@@ -1121,7 +1128,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=32" defer></script>
+    <script src="app.js?v=33" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.
