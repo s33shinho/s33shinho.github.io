@@ -19,11 +19,11 @@
     <meta name="twitter:title" content="Backlog Wallet">
     <meta name="twitter:description" content="Track your game purchases, monitor spending over time, and see how your library grows. Free, with 20+ currencies.">
     <meta name="twitter:image" content="https://backlogwallet.com/icons/og-banner.png">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0c11'/%3E%3Crect x='3' y='7' width='26' height='18' rx='3.5' fill='%233a78c2'/%3E%3Ctext x='16' y='20' font-family='ui-monospace,Menlo,Consolas,monospace' font-size='11' font-weight='700' fill='white' text-anchor='middle'%3EBW%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2312151b'/%3E%3Crect x='3' y='7' width='26' height='18' rx='3.5' fill='%233a78c2'/%3E%3Ctext x='16' y='20' font-family='ui-monospace,Menlo,Consolas,monospace' font-size='11' font-weight='700' fill='white' text-anchor='middle'%3EBW%3C/text%3E%3C/svg%3E">
 
     <!-- PWA: instalowalna aplikacja z ikona i dzialaniem offline -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0a0c11">
+    <meta name="theme-color" content="#12151b">
     <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -51,7 +51,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=39">
+    <link rel="stylesheet" href="styles.css?v=40">
 </head>
 <body>
 
@@ -482,6 +482,7 @@
                         <option value="__clear__" data-i18n-opt="bulkClearStatus">Clear status (unset)</option>
                     </select>
                     <button type="button" class="btn-primary" style="width:auto; padding:0 16px;" onclick="applyBulkEdit()"><span data-i18n="bulkApplyBtn">Apply</span></button>
+                    <button type="button" class="btn-tool btn-danger-ghost" style="width:auto;" onclick="deleteSelectedGames()"><i class="fa-solid fa-trash"></i> <span data-i18n="bulkDeleteBtn">Delete selected</span></button>
                     <button type="button" class="btn-tool" style="width:auto;" onclick="clearSelection()"><span data-i18n="bulkClearBtn">Deselect all</span></button>
                 </div>
                 <div class="table-skeleton" id="tableSkeleton" style="display:none;">
@@ -1110,7 +1111,7 @@
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v2.0 &middot; build 2026-11-12 11:36:57</span>
+        <span class="footer-build">v2.1 &middot; build 2026-11-12 13:30</span>
     </div>
 </footer>
 
@@ -1147,7 +1148,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=39" defer></script>
+    <script src="app.js?v=40" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.
