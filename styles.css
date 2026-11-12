@@ -1319,8 +1319,8 @@
             margin-top: 28px; padding: 16px 0 8px; border-top: 1px solid var(--border);
             font-size: 13px; color: var(--text-dim);
         }
-        .site-footer a { color: var(--text-main); }
-        .site-footer a:hover { color: var(--steam-blue); }
+        .site-footer a { color: var(--steam-blue); }
+        .site-footer a:hover { color: var(--text-white); }
         .footer-meta { display: flex; flex-wrap: wrap; gap: 4px 14px; font-family: var(--font-mono); font-size: 11px; }
         .footer-meta .footer-build { opacity: 1; }
 

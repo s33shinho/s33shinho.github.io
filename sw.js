@@ -19,7 +19,7 @@
 // <script>/<link> tags in index.html (the paths in APP_SHELL below must match
 // them exactly, otherwise the precache grabs the old version).
 
-const CACHE_VERSION = 'v43';
+const CACHE_VERSION = 'v44';
 const CACHE_NAME = `backlog-wallet-${CACHE_VERSION}`;
 
 // Our own files - they must always match what is actually deployed.
@@ -27,8 +27,8 @@ const CACHE_NAME = `backlog-wallet-${CACHE_VERSION}`;
 const APP_SHELL = [
   '/',
   '/index.html',
-  '/styles.css?v=43',
-  '/app.js?v=43',
+  '/styles.css?v=44',
+  '/app.js?v=44',
   '/manifest.json',
   '/static.css?v=1',
   '/features/',
