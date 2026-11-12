@@ -48,7 +48,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=42">
+    <link rel="stylesheet" href="styles.css?v=43">
 </head>
 <body class="auth-pending">
     <a class="skip-link" href="#mainContent">Skip to content</a>
@@ -579,7 +579,8 @@
 
         <section class="view" id="view-auth">
             <div class="auth-layout">
-            <div class="card auth-box">
+            <div class="card auth-box" id="authBox" data-mode="login">
+                <div class="card-head auth-cardhead" id="authHead"><span id="authTitle">Log in</span><button type="button" class="auth-switch" id="authSwitch" onclick="authSwitch()">Create account</button></div>
                 <div class="auth-tabs" id="authTabs">
                     <button class="auth-tab active" data-mode="login" onclick="setAuthMode('login')" data-i18n="tabLogin">Login</button>
                     <button class="auth-tab" data-mode="register" onclick="setAuthMode('register')" data-i18n="tabRegister">Register</button>
@@ -587,6 +588,7 @@
                 </div>
                 <div class="card-body">
                     <div id="authForms">
+                        <p class="auth-hint" id="authSub"></p>
                         <div class="auth-msg" id="authMsg"></div>
                         <form class="auth-form" id="authForm" style="margin-top:12px;">
                             <div class="input-group">
@@ -601,20 +603,23 @@
                                 <label for="authNickname" data-i18n="regNickname">Nickname</label>
                                 <input type="text" id="authNickname" maxlength="32" autocomplete="nickname">
                             </div>
-                            <div class="input-group" id="regConsentGroup" style="display:none; flex-direction:row; align-items:flex-start; gap:8px;">
+                            <div class="input-group" id="passGroup">
+                                <label for="authPass" data-i18n="password">Password</label>
+                                <div class="auth-pass"><input type="password" id="authPass" autocomplete="current-password" minlength="6"><button type="button" class="auth-peek" id="authPeek" aria-pressed="false" aria-label="Show password" onclick="toggleAuthPeek()">Show</button></div>
+                                <p class="auth-note" id="regPassHint" data-i18n="regPassHint" style="display:none; margin-top:6px;">Use at least 8 characters.</p>
+                            </div>
+                            <div class="input-group" id="regConsentGroup" style="display:none;">
                                 <input type="checkbox" id="regConsent" style="width:auto; height:auto; margin-top:3px;">
                                 <label for="regConsent" style="text-transform:none; font-size:13px; color:var(--text-light); line-height:1.45;"><span data-i18n="regConsentPre">I am at least 16 years old and I accept the</span> <a href="#" style="color:var(--steam-blue); text-decoration:underline;" onclick="showView('terms'); return false;" data-i18n="navTerms">Terms &amp; Conditions</a> <span data-i18n="regConsentAnd">and the</span> <a href="#" style="color:var(--steam-blue); text-decoration:underline;" onclick="showView('privacy'); return false;" data-i18n="navPrivacy">Privacy Policy</a>.</label>
                             </div>
-                            <div class="input-group" id="passGroup">
-                                <label for="authPass" data-i18n="password">Password</label>
-                                <input type="password" id="authPass" autocomplete="current-password" minlength="6">
-                                <p class="auth-note" id="regPassHint" data-i18n="regPassHint" style="display:none; margin-top:6px;">Use at least 8 characters.</p>
-                            </div>
-                            <div class="input-group" id="rememberGroup" style="flex-direction:row; align-items:center; gap:8px;">
+                            <div class="input-group" id="rememberGroup">
                                 <input type="checkbox" id="rememberMe" style="width:auto; height:auto;" checked>
                                 <label for="rememberMe" style="text-transform:none; font-size:13px; color:var(--text-light);" data-i18n="rememberMe">Remember me</label>
                             </div>
-                            <button type="submit" class="btn-primary" id="authSubmitBtn" style="margin-top:4px;"><span data-i18n="loginBtn">Log in</span></button>
+                            <div class="auth-actions">
+                                <button type="submit" class="btn-primary" id="authSubmitBtn"><span data-i18n="loginBtn">Log in</span></button>
+                                <button type="button" class="auth-link auth-forgot" onclick="setAuthMode('reset')">Forgot password?</button>
+                            </div>
                         </form>
                         <p class="auth-note" style="margin-top:14px;" id="authNote" data-i18n="authNoteGuest">Full app functionality requires a free account - register or log in to access your game library.</p>
                     </div>
@@ -717,6 +722,20 @@
                     </div>
                 </div>
             </div>
+            <aside class="card side-card auth-info">
+                <div class="card-head"><span>About Backlog Wallet</span></div>
+                <div class="card-body">
+                    <dl class="kv">
+                        <div><dt>Price</dt><dd>Free</dd></div>
+                        <div><dt>Sign-in</dt><dd>E-mail and password</dd></div>
+                        <div><dt>Library</dt><dd>Stored in your account</dd></div>
+                        <div><dt>Currencies</dt><dd>20+, live rates</dd></div>
+                        <div><dt>Import</dt><dd>Pasted text, JSON</dd></div>
+                        <div><dt>Export</dt><dd>JSON, CSV</dd></div>
+                    </dl>
+                    <p class="auth-info-links"><a href="/features/">What it does</a> &middot; <a href="/faq/">FAQ</a> &middot; <a href="/privacy/">Privacy</a></p>
+                </div>
+            </aside>
             </div>
         </section>
 
@@ -1121,7 +1140,7 @@
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v2.3 &middot; build 2026-11-12 19:50</span>
+        <span class="footer-build">v2.4 &middot; build 2026-11-12 20:50</span>
     </div>
 </footer>
 
@@ -1158,7 +1177,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=42" defer></script>
+    <script src="app.js?v=43" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.
