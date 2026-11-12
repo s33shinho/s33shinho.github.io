@@ -51,7 +51,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=36">
+    <link rel="stylesheet" href="styles.css?v=37">
 </head>
 <body>
 
@@ -521,11 +521,13 @@
                 <div class="card-head">
                     <span><span data-i18n="chartsTitle">Statistics</span></span>
                     <div class="chart-controls">
+                        <button type="button" class="btn-chip" onclick="exportMainChart()" title="Download PNG"><i class="fa-solid fa-download"></i> <span data-i18n="chartDownloadPng">Download PNG</span></button>
                         <select id="chartType" onchange="updateCharts()">
                             <option value="purchases" data-i18n-opt="chartOptPurchases">Purchases over time</option>
                             <option value="cumulative" data-i18n-opt="chartOptCumulative">Cumulative total</option>
                             <option value="sources" data-i18n-opt="chartOptSources">Sources</option>
                             <option value="ownership" data-i18n-opt="chartOptOwnership">Digital vs Physical</option>
+                            <option value="yoy" data-i18n-opt="chartOptYoy">Spending, year over year</option>
                         </select>
                         <select id="chartGranularity" onchange="updateCharts()">
                             <option value="month" data-i18n-opt="granMonth">Month</option>
@@ -553,6 +555,10 @@
             <div class="card side-card" id="storeCard">
                 <div class="card-head"><span data-i18n="sideStoreTitle">Spending by store</span></div>
                 <div class="card-body" id="storeBars"></div>
+            </div>
+            <div class="card side-card" id="costCard">
+                <div class="card-head"><span data-i18n="sideCostTitle">Cost insights</span></div>
+                <div class="card-body" id="costList"></div>
             </div>
             <div class="card side-card" id="infoCard">
                 <div class="card-head"><span data-i18n="sideInfoTitle">Library info</span></div>
@@ -786,7 +792,7 @@
                     <div id="yearReviewCard" class="year-wrap-card">
                         <div class="year-wrap-badge">Backlog Wallet</div>
                         <div class="year-wrap-year" id="yrYear">2026</div>
-                        <div class="year-wrap-total-label" data-i18n="yrTotalSpent">Spent this year</div>
+                        <div class="year-wrap-total-label" id="yrTotalLabel" data-i18n="yrTotalSpent">Spent this year</div>
                         <div class="year-wrap-total" id="yrTotal">0.00 <small>CHF</small></div>
                         <div class="year-wrap-stats">
                             <div><span id="yrGames">0</span><small data-i18n="yrGamesLabel">Games bought</small></div>
@@ -802,9 +808,9 @@
                         <div class="purchase-heatmap-legend">
                             <span data-i18n="yrHeatmapLess">Less</span>
                             <i style="background:var(--bg-input);"></i>
-                            <i style="background:rgba(139,123,255,0.25);"></i>
-                            <i style="background:rgba(139,123,255,0.5);"></i>
-                            <i style="background:rgba(139,123,255,0.75);"></i>
+                            <i style="background:rgba(95,180,238,0.25);"></i>
+                            <i style="background:rgba(95,180,238,0.5);"></i>
+                            <i style="background:rgba(95,180,238,0.75);"></i>
                             <i style="background:var(--steam-blue);"></i>
                             <span data-i18n="yrHeatmapMore">More</span>
                         </div>
@@ -818,7 +824,7 @@
                         <div class="yr-verdict" id="yrVerdict"></div>
                     </div>
                     <div id="yrAllYearsWrap" style="display:none; margin-top:22px;">
-                        <div class="section-heading"><span data-i18n="yrAllYearsHeading">Spending year by year</span></div>
+                        <div class="section-heading" style="display:flex; justify-content:space-between; align-items:center;"><span data-i18n="yrAllYearsHeading">Spending year by year</span><button type="button" class="btn-chip" onclick="exportChartPng(yearsChartInstance, 'backlog-wallet-years.png')"><i class="fa-solid fa-download"></i> <span data-i18n="chartDownloadPng">Download PNG</span></button></div>
                         <div class="chart-area" style="height:280px; padding:0;"><canvas id="yearsChart"></canvas></div>
                     </div>
                     <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
@@ -1104,7 +1110,7 @@
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v1.9 &middot; build 2026-11-12 10:45:45</span>
+        <span class="footer-build">v2.0 &middot; build 2026-11-12 11:26:10</span>
     </div>
 </footer>
 
@@ -1141,7 +1147,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=36" defer></script>
+    <script src="app.js?v=37" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.

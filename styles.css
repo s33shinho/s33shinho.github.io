@@ -1681,3 +1681,7 @@ td.name-cell .name-text { max-width: 340px; }
 }
 
 .drawer-close { width: auto; height: auto; margin-left: auto; }
+
+/* year card in the new palette */
+.year-wrap-card { background: var(--bg-raised); border-radius: var(--r-lg); box-shadow: none; }
+.year-wrap-total { border-bottom: none; color: var(--coin); }
