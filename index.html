@@ -53,7 +53,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=28">
+    <link rel="stylesheet" href="styles.css?v=29">
 </head>
 <body>
 
@@ -575,7 +575,10 @@
                                 <label for="authNickname" data-i18n="regNickname">Nickname</label>
                                 <input type="text" id="authNickname" maxlength="32" autocomplete="nickname">
                             </div>
-                            <p class="auth-note" id="regPrivacyNote" style="display:none;" data-i18n="regPrivacyNote">During registration we determine only your country (e.g. "PL") from your IP address - the IP address itself is never stored. The country is visible in the administrator panel for account security/oversight purposes. See the Privacy Policy for details.</p>
+                            <div class="input-group" id="regConsentGroup" style="display:none; flex-direction:row; align-items:flex-start; gap:8px;">
+                                <input type="checkbox" id="regConsent" style="width:auto; height:auto; margin-top:3px;">
+                                <label for="regConsent" style="text-transform:none; font-size:13px; color:var(--text-light); line-height:1.45;"><span data-i18n="regConsentPre">I am at least 16 years old and I accept the</span> <a href="#" style="color:var(--steam-blue); text-decoration:underline;" onclick="showView('terms'); return false;" data-i18n="navTerms">Terms &amp; Conditions</a> <span data-i18n="regConsentAnd">and the</span> <a href="#" style="color:var(--steam-blue); text-decoration:underline;" onclick="showView('privacy'); return false;" data-i18n="navPrivacy">Privacy Policy</a>.</label>
+                            </div>
                             <div class="input-group" id="passGroup">
                                 <label for="authPass" data-i18n="password">Password</label>
                                 <input type="password" id="authPass" autocomplete="current-password" minlength="6">
@@ -653,6 +656,17 @@
                             <div id="publicShareLinkBox" style="display:none; margin-top:12px; gap:8px; flex-wrap:wrap; align-items:center;">
                                 <input type="text" id="publicShareLink" readonly style="flex:1; min-width:200px; font-family:var(--font-mono); font-size:12px;">
                                 <button type="button" class="btn-tool" onclick="copyPublicShareLink()"><span data-i18n="copyLinkBtn">Copy link</span></button>
+                            </div>
+                        </div>
+
+                        <div class="acc-block">
+                            <h4 class="acc-h" data-i18n="accRankHead">Public ranking</h4>
+                            <p class="auth-note" data-i18n="accRankNote">Optional.</p>
+                            <div style="display:flex; align-items:center; gap:10px; margin-top:10px;">
+                                <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:14px; color:var(--text-light);">
+                                    <input type="checkbox" id="rankingToggle" onchange="toggleRanking(this.checked)" style="width:auto; height:auto;">
+                                    <span data-i18n="accRankEnable">Show me in the ranking</span>
+                                </label>
                             </div>
                         </div>
 
@@ -1072,7 +1086,7 @@
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v1.8.10 &middot; build 2026-11-11 19:54:24</span>
+        <span class="footer-build">v1.8.11 &middot; build 2026-11-12 07:34:01</span>
     </div>
 </footer>
 
@@ -1104,13 +1118,12 @@
             <p id="cookieConsentText" style="flex:1; min-width:220px; color:var(--text-light); font-size:13px; line-height:1.5; margin:0;"></p>
             <div style="display:flex; gap:10px; flex-shrink:0;">
                 <button class="btn-tool" style="width:auto;" onclick="showView('privacy'); return false;" id="cookieMoreInfoBtn"></button>
-                <button class="btn-tool" style="width:auto;" onclick="setCookieConsent(false)" id="cookieDeclineBtn"></button>
-                <button class="btn-primary" style="width:auto;" onclick="setCookieConsent(true)" id="cookieAcceptBtn"></button>
+                <button class="btn-primary" style="width:auto;" onclick="dismissStorageNotice()" id="cookieAcceptBtn"></button>
             </div>
         </div>
     </div>
 
-    <script src="app.js?v=28" defer></script>
+    <script src="app.js?v=29" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.
