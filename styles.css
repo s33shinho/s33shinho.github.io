@@ -2035,3 +2035,9 @@ body.signed-out .auth-layout { gap: 56px; }
 .bar-row { margin-bottom: 14px; }
 .bar-name { font-size: 15px; font-weight: 600; }
 .bar-val { font-size: 14px; }
+
+/* signed in last time: no landing flash while the login is being checked */
+html.auth-hint #homeLanding { display: none !important; }
+html.auth-hint #homeApp { display: block !important; }
+html.auth-hint #tableSkeleton { display: block !important; }
+html.auth-hint #tableWrapper { display: none !important; }
