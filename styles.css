@@ -1402,15 +1402,24 @@
         thead th { border-bottom: 3px double var(--border-light); }
 
         /* changelog */
-        .log-entry { padding: 18px 0; border-top: 1px solid var(--border); }
-        .log-entry:first-child { border-top: none; padding-top: 6px; }
-        .log-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; margin-bottom: 8px; }
-        .log-ver { font-family: var(--font-mono); font-size: 18px; font-weight: 600; color: var(--text-white); }
-        .log-date { font-family: var(--font-mono); font-size: 12.5px; color: var(--text-dim); }
-        .log-group { margin-top: 12px; }
-        .log-label { font-weight: 600; font-size: 14px; color: var(--text-white); margin-bottom: 4px; }
-        .log-group ul { margin: 0; padding-left: 18px; }
-        .log-group li { margin-bottom: 4px; }
+        .log-entry { margin-bottom: 30px; }
+        .log-entry:last-child { margin-bottom: 0; }
+        .log-head { display: flex; align-items: center; gap: 20px; margin-bottom: 12px; }
+        .static-content .log-title { margin: 0; font-family: var(--font-body); font-size: 22px; font-weight: 400; color: var(--text-white); white-space: nowrap; }
+        .log-rule { flex: 1; border-top: 1px solid var(--border-light); }
+        .log-table { border: 1px solid var(--border-light); border-radius: var(--r-md); overflow: hidden; }
+        .log-row { display: grid; grid-template-columns: 112px 1fr; align-items: center; gap: 0 18px; padding: 11px 16px; }
+        .log-row + .log-row { border-top: 1px solid var(--border); }
+        .log-tag { justify-self: start; padding: 2px 11px; border-radius: var(--r-md); font-size: 13px; font-weight: 600; line-height: 1.5; color: #fff; }
+        .log-new { background: #3a78c2; }
+        .log-changed { background: #5d6679; }
+        .log-fixed { background: #2a7f55; }
+        .log-text { color: var(--text-main); line-height: 1.5; }
+        @media (max-width: 620px) {
+            .static-content .log-title { font-size: 19px; }
+            .log-row { grid-template-columns: 72px 1fr; gap: 0 10px; padding: 10px 12px; }
+            .log-tag { padding: 2px 8px; font-size: 12.5px; }
+        }
 
         /* footer note */
         .footer-note { flex-basis: 100%; margin-top: 6px; font-size: 12.5px; color: var(--text-dim); }
