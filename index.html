@@ -37,6 +37,8 @@
 (function () {
     // set the theme before first paint so the page does not flash dark on a light setting
     if (localStorage.getItem("theme") === "light") document.documentElement.setAttribute("data-theme", "light");
+    // do not run inside someone else's frame (clickjacking)
+    try { if (window.top !== window.self) window.top.location = window.self.location; } catch (e) { document.documentElement.style.display = "none"; }
     // signed in last time: show the account view straight away while the login is checked in the background
     try { if (localStorage.getItem("bwSignedIn") === "1") document.documentElement.classList.add("auth-hint"); } catch (e) {}
 })();
@@ -53,7 +55,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js" defer></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js" defer></script>
 
-    <link rel="stylesheet" href="styles.css?v=60">
+    <link rel="stylesheet" href="styles.css?v=61">
 </head>
 <body class="auth-pending">
     <a class="skip-link" href="#mainContent">Skip to content</a>
@@ -1039,6 +1041,8 @@
                         <button type="button" class="btn-tool" onclick="loadAdminPanel()"><i class="fa-solid fa-rotate"></i> Refresh data</button>
                         <button type="button" class="btn-tool" style="margin-top:8px;" onclick="forceSyncLeaderboard()"><i class="fa-solid fa-ranking-star"></i> Force leaderboard sync (all accounts)</button>
                         <p class="auth-note" style="margin-top:8px; font-size:11px;">Use this if the leaderboard is missing accounts that have not signed in since the last site update.</p>
+                        <button type="button" class="btn-tool" style="margin-top:8px;" onclick="purgeNicknameEmails()"><i class="fa-solid fa-eraser"></i> Remove e-mails from nickname records</button>
+                        <p class="auth-note" style="margin-top:8px; font-size:11px;">Older accounts still have their e-mail stored next to the nickname until they sign in. This clears all of them at once.</p>
                     </div>
                 </div>
             </div>
@@ -1145,7 +1149,7 @@
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v0.23.0 &middot; build 2026-11-14 16:45</span>
+        <span class="footer-build">v0.24.0 &middot; build 2026-11-14 18:55</span>
     </div>
 </footer>
 
@@ -1182,7 +1186,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=60" defer></script>
+    <script src="app.js?v=61" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.
