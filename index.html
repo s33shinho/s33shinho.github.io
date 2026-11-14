@@ -22,13 +22,13 @@
     <meta name="twitter:title" content="Backlog Wallet">
     <meta name="twitter:description" content="Track your game purchases, monitor spending over time, and see how your library grows. Free, with 20+ currencies.">
     <meta name="twitter:image" content="https://backlogwallet.com/icons/og-banner.png">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c1411'/%3E%3Ccircle cx='16' cy='16' r='11' fill='%23e2b354'/%3E%3Ctext x='16' y='21.5' font-family='Georgia,serif' font-size='15' font-weight='700' fill='%231a1405' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23121110'/%3E%3Ccircle cx='16' cy='16' r='8' fill='%23ff6b3d'/%3E%3C/svg%3E">
 
     <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Backlog Wallet", "url": "https://backlogwallet.com/", "applicationCategory": "FinanceApplication", "operatingSystem": "Any (web browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": "A ledger for the games you buy: track purchases, spending in 20+ currencies and backlog progress.", "image": "https://backlogwallet.com/icons/og-banner.png"}</script>
 
     <!-- PWA: instalowalna aplikacja z ikona i dzialaniem offline -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0c1411">
+    <meta name="theme-color" content="#121110">
     <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -48,7 +48,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=54">
+    <link rel="stylesheet" href="styles.css?v=55">
 </head>
 <body class="auth-pending">
     <a class="skip-link" href="#mainContent">Skip to content</a>
@@ -265,11 +265,11 @@
 
             <div class="home-grid">
             <div class="home-main">
-            <div class="card">
+            <div class="card add-card">
                 <div class="card-head">
                     <span><span data-i18n="addGame">Add game</span></span>
                     <button type="button" class="btn-chip" id="addFormToggleBtn" onclick="toggleAddForm()">
-                        <span id="addFormToggleText" data-i18n="addFormShow">Show form</span> <i class="fa-solid fa-chevron-down" id="addFormToggleIcon"></i>
+                        <span id="addFormToggleText" data-i18n="addFormShow">Add a game</span> <i class="fa-solid fa-chevron-down" id="addFormToggleIcon"></i>
                     </button>
                 </div>
                 <div class="card-body" id="addFormBody" style="display:none;">
@@ -391,7 +391,7 @@
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card lib-card">
                 <div class="card-head">
                     <span><span data-i18n="myLibrary">Your Library</span></span>
                     <div style="display:flex; gap:14px; align-items:center;">
@@ -1140,7 +1140,7 @@
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v0.21.0 &middot; build 2026-11-14 11:00</span>
+        <span class="footer-build">v0.21.0 &middot; build 2026-11-14 12:10</span>
     </div>
 </footer>
 
@@ -1177,7 +1177,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=54" defer></script>
+    <script src="app.js?v=55" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.
