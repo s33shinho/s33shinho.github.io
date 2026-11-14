@@ -1402,26 +1402,6 @@
         .year-wrap-total { border-bottom: 4px double rgba(255,255,255,0.28); display: inline-block; padding-bottom: 2px; }
         thead th { border-bottom: 3px double var(--border-light); }
 
-        /* changelog */
-        .log-entry { margin-bottom: 30px; }
-        .log-entry:last-child { margin-bottom: 0; }
-        .log-head { display: flex; align-items: center; gap: 20px; margin-bottom: 12px; }
-        .static-content .log-title { margin: 0; font-family: var(--font-body); font-size: 22px; font-weight: 400; color: var(--text-white); white-space: nowrap; }
-        .log-rule { flex: 1; border-top: 1px solid var(--border-light); }
-        .log-table { border: 1px solid var(--border-light); border-radius: var(--r-md); overflow: hidden; }
-        .log-row { display: grid; grid-template-columns: 112px 1fr; align-items: center; gap: 0 18px; padding: 11px 16px; }
-        .log-row + .log-row { border-top: 1px solid var(--border); }
-        .log-tag { justify-self: start; padding: 2px 11px; border-radius: var(--r-md); font-size: 13px; font-weight: 600; line-height: 1.5; color: #fff; }
-        .log-new { background: #3a78c2; }
-        .log-changed { background: #5d6679; }
-        .log-fixed { background: #2a7f55; }
-        .log-text { color: var(--text-main); line-height: 1.5; }
-        @media (max-width: 620px) {
-            .static-content .log-title { font-size: 19px; }
-            .log-row { grid-template-columns: 72px 1fr; gap: 0 10px; padding: 10px 12px; }
-            .log-tag { padding: 2px 8px; font-size: 12.5px; }
-        }
-
         /* footer note */
         .footer-note { flex-basis: 100%; margin-top: 6px; font-size: 12.5px; color: var(--text-dim); }
 
@@ -1994,13 +1974,6 @@ html[data-theme="light"] .acct-avatar { color: #fff; }
 .acct-state { font-family: var(--font-body); font-size: 13px; letter-spacing: 0; text-transform: none; }
 .acct-seg button[aria-pressed="true"] { color: var(--steam-blue); }
 body.signed-out .auth-box .card-body { padding: 0 0 4px; }
-.static-content .log-title { font-family: var(--font-mono); font-size: 19px; font-weight: 600; letter-spacing: -0.02em; }
-.log-table { border-radius: var(--r-md); background: none; }
-.log-tag { border-radius: var(--r-sm); }
-.log-new { background: var(--steam-blue); color: var(--btn-ink); }
-html[data-theme="light"] .log-new { color: #fff; }
-.log-changed { background: #5a564e; }
-.log-fixed { background: #2f7a50; }
 .year-wrap-card { border-radius: var(--r-lg); background: var(--bg-raised); border: 0; box-shadow: none; }
 .year-wrap-badge { border: 0; padding: 0; font-size: 14px; font-weight: 800; text-transform: none; letter-spacing: -0.02em; color: var(--steam-blue); }
 .year-wrap-highlight { border-top: 1px solid var(--border-light); }

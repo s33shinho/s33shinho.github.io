@@ -55,7 +55,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js" defer></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js" defer></script>
 
-    <link rel="stylesheet" href="styles.css?v=62">
+    <link rel="stylesheet" href="styles.css?v=63">
 </head>
 <body class="auth-pending">
     <a class="skip-link" href="#mainContent">Skip to content</a>
@@ -130,7 +130,7 @@
                 <div class="nav-group" id="navGroup-tools">
                     <button class="nav-item" data-view="rates" onclick="showView('rates')"><i class="fa-solid fa-money-bill-transfer"></i> <span data-i18n="navRates">Exchange Rates</span></button>
                     <button class="nav-item" data-view="faq" onclick="showView('faq')"><i class="fa-solid fa-circle-question"></i> <span data-i18n="navFaq">FAQ</span></button>
-                    <button class="nav-item" data-view="changelog" onclick="showView('changelog')"><i class="fa-solid fa-clock-rotate-left"></i> <span data-i18n="navChangelog">Changelog</span></button>
+                    <button class="nav-item" onclick="location.href='/changelog/'"><i class="fa-solid fa-clock-rotate-left"></i> <span data-i18n="navChangelog">Changelog</span></button>
                     <button class="nav-item" data-view="donate" onclick="showView('donate')"><i class="fa-solid fa-heart"></i> <span data-i18n="navDonate">Donate</span></button>
                 </div>
             </div>
@@ -753,13 +753,6 @@
             </div>
         </section>
 
-        <section class="view" id="view-changelog">
-            <div class="card">
-                <div class="card-head"><span data-i18n="navChangelog">Changelog</span></div>
-                <div class="card-body static-content" id="changelogContent"></div>
-            </div>
-        </section>
-
         <section class="view" id="view-rates">
             <div class="card">
                 <div class="card-head">
@@ -1149,7 +1142,7 @@
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v0.23.1 &middot; build 2026-11-14 20:45</span>
+        <span class="footer-build">v0.24.0 &middot; build 2026-11-14 22:05</span>
     </div>
 </footer>
 
@@ -1186,7 +1179,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=62" defer></script>
+    <script src="app.js?v=63" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.
