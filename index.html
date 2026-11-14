@@ -48,7 +48,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <link rel="stylesheet" href="styles.css?v=55">
+    <link rel="stylesheet" href="styles.css?v=56">
 </head>
 <body class="auth-pending">
     <a class="skip-link" href="#mainContent">Skip to content</a>
@@ -56,7 +56,7 @@
     <header class="topbar">
         <button class="hamburger" id="menuBtn" aria-label="Menu" aria-controls="drawer" aria-expanded="false" onclick="toggleDrawer(true)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h10"/></svg></button>
         <h1 id="logoTitle">
-            <a href="#top" title="Back to top" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'})"><span>Backlog</span> <span class="wm-light">Wallet</span></a>
+            <a href="/" title="Backlog Wallet - home" onclick="event.preventDefault(); showView('home'); window.scrollTo({top:0});"><span>Backlog</span> <span class="wm-light">Wallet</span></a>
         </h1>
         <span class="tb-spacer"></span>
         <span id="syncBadge" class="sync-badge offline tb-r tb-desktop" role="status"></span>
@@ -562,15 +562,15 @@
                 </div>
             </div>
             <div class="card side-card" id="storeCard">
-                <div class="card-head"><span data-i18n="sideStoreTitle">Spending by store</span></div>
+                <div class="card-head"><span data-i18n="sideStoreTitle">Where you spent</span></div>
                 <div class="card-body" id="storeBars"></div>
             </div>
             <div class="card side-card" id="costCard">
-                <div class="card-head"><span data-i18n="sideCostTitle">Cost insights</span></div>
+                <div class="card-head"><span data-i18n="sideCostTitle">What it cost you</span></div>
                 <div class="card-body" id="costList"></div>
             </div>
             <div class="card side-card" id="infoCard">
-                <div class="card-head"><span data-i18n="sideInfoTitle">Library info</span></div>
+                <div class="card-head"><span data-i18n="sideInfoTitle">Your library in numbers</span></div>
                 <div class="card-body"><dl class="kv" id="infoList"></dl></div>
             </div>
             </aside>
@@ -1140,7 +1140,7 @@
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v0.21.0 &middot; build 2026-11-14 12:10</span>
+        <span class="footer-build">v0.22.0 &middot; build 2026-11-14 12:50</span>
     </div>
 </footer>
 
@@ -1177,7 +1177,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=55" defer></script>
+    <script src="app.js?v=56" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.

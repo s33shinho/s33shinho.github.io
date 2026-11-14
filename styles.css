@@ -2017,3 +2017,21 @@ html[data-theme="light"] .src-gog { color: #6a2fa8; }
 @media (max-width: 1099px) { .health-card { margin-bottom: 30px; } }
 @media (max-width: 1099px) { .home-grid { gap: 0; } .home-side .health-card { margin-bottom: 28px; } }
 body.signed-out .auth-layout { gap: 56px; }
+
+/* facts: the number first, then what it means in plain words */
+.facts { margin: 0; }
+.fact { padding: 14px 0; border-bottom: 1px solid var(--border); }
+.fact:first-child { padding-top: 2px; }
+.fact:last-child { border-bottom: 0; padding-bottom: 0; }
+.fact dd { margin: 0 0 3px; font-family: var(--font-mono); font-size: 21px; line-height: 1.2; font-weight: 600; letter-spacing: -0.03em; color: var(--text-white); }
+.fact dt { font-size: 15px; font-weight: 600; color: var(--text-light); }
+.fact small { display: block; margin-top: 3px; font-size: 13px; line-height: 1.45; color: var(--text-dim); }
+.facts-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; }
+.facts-grid .fact { min-width: 0; }
+.facts-grid .fact:nth-child(-n+2) { padding-top: 2px; }
+.facts-grid .fact:last-child { grid-column: 1 / -1; }
+.facts-grid .fact dd { font-size: 18px; }
+.facts-grid .fact small { overflow-wrap: anywhere; }
+.bar-row { margin-bottom: 14px; }
+.bar-name { font-size: 15px; font-weight: 600; }
+.bar-val { font-size: 14px; }
