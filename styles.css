@@ -1401,20 +1401,16 @@
         .year-wrap-total { border-bottom: 4px double rgba(255,255,255,0.28); display: inline-block; padding-bottom: 2px; }
         thead th { border-bottom: 3px double var(--border-light); }
 
-        /* changelog as a diary */
-        .log-entry {
-            display: grid; grid-template-columns: 120px 1fr; gap: 4px 24px;
-            padding: 14px 0; border-top: 1px solid var(--border);
-        }
-        .log-entry:first-child { border-top: none; padding-top: 12px; }
-        .log-when { display: flex; flex-direction: column; gap: 2px; font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); }
-        .log-when b { color: var(--text-white); font-weight: 600; font-size: 13px; }
-        .log-entry ul { margin: 0; padding-left: 18px; }
-        .log-entry li { margin-bottom: 4px; }
-        @media (max-width: 620px) {
-            .log-entry { grid-template-columns: 1fr; }
-            .log-when { flex-direction: row; gap: 10px; align-items: baseline; }
-        }
+        /* changelog */
+        .log-entry { padding: 18px 0; border-top: 1px solid var(--border); }
+        .log-entry:first-child { border-top: none; padding-top: 6px; }
+        .log-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; margin-bottom: 8px; }
+        .log-ver { font-family: var(--font-mono); font-size: 18px; font-weight: 600; color: var(--text-white); }
+        .log-date { font-family: var(--font-mono); font-size: 12.5px; color: var(--text-dim); }
+        .log-group { margin-top: 12px; }
+        .log-label { font-weight: 600; font-size: 14px; color: var(--text-white); margin-bottom: 4px; }
+        .log-group ul { margin: 0; padding-left: 18px; }
+        .log-group li { margin-bottom: 4px; }
 
         /* footer note */
         .footer-note { flex-basis: 100%; margin-top: 6px; font-size: 12.5px; color: var(--text-dim); }
@@ -1606,7 +1602,6 @@ td.name-cell .name-text { max-width: 340px; }
 
 /* ---------- auth, changelog, misc ---------- */
 .auth-tab { font-size: 12px; }
-.log-entry { grid-template-columns: 110px 1fr; }
 .year-wrap-card { border-radius: var(--r-lg); }
 .stored-table th { width: 42%; }
 
