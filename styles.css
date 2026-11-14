@@ -1,5 +1,8 @@
 /* fonts are served from this site (vendor/fonts), subset to Latin + Latin Extended; licences in the same folder */
 @font-face { font-family: 'Source Sans 3'; font-style: normal; font-weight: 200 900; font-display: swap; src: url('vendor/fonts/SourceSans3-var.woff') format('woff'); }
+@font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 400; font-display: swap; src: url('vendor/fonts/Fraunces-Regular.woff') format('woff'); }
+@font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 600 700; font-display: swap; src: url('vendor/fonts/Fraunces-SemiBold.woff') format('woff'); }
+@font-face { font-family: 'Fraunces'; font-style: italic; font-weight: 400; font-display: swap; src: url('vendor/fonts/Fraunces-Italic.woff') format('woff'); }
 @font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('vendor/fonts/IBMPlexMono-Regular.woff') format('woff'); }
 @font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url('vendor/fonts/IBMPlexMono-Medium.woff') format('woff'); }
 @font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 600; font-display: swap; src: url('vendor/fonts/IBMPlexMono-SemiBold.woff') format('woff'); }
@@ -7,46 +10,46 @@
 
 :root {
 
-            --bg-app: #12151b;
-            --bg-panel: #181c23;
-            --bg-dark: #0e1116;
-            --bg-input: #12161c;
-            --bg-input-hover: #1f2430;
-            --bg-raised: #1d222b;
+            --bg-app: #0c1411;
+            --bg-panel: #111b17;
+            --bg-dark: #09100d;
+            --bg-input: #0e1713;
+            --bg-input-hover: #1a2822;
+            --bg-raised: #15211c;
 
-            --border: #2a303a;
-            --border-light: #3b4350;
+            --border: #20302a;
+            --border-light: #2f443b;
 
-            --text-main: #a8b2c4;
-            --text-light: #dde3ee;
-            --text-dim: #8791a8;
-            --text-white: #f2f5fa;
+            --text-main: #a7b5ac;
+            --text-light: #dce6de;
+            --text-dim: #84958b;
+            --text-white: #f3efe2;
 
             /* interface accent */
-            --steam-blue: #5fb4ee;
-            --accent-2: #5fb4ee;
-            --accent-soft: rgba(95,180,238,0.12);
-            --accent-line: rgba(95,180,238,0.34);
+            --steam-blue: #8fd3ae;
+            --accent-2: #8fd3ae;
+            --accent-soft: rgba(143,211,174,0.10);
+            --accent-line: rgba(143,211,174,0.32);
 
             /* money accent - used ONLY for currency figures */
-            --coin: #f0a33c;
-            --coin-soft: rgba(240,180,41,0.13);
-            --key-purple: #f0b429;
+            --coin: #e2b354;
+            --coin-soft: rgba(226,179,84,0.13);
+            --key-purple: #e2b354;
 
-            --btn-green: #3a78c2;
-            --btn-green-hover: #4a88d2;
+            --btn-green: #efe7d2;
+            --btn-green-hover: #fff8e6;
 
-            --ok: #4ed6a4;
-            --warn: #f0b429;
-            --err: #ff6b7d;
+            --ok: #5fd39a;
+            --warn: #e2b354;
+            --err: #f07f7f;
 
-            --font-display: 'Source Sans 3', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
             --font-body: 'Source Sans 3', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-            --r-sm: 3px;
-            --r-md: 4px;
-            --r-lg: 4px;
+            --r-sm: 6px;
+            --r-md: 8px;
+            --r-lg: 12px;
             --r-pill: 999px;
             --shadow-sm: none;
             --shadow-md: 0 8px 26px rgba(0,0,0,0.38);
@@ -54,8 +57,9 @@
 
             --ls-label: 0.08em;  /* small uppercase labels: stats, badges, table headers */
             --ls-loud: 0.14em;   /* same idea, a bit louder: badges and values */
-            --row-stripe: rgba(255,255,255,0.035);
+            --row-stripe: rgba(243,239,226,0.028);
 
+            --btn-ink: #0c1411;
             --drawer-w: 300px;
             --sidebar-w: 252px;
             --topbar-h: 52px;
@@ -63,34 +67,34 @@
         }
 
         html[data-theme="light"] {
-            --bg-app: #f5f5f8;
-            --bg-panel: #ffffff;
-            --bg-dark: #ffffff;
-            --bg-input: #eeeff4;
-            --bg-input-hover: #e4e6ee;
-            --bg-raised: #f8f8fb;
-            --border: #e2e3ea;
-            --border-light: #c9ccd8;
-            --text-main: #4b5162;
-            --text-light: #1b1f2b;
-            --text-dim: #5d6477;
-            --text-white: #0e1119;
-            --steam-blue: #2b64ad;
-            --accent-2: #2b64ad;
-            --accent-soft: rgba(43,100,173,0.09);
-            --accent-line: rgba(43,100,173,0.26);
-            --coin: #8f6008;
-            --coin-soft: rgba(169,116,10,0.10);
-            --key-purple: #a9740a;
-            --btn-green: #2b64ad;
-            --btn-green-hover: #22548f;
-            --ok: #0f8a63;
-            --warn: #a9740a;
-            --err: #cf3346;
+            --bg-app: #f3eee2;
+            --bg-panel: #fbf8f1;
+            --bg-dark: #fbf8f1;
+            --bg-input: #ece6d7;
+            --bg-input-hover: #e2dbc9;
+            --bg-raised: #f6f1e6;
+            --border: #ded7c6;
+            --border-light: #c6beaa;
+            --text-main: #47534c;
+            --text-light: #1c2822;
+            --text-dim: #5f6b63;
+            --text-white: #121c17;
+            --steam-blue: #1d6a4a;
+            --accent-2: #1d6a4a;
+            --accent-soft: rgba(29,106,74,0.09);
+            --accent-line: rgba(29,106,74,0.28);
+            --coin: #8a5d07;
+            --coin-soft: rgba(138,93,7,0.10);
+            --key-purple: #8a5d07;
+            --btn-green: #17382b;
+            --btn-green-hover: #1f4a39;
+            --ok: #1b7a52;
+            --warn: #8a5d07;
+            --err: #b93838;
             --shadow-sm: none;
             --shadow-md: 0 8px 26px rgba(14,17,25,0.09);
             --shadow-lg: 0 22px 54px rgba(14,17,25,0.14);
-            --row-stripe: rgba(20,24,38,0.035);
+            --row-stripe: rgba(18,28,23,0.035);
         }
         html[data-theme="light"] input[type=date] { color-scheme: light; }
         html[data-theme="light"] .btn-primary { color: #ffffff; }
@@ -544,7 +548,7 @@
         .status-wont-play { color: var(--text-dim); }
         .year-wrap-card {
             max-width: 440px; margin: 0 auto; padding: 36px 28px; text-align: center; border-radius: 18px;
-            background: #111826;
+            background: var(--bg-raised);
             border: 1px solid var(--border-light);
             box-shadow: 0 16px 40px rgba(0,0,0,0.4);
         }
@@ -1166,7 +1170,7 @@
         }
 
         /* ---------------- year in review card ---------------- */
-        .year-wrap-card { background: #111826; border: 1px solid var(--border-light); border-radius: var(--r-lg); box-shadow: none; }
+        .year-wrap-card { background: var(--bg-raised); border: 1px solid var(--border-light); border-radius: var(--r-lg); box-shadow: none; }
         .year-wrap-year { font-family: var(--font-mono); letter-spacing: 0.1em; }
         .year-wrap-total { color: var(--coin); font-weight: 600; letter-spacing: -0.03em; }
         .year-wrap-badge { font-family: var(--font-body); letter-spacing: var(--ls-loud); text-transform: uppercase; font-size: 10.5px; }
@@ -1770,3 +1774,167 @@ body.signed-out .auth-form #rememberGroup, body.signed-out .auth-form #regConsen
 body.signed-out .auth-form #regConsentGroup { align-items: flex-start; }
 body.signed-out .auth-form .input-group[style*="display: none"] { display: none; }
 .auth-info .kv dd { font-family: var(--font-body); font-size: 13px; }
+
+
+/* =====================================================================
+   0.21 - "Ledger" look
+   Deep green, cream and brass, a serif (Fraunces) for headings and the
+   big figures, rounder panels, pill navigation and buttons. The previous
+   look lives on branch backup-v0.20.2.
+   ===================================================================== */
+html[data-theme="light"] { --btn-ink: #f6f1e4; }
+body { font-size: 14.5px; }
+h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.012em; }
+
+/* ---------- top bar ---------- */
+.topbar { background: var(--bg-app); border-bottom: 1px solid var(--border); }
+.topbar h1 { font-family: var(--font-display); font-size: 21px; font-weight: 600; letter-spacing: -0.012em; text-transform: none; gap: 11px; }
+.topbar h1::before {
+    content: "B"; box-sizing: border-box; width: 30px; height: 30px; border-radius: 50%; border: 0;
+    background: var(--coin); color: #1a1405; font-family: var(--font-display); font-size: 18px; font-weight: 600; letter-spacing: 0;
+}
+html[data-theme="light"] .topbar h1::before { color: #fbf8f1; }
+.wm-light { font-style: italic; font-weight: 400; color: var(--coin); }
+.hamburger { border-radius: 50%; background: none; border: 1px solid var(--border-light); }
+.user-chip { border-radius: var(--r-pill); background: none; border: 1px solid var(--border-light); padding: 6px 14px; }
+.tb-login { border-radius: var(--r-pill); height: 36px; padding: 0 20px; }
+.tb-login:hover, .tb-login:focus-visible { border-color: var(--text-white); color: var(--text-white); background: var(--bg-raised); }
+
+/* ---------- buttons, inputs ---------- */
+input, select, textarea { border-radius: var(--r-md); }
+.btn-primary, .btn-tool, .btn-chip { border-radius: var(--r-pill); }
+.btn-primary { background: var(--btn-green); color: var(--btn-ink); font-weight: 600; }
+.btn-primary:hover { background: var(--btn-green-hover); color: var(--btn-ink); }
+.btn-tool { background: none; border-color: var(--border-light); }
+.btn-tool:hover { background: var(--bg-raised); border-color: var(--text-dim); }
+.btn-chip { background: none; padding: 5px 13px; }
+.btn-chip:hover { background: var(--bg-raised); border-color: var(--text-dim); }
+a { text-underline-offset: 3px; }
+
+/* ---------- panels ---------- */
+.card { border-radius: var(--r-lg); margin-bottom: 18px; background: var(--bg-panel); }
+.card-head {
+    background: none; padding: 16px 20px 13px; border-bottom: 1px solid var(--border);
+    font-family: var(--font-display); font-size: 19px; font-weight: 600; text-transform: none; letter-spacing: -0.012em; color: var(--text-white);
+}
+.card-head .btn-chip, .card-head .btn-tool, .card-head select, .card-head button { font-family: var(--font-body); letter-spacing: 0; }
+.card-body { padding: 18px 20px; }
+.section-heading { font-family: var(--font-display); font-size: 18px; font-weight: 600; text-transform: none; letter-spacing: -0.01em; color: var(--text-white); }
+
+/* ---------- the statement at the top of the dashboard ---------- */
+.summary { grid-template-columns: minmax(300px, 1.3fr) repeat(4, minmax(0, 1fr)); margin-bottom: 18px; border-radius: var(--r-lg); }
+.summary > div:first-child { padding: 24px 26px 26px; }
+.summary-stats > div { padding: 24px 20px 22px; gap: 10px; }
+.summary-label, .summary-stats small { font-size: 13px; text-transform: none; letter-spacing: 0; color: var(--text-dim); }
+.summary-head { margin-bottom: 10px; }
+.summary-head select { height: 24px; border-radius: var(--r-pill); padding: 0 8px; background: none; border-color: var(--border-light); }
+.summary-value { font-size: clamp(40px, 4.6vw, 58px); line-height: 1; letter-spacing: -0.02em; }
+.summary-value #totalAmount { font-family: var(--font-display); font-weight: 600; color: var(--coin); font-variant-numeric: lining-nums; }
+.summary-num { display: flex; flex-direction: column; gap: 6px; }
+.summary-num b { font-family: var(--font-display); font-size: 30px; line-height: 1; font-weight: 600; font-variant-numeric: lining-nums; }
+.trend { font-family: var(--font-body); font-size: 12.5px; }
+@media (max-width: 1180px) and (min-width: 901px) { .summary { grid-template-columns: minmax(240px, 1.1fr) repeat(4, minmax(0, 1fr)); } .summary-num b { font-size: 25px; } }
+@media (max-width: 900px) {
+    .summary { grid-template-columns: 1fr 1fr; }
+    .summary > div:first-child { padding: 22px 20px 24px; }
+    .summary-stats > div { padding: 18px 20px; }
+}
+
+/* ---------- dashboard grid, side cards ---------- */
+.home-grid { grid-template-columns: minmax(0, 1fr) 320px; gap: 18px; }
+.home-side .card { margin-bottom: 18px; }
+.health-card .card-body { padding: 18px 20px; }
+#healthGrade { font-family: var(--font-display); font-size: 19px; }
+.health-bar { height: 6px; border-radius: 3px; }
+#healthFill { border-radius: 3px; }
+.bar-track { height: 5px; border-radius: 3px; }
+.bar-track i { border-radius: 3px; background: var(--steam-blue); }
+.kv > div { padding: 9px 0; }
+
+/* ---------- library table ---------- */
+.table-tools { padding: 14px 20px; }
+#libraryListBody > div[style*="padding:0 24px"] { padding: 12px 20px 0 !important; }
+#bulkEditBar { margin: 0 20px 10px !important; }
+th { background: none; font-size: 12px; font-weight: 600; text-transform: none; letter-spacing: 0; padding: 10px 12px; color: var(--text-dim); }
+td { padding: 8px 12px; }
+#gamesTable th:first-child, #gamesTable td:first-child { padding-left: 20px; }
+#gamesTable th:last-child, #gamesTable td:last-child { padding-right: 20px; }
+td.name-cell { font-weight: 600; color: var(--text-white); }
+tr:hover td { background: var(--accent-soft); }
+.source-txt, .own-chip { border-radius: var(--r-pill); padding: 2px 9px; }
+.pill { border-radius: var(--r-pill); padding: 1px 8px; font-size: 10.5px; text-transform: none; letter-spacing: 0.01em; }
+.stat-tile, .stat-tile.stat-hero { border-radius: var(--r-md); }
+
+/* ---------- landing ---------- */
+.hero-inner { padding: 56px 4px 60px; }
+.hero h2 { font-size: clamp(38px, 6.2vw, 72px); font-weight: 600; line-height: 1.02; letter-spacing: -0.03em; margin-bottom: 22px; }
+.hero .lead { font-size: 18px; line-height: 1.6; max-width: 46ch; }
+.hero-cta .btn-primary, .hero-cta .btn-tool { height: 46px; padding: 0 26px; font-size: 15px; border-radius: var(--r-pill); }
+.app-preview { border-radius: var(--r-lg); }
+.ap-bar b { font-family: var(--font-display); font-size: 20px; color: var(--coin); font-variant-numeric: lining-nums; }
+.points { gap: 18px; margin-bottom: 36px; }
+.points-row, .points-row:last-child { padding: 22px 24px; border-radius: var(--r-lg); }
+.points-row h3 { font-family: var(--font-display); font-size: 21px; font-weight: 600; text-transform: none; letter-spacing: -0.012em; color: var(--text-white); margin-bottom: 8px; }
+.points-row p { font-size: 14.5px; }
+.why h3 { font-size: 22px; }
+
+/* ---------- navigation ---------- */
+.nav-item.active { background: var(--accent-soft); color: var(--text-white); }
+.nav-item.active i { color: var(--coin); }
+@media (min-width: 860px) {
+    :root { --topbar-h: 62px; --navstrip-h: 50px; }
+    .drawer { background: var(--bg-app); align-items: center; }
+    .drawer nav, .nav-dropdown, .nav-group { align-items: center !important; }
+    .drawer nav { gap: 2px; }
+    .nav-group { gap: 2px !important; }
+    .nav-item, .nav-group .nav-item {
+        height: 32px; padding: 0 14px; border-radius: var(--r-pill); border-bottom: 0; font-size: 13.5px;
+    }
+    .nav-item:hover { background: var(--bg-raised); }
+    .nav-item.active, .nav-item.active:hover { background: var(--text-white); color: var(--bg-app); font-weight: 600; }
+    main.main-wrap { padding-top: calc(var(--navstrip-h) + 26px); }
+}
+@media (max-width: 859px) {
+    .topbar h1 { font-size: 19px; font-weight: 600; letter-spacing: -0.012em; text-transform: none; gap: 10px; }
+    .topbar h1::before { width: 28px; height: 28px; border-radius: 50%; border: 0; background: var(--coin); color: #1a1405; font-size: 17px; font-weight: 600; letter-spacing: 0; }
+    .wm-light { font-weight: 400; color: var(--coin); }
+    .drawer { background: var(--bg-app); }
+    .nav-item { border-radius: var(--r-md); }
+}
+@media (max-width: 359px) { .topbar h1 { letter-spacing: -0.012em; gap: 8px; font-size: 17px; } }
+
+/* ---------- account menu, auth, changelog ---------- */
+.acct-menu { border-radius: var(--r-lg); overflow: hidden; }
+.acct-avatar { font-family: var(--font-display); font-size: 20px; background: var(--coin); color: #1a1405; border: 0; }
+.acct-name { font-family: var(--font-display); font-size: 19px; }
+.acct-btn { font-family: var(--font-display); font-size: 17px; }
+.acct-state { font-family: var(--font-body); font-size: 12.5px; letter-spacing: 0; text-transform: none; }
+.acct-seg { border-radius: var(--r-pill); }
+.static-content .log-title { font-family: var(--font-display); font-size: 24px; font-weight: 600; }
+.log-table { border-radius: var(--r-lg); background: var(--bg-raised); }
+.log-tag { border-radius: var(--r-pill); }
+.log-new { background: #2c7a56; }
+.log-changed { background: #55645b; }
+.log-fixed { background: #8e671d; }
+.year-wrap-card { border-radius: var(--r-lg); }
+
+/* small labels: plain sentence case instead of tracked capitals */
+.input-group label, .acc-h, thead th, .health-label, .nav-section-toggle, .stat-tile .stat-label,
+.year-wrap-total-label, .year-wrap-stats small, .wrapped-label, .smart-import-table th, .ap-row.ap-head {
+    font-family: var(--font-body); font-size: 12.5px !important; font-weight: 600; text-transform: none; letter-spacing: 0;
+}
+thead th, th { background: var(--bg-panel); border-bottom: 1px solid var(--border-light); }
+.ap-row.ap-head { background: none; }
+.acc-h { font-family: var(--font-display); font-size: 18px !important; color: var(--text-white); }
+.acc-block { border-top: 1px solid var(--border); margin-top: 22px; padding-top: 22px; }
+.btn-danger-ghost { border-radius: var(--r-pill); }
+
+/* year card */
+.year-wrap-badge { border: 0; padding: 0; font-family: var(--font-display); font-size: 16px; font-style: italic; text-transform: none; letter-spacing: 0; color: var(--coin); }
+.year-wrap-highlight { border-top: 1px solid var(--border); }
+.year-wrap-year { font-family: var(--font-display); letter-spacing: 0; }
+.year-wrap-total, .year-wrap-total * { font-family: var(--font-display); font-variant-numeric: lining-nums; }
+.year-wrap-stats b, .year-wrap-stats strong, .year-wrap-stats span { font-family: var(--font-display); font-variant-numeric: lining-nums; }
+html[data-theme="light"] .src-playstation { color: #0b5cab; }
+html[data-theme="light"] .src-xbox { color: #1b6b1b; }
+html[data-theme="light"] .src-gog { color: #6a2fa8; }
