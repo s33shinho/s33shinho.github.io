@@ -2017,3 +2017,9 @@ html.auth-hint #homeLanding { display: none !important; }
 html.auth-hint #homeApp { display: block !important; }
 html.auth-hint #tableSkeleton { display: block !important; }
 html.auth-hint #tableWrapper { display: none !important; }
+
+/* larger touch targets for small footer links and the menu section toggle on touch screens */
+@media (pointer: coarse) {
+    .footer-links a, .footer-links .btn-link { display: inline-block; padding: 8px 4px; }
+    .nav-section-toggle { min-height: 40px; }
+}

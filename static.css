@@ -46,4 +46,5 @@ ul { padding-left: 22px; }
 .btn:hover { opacity: 0.9; }
 .site-foot { max-width: 860px; margin: 0 auto; padding: 20px 16px 40px; border-top: 1px solid var(--border); color: var(--dim); font-size: 14px; }
 .site-foot div { margin-top: 6px; }
+@media (pointer: coarse) { .site-foot a { display: inline-block; padding: 8px 2px; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
