@@ -19,7 +19,7 @@
 // <script>/<link> tags in index.html (the paths in APP_SHELL below must match
 // them exactly, otherwise the precache grabs the old version).
 
-const CACHE_VERSION = 'v68';
+const CACHE_VERSION = 'v69';
 const CACHE_NAME = `backlog-wallet-${CACHE_VERSION}`;
 
 // Our own files - they must always match what is actually deployed.
@@ -27,8 +27,8 @@ const CACHE_NAME = `backlog-wallet-${CACHE_VERSION}`;
 const APP_SHELL = [
   '/',
   '/index.html',
-  '/styles.css?v=68',
-  '/app.js?v=68',
+  '/styles.css?v=69',
+  '/app.js?v=69',
   '/manifest.json',
   '/static.css?v=4',
   '/features/',
@@ -43,6 +43,7 @@ const APP_SHELL = [
   '/vendor/fonts/IBMPlexMono-Medium.woff',
   '/vendor/fonts/IBMPlexMono-SemiBold.woff',
   '/vendor/fonts/IBMPlexMono-Bold.woff',
+  '/vendor/chartjs/chart-4.4.7.umd.js',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
   '/icons/icon-maskable-512.png',
@@ -53,7 +54,6 @@ const APP_SHELL = [
 // on a best-effort basis (stale-while-revalidate) without requiring them at install time
 // (so a missing network on the first visit does not break the whole service worker install).
 const RUNTIME_CACHEABLE_HOSTS = [
-  'cdn.jsdelivr.net',
   'www.gstatic.com'
 ];
 
