@@ -395,6 +395,15 @@ async function loadCloudData() {
                 await auth.signOut();
                 return;
             }
+            // temporary ban has run out: lift it so saving works again (the rules allow this only after banUntilTs)
+            try {
+                await db.collection('users').doc(currentUser.uid).update({
+                    banned: false,
+                    banReason: firebase.firestore.FieldValue.delete(),
+                    banUntil: firebase.firestore.FieldValue.delete(),
+                    banUntilTs: firebase.firestore.FieldValue.delete()
+                });
+            } catch (e) { console.warn('ban expiry', e && e.code); }
         }
         const cloudGames = (doc.exists && Array.isArray(doc.data().games)) ? doc.data().games : [];
         wishGoals = (doc.exists && Array.isArray(doc.data().wishGoals)) ? doc.data().wishGoals : [];
@@ -3815,11 +3824,13 @@ async function confirmBanUser() {
     if (!reason) { showToastText('Enter a ban reason - the user will see it.'); return; }
     const duration = $('banDurationSelect').value;
     let banUntil = null;
+    let banUntilTs = null; // real timestamp, so the rules can let the user clear an expired ban
     if (duration !== 'permanent') {
         const days = parseInt(duration, 10);
         const until = new Date();
         until.setDate(until.getDate() + days);
         banUntil = until.toISOString();
+        banUntilTs = firebase.firestore.Timestamp.fromDate(until);
     }
     const uid = banTargetUid;
     try {
@@ -3827,6 +3838,7 @@ async function confirmBanUser() {
             banned: true,
             banReason: reason,
             banUntil: banUntil,
+            banUntilTs: banUntilTs,
             bannedAt: new Date().toISOString()
         }, { merge: true });
         try { await db.collection('leaderboard').doc(uid).delete(); } catch (e) {} // remove from the leaderboard
@@ -3847,7 +3859,8 @@ async function unbanUser(uid) {
         await db.collection('users').doc(uid).set({
             banned: false,
             banReason: firebase.firestore.FieldValue.delete(),
-            banUntil: firebase.firestore.FieldValue.delete()
+            banUntil: firebase.firestore.FieldValue.delete(),
+            banUntilTs: firebase.firestore.FieldValue.delete()
         }, { merge: true });
         closeAdminUserModal();
         showToastText('User unbanned.');
