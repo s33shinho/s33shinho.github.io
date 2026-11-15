@@ -2683,7 +2683,25 @@ function updateAccountMetaUI() {
     pf.addEventListener('submit', async function (e) {
         e.preventDefault();
         const msg = $('profileMsg'); msg.className = 'auth-msg';
-        userProfile.nickname = $('profNickname').value.trim().slice(0, 32);
+        const newNick = $('profNickname').value.trim().slice(0, 32);
+        const oldKey = ((userProfile && userProfile.nickname) || '').trim().toLowerCase();
+        const newKey = newNick.toLowerCase();
+        // a changed nickname must be free; its record is claimed before the profile is saved
+        if (db && currentUser && newKey && newKey !== oldKey) {
+            try {
+                const nd = await db.collection('nicknames').doc(newKey).get();
+                if (nd.exists && nd.data().uid !== currentUser.uid) {
+                    msg.textContent = t('authErrNicknameTaken'); msg.className = 'auth-msg show error';
+                    return;
+                }
+                if (!nd.exists) await db.collection('nicknames').doc(newKey).set({ uid: currentUser.uid });
+            } catch (err) {
+                console.warn(err);
+                msg.textContent = t('authErrGeneric'); msg.className = 'auth-msg show error';
+                return;
+            }
+        }
+        userProfile.nickname = newNick;
         userProfile.currency = $('profCurrency').value;
         userProfile.theme = $('profTheme').value;
         $('totalCurrency').value = userProfile.currency;
@@ -2694,6 +2712,13 @@ function updateAccountMetaUI() {
         try {
             if (currentUser && currentUser.updateProfile) await currentUser.updateProfile({ displayName: userProfile.nickname });
             await writeUserDoc();
+            // release the previous nickname record so the name can be used again
+            if (db && currentUser && oldKey && newKey !== oldKey) {
+                try {
+                    const od = await db.collection('nicknames').doc(oldKey).get();
+                    if (od.exists && od.data().uid === currentUser.uid) await db.collection('nicknames').doc(oldKey).delete();
+                } catch (e) {}
+            }
             if ($('loggedEmail')) $('loggedEmail').textContent = userProfile.nickname || (currentUser ? currentUser.email : '');
             updateUserChip();
             msg.textContent = t('profileSaved'); msg.className = 'auth-msg show ok';
