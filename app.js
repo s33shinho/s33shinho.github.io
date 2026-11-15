@@ -2263,11 +2263,39 @@ function updateStats() {
     }
 }
 
-if (typeof Chart !== 'undefined') {
-    Chart.defaults.color = '#8f897e';
+function applyChartDefaults() {
+    if (typeof Chart === 'undefined') return;
+    Chart.defaults.color = cssVar('--text-dim') || '#8f897e';
     Chart.defaults.font.family = '"Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif';
     Chart.defaults.plugins.tooltip.cornerRadius = 4;
 }
+
+// Chart.js is fetched only after the page has finished loading, so it does not compete with the first paint
+let chartLoading = null;
+function loadChartJs() {
+    if (typeof Chart !== 'undefined') return Promise.resolve();
+    if (chartLoading) return chartLoading;
+    chartLoading = new Promise((resolve, reject) => {
+        const inject = () => {
+            const sc = document.createElement('script');
+            sc.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.7';
+            sc.onload = () => { applyChartDefaults(); resolve(); };
+            sc.onerror = () => { chartLoading = null; reject(new Error('chart.js')); };
+            document.head.appendChild(sc);
+        };
+        if (document.readyState === 'complete') inject();
+        else window.addEventListener('load', inject, { once: true });
+    });
+    return chartLoading;
+}
+let chartRenderQueued = false;
+function whenChartReady(fn) {
+    if (typeof Chart !== 'undefined') { fn(); return; }
+    if (chartRenderQueued) return;
+    chartRenderQueued = true;
+    loadChartJs().then(() => { chartRenderQueued = false; fn(); }).catch(() => { chartRenderQueued = false; });
+}
+applyChartDefaults();
 
 const percentLabelPlugin = {
     id: 'percentLabels',
@@ -2329,7 +2357,7 @@ function chartTitle(text) {
 }
 
 function updateCharts() {
-    if (typeof Chart === 'undefined') return;
+    if (typeof Chart === 'undefined') { whenChartReady(updateCharts); return; }
     const type = $('chartType').value;
     const gran = $('chartGranularity').value;
     $('chartGranularity').style.display = (type === 'sources' || type === 'ownership' || type === 'yoy') ? 'none' : '';
@@ -3101,6 +3129,7 @@ function renderYearComparison(A) {
 
 let yearsChartInstance = null;
 function showAllYearsChart() {
+    if (typeof Chart === 'undefined') { whenChartReady(showAllYearsChart); return; }
     const wrap = $('yrAllYearsWrap');
     if (!wrap) return;
     const open = wrap.style.display !== 'block';
