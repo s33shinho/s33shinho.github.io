@@ -460,6 +460,7 @@ async function loadCloudData() {
     renderTable();
     renderGoals();
     updateLeaderboardEntry();
+    syncSharedLibrary();
 }
 
 // ---------------------------------------------------------------------------
@@ -613,6 +614,7 @@ async function saveToCloudOnce() {
         clearPendingBackup();
         setBadge('success', 'syncCloud');
         updateLeaderboardEntry();
+        syncSharedLibrary();
     } catch (e) {
         console.warn('save failed', e && e.code);
         setBadge('error', 'syncErr');
@@ -2674,7 +2676,7 @@ function goLogin() { showView('auth'); setAuthMode('login'); }
 
 async function writeUserDoc() {
     if (!(currentUser && db)) return;
-    try { await db.collection('users').doc(currentUser.uid).set({ games: games, profile: userProfile }, { merge: true }); }
+    try { await db.collection('users').doc(currentUser.uid).set({ games: games, profile: userProfile }, { merge: true }); syncSharedLibrary(); }
     catch (e) { console.warn('writeUserDoc', e); }
 }
 
@@ -2845,6 +2847,7 @@ async function deleteMyAccount() {
             const uid = currentUser.uid;
             const nickKey = ((userProfile && userProfile.nickname) || currentUser.displayName || '').trim().toLowerCase();
             try { await db.collection('leaderboard').doc(uid).delete(); } catch (e) {}
+            try { await db.collection('shared').doc(uid).delete(); } catch (e) {}
             if (nickKey) {
                 try {
                     const nd = await db.collection('nicknames').doc(nickKey).get();
@@ -3520,11 +3523,42 @@ function updatePublicShareUI() {
     }
 }
 
+// A shared library lives in its own small document (nickname + game list), so the public link
+// never exposes the rest of the account.
+let lastSharedSig = '';
+function sharedPayloadFrom(nickname, list) {
+    return {
+        nickname: String(nickname || 'Player').slice(0, 40),
+        games: (Array.isArray(list) ? list : []).map(g => ({
+            name: String((g && g.name) || '').slice(0, 200),
+            source: (g && g.source) || 'Steam',
+            date: (g && g.date) || '',
+            price: Number(g && g.price) || 0,
+            currency: (g && g.currency) || '',
+            priceChf: Number(g && g.priceChf) || 0,
+            status: (g && g.status) || null
+        }))
+    };
+}
+async function syncSharedLibrary(force) {
+    if (!db || !currentUser || !publicShareEnabled) return;
+    const payload = sharedPayloadFrom(userProfile && userProfile.nickname, games);
+    const sig = JSON.stringify(payload);
+    if (!force && sig === lastSharedSig) return;
+    try {
+        payload.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
+        await db.collection('shared').doc(currentUser.uid).set(payload);
+        lastSharedSig = sig;
+    } catch (e) { console.warn('shared sync', e && e.code); }
+}
+
 async function togglePublicShare(enabled) {
     if (!db || !currentUser) return;
     try {
         await db.collection('users').doc(currentUser.uid).set({ publicShare: enabled }, { merge: true });
         publicShareEnabled = enabled;
+        if (enabled) await syncSharedLibrary(true);
+        else { lastSharedSig = ''; try { await db.collection('shared').doc(currentUser.uid).delete(); } catch (e) {} }
         updatePublicShareUI();
         showToastText(enabled ? t('shareEnabledMsg') : t('shareDisabledMsg'));
     } catch (e) {
@@ -3548,13 +3582,13 @@ async function initPublicShareIfNeeded() {
     view.style.display = 'block';
     if (!db) { $('publicShareBody').innerHTML = '<div class="empty-state">Could not connect to the database.</div>'; return true; }
     try {
-        const doc = await db.collection('users').doc(uid).get();
-        if (!doc.exists || doc.data().publicShare !== true) {
+        const doc = await db.collection('shared').doc(uid).get();
+        if (!doc.exists) {
             $('publicShareBody').innerHTML = '<div class="empty-state">This link is invalid or the library is no longer shared.</div>';
             return true;
         }
         const d = doc.data();
-        const nick = (d.profile && d.profile.nickname) || 'Player';
+        const nick = d.nickname || 'Player';
         const pubGames = Array.isArray(d.games) ? d.games : [];
         const totalChf = pubGames.reduce((s, g) => s + (Number(g.priceChf) || 0), 0);
         $('publicShareTitle').textContent = `Library: ${nick}`;
@@ -3745,6 +3779,7 @@ async function deleteUserRecords(uid) {
         const nickKey = (d.profile && d.profile.nickname) ? d.profile.nickname.toLowerCase() : null;
         await db.collection('users').doc(uid).delete();
         try { await db.collection('leaderboard').doc(uid).delete(); } catch (e) {}
+        try { await db.collection('shared').doc(uid).delete(); } catch (e) {}
         if (nickKey) { try { await db.collection('nicknames').doc(nickKey).delete(); } catch (e) {} }
         closeAdminUserModal();
         showToastText('Account data has been deleted.');
@@ -3795,6 +3830,7 @@ async function confirmBanUser() {
             bannedAt: new Date().toISOString()
         }, { merge: true });
         try { await db.collection('leaderboard').doc(uid).delete(); } catch (e) {} // remove from the leaderboard
+        try { await db.collection('shared').doc(uid).delete(); } catch (e) {} // and take the public link down
         closeBanModal();
         closeAdminUserModal();
         showToastText('User banned.');
@@ -3834,6 +3870,25 @@ async function purgeNicknameEmails() {
     } catch (e) {
         console.warn(e);
         showToastText('Could not read the nickname records.');
+    }
+}
+
+async function migrateSharedLibraries() {
+    if (!db || !isAdmin()) return;
+    try {
+        const usersSnap = await db.collection('users').get();
+        let done = 0, failed = 0;
+        for (const doc of usersSnap.docs) {
+            const d = doc.data();
+            if (d.publicShare !== true || d.banned === true) continue;
+            const p = sharedPayloadFrom(d.profile && d.profile.nickname, d.games);
+            p.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
+            try { await db.collection('shared').doc(doc.id).set(p); done++; } catch (e) { failed++; }
+        }
+        showToastText(`Shared libraries created: ${done}${failed ? ', errors: ' + failed : ''}.`);
+    } catch (e) {
+        console.warn(e);
+        showToastText('Could not read the accounts.');
     }
 }
 

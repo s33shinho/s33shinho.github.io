@@ -55,7 +55,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js" defer></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js" defer></script>
 
-    <link rel="stylesheet" href="styles.css?v=67">
+    <link rel="stylesheet" href="styles.css?v=68">
 </head>
 <body class="auth-pending">
     <a class="skip-link" href="#mainContent">Skip to content</a>
@@ -1035,6 +1035,7 @@
                         <button type="button" class="btn-tool" style="margin-top:8px;" onclick="forceSyncLeaderboard()"><i class="fa-solid fa-ranking-star"></i> Force leaderboard sync (all accounts)</button>
                         <p class="auth-note" style="margin-top:8px; font-size:11px;">Use this if the leaderboard is missing accounts that have not signed in since the last site update.</p>
                         <button type="button" class="btn-tool" style="margin-top:8px;" onclick="purgeNicknameEmails()"><i class="fa-solid fa-eraser"></i> Remove e-mails from nickname records</button>
+                        <button type="button" class="btn-tool" style="margin-top:8px;" onclick="migrateSharedLibraries()"><i class="fa-solid fa-rotate"></i> Create public library records</button>
                         <p class="auth-note" style="margin-top:8px; font-size:11px;">Older accounts still have their e-mail stored next to the nickname until they sign in. This clears all of them at once.</p>
                     </div>
                 </div>
@@ -1142,7 +1143,7 @@
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v0.26.1 &middot; build 2026-11-15 16:40</span>
+        <span class="footer-build">v0.26.2 &middot; build 2026-11-15 16:50</span>
     </div>
 </footer>
 
@@ -1179,7 +1180,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=67" defer></script>
+    <script src="app.js?v=68" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.
