@@ -3892,6 +3892,29 @@ async function migrateSharedLibraries() {
     }
 }
 
+// Admin: one JSON file with every collection (Spark has no automatic Firestore backups)
+async function backupAllData() {
+    if (!db || !isAdmin()) return;
+    const out = { app: 'Backlog Wallet', type: 'admin-backup', exportedAt: new Date().toISOString(), collections: {} };
+    const failed = [];
+    let total = 0;
+    for (const name of ['users', 'nicknames', 'leaderboard', 'shared', 'visits']) {
+        try {
+            const snap = await db.collection(name).get();
+            out.collections[name] = {};
+            snap.forEach(d => { out.collections[name][d.id] = d.data(); total++; });
+        } catch (e) { failed.push(name); }
+    }
+    const json = JSON.stringify(out, (k, v) => (v && typeof v.toDate === 'function') ? v.toDate().toISOString() : v, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'backlog-wallet-full-backup-' + new Date().toISOString().slice(0, 10) + '.json';
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+    showToastText(`Backup saved: ${total} documents${failed.length ? ', not readable: ' + failed.join(', ') : ''}.`);
+}
+
 async function forceSyncLeaderboard() {
     if (!db || !isAdmin()) return;
     try {
