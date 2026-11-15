@@ -780,18 +780,31 @@
         .library-load-error span { flex: 1; min-width: 180px; }
 
         .on-this-day-banner {
-            display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-            padding: 14px 16px; margin-bottom: 16px;
-            border: 1px solid var(--accent-line); background: var(--accent-soft);
-            border-radius: var(--r-md); color: var(--text-light); font-size: 13.5px;
+            display: grid; grid-template-columns: auto 1fr auto; align-items: center; column-gap: 14px;
+            padding: 12px 12px 12px 16px; margin-bottom: 16px;
+            border: 1px solid var(--border); border-left: 3px solid var(--steam-blue);
+            background: var(--accent-soft); border-radius: var(--r-md);
+            color: var(--text-light); font-size: 14px;
         }
-        .on-this-day-banner i.fa-clock-rotate-left { color: var(--steam-blue); font-size: 15px; }
-        .on-this-day-banner span { flex: 1; min-width: 180px; }
-        .on-this-day-banner button {
-            background: none; border: none; color: var(--text-dim); cursor: pointer;
-            padding: 4px; font-size: 14px; line-height: 1; flex-shrink: 0;
+        .on-this-day-banner .otd-icon {
+            width: 34px; height: 34px; border-radius: 50%;
+            display: grid; place-items: center;
+            background: var(--accent-line); color: var(--steam-blue); font-size: 15px;
         }
-        .on-this-day-banner button:hover { color: var(--text-white); }
+        .on-this-day-banner .otd-body { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+        .on-this-day-banner .otd-label {
+            font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em;
+            text-transform: uppercase; color: var(--text-dim);
+        }
+        .on-this-day-banner .otd-text { line-height: 1.35; overflow-wrap: anywhere; }
+        .on-this-day-banner .otd-text strong { color: var(--text-white); font-weight: 600; }
+        .on-this-day-banner .otd-close {
+            width: 30px; height: 30px; min-width: 0; margin: 0; padding: 0;
+            display: grid; place-items: center; flex-shrink: 0;
+            background: none; border: none; border-radius: 50%; box-shadow: none;
+            color: var(--text-dim); cursor: pointer; font-size: 14px; line-height: 1;
+        }
+        .on-this-day-banner .otd-close:hover { color: var(--text-white); background: rgba(255,255,255,0.06); }
 
         /* v1.7: heatmapa aktywnosci zakupowej, jak wykres kontrybucji na GitHubie */
         .purchase-heatmap { overflow-x: auto; padding-bottom: 6px; }

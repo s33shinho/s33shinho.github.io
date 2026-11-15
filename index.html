@@ -55,7 +55,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js" defer></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js" defer></script>
 
-    <link rel="stylesheet" href="styles.css?v=69">
+    <link rel="stylesheet" href="styles.css?v=70">
 </head>
 <body class="auth-pending">
     <a class="skip-link" href="#mainContent">Skip to content</a>
@@ -231,9 +231,12 @@
 
             <div id="homeApp" style="display:none;">
             <div id="onThisDayBanner" class="on-this-day-banner" style="display:none;">
-                <i class="fa-solid fa-clock-rotate-left"></i>
-                <span id="onThisDayText"></span>
-                <button type="button" onclick="dismissOnThisDay()" aria-label="Dismiss"><i class="fa-solid fa-xmark"></i></button>
+                <span class="otd-icon" aria-hidden="true"><i class="fa-solid fa-clock-rotate-left"></i></span>
+                <div class="otd-body">
+                    <span class="otd-label" data-i18n="onThisDayLabel">On this day</span>
+                    <span class="otd-text" id="onThisDayText"></span>
+                </div>
+                <button type="button" class="otd-close" onclick="dismissOnThisDay()" aria-label="Dismiss"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="summary">
                 <div>
@@ -1145,7 +1148,7 @@
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v0.27.0 &middot; build 2026-11-15 17:35</span>
+        <span class="footer-build">v0.28.0 &middot; build 2026-11-15 22:05</span>
     </div>
 </footer>
 
@@ -1182,7 +1185,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=69" defer></script>
+    <script src="app.js?v=70" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.
