@@ -1372,13 +1372,13 @@ function renderSmartImportPreview() {
         <tr class="smart-row${r.flagged ? ' smart-row-flagged' : ''}">
             <td><input type="checkbox" class="smart-cb" data-i="${i}" ${r.flagged ? '' : 'checked'}></td>
             <td><input type="text" class="smart-name" data-i="${i}" value="${escapeHtml(r.name)}"></td>
-            <td><input type="number" class="smart-price" data-i="${i}" step="0.01" min="0" value="${r.price != null ? r.price : ''}" style="width:90px;"></td>
+            <td><input type="number" class="smart-price" data-i="${i}" step="0.01" min="0" value="${r.price != null ? escapeHtml(r.price) : ''}" style="width:90px;"></td>
             <td>
                 <select class="smart-currency" data-i="${i}" style="width:auto;">
                     ${getFullCurrencyList().map(c => `<option value="${c}" ${(r.currency || 'PLN') === c ? 'selected' : ''}>${c}</option>`).join('')}
                 </select>
             </td>
-            <td><input type="date" class="smart-date" data-i="${i}" value="${r.date || ''}"></td>
+            <td><input type="date" class="smart-date" data-i="${i}" value="${escapeHtml(r.date || '')}"></td>
         </tr>
     `).join('');
 }
@@ -1642,12 +1642,12 @@ function renderGoals() {
         card.innerHTML = `
             <div class="goal-card-head">
                 <span class="goal-card-title">${escapeHtml(goal.name)}</span>
-                <span class="goal-card-amounts">${saved.toFixed(2)} / ${target.toFixed(2)} ${goal.currency}</span>
+                <span class="goal-card-amounts">${saved.toFixed(2)} / ${target.toFixed(2)} ${escapeHtml(goal.currency)}</span>
             </div>
             <div class="goal-progress-track"><div class="goal-progress-fill ${reached ? 'reached' : ''}" style="width:${pct}%;"></div></div>
             <div class="goal-card-footer">
                 <span style="font-size:13px; color:${reached ? '#5cb85c' : 'var(--text-dim)'};">
-                    ${reached ? `<i class="fa-solid fa-check"></i> ${t('goalReached')}` : `${t('goalRemaining')}: ${remaining.toFixed(2)} ${goal.currency} (${pct}%)`}
+                    ${reached ? `<i class="fa-solid fa-check"></i> ${t('goalReached')}` : `${t('goalRemaining')}: ${remaining.toFixed(2)} ${escapeHtml(goal.currency)} (${pct}%)`}
                 </span>
                 <div class="goal-card-actions">
                     <input type="number" step="0.01" min="0" value="${saved}" id="goalSavedInput-${idx}" aria-label="${t('goalSavedAmount')}">
@@ -1837,7 +1837,7 @@ function renderRouletteFinalCard(g) {
             <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap; font-size:13px; color:var(--text-dim); margin-bottom:16px;">
                 <span class="source-txt ${meta.cls}">${meta.label()}</span>
                 <span><i class="${ownIcon}"></i> ${ownLabel}</span>
-                <span><i class="fa-solid fa-calendar"></i> ${g.date}</span>
+                <span><i class="fa-solid fa-calendar"></i> ${escapeHtml(g.date || "-")}</span>
                 <span style="color:var(--steam-blue);">${g.priceChf.toFixed(2)} CHF</span>
             </div>
             <button type="button" class="btn-tool" style="width:auto; margin:0 auto;" onclick="rollBacklogRoulette()"><i class="fa-solid fa-shuffle"></i> ${t('rouletteRerollBtn')}</button>
@@ -2099,11 +2099,11 @@ function renderTable() {
             tr.innerHTML = `
                 <td style="text-align:left;"><input type="checkbox" class="row-select-cb" aria-label="Select ${escapeHtml(g.name)}" data-idx="${i}" onchange="toggleSelectGame(${i}, this.checked)" ${selectedGames.has(i) ? 'checked' : ''}></td>
                 <td style="color:var(--text-dim);">${rowNum + 1}</td>
-                <td class="name-cell" style="color:var(--text-white);" title="${escapeHtml(g.name)}"><span class="name-text">${escapeHtml(g.name)}</span>${g.status ? `<span class="pill pill-${g.status}">${st.label}</span>` : ''}</td>
+                <td class="name-cell" style="color:var(--text-white);" title="${escapeHtml(g.name)}"><span class="name-text">${escapeHtml(g.name)}</span>${g.status ? `<span class="pill pill-${escapeHtml(g.status)}">${st.label}</span>` : ''}</td>
                 <td data-label="${t('colPlatform')}"><span class="source-txt ${srcClass}">${srcDisplay}</span></td>
                 <td data-label="${t('fldOwnership')}"><span class="own-chip" data-own="${own}"><i class="${ownIcon}"></i>${ownLabel}</span></td>
-                <td data-label="${t('purchaseDate')}">${g.date}</td>
-                <td data-label="${t('colOrigPrice')}">${g.price.toFixed(2)} <span style="font-size:10px; color:var(--text-dim);">${g.currency}</span></td>
+                <td data-label="${t('purchaseDate')}">${escapeHtml(g.date || "")}</td>
+                <td data-label="${t('colOrigPrice')}">${(Number(g.price) || 0).toFixed(2)} <span style="font-size:10px; color:var(--text-dim);">${escapeHtml(g.currency || "")}</span></td>
                 <td data-label="${valueColLabel(filterCur)}" style="color:var(--steam-blue);">${(g.priceChf / (rates[filterCur] || 1)).toFixed(2)} <span style="font-size:10px;">${filterCur}</span></td>
                 <td class="action-icons">
                     <button class="st ${st.cls}" onclick="cycleStatus(${i})" title="${st.label} (${t('statusToggleHint')})" aria-label="${escapeHtml(g.name)}: ${st.label} (${t('statusToggleHint')})"><i class="${st.icon}"></i></button>
@@ -3556,14 +3556,14 @@ async function initPublicShareIfNeeded() {
         const d = doc.data();
         const nick = (d.profile && d.profile.nickname) || 'Player';
         const pubGames = Array.isArray(d.games) ? d.games : [];
-        const totalChf = pubGames.reduce((s, g) => s + (g.priceChf || 0), 0);
+        const totalChf = pubGames.reduce((s, g) => s + (Number(g.priceChf) || 0), 0);
         $('publicShareTitle').textContent = `Library: ${nick}`;
-        const rows = pubGames.slice().sort((a, b) => (b.date || '').localeCompare(a.date || ''))
+        const rows = pubGames.slice().sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')))
             .map(g => {
                 const meta = platformMeta(g.source || 'Steam');
                 const sharedStatus = { completed: ['status-completed', 'fa-check'], not_completed: ['status-not-completed', 'fa-xmark'], in_progress: ['status-in-progress', 'fa-hourglass-half'] }[g.status];
                 const statusIcon = sharedStatus ? ` <span class="status-badge ${sharedStatus[0]}"><i class="fa-solid ${sharedStatus[1]}"></i></span>` : '';
-                return `<tr><td>${escapeHtml(g.name)}${statusIcon}</td><td><span class="source-txt ${meta.cls}">${meta.label()}</span></td><td>${g.date || '-'}</td><td style="text-align:right; font-weight:600;">${(g.price || 0).toFixed(2)} ${escapeHtml(g.currency || '')}</td></tr>`;
+                return `<tr><td>${escapeHtml(g.name)}${statusIcon}</td><td><span class="source-txt ${meta.cls}">${meta.label()}</span></td><td>${escapeHtml(g.date || '-')}</td><td style="text-align:right; font-weight:600;">${(Number(g.price) || 0).toFixed(2)} ${escapeHtml(g.currency || '')}</td></tr>`;
             }).join('');
         $('publicShareBody').innerHTML = `
             <div class="stats-row" style="margin-bottom:20px;">
@@ -3600,11 +3600,11 @@ async function loadAdminPanel() {
             let userChf = 0;
             uGames.forEach(g => {
                 if ((g.source || 'Steam') === 'Steam') steamCount++; else keyCount++;
-                const eur = g.currency === 'EUR' ? g.price : (g.priceChf && rates.EUR ? g.priceChf / rates.EUR : null);
+                const eur = g.currency === 'EUR' ? Number(g.price) : (Number(g.priceChf) && rates.EUR ? Number(g.priceChf) / rates.EUR : null);
                 if (eur !== null && !isNaN(eur)) { priceSumEur += eur; priceCount++; }
                 const key = (g.name || '').trim().toLowerCase();
                 if (key) gameCounts[key] = (gameCounts[key] || 0) + 1;
-                userChf += g.priceChf || 0;
+                userChf += Number(g.priceChf) || 0;
             });
 
             const nick = (d.profile && d.profile.nickname) || doc.id.slice(0, 8) + '…';
@@ -3675,7 +3675,7 @@ function showAdminUserDetail(uid) {
     const banned = d.banned === true;
     const theme = (d.profile && d.profile.theme) || '-';
     const uGames = Array.isArray(d.games) ? d.games : [];
-    const totalChf = uGames.reduce((s, g) => s + (g.priceChf || 0), 0);
+    const totalChf = uGames.reduce((s, g) => s + (Number(g.priceChf) || 0), 0);
     const registeredAt = d.registeredAt ? new Date(d.registeredAt) : null;
     const registeredLabel = registeredAt && !isNaN(registeredAt) ? registeredAt.toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' }) : '-';
 
@@ -3699,8 +3699,8 @@ function showAdminUserDetail(uid) {
         </div>`;
     }
 
-    let rows = uGames.slice().sort((a, b) => (b.date || '').localeCompare(a.date || ''))
-        .map(g => `<tr><td>${escapeHtml(g.name)}</td><td>${escapeHtml(g.source || 'Steam')}</td><td>${g.date || '-'}</td><td>${(g.price || 0).toFixed(2)} ${escapeHtml(g.currency || '')}</td></tr>`)
+    let rows = uGames.slice().sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')))
+        .map(g => `<tr><td>${escapeHtml(g.name)}</td><td>${escapeHtml(g.source || 'Steam')}</td><td>${escapeHtml(g.date || '-')}</td><td>${(Number(g.price) || 0).toFixed(2)} ${escapeHtml(g.currency || '')}</td></tr>`)
         .join('');
     if (!rows) rows = `<tr><td colspan="4" style="text-align:center; color:var(--text-dim);">No games on this account.</td></tr>`;
 
@@ -3846,7 +3846,7 @@ async function forceSyncLeaderboard() {
             const d = doc.data();
             if (d.banned === true || d.rankingOptIn !== true) continue;
             const uGames = Array.isArray(d.games) ? d.games : [];
-            const totalChf = uGames.reduce((s, g) => s + (g.priceChf || 0), 0);
+            const totalChf = uGames.reduce((s, g) => s + (Number(g.priceChf) || 0), 0);
             const totalEur = rates.EUR ? (totalChf / rates.EUR) : 0;
             try {
                 await db.collection('leaderboard').doc(doc.id).set({
