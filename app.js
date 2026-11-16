@@ -85,7 +85,7 @@ fldStatus: "Completion status (optional)", statusNone: "- not set -", statusComp
         
         registerCheckEmail: "Account created. Confirm your e-mail (check spam too) and you are in.", verifyGateTitle: "Confirm your email address", verifyGateBody: "We've sent a confirmation link to your email. Click it, then come back here and check again.", resendVerifyBtn: "Resend email", recheckVerifyBtn: "Check again", verifyEmailSent: "Sent again.", verifyStillNotVerified: "Not confirmed yet. Check your inbox and spam folder.", verifyNowVerified: "Confirmed, thanks.",
         loginOk: "Logged in.", logoutOk: "Logged out.",
-        authErrInvalid: "Wrong e-mail or password.", authErrInUse: "This e-mail is already registered.", authErrWeak: "Password must be at least 8 characters.", authErrNoUser: "No account found with this e-mail.", authErrGeneric: "Something went wrong, try again.", authErrEmailOnly: "Log in with the e-mail address you registered with.", accRegisteredSince: "Registered", importDataBtn: "Import data (JSON)", importDataNote: "Import a JSON file previously downloaded with \"Download my data\" (e.g. from another account or as a backup restore). Games are added to your current library - duplicates (by name) are skipped automatically.", importInvalidFile: "Invalid file - please choose a JSON file previously downloaded with \"Download my data\".", importResult: "Games imported: {added} (invalid lines skipped: {skipped}, duplicates: {dup}).", banGateTitle: "This account has been suspended", banGateReasonLabel: "Reason", banGateNoReason: "The administrator did not provide a reason.", banGatePermanent: "This is a permanent suspension.", banGateUntilPrefix: "Suspended until:", banGateContact: "If you believe this is a mistake, please get in touch through Feedback & contact (linked in the footer).", banGateBackBtn: "Back to home page", authErrTooFast: "Form filled out too quickly - please try again in a moment.", authErrTooSoon: "Too many registration attempts in a short time - please try again in a minute.", healthLabel: "Backlog health", healthGradeExemplary: "Exemplary backlog", healthGradeGood: "In good shape", healthGradeAverage: "Average", healthGradeGrowing: "Growing debt", healthGradeOverwhelmed: "Backlog took over", healthGradeUnknown: "Unknown", healthMsgExemplary: "You're keeping up with your games - respect!", healthMsgGood: "Your backlog is under control, keep it up.", healthMsgAverage: "A few games have piled up, but that's normal.", healthMsgGrowing: "Your backlog is growing faster than you're clearing it.", healthMsgOverwhelmed: "Maybe it's time to buy less and play more?", healthNoStatusMsg: "Set a status (Completed/Not completed) on your games to see your score.", healthEmptyMsg: "Add your first game to see your score.", sideStoreTitle: "Where you spent", sideCostTitle: "What it cost you", costPerCompleted: "Spent per completed game", costDead: "Dead backlog value", costDeadShare: "Share of library value", costThisYear: "Spent this year", costSamePeriod: "Same period last year", costChange: "Change", costHint: "Dead backlog = games with no status, Not completed or Won't play. Set statuses on your games to make it accurate.", chartOptYoy: "Spending, year over year", chartYoyTitle: "Cumulative spending ({cur}), by year", chartDownloadPng: "Download PNG", yrAllTime: "All time", yrTotalSpentAll: "Spent in total", yrWrappedIntroAll: "Your whole library", yrWrappedOutroAll: "That was your whole library so far. Keep going.", sideInfoTitle: "Your library in numbers", sideEmpty: "Nothing to show yet.", infoFirst: "First purchase", infoLast: "Latest purchase", infoAvg: "Average price", infoMax: "Most expensive", infoFormats: "Digital / physical", infoTracked: "With a status",
+        authErrInvalid: "Wrong e-mail or password.", authErrInUse: "This e-mail is already registered.", authErrWeak: "Password must be at least 8 characters.", authErrNoUser: "No account found with this e-mail.", authErrGeneric: "Something went wrong, try again.", authErrEmailOnly: "Log in with the e-mail address you registered with.", accRegisteredSince: "Registered", importDataBtn: "Import data (JSON)", importDataNote: "Import a JSON file previously downloaded with \"Download my data\" (e.g. from another account or as a backup restore). Games are added to your current library - duplicates (by name) are skipped automatically.", importInvalidFile: "Invalid file - please choose a JSON file previously downloaded with \"Download my data\".", importResult: "Games imported: {added} (invalid lines skipped: {skipped}, duplicates: {dup}).", importTooBig: "That file is too large to import (limit 2 MB).", libraryFull: "Library limit reached (3000 games).", banGateTitle: "This account has been suspended", banGateReasonLabel: "Reason", banGateNoReason: "The administrator did not provide a reason.", banGatePermanent: "This is a permanent suspension.", banGateUntilPrefix: "Suspended until:", banGateContact: "If you believe this is a mistake, please get in touch through Feedback & contact (linked in the footer).", banGateBackBtn: "Back to home page", authErrTooFast: "Form filled out too quickly - please try again in a moment.", authErrTooSoon: "Too many registration attempts in a short time - please try again in a minute.", healthLabel: "Backlog health", healthGradeExemplary: "Exemplary backlog", healthGradeGood: "In good shape", healthGradeAverage: "Average", healthGradeGrowing: "Growing debt", healthGradeOverwhelmed: "Backlog took over", healthGradeUnknown: "Unknown", healthMsgExemplary: "You're keeping up with your games - respect!", healthMsgGood: "Your backlog is under control, keep it up.", healthMsgAverage: "A few games have piled up, but that's normal.", healthMsgGrowing: "Your backlog is growing faster than you're clearing it.", healthMsgOverwhelmed: "Maybe it's time to buy less and play more?", healthNoStatusMsg: "Set a status (Completed/Not completed) on your games to see your score.", healthEmptyMsg: "Add your first game to see your score.", sideStoreTitle: "Where you spent", sideCostTitle: "What it cost you", costPerCompleted: "Spent per completed game", costDead: "Dead backlog value", costDeadShare: "Share of library value", costThisYear: "Spent this year", costSamePeriod: "Same period last year", costChange: "Change", costHint: "Dead backlog = games with no status, Not completed or Won't play. Set statuses on your games to make it accurate.", chartOptYoy: "Spending, year over year", chartYoyTitle: "Cumulative spending ({cur}), by year", chartDownloadPng: "Download PNG", yrAllTime: "All time", yrTotalSpentAll: "Spent in total", yrWrappedIntroAll: "Your whole library", yrWrappedOutroAll: "That was your whole library so far. Keep going.", sideInfoTitle: "Your library in numbers", sideEmpty: "Nothing to show yet.", infoFirst: "First purchase", infoLast: "Latest purchase", infoAvg: "Average price", infoMax: "Most expensive", infoFormats: "Digital / physical", infoTracked: "With a status",
         firebaseNotConfigured: "Firebase is not configured. Paste your config in the file (FIREBASE CONFIG section).",
         syncCloud: "Cloud", syncSyncing: "Syncing...", syncErr: "Sync error", retryBtn: "Retry", libraryLoadError: "Couldn't load your library. Check your connection and try again.",
         savedCloud: "Saved", itemDeleted: "Item deleted", itemsDeleted: "{n} games deleted", bulkDeleteBtn: "Delete selected", savePending: "Not saved yet. Will retry automatically.", syncMerged: "Merged changes from your other device", syncRefreshed: "Updated from your other device", syncRestored: "Restored unsaved changes from this device", navFeedback: "Feedback & contact", feedbackDesc: "Got an idea for improving Backlog Wallet? Send it here.", feedbackSubject: "Subject", feedbackMessage: "Message", feedbackSend: "Send", feedbackSending: "Sending...", feedbackOk: "Thanks! Your message was sent.", feedbackFail: "Could not send the message. Please try again later.", feedbackWait: "Please wait a moment before sending another message.", feedbackNote: "Messages are delivered by email through Web3Forms. Please don't include sensitive personal data.", undoBtn: "Undo", smartImportBtn: "Smart import (Steam & more)", smartImportHint: "Paste your Steam purchase history (or any order list/receipt) below - one purchase per line works best. Steam doesn't offer an official export, so this is a best-effort reader: it tries to find a date, a price and a title on each line. Nothing gets added until you review and confirm the results below.", smartImportParseBtn: "Find purchases", smartImportPreviewNote: "Review each row - uncheck anything that isn't a game (wallet top-ups and refunds are pre-unchecked, but double-check). Every field can be edited directly.", smartImportCommitBtn: "Add checked games", onThisDayLabel: "On this day", onThisDayText: "{years} today, you bought {name}", onThisDayExtra: " (and {n} more)", yrHeatmapHeading: "Purchase activity", yrHeatmapLess: "Less", yrHeatmapMore: "More", yrWrappedBtn: "View as Wrapped", yrWrappedIntro: "Your year in games", yrWrappedOutro: "That was {year}. See you next year.", yrFirstGame: "First game bought", yrHeatmapDayCount: "{date}: {count} game(s) bought", yrHeatmapDayNone: "{date}: nothing bought",
@@ -102,6 +102,7 @@ fldStatus: "Completion status (optional)", statusNone: "- not set -", statusComp
 
 let currentLang = 'en';
 let games = [];
+let registerAttemptAt = 0;
 let globalTotalChf = 0;
 let mainChart = null;
 let editingIndex = -1;
@@ -148,6 +149,8 @@ function isSuspiciousGameName(name) {
 }
 
 const MAX_PRICE_CHF = 2000;
+const MAX_GAMES = 3000;               // one library has to fit into a single database document
+const MAX_IMPORT_BYTES = 2 * 1024 * 1024;
 function findDuplicateIndex(name, excludeIndex) {
     const norm = (name || '').trim().toLowerCase();
     if (!norm) return -1;
@@ -749,7 +752,7 @@ $('authForm').addEventListener('submit', async function (e) {
                 showAuthMsg('authErrTooFast', 'error');
                 return;
             }
-            const lastReg = parseInt(localStorage.getItem('lastRegisterAttempt') || '0', 10);
+            const lastReg = Math.max(parseInt(localStorage.getItem('lastRegisterAttempt') || '0', 10), registerAttemptAt);
             if (lastReg && (Date.now() - lastReg) < 60000) {
                 showAuthMsg('authErrTooSoon', 'error');
                 return;
@@ -765,6 +768,7 @@ $('authForm').addEventListener('submit', async function (e) {
                 const existing = await db.collection('nicknames').doc(nickKey).get();
                 if (existing.exists) { showAuthMsg('authErrNicknameTaken', 'error'); return; }
             }
+            registerAttemptAt = Date.now();
             localStorage.setItem('lastRegisterAttempt', String(Date.now()));
             const credU = await auth.createUserWithEmailAndPassword(email, pass);
             userProfile.nickname = nick;
@@ -789,7 +793,7 @@ $('authForm').addEventListener('submit', async function (e) {
         this.reset();
     } catch (err) {
         console.warn(err.code);
-        if (authMode === 'register' && err.code !== 'auth/too-many-requests') localStorage.removeItem('lastRegisterAttempt');
+        if (authMode === 'register' && err.code !== 'auth/too-many-requests') { registerAttemptAt = 0; localStorage.removeItem('lastRegisterAttempt'); }
         showAuthMsg(mapAuthError(err.code), 'error');
     }
 });
@@ -1056,6 +1060,7 @@ form.addEventListener('submit', function (e) {
         games[editingIndex] = gameData;
         cancelEdit();
     } else {
+        if (games.length >= MAX_GAMES) { showToast('libraryFull'); return; }
         games.push(gameData);
         flashNewGames([gameData]);
     }
@@ -1419,6 +1424,7 @@ function commitSmartImport() {
         if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) date = todayStr;
 
         const newGame = { name, price, currency, source: 'Steam', date, ownership: 'digital', priceChf: price * (rates[currency] || 1), id: newGameId() };
+        if (games.length >= MAX_GAMES) { skipped++; return; }
         games.push(newGame);
         existingNames.add(nameKey);
         newlyAdded.push(newGame);
@@ -1483,6 +1489,7 @@ function submitBulkAdd() {
             if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) date = todayStr;
 
             const newGame = { name, price, currency, source, date, ownership: 'digital', priceChf: price * (rates[currency] || 1), id: newGameId() };
+            if (games.length >= MAX_GAMES) { skipped++; return; }
             games.push(newGame);
             existingNames.add(nameKey);
             newlyAdded.push(newGame);
@@ -2555,7 +2562,9 @@ function exportMainChart() {
 function exportCSV() {
     const rows = [['Name', 'Source', 'Ownership', 'Date', 'Price', 'Currency', 'PriceCHF', 'Status']];
     games.forEach(g => rows.push([g.name, g.source || 'Steam', g.ownership || 'digital', g.date, g.price, g.currency, g.priceChf.toFixed(2), g.status || '']));
-    const csv = rows.map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(',')).join('\n');
+    // a cell starting with = + - @ would be run as a formula by spreadsheet apps, so it gets a leading apostrophe
+    const csvCell = v => { let x = String(v); if (/^[=+\-@\t\r]/.test(x)) x = "'" + x; return `"${x.replace(/"/g, '""')}"`; };
+    const csv = rows.map(r => r.map(csvCell).join(',')).join('\n');
     const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
@@ -2798,6 +2807,7 @@ async function handleImportFile(event) {
     const file = event.target.files && event.target.files[0];
     event.target.value = ''; // allow picking the same file again later
     if (!file) return;
+    if (file.size > MAX_IMPORT_BYTES) { showToastText(t('importTooBig')); return; }
     let data;
     try {
         const text = await file.text();
@@ -2833,6 +2843,7 @@ async function handleImportFile(event) {
             const date = (typeof g.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(g.date)) ? g.date : todayLocal();
             const priceChf = price * (rates[currency] || 1);
 
+            if (games.length >= MAX_GAMES) { skipped++; return; }
             games.push({ name, price, currency, source, date, ownership, status, priceChf, id: newGameId() });
             existingNames.add(nameKey);
             added++;
@@ -3392,6 +3403,8 @@ async function downloadYearReviewImage() {
 // ---- feedback form: delivered by email through Web3Forms (key is public by design) ----
 const FEEDBACK_ACCESS_KEY = '57e77a17-973a-4bea-b128-b23d7d90d2a4';
 const FEEDBACK_COOLDOWN_MS = 60000;
+const feedbackOpenedAt = Date.now();
+let feedbackSentAt = 0;
 
 function setFeedbackMsg(key, ok) {
     const el = $('feedbackMsg');
@@ -3402,13 +3415,14 @@ function setFeedbackMsg(key, ok) {
 $('feedbackForm').addEventListener('submit', async function (e) {
     e.preventDefault();
     if ($('feedbackBot').checked) return;
+    if (Date.now() - feedbackOpenedAt < 4000) return;   // nobody fills in a form this fast
     const subject = $('feedbackSubject').value.trim();
     const message = $('feedbackMessage').value.trim();
     if (!subject || !message) return;
 
     let last = 0;
     try { last = parseInt(localStorage.getItem('feedbackLastSent') || '0', 10) || 0; } catch (err) {}
-    if (Date.now() - last < FEEDBACK_COOLDOWN_MS) { setFeedbackMsg('feedbackWait', false); return; }
+    if (Date.now() - Math.max(last, feedbackSentAt) < FEEDBACK_COOLDOWN_MS) { setFeedbackMsg('feedbackWait', false); return; }
 
     const btn = $('feedbackSubmit');
     btn.disabled = true;
@@ -3421,11 +3435,13 @@ $('feedbackForm').addEventListener('submit', async function (e) {
                 access_key: FEEDBACK_ACCESS_KEY,
                 subject: '[Backlog Wallet] ' + subject,
                 from_name: 'Backlog Wallet feedback',
-                message: message
+                message: message,
+                botcheck: false
             })
         });
         const data = await res.json();
         if (!res.ok || !data.success) throw new Error('send failed');
+        feedbackSentAt = Date.now();
         try { localStorage.setItem('feedbackLastSent', String(Date.now())); } catch (err) {}
         $('feedbackForm').reset();
         setFeedbackMsg('feedbackOk', true);
