@@ -55,7 +55,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js" defer></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js" defer></script>
 
-    <link rel="stylesheet" href="styles.css?v=80">
+    <link rel="stylesheet" href="styles.css?v=81">
 </head>
 <body class="auth-pending">
     <a class="skip-link" href="#mainContent">Skip to content</a>
@@ -578,6 +578,10 @@
             <div class="card side-card" id="costCard">
                 <div class="card-head"><span data-i18n="sideCostTitle">What it cost you</span></div>
                 <div class="card-body" id="costList"></div>
+            </div>
+            <div class="card side-card" id="habitsCard">
+                <div class="card-head"><span data-i18n="sideHabitsTitle">Your buying habits</span></div>
+                <div class="card-body" id="habitsList"></div>
             </div>
             <div class="card side-card" id="infoCard">
                 <div class="card-head"><span data-i18n="sideInfoTitle">Your library in numbers</span></div>
@@ -1148,7 +1152,7 @@
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v1.0.1 &middot; build 2026-11-16 23:55</span>
+        <span class="footer-build">v1.1.0 &middot; build 2026-11-19 12:00</span>
     </div>
 </footer>
 
@@ -1185,7 +1189,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=80" defer></script>
+    <script src="app.js?v=81" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.

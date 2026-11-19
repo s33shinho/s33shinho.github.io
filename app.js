@@ -85,7 +85,7 @@ fldStatus: "Completion status (optional)", statusNone: "- not set -", statusComp
         
         registerCheckEmail: "Account created. Confirm your e-mail (check spam too) and you are in.", verifyGateTitle: "Confirm your email address", verifyGateBody: "We've sent a confirmation link to your email. Click it, then come back here and check again.", resendVerifyBtn: "Resend email", recheckVerifyBtn: "Check again", verifyEmailSent: "Sent again.", verifyStillNotVerified: "Not confirmed yet. Check your inbox and spam folder.", verifyNowVerified: "Confirmed, thanks.",
         loginOk: "Logged in.", logoutOk: "Logged out.",
-        authErrInvalid: "Wrong e-mail or password.", authErrInUse: "This e-mail is already registered.", authErrWeak: "Password must be at least 8 characters.", authErrNoUser: "No account found with this e-mail.", authErrGeneric: "Something went wrong, try again.", authErrEmailOnly: "Log in with the e-mail address you registered with.", accRegisteredSince: "Registered", importDataBtn: "Import data (JSON)", importDataNote: "Import a JSON file previously downloaded with \"Download my data\" (e.g. from another account or as a backup restore). Games are added to your current library - duplicates (by name) are skipped automatically.", importInvalidFile: "Invalid file - please choose a JSON file previously downloaded with \"Download my data\".", importResult: "Games imported: {added} (invalid lines skipped: {skipped}, duplicates: {dup}).", importTooBig: "That file is too large to import (limit 2 MB).", libraryFull: "Library limit reached (3000 games).", banGateTitle: "This account has been suspended", banGateReasonLabel: "Reason", banGateNoReason: "The administrator did not provide a reason.", banGatePermanent: "This is a permanent suspension.", banGateUntilPrefix: "Suspended until:", banGateContact: "If you believe this is a mistake, please get in touch through Feedback & contact (linked in the footer).", banGateBackBtn: "Back to home page", authErrTooFast: "Form filled out too quickly - please try again in a moment.", authErrTooSoon: "Too many registration attempts in a short time - please try again in a minute.", healthLabel: "Backlog health", healthGradeExemplary: "Exemplary backlog", healthGradeGood: "In good shape", healthGradeAverage: "Average", healthGradeGrowing: "Growing debt", healthGradeOverwhelmed: "Backlog took over", healthGradeUnknown: "Unknown", healthMsgExemplary: "You're keeping up with your games - respect!", healthMsgGood: "Your backlog is under control, keep it up.", healthMsgAverage: "A few games have piled up, but that's normal.", healthMsgGrowing: "Your backlog is growing faster than you're clearing it.", healthMsgOverwhelmed: "Maybe it's time to buy less and play more?", healthNoStatusMsg: "Set a status (Completed/Not completed) on your games to see your score.", healthEmptyMsg: "Add your first game to see your score.", sideStoreTitle: "Where you spent", sideCostTitle: "What it cost you", costPerCompleted: "Spent per completed game", costDead: "Dead backlog value", costDeadShare: "Share of library value", costThisYear: "Spent this year", costSamePeriod: "Same period last year", costChange: "Change", costHint: "Dead backlog = games with no status, Not completed or Won't play. Set statuses on your games to make it accurate.", chartOptYoy: "Spending, year over year", chartYoyTitle: "Cumulative spending ({cur}), by year", chartDownloadPng: "Download PNG", yrAllTime: "All time", yrTotalSpentAll: "Spent in total", yrWrappedIntroAll: "Your whole library", yrWrappedOutroAll: "That was your whole library so far. Keep going.", sideInfoTitle: "Your library in numbers", sideEmpty: "Nothing to show yet.", infoFirst: "First purchase", infoLast: "Latest purchase", infoAvg: "Average price", infoMax: "Most expensive", infoFormats: "Digital / physical", infoTracked: "With a status",
+        authErrInvalid: "Wrong e-mail or password.", authErrInUse: "This e-mail is already registered.", authErrWeak: "Password must be at least 8 characters.", authErrNoUser: "No account found with this e-mail.", authErrGeneric: "Something went wrong, try again.", authErrEmailOnly: "Log in with the e-mail address you registered with.", accRegisteredSince: "Registered", importDataBtn: "Import data (JSON)", importDataNote: "Import a JSON file previously downloaded with \"Download my data\" (e.g. from another account or as a backup restore). Games are added to your current library - duplicates (by name) are skipped automatically.", importInvalidFile: "Invalid file - please choose a JSON file previously downloaded with \"Download my data\".", importResult: "Games imported: {added} (invalid lines skipped: {skipped}, duplicates: {dup}).", importTooBig: "That file is too large to import (limit 2 MB).", libraryFull: "Library limit reached (3000 games).", banGateTitle: "This account has been suspended", banGateReasonLabel: "Reason", banGateNoReason: "The administrator did not provide a reason.", banGatePermanent: "This is a permanent suspension.", banGateUntilPrefix: "Suspended until:", banGateContact: "If you believe this is a mistake, please get in touch through Feedback & contact (linked in the footer).", banGateBackBtn: "Back to home page", authErrTooFast: "Form filled out too quickly - please try again in a moment.", authErrTooSoon: "Too many registration attempts in a short time - please try again in a minute.", healthLabel: "Backlog health", healthGradeExemplary: "Exemplary backlog", healthGradeGood: "In good shape", healthGradeAverage: "Average", healthGradeGrowing: "Growing debt", healthGradeOverwhelmed: "Backlog took over", healthGradeUnknown: "Unknown", healthMsgExemplary: "You're keeping up with your games - respect!", healthMsgGood: "Your backlog is under control, keep it up.", healthMsgAverage: "A few games have piled up, but that's normal.", healthMsgGrowing: "Your backlog is growing faster than you're clearing it.", healthMsgOverwhelmed: "Maybe it's time to buy less and play more?", healthNoStatusMsg: "Set a status (Completed/Not completed) on your games to see your score.", healthEmptyMsg: "Add your first game to see your score.", sideStoreTitle: "Where you spent", sideCostTitle: "What it cost you", sideHabitsTitle: "Your buying habits", costPerCompleted: "Spent per completed game", costDead: "Dead backlog value", costDeadShare: "Share of library value", costThisYear: "Spent this year", costSamePeriod: "Same period last year", costChange: "Change", costHint: "Dead backlog = games with no status, Not completed or Won't play. Set statuses on your games to make it accurate.", chartOptYoy: "Spending, year over year", chartYoyTitle: "Cumulative spending ({cur}), by year", chartDownloadPng: "Download PNG", yrAllTime: "All time", yrTotalSpentAll: "Spent in total", yrWrappedIntroAll: "Your whole library", yrWrappedOutroAll: "That was your whole library so far. Keep going.", sideInfoTitle: "Your library in numbers", sideEmpty: "Nothing to show yet.", infoFirst: "First purchase", infoLast: "Latest purchase", infoAvg: "Average price", infoMax: "Most expensive", infoFormats: "Digital / physical", infoTracked: "With a status",
         firebaseNotConfigured: "Firebase is not configured. Paste your config in the file (FIREBASE CONFIG section).",
         syncCloud: "Cloud", syncSyncing: "Syncing...", syncErr: "Sync error", retryBtn: "Retry", libraryLoadError: "Couldn't load your library. Check your connection and try again.",
         savedCloud: "Saved", itemDeleted: "Item deleted", itemsDeleted: "{n} games deleted", bulkDeleteBtn: "Delete selected", savePending: "Not saved yet. Will retry automatically.", syncMerged: "Merged changes from your other device", syncRefreshed: "Updated from your other device", syncRestored: "Restored unsaved changes from this device", navFeedback: "Feedback & contact", feedbackDesc: "Got an idea for improving Backlog Wallet? Send it here.", feedbackSubject: "Subject", feedbackMessage: "Message", feedbackSend: "Send", feedbackSending: "Sending...", feedbackOk: "Thanks! Your message was sent.", feedbackFail: "Could not send the message. Please try again later.", feedbackWait: "Please wait a moment before sending another message.", feedbackNote: "Messages are delivered by email through Web3Forms. Please don't include sensitive personal data.", undoBtn: "Undo", smartImportBtn: "Smart import (Steam & more)", smartImportHint: "Paste your Steam purchase history (or any order list/receipt) below - one purchase per line works best. Steam doesn't offer an official export, so this is a best-effort reader: it tries to find a date, a price and a title on each line. Nothing gets added until you review and confirm the results below.", smartImportParseBtn: "Find purchases", smartImportPreviewNote: "Review each row - uncheck anything that isn't a game (wallet top-ups and refunds are pre-unchecked, but double-check). Every field can be edited directly.", smartImportCommitBtn: "Add checked games", onThisDayLabel: "On this day", onThisDayText: "{years} today, you bought {name}", onThisDayExtra: " (and {n} more)", yrHeatmapHeading: "Purchase activity", yrHeatmapLess: "Less", yrHeatmapMore: "More", yrWrappedBtn: "View as Wrapped", yrWrappedIntro: "Your year in games", yrWrappedOutro: "That was {year}. See you next year.", yrFirstGame: "First game bought", yrHeatmapDayCount: "{date}: {count} game(s) bought", yrHeatmapDayNone: "{date}: nothing bought",
@@ -2186,6 +2186,7 @@ function renderSideCards() {
         bars.innerHTML = `<p class="side-empty">${t('sideEmpty')}</p>`;
         info.innerHTML = `<p class="side-empty">${t('sideEmpty')}</p>`;
         if ($('costList')) $('costList').innerHTML = `<p class="side-empty">${t('sideEmpty')}</p>`;
+        if ($('habitsList')) $('habitsList').innerHTML = `<p class="side-empty">${t('sideEmpty')}</p>`;
         return;
     }
     const cur = ($('totalCurrency') && $('totalCurrency').value) || 'EUR';
@@ -2246,6 +2247,68 @@ function renderSideCards() {
                 samePeriodChf > 0 ? `${change} compared with ${fmt(samePeriodChf)} ${cur} by this date last year.` : 'Nothing was bought by this date last year.']
         ];
         costEl.innerHTML = `<dl class="facts">${costFacts.map(([v, l, n]) => `<div class="fact"><dd>${escapeHtml(String(v))}</dd><dt>${escapeHtml(l)}</dt><small>${escapeHtml(String(n))}</small></div>`).join('')}</dl>`;
+    }
+
+    // buying habits: when, how often and in what size the money goes out
+    const habitsEl = $('habitsList');
+    if (habitsEl) {
+        const MS_DAY = 86400000;
+        const dayNum = (d) => Math.floor(new Date(d + 'T12:00:00').getTime() / MS_DAY);
+        const dates = [...new Set(games.map(g => g.date).filter(d => d && d.length >= 10 && !isNaN(new Date(d + 'T12:00:00'))))].sort();
+        const todayNum = Math.floor(Date.now() / MS_DAY);
+        const monthName = (i) => new Date(2000, i, 15).toLocaleDateString('en-GB', { month: 'long' });
+        const plural = (n, w) => `${n} ${w}${n === 1 ? '' : 's'}`;
+        const habitFacts = [];
+
+        // days since the last purchase and the longest pause between purchases
+        if (dates.length) {
+            const since = Math.max(0, todayNum - dayNum(dates[dates.length - 1]));
+            let longest = 0;
+            for (let i = 1; i < dates.length; i++) longest = Math.max(longest, dayNum(dates[i]) - dayNum(dates[i - 1]));
+            longest = Math.max(longest, since);
+            habitFacts.push([plural(since, 'day'), 'Since your last purchase',
+                dates.length > 1 ? `Your longest break between purchases so far: ${plural(longest, 'day')}.` : 'Buy a second game to see your longest break.']);
+        }
+
+        // calendar month with the most money spent, all years together
+        const byMonth = new Array(12).fill(0);
+        let datedSum = 0;
+        games.forEach(g => {
+            const m = parseInt((g.date || '').slice(5, 7), 10);
+            if (m >= 1 && m <= 12) { byMonth[m - 1] += g.priceChf || 0; datedSum += g.priceChf || 0; }
+        });
+        if (datedSum > 0) {
+            const best = byMonth.indexOf(Math.max(...byMonth));
+            habitFacts.push([monthName(best), 'Your biggest spending month',
+                `${Math.round(byMonth[best] / datedSum * 100)}% of everything you spent was in ${monthName(best)} (${fmt(byMonth[best])} ${cur}), all years together.`]);
+        }
+
+        // the single most expensive calendar month
+        const bySpecific = {};
+        games.forEach(g => { const k = (g.date || '').slice(0, 7); if (/^\d{4}-\d{2}$/.test(k)) bySpecific[k] = (bySpecific[k] || 0) + (g.priceChf || 0); });
+        const recordMonth = Object.entries(bySpecific).sort((a, b) => b[1] - a[1])[0];
+        if (recordMonth) {
+            const [ry, rm] = recordMonth[0].split('-');
+            habitFacts.push([`${fmt(recordMonth[1])} ${cur}`, 'Most spent in one month', `${monthName(parseInt(rm, 10) - 1)} ${ry}.`]);
+        }
+
+        // typical price: the median, and how the games split into price ranges (in EUR)
+        const eurRate = rates.EUR || 1;
+        const eurPrices = games.map(g => (g.priceChf || 0) / eurRate).sort((a, b) => a - b);
+        const chfSorted = games.map(g => g.priceChf || 0).sort((a, b) => a - b);
+        const medianChf = (chfSorted[Math.floor((chfSorted.length - 1) / 2)] + chfSorted[Math.floor(chfSorted.length / 2)]) / 2;
+        const band = (lo, hi) => Math.round(eurPrices.filter(v => v >= lo && v < hi).length / eurPrices.length * 100);
+        habitFacts.push([`${fmt(medianChf)} ${cur}`, 'Median price per game',
+            `Half of your games cost less than this. By price: ${band(0, 10)}% under 10 EUR, ${band(10, 30)}% 10-30 EUR, ${band(30, 60)}% 30-60 EUR, ${band(60, Infinity)}% over 60 EUR.`]);
+
+        // which currencies you pay in
+        const byCur = {};
+        games.forEach(g => { const c = g.currency || 'EUR'; byCur[c] = (byCur[c] || 0) + 1; });
+        const curRows = Object.entries(byCur).sort((a, b) => b[1] - a[1]);
+        habitFacts.push([curRows[0][0], 'Currency you pay in most',
+            curRows.slice(0, 3).map(([c, n]) => `${c} ${Math.round(n / games.length * 100)}%`).join(', ') + ' of your purchases.']);
+
+        habitsEl.innerHTML = `<dl class="facts">${habitFacts.map(([v, l, n]) => `<div class="fact"><dd>${escapeHtml(String(v))}</dd><dt>${escapeHtml(l)}</dt><small>${escapeHtml(String(n))}</small></div>`).join('')}</dl>`;
     }
 }
 
