@@ -1373,7 +1373,7 @@
         .st-wont { color: var(--text-dim); }
 
         /* footer on phones: links, then the meta lines, evenly stacked */
-        .footer-links { display: flex; flex-wrap: wrap; gap: 4px 8px; }
+        .footer-links { display: flex; flex-wrap: wrap; gap: 4px 20px; }
         @media (max-width: 620px) {
             .site-footer { flex-direction: column; gap: 12px; }
             .footer-meta { flex-direction: column; gap: 2px; }
@@ -1874,7 +1874,7 @@ html[data-theme="light"] .add-card #addFormToggleBtn { color: #fff; }
 
 /* ---------- library ---------- */
 .lib-card .card-head { flex-wrap: wrap; gap: 8px 18px; align-items: baseline; }
-.lib-card .card-head .btn-chip { border: 0; padding: 0; height: auto; background: none; color: var(--text-dim); font-size: 13.5px; font-weight: 500; text-decoration: underline; text-decoration-color: var(--border-light); text-underline-offset: 4px; }
+.lib-card .card-head .btn-chip { border: 0; padding: 0; height: auto; background: none; color: var(--text-light); font-size: 13.5px; font-weight: 500; text-decoration: underline; text-decoration-color: var(--text-dim); text-underline-offset: 4px; }
 .lib-card .card-head .btn-chip:hover { color: var(--text-white); background: none; text-decoration-color: currentColor; }
 .lib-card .card-head .btn-chip i { display: none; }
 .table-tools { padding: 0 0 12px; border: 0; gap: 10px; align-items: center; }
