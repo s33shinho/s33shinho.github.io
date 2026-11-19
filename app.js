@@ -2292,14 +2292,22 @@ function renderSideCards() {
             habitFacts.push([`${fmt(recordMonth[1])} ${cur}`, 'Most spent in one month', `${monthName(parseInt(rm, 10) - 1)} ${ry}.`]);
         }
 
-        // typical price: the median, and how the games split into price ranges (in EUR)
-        const eurRate = rates.EUR || 1;
-        const eurPrices = games.map(g => (g.priceChf || 0) / eurRate).sort((a, b) => a - b);
+        // typical price: the median, and how the games split into price ranges (all in the chosen currency;
+        // the range limits are 10, 30 and 60 EUR converted and rounded to a round number)
         const chfSorted = games.map(g => g.priceChf || 0).sort((a, b) => a - b);
         const medianChf = (chfSorted[Math.floor((chfSorted.length - 1) / 2)] + chfSorted[Math.floor(chfSorted.length / 2)]) / 2;
-        const band = (lo, hi) => Math.round(eurPrices.filter(v => v >= lo && v < hi).length / eurPrices.length * 100);
+        const roundNice = (x) => {
+            const mag = Math.pow(10, Math.floor(Math.log10(x)));
+            const steps = [1, 1.5, 2, 3, 4, 5, 6, 7.5, 10];
+            const r = x / mag;
+            return steps.reduce((best, st) => Math.abs(st - r) < Math.abs(best - r) ? st : best, steps[0]) * mag;
+        };
+        const limits = [10, 30, 60].map(eur => roundNice(eur * (rates.EUR || 1) / rate));
+        const inCur = chfSorted.map(v => v / rate);
+        const band = (lo, hi) => Math.round(inCur.filter(v => v >= lo && v < hi).length / inCur.length * 100);
+        const nf = (n) => n.toLocaleString(currentLang, { maximumFractionDigits: 2 });
         habitFacts.push([`${fmt(medianChf)} ${cur}`, 'Median price per game',
-            `Half of your games cost less than this. By price: ${band(0, 10)}% under 10 EUR, ${band(10, 30)}% 10-30 EUR, ${band(30, 60)}% 30-60 EUR, ${band(60, Infinity)}% over 60 EUR.`]);
+            `Half of your games cost less than this. By price: ${band(0, limits[0])}% under ${nf(limits[0])} ${cur}, ${band(limits[0], limits[1])}% ${nf(limits[0])}-${nf(limits[1])} ${cur}, ${band(limits[1], limits[2])}% ${nf(limits[1])}-${nf(limits[2])} ${cur}, ${band(limits[2], Infinity)}% over ${nf(limits[2])} ${cur}.`]);
 
         // which currencies you pay in
         const byCur = {};
