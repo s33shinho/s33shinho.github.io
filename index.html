@@ -55,7 +55,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js" defer></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js" defer></script>
 
-    <link rel="stylesheet" href="styles.css?v=85">
+    <link rel="stylesheet" href="styles.css?v=86">
 </head>
 <body class="auth-pending">
     <a class="skip-link" href="#mainContent">Skip to content</a>
@@ -779,7 +779,7 @@
                             <tbody></tbody>
                         </table>
                     </div>
-                    <p class="auth-note" style="margin-top:12px; font-size:11px;"><span data-i18n="ratesUpdated">Updated</span>: <span id="ratesUpdatedTime">-</span></p>
+                    <p class="auth-note" style="margin-top:12px; font-size:12px;"><span data-i18n="ratesUpdated">Updated</span>: <span id="ratesUpdatedTime">-</span></p>
                 </div>
             </div>
         </section>
@@ -1014,7 +1014,7 @@
                             <div class="stat-tile"><div class="stat-label">This month</div><div class="stat-value"><span id="adminVisitsMonth">-</span></div></div>
                             <div class="stat-tile"><div class="stat-label">This year</div><div class="stat-value"><span id="adminVisitsYear">-</span></div></div>
                         </div>
-                        <p class="auth-note" style="margin-top:8px; font-size:11px;">These figures are history: the counter was switched off on 15 Nov 2026. Current traffic is in Cloudflare (Web Analytics).</p>
+                        <p class="auth-note" style="margin-top:8px; font-size:12px;">These figures are history: the counter was switched off on 15 Nov 2026. Current traffic is in Cloudflare (Web Analytics).</p>
                     </div>
 
                     <div class="acc-block">
@@ -1040,12 +1040,12 @@
                     <div class="acc-block">
                         <button type="button" class="btn-tool" onclick="loadAdminPanel()"><i class="fa-solid fa-rotate"></i> Refresh data</button>
                         <button type="button" class="btn-tool" style="margin-top:8px;" onclick="forceSyncLeaderboard()"><i class="fa-solid fa-ranking-star"></i> Force leaderboard sync (all accounts)</button>
-                        <p class="auth-note" style="margin-top:8px; font-size:11px;">Use this if the leaderboard is missing accounts that have not signed in since the last site update.</p>
+                        <p class="auth-note" style="margin-top:8px; font-size:12px;">Use this if the leaderboard is missing accounts that have not signed in since the last site update.</p>
                         <button type="button" class="btn-tool" style="margin-top:8px;" onclick="purgeNicknameEmails()"><i class="fa-solid fa-eraser"></i> Remove e-mails from nickname records</button>
                         <button type="button" class="btn-tool" style="margin-top:8px;" onclick="migrateSharedLibraries()"><i class="fa-solid fa-rotate"></i> Create public library records</button>
                         <button type="button" class="btn-tool" style="margin-top:8px;" onclick="backupAllData()"><i class="fa-solid fa-download"></i> Download full backup (JSON)</button>
-                        <p class="auth-note" style="margin-top:6px; font-size:11px;">The backup file contains all users' data. Keep it private and delete old copies.</p>
-                        <p class="auth-note" style="margin-top:8px; font-size:11px;">Older accounts still have their e-mail stored next to the nickname until they sign in. This clears all of them at once.</p>
+                        <p class="auth-note" style="margin-top:6px; font-size:12px;">The backup file contains all users' data. Keep it private and delete old copies.</p>
+                        <p class="auth-note" style="margin-top:8px; font-size:12px;">Older accounts still have their e-mail stored next to the nickname until they sign in. This clears all of them at once.</p>
                     </div>
                 </div>
             </div>
@@ -1152,7 +1152,7 @@
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v1.1.2 &middot; build 2026-11-19 17:16 UTC+1</span>
+        <span class="footer-build">v1.1.3 &middot; build 2026-11-19 17:22 UTC+1</span>
     </div>
 </footer>
 
@@ -1189,7 +1189,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=85" defer></script>
+    <script src="app.js?v=86" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.

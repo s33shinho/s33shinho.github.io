@@ -2138,8 +2138,8 @@ function renderTable() {
                 <td data-label="${t('colPlatform')}"><span class="source-txt ${srcClass}">${srcDisplay}</span></td>
                 <td data-label="${t('fldOwnership')}"><span class="own-chip" data-own="${own}"><i class="${ownIcon}"></i>${ownLabel}</span></td>
                 <td data-label="${t('purchaseDate')}">${escapeHtml(g.date || "")}</td>
-                <td data-label="${t('colOrigPrice')}">${(Number(g.price) || 0).toFixed(2)} <span style="font-size:10px; color:var(--text-dim);">${escapeHtml(g.currency || "")}</span></td>
-                <td data-label="${valueColLabel(filterCur)}" style="color:var(--steam-blue);">${(g.priceChf / (rates[filterCur] || 1)).toFixed(2)} <span style="font-size:10px;">${filterCur}</span></td>
+                <td data-label="${t('colOrigPrice')}">${(Number(g.price) || 0).toFixed(2)} <span style="font-size:12px; color:var(--text-dim);">${escapeHtml(g.currency || "")}</span></td>
+                <td data-label="${valueColLabel(filterCur)}" style="color:var(--steam-blue);">${(g.priceChf / (rates[filterCur] || 1)).toFixed(2)} <span style="font-size:12px;">${filterCur}</span></td>
                 <td class="action-icons">
                     <button class="st ${st.cls}" onclick="cycleStatus(${i})" title="${st.label} (${t('statusToggleHint')})" aria-label="${escapeHtml(g.name)}: ${st.label} (${t('statusToggleHint')})"><i class="${st.icon}"></i></button>
                     <button class="edit" onclick="editGame(${i})" aria-label="Edit ${escapeHtml(g.name)}"><i class="fa-solid fa-pen"></i></button>
