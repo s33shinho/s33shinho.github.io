@@ -45,7 +45,7 @@ heroFact4: "Steam, PlayStation, Xbox, Nintendo, GOG, Epic, key stores, physical 
         accProfileHead: "Profile",
         fldNickname: "Nickname",
         nicknamePh: "e.g. GamerPL",
-        fldPrefCurrency: "Preferred display currency",
+        fldPrefCurrency: "Preferred display currency", fldDefSource: "Default store for new games", fldDefCurrency: "Default currency for new games",
         fldTheme: "Theme",
         optThemeDark: "Dark",
         optThemeLight: "Light",
@@ -71,7 +71,7 @@ regConsentPre: "I am at least 16 years old and I accept the", regConsentAnd: "an
 fldStatus: "Completion status (optional)", statusNone: "- not set -", statusCompleted: "Completed", statusNotCompleted: "Not completed", statusInProgress: "In progress", statusToggleHint: "click to change", statusEndless: "Endless game", statusWontPlay: "Won't play",         addFormShow: "Add a game", addFormHide: "Close the form",
         myLibrary: "Your Library", colPlatform: "Platform", colOrigPrice: "Original Price", colChfPrice: "CHF Value", colOptions: "Options", totalValue: "Library value",
         statTotalGames: "Games total", statThisMonth: "This month", statSpentThisMonth: "Spent this month", statThisYear: "This year",
-        chartsTitle: "Statistics", chartOptPurchases: "Purchases over time", chartOptCumulative: "Cumulative total", chartOptSources: "Sources",
+        chartsTitle: "Statistics", chartOptPurchases: "Purchases over time", chartOptCumulative: "Total games over time", chartOptCumSpend: "Total spent over time", chartCumSpendTitle: "Total spent over time ({cur})", chartOptSources: "Sources",
         granMonth: "Month", granQuarter: "Quarter", granYear: "Year",
         chartPurchases: "Number of purchases", chartCumulative: "Total games owned", chartSources: "Purchase sources",
         steam: "Steam", keyStore: "Key Store", noResults: "Nothing matches those filters.",
@@ -89,14 +89,14 @@ fldStatus: "Completion status (optional)", statusNone: "- not set -", statusComp
         firebaseNotConfigured: "Firebase is not configured. Paste your config in the file (FIREBASE CONFIG section).",
         syncCloud: "Cloud", syncSyncing: "Syncing...", syncErr: "Sync error", retryBtn: "Retry", libraryLoadError: "Couldn't load your library. Check your connection and try again.",
         savedCloud: "Saved", itemDeleted: "Item deleted", itemsDeleted: "{n} games deleted", bulkDeleteBtn: "Delete selected", savePending: "Not saved yet. Will retry automatically.", syncMerged: "Merged changes from your other device", syncRefreshed: "Updated from your other device", syncRestored: "Restored unsaved changes from this device", navFeedback: "Feedback & contact", feedbackDesc: "Got an idea for improving Backlog Wallet? Send it here.", feedbackSubject: "Subject", feedbackMessage: "Message", feedbackSend: "Send", feedbackSending: "Sending...", feedbackOk: "Thanks! Your message was sent.", feedbackFail: "Could not send the message. Please try again later.", feedbackWait: "Please wait a moment before sending another message.", feedbackNote: "Messages are delivered by email through Web3Forms. Please don't include sensitive personal data.", undoBtn: "Undo", smartImportBtn: "Smart import (Steam & more)", smartImportHint: "Paste your Steam purchase history (or any order list/receipt) below - one purchase per line works best. Steam doesn't offer an official export, so this is a best-effort reader: it tries to find a date, a price and a title on each line. Nothing gets added until you review and confirm the results below.", smartImportParseBtn: "Find purchases", smartImportPreviewNote: "Review each row - uncheck anything that isn't a game (wallet top-ups and refunds are pre-unchecked, but double-check). Every field can be edited directly.", smartImportCommitBtn: "Add checked games", onThisDayLabel: "On this day", onThisDayText: "{years} today, you bought {name}", onThisDayExtra: " (and {n} more)", yrHeatmapHeading: "Purchase activity", yrHeatmapLess: "Less", yrHeatmapMore: "More", yrWrappedBtn: "View as Wrapped", yrWrappedIntro: "Your year in games", yrWrappedOutro: "That was {year}. See you next year.", yrFirstGame: "First game bought", yrHeatmapDayCount: "{date}: {count} game(s) bought", yrHeatmapDayNone: "{date}: nothing bought",
-        emptyLib: "No games yet. Add the first one with the form above.", bulkAddBtn: "Add multiple games", bulkAddHint: "Paste one game per line, in the format: Title;Price;Currency;Source;Date (YYYY-MM-DD). Currency, Source and Date are optional.", bulkAddSubmit: "Add all", bulkAddResult: "Games added: {added} (skipped invalid lines: {skipped})", bulkAddNone: "No valid entries found to add.", hideList: "Hide list", showList: "Show list", expandList: "Expand list", collapseList: "Collapse list", filterAllSources: "All sources", navRates: "Exchange Rates", ratesColCurrency: "Currency", ratesColRate: "Rate per 1 EUR", ratesBaseNote: "All rates are shown relative to 1 EUR (base currency).", ratesUpdated: "Updated", scrollTopTitle: "Back to top", changePasswordBtn: "Change password", currentPassword: "Current password", newPassword: "New password", newPasswordConfirm: "Confirm new password", changePasswordSubmit: "Change password", passwordMismatch: "The passwords do not match.", passwordChanged: "Password updated.",
+        emptyLib: "No games yet. Add the first one with the form above.", bulkAddBtn: "Add multiple games", bulkAddHint: "Paste one game per line, in the format: Title;Price;Currency;Source;Date (YYYY-MM-DD). Currency, Source and Date are optional: without them your default currency and store and today's date are used.", bulkAddSubmit: "Add all", bulkAddResult: "Games added: {added} (skipped invalid lines: {skipped})", bulkAddNone: "No valid entries found to add.", hideList: "Hide list", showList: "Show list", expandList: "Expand list", collapseList: "Collapse list", filterAllSources: "All sources", navRates: "Exchange Rates", ratesColCurrency: "Currency", ratesColRate: "Rate per 1 EUR", ratesBaseNote: "All rates are shown relative to 1 EUR (base currency).", ratesUpdated: "Updated", scrollTopTitle: "Back to top", changePasswordBtn: "Change password", currentPassword: "Current password", newPassword: "New password", newPasswordConfirm: "Confirm new password", changePasswordSubmit: "Change password", passwordMismatch: "The passwords do not match.", passwordChanged: "Password updated.",
         confirmDuplicate: "A game with this name is already in your library. Add it again anyway?", advFiltersToggle: "Advanced filters", priceMin: "Price from", priceMax: "Price to", dateFrom: "Date from", dateTo: "Date to", resetFilters: "Clear filters", bulkAddResultDup: "Games added: {added} (invalid lines: {skipped}, duplicates: {dup})", bulkAddAllDup: "All pasted games ({dup}) are already in your library - nothing was added.", navAchievements: "Achievements", achievementsDesc: "Unlock badges as you grow your game library.", achUnlocked: "Unlocked", achLocked: "Locked", achMaxLevel: "Max level!", achLevel: "Level {level}/{max}", achFirstGameT: "First Step", achFirstGameD: "Add your first game to the library.", achCollectorT: "Collector", achCollectorD: "Own {target} games in your library.", achDiversityT: "Multi-Platform", achDiversityD: "Own games from {target} different platforms.", achFinisherT: "Finisher", achFinisherD: "Complete {target} games from your library.", achPhysicalT: "Box Collector", achPhysicalD: "Own {target} physical games.", achInvestorT: "Big Investor", achInvestorD: "Reach a library value of {target}.", achDreamT: "Dream Fulfilled", achDreamD: "Reach at least one savings goal.", achCurrenciesT: "Multi-Currency", achCurrenciesD: "Buy games in {target} different currencies.", achVeteranT: "Collection Veteran", achVeteranD: "Keep your library going for {target} years.", achBalancedT: "Balanced Collection", achBalancedD: "Own both digital and physical games in your library.", navRoulette: "What to play?", rouletteDesc: "Can't decide what to play tonight? Roll the dice on your backlog.", rouletteBtn: "Pick a game", rouletteRerollBtn: "Pick another", rouletteEmptyLib: "No games to pick from yet. Add a few first.", rouletteAllDone: "No games marked as \"Not completed\" - set that status on some games in your library so there's something to roll for.", roulettePlatformAll: "All platforms", navSectionLibrary: "Your library", navSectionTools: "Tools",
         navTerms: "Terms & Conditions", navPrivacy: "Privacy Policy", rememberMe: "Remember me", footerContact: "Contact", cookieConsentText: "No tracking or advertising cookies here. The site only keeps technical data in your browser (local storage) to work properly and remember your settings, such as language, theme and your login. Details are in the Privacy Policy.", cookieMoreInfo: "More information", cookieAcceptBtn: "OK",
         faqHtml: "<h3>Is it free?</h3><p>Yes. It is a hobby project. You need an account to use it, and the account is free.</p><h3>Can I import my Steam purchases?</h3><p>Sort of. Steam has no official export, but Smart import lets you paste your purchase history (or any order list) and it picks out titles, prices and dates. You review the result before anything is added.</p><h3>I buy in different currencies. Does that work?</h3><p>Yes. Each game keeps the price and currency you paid in. Totals are converted with live rates from open.er-api.com, and if that service is down the app falls back to saved rates.</p><h3>Where is my data stored?</h3><p>In Firebase (Google Cloud), behind access rules, so only your account can read your library. You can download everything as JSON at any time.</p><h3>What happens if I delete my account?</h3><p>Everything is removed. The app downloads a backup of your data first, so you can import it again later if you change your mind.</p><h3>Can I switch between light and dark?</h3><p>Yes, with the moon/sun button at the top. You can also set your nickname and preferred currency in your account.</p><h3>Can I cheat the ranking?</h3><p>Not easily, but it is not impossible either. Your entry is worked out from your own library in your browser, and obviously broken values are rejected, but a determined person could still fake one. It is a ranking for fun, and entries that look fake can be removed.</p><h3>I found a bug or have an idea.</h3><p>Use Feedback &amp; contact in the footer. The e-mail address is on that page too.</p>",
         yrYearLabel: "Year", yrCompareLabel: "Compare with", yrCompareNone: "— no comparison —", yrAllYearsBtn: "All years", yrCompareHeading: "Year comparison", yrAllYearsHeading: "Spending year by year", yrAvgPrice: "Average game price", yrCompletedLabel: "Completed games", yrVsTitle: "{a} compared with {b}",
         donateHtml: "<h3>Support the project</h3><p>This app is free and made as a hobby. If you find it useful, you can buy the author a coffee.</p><p><a href='https://buymeacoffee.com/backlogwallet' target='_blank' rel='noopener'><i class='fa-solid fa-mug-hot'></i> Buy Me a Coffee</a></p><p>Thank you for any support!</p>",
         termsHtml: "<p><em>Last updated: 16 November 2026</em></p><h3>1. General</h3><p>These Terms govern the use of Backlog Wallet (the \"App\"). By creating an account or using the App you accept them. How we handle personal data is described in the <a href='#' onclick=\"showView('privacy'); return false;\">Privacy Policy</a>.</p><h3>2. The service</h3><p>The App is a free tool for personal tracking of video game purchases, built and run by an individual as a hobby project. It is not affiliated with, endorsed by or connected to Valve Corporation, Steam or any other store or platform named in it; those names are used only to describe where you bought a game.</p><h3>3. Who can use it</h3><p>You must be at least 16 years old to create an account. An account is required to use the App.</p><h3>4. Your account</h3><p>Give a working e-mail address and keep your password confidential; you are responsible for activity under your account. One person, one account. You can delete your account and data yourself at any time in \"Your account\".</p><h3>5. Nicknames and shared content</h3><p>Your nickname can be shown publicly if you join the ranking or share your library. Do not use a nickname or enter content that is unlawful, offensive, misleading, impersonates someone else or contains other people's personal data. We may change or remove such content.</p><h3>6. Acceptable use</h3><ul><li>No unlawful use.</li><li>No attempts to compromise the security of the App or its infrastructure, to scrape it at scale, to overload it or to manipulate the ranking.</li><li>You are responsible for the data you enter.</li></ul><h3>7. Suspension and termination</h3><p>We may suspend or delete an account that breaks these Terms or harms the App or other users, normally after notifying you at your e-mail address unless that is not possible or appropriate. You may stop using the App and delete your account at any time.</p><h3>8. Availability and changes to the App</h3><p>The App is provided as a hobby project without a guaranteed level of availability. Features may change or be removed, or the service may be discontinued; we will try to announce this in advance and you can export your data at any time.</p><h3>9. Third-party services and donations</h3><p>Currency rates and some other parts of the App come from third parties and may be inaccurate or unavailable. Donations through Buy Me a Coffee are voluntary, are handled by that service and give no additional rights or features.</p><h3>10. Ownership</h3><p>The App's design and code belong to its author. Your data remains yours; you allow us to store and process it only to run the App for you.</p><h3>11. Liability</h3><p>The App is provided \"as is\". To the extent the law allows, we are not liable for data loss or for indirect losses. Nothing in these Terms limits liability that cannot be limited by law, such as liability for intent or gross negligence or for injury to life, body or health, or your mandatory rights as a consumer.</p><h3>12. Changes to these Terms</h3><p>We may update these Terms. The date at the top shows the latest version and significant changes are listed in the changelog. If you do not agree to a change, you can delete your account; continuing to use the App after the change means you accept it.</p><h3>13. Governing law</h3><p>These Terms are governed by the law of the country where the administrator is established, without depriving you of the mandatory consumer protection of the country where you live.</p><h3>14. Contact</h3><p>Questions about these Terms: <a href='mailto:info@backlogwallet.com'>info@backlogwallet.com</a> or the Feedback &amp; contact page.</p>",
-        privacyHtml: "<p><em>Last updated: 16 November 2026</em></p><div class='policy-summary'><strong>In short</strong><ul><li>We keep your e-mail, nickname and game library so the app can sync them between your devices.</li><li>Nothing is sold. No ads and no tracking cookies; visits are only counted anonymously.</li><li>The public ranking and the public link are off until you switch them on.</li><li>Google (Firebase) stores the data; Cloudflare and GitHub host the site.</li><li>You can export or delete everything yourself under Your account, or write to info@backlogwallet.com.</li></ul><p>The full text follows.</p></div><h3>1. Who is responsible</h3><p>Backlog Wallet is a small, non-commercial project run by an individual developer, who is the data controller for the personal data described here. You can reach us at <a href='mailto:info@backlogwallet.com'>info@backlogwallet.com</a> or through the Feedback &amp; contact page.</p><h3>2. What data we process</h3><ul><li><strong>Account:</strong> your e-mail address, your password (handled by Firebase Authentication; we never see it in plain text), your nickname, your library, savings goals, display settings (currency, theme), the date you registered, whether your e-mail is verified, and the time you accepted these terms. A record linking your nickname to your account ID (not your e-mail address) is kept so that nicknames stay unique.</li><li><strong>Public ranking (optional, off by default):</strong> only if you switch it on in your account, your nickname, the total value of your library in EUR and your number of games are shown to other signed-in users on the Ranking page.</li><li><strong>Public sharing (optional, off by default):</strong> only if you switch it on, anyone who has your link can see your nickname and game list (never your e-mail).</li><li><strong>Feedback form:</strong> the subject and message you type (and any contact details you include) are sent to us by e-mail through Web3Forms. Please do not include sensitive data.</li><li><strong>Visit statistics:</strong> Cloudflare Web Analytics measures page views and page-load speed. It uses no cookies, does not follow you across other sites and does not build profiles of visitors.</li><li><strong>Server logs:</strong> our hosting providers (Cloudflare and GitHub) process technical request data such as your IP address and browser type to deliver and protect the site. We do not have access to these logs for profiling.</li><li><strong>What we do not do:</strong> we do not use advertising or profiling tools, we do not build profiles, and we make no automated decisions about you. We no longer determine your country from your IP address; a value stored earlier is deleted automatically the next time you log in.</li></ul><h3>3. Cookies and local storage</h3><p>The site sets no tracking or advertising cookies. It uses your browser's local storage (and, for the login session, the storage of the Firebase Authentication library) only for technical purposes you asked for or that are needed to run the app: theme, currency, the latest exchange rates (so totals appear faster), your \"remember me\" choice, dismissed hints, menu state, a short anti-spam timer, the fact that you have seen the storage notice, and your login session. Because this storage is strictly necessary or requested by you, no consent banner is required; the notice only informs you. You can clear it at any time in your browser settings, or right here: <a href='#' onclick='clearLocalData(); return false;'>clear local data on this device</a> (this removes everything this site has saved on this device and signs you out; your account data is not affected).</p><h3>4. Services we use and who receives data</h3><ul><li><strong>Google (Firebase Authentication and Cloud Firestore):</strong> stores accounts and libraries. The Firestore database is located in the European Union (multi-region eur3: Belgium and the Netherlands).</li><li><strong>Cloudflare:</strong> DNS and security proxy in front of the site, and anonymous visit statistics (Web Analytics). <strong>GitHub (GitHub Pages):</strong> hosts the site files.</li><li><strong>Web3Forms:</strong> forwards feedback messages to our inbox.</li><li><strong>Resources loaded by your browser:</strong> the Firebase code from Google (gstatic.com) and currency rates from open.er-api.com. When the page loads, these providers receive your IP address and basic browser information, as with any website resource.</li><li><strong>Buy Me a Coffee:</strong> only if you click the donation link; its own privacy policy then applies.</li></ul><p>We do not sell your data and do not share it for marketing. Your data is not made public except through the optional ranking and sharing features above.</p><h3>5. Legal bases (GDPR)</h3><ul><li><strong>Contract (Art. 6(1)(b)):</strong> running your account and syncing your library.</li><li><strong>Consent (Art. 6(1)(a)):</strong> the public ranking and public sharing. You can withdraw consent at any time by switching the option off; the ranking entry is then deleted.</li><li><strong>Legitimate interest (Art. 6(1)(f)):</strong> keeping the site secure and available, preventing abuse, anonymous visit statistics, loading the third-party resources listed above, and answering your messages.</li></ul><h3>6. How long we keep data</h3><p>Account and library data: until you delete your account. Ranking entry: until you switch it off or delete your account. Deleting your account from \"Your account\" removes your sign-in account, profile, library, public link, ranking entry and nickname record; copies may remain in provider backups for a limited period under the provider's own rules. Feedback e-mails: up to 12 months after your last message, then they are deleted. Local browser data: until you clear it.</p><h3>7. International transfers</h3><p>Google, Cloudflare, GitHub and Web3Forms may process data outside the EEA/Switzerland, including in the United States. Where this happens we rely on the provider's safeguards, such as the EU-US Data Privacy Framework certification and/or Standard Contractual Clauses.</p><h3>8. Your rights</h3><p>You have the right to access, rectify, erase and port your data, to restrict or object to processing, and to withdraw consent. Export and deletion are available to you directly in \"Your account\"; for anything else write to <a href='mailto:info@backlogwallet.com'>info@backlogwallet.com</a> and we will answer within one month. You may complain to the data-protection supervisory authority in your country of residence (for example UODO in Poland, the FDPIC in Switzerland).</p><h3>9. Age</h3><p>The App is not intended for children. You must be at least 16 years old to create an account.</p><h3>10. Security</h3><p>Data is transmitted over HTTPS and stored with Firebase's security features and access rules; no method of transmission or storage is 100% secure. Your library and profile can be read only by you and by the site administrator, apart from what you choose to make public. The administrator uses them for support, handling abuse and deletion requests, and for the aggregate figures shown in the admin panel.</p><h3>11. Changes</h3><p>If we change this policy, the date at the top is updated and significant changes are listed in the changelog.</p>",
+        privacyHtml: "<p><em>Last updated: 20 November 2026</em></p><div class='policy-summary'><strong>In short</strong><ul><li>We keep your e-mail, nickname and game library so the app can sync them between your devices.</li><li>Nothing is sold. No ads and no tracking cookies; visits are only counted anonymously.</li><li>The public ranking and the public link are off until you switch them on.</li><li>Google (Firebase) stores the data; Cloudflare and GitHub host the site.</li><li>You can export or delete everything yourself under Your account, or write to info@backlogwallet.com.</li></ul><p>The full text follows.</p></div><h3>1. Who is responsible</h3><p>Backlog Wallet is a small, non-commercial project run by an individual developer, who is the data controller for the personal data described here. You can reach us at <a href='mailto:info@backlogwallet.com'>info@backlogwallet.com</a> or through the Feedback &amp; contact page.</p><h3>2. What data we process</h3><ul><li><strong>Account:</strong> your e-mail address, your password (handled by Firebase Authentication; we never see it in plain text), your nickname, your library, savings goals, display settings (currency, theme, default store and currency for new games), the date you registered, whether your e-mail is verified, and the time you accepted these terms. A record linking your nickname to your account ID (not your e-mail address) is kept so that nicknames stay unique.</li><li><strong>Public ranking (optional, off by default):</strong> only if you switch it on in your account, your nickname, the total value of your library in EUR and your number of games are shown to other signed-in users on the Ranking page.</li><li><strong>Public sharing (optional, off by default):</strong> only if you switch it on, anyone who has your link can see your nickname and game list (never your e-mail).</li><li><strong>Feedback form:</strong> the subject and message you type (and any contact details you include) are sent to us by e-mail through Web3Forms. Please do not include sensitive data.</li><li><strong>Visit statistics:</strong> Cloudflare Web Analytics measures page views and page-load speed. It uses no cookies, does not follow you across other sites and does not build profiles of visitors.</li><li><strong>Server logs:</strong> our hosting providers (Cloudflare and GitHub) process technical request data such as your IP address and browser type to deliver and protect the site. We do not have access to these logs for profiling.</li><li><strong>What we do not do:</strong> we do not use advertising or profiling tools, we do not build profiles, and we make no automated decisions about you. We no longer determine your country from your IP address; a value stored earlier is deleted automatically the next time you log in.</li></ul><h3>3. Cookies and local storage</h3><p>The site sets no tracking or advertising cookies. It uses your browser's local storage (and, for the login session, the storage of the Firebase Authentication library) only for technical purposes you asked for or that are needed to run the app: theme, currency, the latest exchange rates (so totals appear faster), whether amounts are hidden, your \"remember me\" choice, dismissed hints, menu state, a short anti-spam timer, the fact that you have seen the storage notice, and your login session. Because this storage is strictly necessary or requested by you, no consent banner is required; the notice only informs you. You can clear it at any time in your browser settings, or right here: <a href='#' onclick='clearLocalData(); return false;'>clear local data on this device</a> (this removes everything this site has saved on this device and signs you out; your account data is not affected).</p><h3>4. Services we use and who receives data</h3><ul><li><strong>Google (Firebase Authentication and Cloud Firestore):</strong> stores accounts and libraries. The Firestore database is located in the European Union (multi-region eur3: Belgium and the Netherlands).</li><li><strong>Cloudflare:</strong> DNS and security proxy in front of the site, and anonymous visit statistics (Web Analytics). <strong>GitHub (GitHub Pages):</strong> hosts the site files.</li><li><strong>Web3Forms:</strong> forwards feedback messages to our inbox.</li><li><strong>Resources loaded by your browser:</strong> the Firebase code from Google (gstatic.com) and currency rates from open.er-api.com. When the page loads, these providers receive your IP address and basic browser information, as with any website resource.</li><li><strong>Buy Me a Coffee:</strong> only if you click the donation link; its own privacy policy then applies.</li></ul><p>We do not sell your data and do not share it for marketing. Your data is not made public except through the optional ranking and sharing features above.</p><h3>5. Legal bases (GDPR)</h3><ul><li><strong>Contract (Art. 6(1)(b)):</strong> running your account and syncing your library.</li><li><strong>Consent (Art. 6(1)(a)):</strong> the public ranking and public sharing. You can withdraw consent at any time by switching the option off; the ranking entry is then deleted.</li><li><strong>Legitimate interest (Art. 6(1)(f)):</strong> keeping the site secure and available, preventing abuse, anonymous visit statistics, loading the third-party resources listed above, and answering your messages.</li></ul><h3>6. How long we keep data</h3><p>Account and library data: until you delete your account. Ranking entry: until you switch it off or delete your account. Deleting your account from \"Your account\" removes your sign-in account, profile, library, public link, ranking entry and nickname record; copies may remain in provider backups for a limited period under the provider's own rules. Feedback e-mails: up to 12 months after your last message, then they are deleted. Local browser data: until you clear it.</p><h3>7. International transfers</h3><p>Google, Cloudflare, GitHub and Web3Forms may process data outside the EEA/Switzerland, including in the United States. Where this happens we rely on the provider's safeguards, such as the EU-US Data Privacy Framework certification and/or Standard Contractual Clauses.</p><h3>8. Your rights</h3><p>You have the right to access, rectify, erase and port your data, to restrict or object to processing, and to withdraw consent. Export and deletion are available to you directly in \"Your account\"; for anything else write to <a href='mailto:info@backlogwallet.com'>info@backlogwallet.com</a> and we will answer within one month. You may complain to the data-protection supervisory authority in your country of residence (for example UODO in Poland, the FDPIC in Switzerland).</p><h3>9. Age</h3><p>The App is not intended for children. You must be at least 16 years old to create an account.</p><h3>10. Security</h3><p>Data is transmitted over HTTPS and stored with Firebase's security features and access rules; no method of transmission or storage is 100% secure. Your library and profile can be read only by you and by the site administrator, apart from what you choose to make public. The administrator uses them for support, handling abuse and deletion requests, and for the aggregate figures shown in the admin panel.</p><h3>11. Changes</h3><p>If we change this policy, the date at the top is updated and significant changes are listed in the changelog.</p>",
     }
 };
 
@@ -110,6 +110,13 @@ let selectedGames = new Set();
 let wishGoals = [];
 let currentUser = null;
 let userProfile = { nickname: '', currency: '', theme: '' };
+
+// Hide amounts (like in a banking app): every money figure on screen goes through amt().
+// The choice is kept only in this browser.
+let amountsHidden = false;
+try { amountsHidden = localStorage.getItem('hideAmounts') === '1'; } catch (e) {}
+const AMOUNT_MASK = '\u2022\u2022\u2022\u2022';
+function amt(s) { return amountsHidden ? AMOUNT_MASK : s; }
 let myRegisteredAt = null;
 let banGateActive = false;
 let sortKey = 'date', sortDir = -1;
@@ -1083,6 +1090,7 @@ form.addEventListener('submit', function (e) {
     }
     renderTable();
     form.reset();
+    applyGameFormDefaults();
     persistData();
 });
 
@@ -1110,6 +1118,7 @@ function editGame(index) {
 function cancelEdit() {
     editingIndex = -1;
     form.reset();
+    applyGameFormDefaults();
     $('submitBtn').querySelector('span').textContent = t('addBtn');
     $('submitBtn').style.backgroundColor = '';
     $('submitBtn').style.color = '';
@@ -1408,7 +1417,7 @@ function renderSmartImportPreview() {
             <td><input type="number" class="smart-price" data-i="${i}" step="0.01" min="0" value="${r.price != null ? escapeHtml(r.price) : ''}" style="width:90px;"></td>
             <td>
                 <select class="smart-currency" data-i="${i}" style="width:auto;">
-                    ${getFullCurrencyList().map(c => `<option value="${c}" ${(r.currency || 'PLN') === c ? 'selected' : ''}>${c}</option>`).join('')}
+                    ${getFullCurrencyList().map(c => `<option value="${c}" ${(r.currency || defaultGameCurrency()) === c ? 'selected' : ''}>${c}</option>`).join('')}
                 </select>
             </td>
             <td><input type="date" class="smart-date" data-i="${i}" value="${escapeHtml(r.date || '')}"></td>
@@ -1436,11 +1445,11 @@ function commitSmartImport() {
         if (isSuspiciousGameName(name)) { skipped++; return; }
         const nameKey = name.toLowerCase();
         if (existingNames.has(nameKey)) { duplicates++; return; }
-        if (!getFullCurrencyList().includes(currency)) currency = 'PLN';
+        if (!getFullCurrencyList().includes(currency)) currency = defaultGameCurrency();
         if (isPriceTooHigh(price, currency)) { skipped++; return; }
         if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) date = todayStr;
 
-        const newGame = { name, price, currency, source: 'Steam', date, ownership: 'digital', priceChf: price * (rates[currency] || 1), id: newGameId() };
+        const newGame = { name, price, currency, source: defaultGameSource(), date, ownership: 'digital', priceChf: price * (rates[currency] || 1), id: newGameId() };
         if (games.length >= MAX_GAMES) { skipped++; return; }
         games.push(newGame);
         existingNames.add(nameKey);
@@ -1494,13 +1503,13 @@ function submitBulkAdd() {
             const nameKey = name.trim().toLowerCase();
             if (existingNames.has(nameKey)) { duplicates++; return; }
 
-            let currency = (parts[2] || 'PLN').trim().toUpperCase();
-            if (!TOP_CURRENCIES.includes(currency)) currency = 'PLN';
+            let currency = (parts[2] || defaultGameCurrency()).trim().toUpperCase();
+            if (!getFullCurrencyList().includes(currency)) currency = defaultGameCurrency();
             if (isPriceTooHigh(price, currency)) { skipped++; return; }
 
-            let source = (parts[3] || 'Steam').trim();
+            let source = (parts[3] || defaultGameSource()).trim();
             const knownPlatform = Object.keys(PLATFORM_META).find(p => p.toLowerCase() === source.toLowerCase());
-            source = knownPlatform || (source ? 'Kluczykarnia' : 'Steam');
+            source = knownPlatform || (source ? 'Kluczykarnia' : defaultGameSource());
 
             let date = (parts[4] || '').trim();
             if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) date = todayStr;
@@ -1677,12 +1686,12 @@ function renderGoals() {
         card.innerHTML = `
             <div class="goal-card-head">
                 <span class="goal-card-title">${escapeHtml(goal.name)}</span>
-                <span class="goal-card-amounts">${saved.toFixed(2)} / ${target.toFixed(2)} ${escapeHtml(goal.currency)}</span>
+                <span class="goal-card-amounts">${amt(saved.toFixed(2))} / ${amt(target.toFixed(2))} ${escapeHtml(goal.currency)}</span>
             </div>
             <div class="goal-progress-track"><div class="goal-progress-fill ${reached ? 'reached' : ''}" style="width:${pct}%;"></div></div>
             <div class="goal-card-footer">
                 <span style="font-size:13px; color:${reached ? '#5cb85c' : 'var(--text-dim)'};">
-                    ${reached ? `<i class="fa-solid fa-check"></i> ${t('goalReached')}` : `${t('goalRemaining')}: ${remaining.toFixed(2)} ${escapeHtml(goal.currency)} (${pct}%)`}
+                    ${reached ? `<i class="fa-solid fa-check"></i> ${t('goalReached')}` : `${t('goalRemaining')}: ${amt(remaining.toFixed(2))} ${escapeHtml(goal.currency)} (${pct}%)`}
                 </span>
                 <div class="goal-card-actions">
                     <input type="number" step="0.01" min="0" value="${saved}" id="goalSavedInput-${idx}" aria-label="${t('goalSavedAmount')}">
@@ -1782,7 +1791,7 @@ function renderAchievements() {
                 if (def.unit === 'years') return n.toFixed(1);
                 return Math.round(n);
             };
-            statusText = maxed ? t('achMaxLevel') : `${fmt(value)} / ${fmt(nextTarget)}`;
+            statusText = maxed ? t('achMaxLevel') : `${def.unit === 'CHF' ? amt(fmt(value)) : fmt(value)} / ${fmt(nextTarget)}`;
             levelText = t('achLevel').replace('{level}', Math.max(0, tierIdx + 1)).replace('{max}', def.tiers.length);
             const lastTier = def.tiers[def.tiers.length - 1];
             descTarget = def.unit === 'CHF' ? lastTier.toLocaleString(currentLang) + ' CHF' : lastTier;
@@ -1873,7 +1882,7 @@ function renderRouletteFinalCard(g) {
                 <span class="source-txt ${meta.cls}">${meta.label()}</span>
                 <span><i class="${ownIcon}"></i> ${ownLabel}</span>
                 <span><i class="fa-solid fa-calendar"></i> ${escapeHtml(g.date || "-")}</span>
-                <span style="color:var(--steam-blue);">${g.priceChf.toFixed(2)} CHF</span>
+                <span style="color:var(--steam-blue);">${amt(g.priceChf.toFixed(2))} CHF</span>
             </div>
             <button type="button" class="btn-tool" style="width:auto; margin:0 auto;" onclick="rollBacklogRoulette()"><i class="fa-solid fa-shuffle"></i> ${t('rouletteRerollBtn')}</button>
         </div>`;
@@ -2138,8 +2147,8 @@ function renderTable() {
                 <td data-label="${t('colPlatform')}"><span class="source-txt ${srcClass}">${srcDisplay}</span></td>
                 <td data-label="${t('fldOwnership')}"><span class="own-chip" data-own="${own}"><i class="${ownIcon}"></i>${ownLabel}</span></td>
                 <td data-label="${t('purchaseDate')}">${escapeHtml(g.date || "")}</td>
-                <td data-label="${t('colOrigPrice')}">${(Number(g.price) || 0).toFixed(2)} <span style="font-size:12px; color:var(--text-dim);">${escapeHtml(g.currency || "")}</span></td>
-                <td data-label="${valueColLabel(filterCur)}" style="color:var(--steam-blue);">${(g.priceChf / (rates[filterCur] || 1)).toFixed(2)} <span style="font-size:12px;">${filterCur}</span></td>
+                <td data-label="${t('colOrigPrice')}">${amt((Number(g.price) || 0).toFixed(2))} <span style="font-size:12px; color:var(--text-dim);">${escapeHtml(g.currency || "")}</span></td>
+                <td data-label="${valueColLabel(filterCur)}" style="color:var(--steam-blue);">${amt((g.priceChf / (rates[filterCur] || 1)).toFixed(2))} <span style="font-size:12px;">${filterCur}</span></td>
                 <td class="action-icons">
                     <button class="st ${st.cls}" onclick="cycleStatus(${i})" title="${st.label} (${t('statusToggleHint')})" aria-label="${escapeHtml(g.name)}: ${st.label} (${t('statusToggleHint')})"><i class="${st.icon}"></i></button>
                     <button class="edit" onclick="editGame(${i})" aria-label="Edit ${escapeHtml(g.name)}"><i class="fa-solid fa-pen"></i></button>
@@ -2156,13 +2165,54 @@ function renderTable() {
     renderShelf();
 }
 
+function setAmountsHidden(hidden) {
+    amountsHidden = !!hidden;
+    try { if (amountsHidden) localStorage.setItem('hideAmounts', '1'); else localStorage.removeItem('hideAmounts'); } catch (e) {}
+    updateAmountsUI();
+    rerenderAmounts();
+}
+function toggleAmounts() { setAmountsHidden(!amountsHidden); }
+
+function updateAmountsUI() {
+    const label = amountsHidden ? 'Show amounts' : 'Hide amounts';
+    const eye = $('amtEyeBtn');
+    if (eye) {
+        eye.setAttribute('aria-pressed', amountsHidden ? 'true' : 'false');
+        eye.setAttribute('aria-label', label);
+        eye.title = label;
+        const i = eye.querySelector('i');
+        if (i) i.className = 'fa-solid ' + (amountsHidden ? 'fa-eye-slash' : 'fa-eye');
+    }
+    if ($('acctAmtShow')) $('acctAmtShow').setAttribute('aria-pressed', amountsHidden ? 'false' : 'true');
+    if ($('acctAmtHide')) $('acctAmtHide').setAttribute('aria-pressed', amountsHidden ? 'true' : 'false');
+}
+
+// redraw everything that shows money, on the home page and on the page that is open
+function rerenderAmounts() {
+    try { updateTotalDisplay(); renderTable(); updateStats(); } catch (e) { console.warn(e); }
+    const active = document.querySelector('.view.active');
+    const v = active ? active.id.replace('view-', '') : '';
+    try {
+        if (v === 'goals') renderGoals();
+        if (v === 'achievements') renderAchievements();
+        if (v === 'ranking') renderRanking();
+        if (v === 'yearreview') {
+            renderYearReview();
+            const wrap = $('yrAllYearsWrap');
+            if (wrap && wrap.style.display === 'block') { wrap.style.display = 'none'; showAllYearsChart(); }
+        }
+        if (v === 'roulette' && rouletteLastPickIdx > -1 && games[rouletteLastPickIdx] && $('rouletteCard')) renderRouletteFinalCard(games[rouletteLastPickIdx]);
+    } catch (e) { console.warn(e); }
+}
+
 function updateTotalDisplay() {
     const currency = $('totalCurrency').value;
     let total = globalTotalChf;
     if (currency !== 'CHF' && rates[currency]) {
         total = globalTotalChf / rates[currency];
     }
-    $('totalAmount').textContent = total.toLocaleString(currentLang, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    $('totalAmount').textContent = amt(total.toLocaleString(currentLang, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+    $('totalAmount').classList.toggle('masked', amountsHidden);
 }
 
 function onTotalCurrencyChange() {
@@ -2191,7 +2241,7 @@ function renderSideCards() {
     }
     const cur = ($('totalCurrency') && $('totalCurrency').value) || 'EUR';
     const rate = rates[cur] || 1;
-    const fmt = (chf) => (chf / rate).toLocaleString(currentLang, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const fmt = (chf) => amt((chf / rate).toLocaleString(currentLang, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
 
     const bySrc = {};
     games.forEach(g => { const s = g.source || 'Steam'; bySrc[s] = (bySrc[s] || 0) + (g.priceChf || 0); });
@@ -2352,7 +2402,7 @@ function updateStats() {
     const spentThisMonthDisplay = spentThisMonth / rate;
     const spentEl = $('statSpentMonth');
     if (spentEl) {
-        spentEl.textContent = spentThisMonthDisplay.toLocaleString(currentLang, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' ' + spentCurrency;
+        spentEl.textContent = amt(spentThisMonthDisplay.toLocaleString(currentLang, { minimumFractionDigits: 2, maximumFractionDigits: 2 })) + ' ' + spentCurrency;
     }
     const spentTrendEl = $('statSpentMonthTrend');
     if (spentTrendEl) {
@@ -2462,6 +2512,14 @@ function chartTitle(text) {
     return { display: true, text, align: 'start', color: cssVar('--text-light'), font: { size: 13, weight: '600' }, padding: { bottom: 14 } };
 }
 
+// money charts: with amounts hidden the value axis and the tooltip numbers are hidden too,
+// the shape of the line stays
+function moneyTicks(extra) { return Object.assign({}, extra || {}, amountsHidden ? { display: false } : {}); }
+function moneyTooltip(isMoney) {
+    if (!amountsHidden) return {};
+    return { callbacks: { label: (c) => (c.dataset.label ? c.dataset.label + ': ' : '') + ((!isMoney || isMoney(c)) ? AMOUNT_MASK : c.formattedValue) } };
+}
+
 function updateCharts() {
     if (typeof Chart === 'undefined') { whenChartReady(updateCharts); return; }
     const type = $('chartType').value;
@@ -2502,12 +2560,13 @@ function updateCharts() {
                 maintainAspectRatio: false,
                 interaction: { mode: 'index', intersect: false },
                 scales: {
-                    y: { beginAtZero: true, grid: { color: gridColor }, border: { display: false } },
+                    y: { beginAtZero: true, ticks: moneyTicks(), grid: { color: gridColor }, border: { display: false } },
                     x: { grid: { display: false }, border: { display: false } }
                 },
                 plugins: {
                     legend: { display: true, labels: { color: cssVar('--text-main'), boxWidth: 12 } },
-                    title: chartTitle(t('chartYoyTitle').replace('{cur}', cur))
+                    title: chartTitle(t('chartYoyTitle').replace('{cur}', cur)),
+                    tooltip: moneyTooltip()
                 }
             }
         });
@@ -2566,6 +2625,36 @@ function updateCharts() {
                     legend: { position: 'right', labels: { color: cssVar('--text-main'), boxWidth: 12 } },
                     title: chartTitle(t('chartOptOwnership'))
                 }
+            }
+        });
+        return;
+    }
+
+    if (type === 'cumspend') {
+        const cur = ($('totalCurrency') && $('totalCurrency').value) || 'EUR';
+        const rate = rates[cur] || 1;
+        const sums = {};
+        games.forEach(g => {
+            const k = periodKey(g.date, gran);
+            if (k) sums[k] = (sums[k] || 0) + (g.priceChf || 0);
+        });
+        const keys = Object.keys(sums).sort((a, b) => {
+            const va = periodSortValue(a, gran), vb = periodSortValue(b, gran);
+            return va < vb ? -1 : va > vb ? 1 : 0;
+        });
+        let run = 0;
+        const data = keys.map(k => Math.round((run += sums[k] / rate) * 100) / 100);
+        mainChart = new Chart(ctx, {
+            type: 'line',
+            data: { labels: keys, datasets: [{ label: cur, data, borderColor: cssVar('--steam-blue'), backgroundColor: cssVar('--accent-soft'), borderWidth: 2, fill: true, tension: 0, pointRadius: 0, pointHoverRadius: 4, pointBackgroundColor: cssVar('--steam-blue') }] },
+            options: {
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                scales: {
+                    y: { beginAtZero: true, ticks: moneyTicks(), grid: { color: gridColor }, border: { display: false } },
+                    x: { grid: { display: false }, border: { display: false } }
+                },
+                plugins: { legend: { display: false }, title: chartTitle(t('chartCumSpendTitle').replace('{cur}', cur)), tooltip: moneyTooltip() }
             }
         });
         return;
@@ -2786,7 +2875,31 @@ async function writeUserDoc() {
     catch (e) { console.warn('writeUserDoc', e); }
 }
 
+// default store and currency for new games (saved in the profile, so they follow the account)
+function defaultGameCurrency() {
+    const c = userProfile && userProfile.defaultCurrency;
+    return (c && getFullCurrencyList().includes(c)) ? c : 'PLN';
+}
+function defaultGameSource() {
+    const src = userProfile && userProfile.defaultSource;
+    return (src && PLATFORM_META[src]) ? src : 'Steam';
+}
+function applyGameFormDefaults() {
+    if (editingIndex !== -1) return;
+    if ($('gameCurrency')) $('gameCurrency').value = defaultGameCurrency();
+    if ($('gameSource')) $('gameSource').value = defaultGameSource();
+}
+function fillDefaultSelects() {
+    const ds = $('profDefSource'), dc = $('profDefCurrency');
+    if (ds && $('gameSource') && !ds.options.length) ds.innerHTML = $('gameSource').innerHTML;
+    if (dc && $('gameCurrency') && !dc.options.length) dc.innerHTML = $('gameCurrency').innerHTML;
+    if (ds) ds.value = defaultGameSource();
+    if (dc) dc.value = defaultGameCurrency();
+}
+
 function applyProfile() {
+    fillDefaultSelects();
+    applyGameFormDefaults();
     const nick = (userProfile && userProfile.nickname) ? userProfile.nickname : '';
     if ($('profNickname')) $('profNickname').value = nick;
     if ($('profCurrency')) $('profCurrency').value = (userProfile && userProfile.currency) || $('totalCurrency').value;
@@ -2840,6 +2953,9 @@ function updateAccountMetaUI() {
         userProfile.nickname = newNick;
         userProfile.currency = $('profCurrency').value;
         userProfile.theme = $('profTheme').value;
+        if ($('profDefSource')) userProfile.defaultSource = $('profDefSource').value;
+        if ($('profDefCurrency')) userProfile.defaultCurrency = $('profDefCurrency').value;
+        applyGameFormDefaults();
         $('totalCurrency').value = userProfile.currency;
         localStorage.setItem('totalCurrencyManual', userProfile.currency);
         updateTotalDisplay();
@@ -3078,19 +3194,19 @@ function renderYearReview() {
 
     if (A.count === 0) {
         $('yrEmptyMsg').style.display = 'block';
-        $('yrTotal').innerHTML = '0.00 <small>CHF</small>';
+        $('yrTotal').innerHTML = amt('0.00') + ' <small>CHF</small>';
         $('yrGames').textContent = '0';
         $('yrTopPlatform').textContent = '-';
         $('yrTopMonth').textContent = '-';
         $('yrExpensive').innerHTML = '';
     } else {
         $('yrEmptyMsg').style.display = 'none';
-        $('yrTotal').innerHTML = `${A.totalChf.toFixed(2)} <small>CHF</small>`;
+        $('yrTotal').innerHTML = `${amt(A.totalChf.toFixed(2))} <small>CHF</small>`;
         $('yrGames').textContent = A.count;
         $('yrTopPlatform').textContent = A.topPlatform ? platformMeta(A.topPlatform[0]).label() : '-';
         $('yrTopMonth').textContent = A.topMonth ? `${monthLabel(A.topMonth[0])} (${A.topMonth[1]})` : '-';
         $('yrExpensive').innerHTML = A.priciest
-            ? `${t('yrMostExpensive')}: <strong style="color:var(--text-white);">${escapeHtml(A.priciest.name)}</strong> (${(A.priciest.priceChf || 0).toFixed(2)} CHF)`
+            ? `${t('yrMostExpensive')}: <strong style="color:var(--text-white);">${escapeHtml(A.priciest.name)}</strong> (${amt((A.priciest.priceChf || 0).toFixed(2))} CHF)`
             : '';
     }
 
@@ -3196,9 +3312,9 @@ function renderYearComparison(A) {
 
     // spending going up is the "bad" direction for a wallet, so the arrow colours follow that
     const rows = [
-        { key: 'yrTotalSpent', a: A.totalChf.toFixed(2) + ' CHF', b: B.totalChf.toFixed(2) + ' CHF', va: A.totalChf, vb: B.totalChf, money: true },
+        { key: 'yrTotalSpent', a: amt(A.totalChf.toFixed(2)) + ' CHF', b: amt(B.totalChf.toFixed(2)) + ' CHF', va: A.totalChf, vb: B.totalChf, money: true },
         { key: 'yrGamesLabel', a: A.count, b: B.count, va: A.count, vb: B.count },
-        { key: 'yrAvgPrice', a: A.avgChf.toFixed(2) + ' CHF', b: B.avgChf.toFixed(2) + ' CHF', va: A.avgChf, vb: B.avgChf, money: true },
+        { key: 'yrAvgPrice', a: amt(A.avgChf.toFixed(2)) + ' CHF', b: amt(B.avgChf.toFixed(2)) + ' CHF', va: A.avgChf, vb: B.avgChf, money: true },
         { key: 'yrCompletedLabel', a: A.completed, b: B.completed, va: A.completed, vb: B.completed, invert: true },
         { key: 'yrPlatformLabel', a: A.topPlatform ? platformMeta(A.topPlatform[0]).label() : '-', b: B.topPlatform ? platformMeta(B.topPlatform[0]).label() : '-' },
         { key: 'yrMonthLabel', a: A.topMonth ? monthLabel(A.topMonth[0]) : '-', b: B.topMonth ? monthLabel(B.topMonth[0]) : '-' }
@@ -3226,7 +3342,7 @@ function renderYearComparison(A) {
         const pctTxt = pct === null ? '' : ` (${pct > 0 ? '+' : ''}${pct.toFixed(0)}%)`;
         return `<div class="yr-cmp-line">
             <span>${escapeHtml(t(labelKey))}</span>
-            <span class="yr-delta ${cls}">${arrow} ${Math.abs(diff).toFixed(suffix === ' CHF' ? 2 : 0)}${suffix}${pctTxt}</span>
+            <span class="yr-delta ${cls}">${arrow} ${suffix === ' CHF' ? amt(Math.abs(diff).toFixed(2)) : Math.abs(diff).toFixed(0)}${suffix}${pctTxt}</span>
         </div>`;
     };
 
@@ -3270,10 +3386,10 @@ function showAllYearsChart() {
         },
         options: {
             responsive: true, maintainAspectRatio: false,
-            plugins: { legend: { labels: { color: dim } } },
+            plugins: { legend: { labels: { color: dim } }, tooltip: moneyTooltip((c) => c.dataset.yAxisID === 'y') },
             scales: {
                 x: { ticks: { color: dim }, grid: { color: border } },
-                y: { position: 'left', ticks: { color: dim }, grid: { color: border } },
+                y: { position: 'left', ticks: moneyTicks({ color: dim }), grid: { color: border } },
                 y1: { position: 'right', ticks: { color: dim, precision: 0 }, grid: { drawOnChartArea: false } }
             }
         }
@@ -3294,10 +3410,10 @@ function buildWrappedSlides(year) {
     const slides = [];
     slides.push({ kind: 'intro', year: yl, all: isAll });
     if (A.count > 0) {
-        slides.push({ kind: 'stat', icon: 'fa-coins', label: t(isAll ? 'yrTotalSpentAll' : 'yrTotalSpent'), value: `${A.totalChf.toFixed(2)}`, unit: 'CHF', numeric: true });
+        slides.push({ kind: 'stat', icon: 'fa-coins', label: t(isAll ? 'yrTotalSpentAll' : 'yrTotalSpent'), value: amt(A.totalChf.toFixed(2)), unit: 'CHF', numeric: !amountsHidden });
         slides.push({ kind: 'stat', icon: 'fa-layer-group', label: t('yrGamesLabel'), value: String(A.count), unit: '', numeric: true });
         if (A.topPlatform) slides.push({ kind: 'stat', icon: 'fa-gamepad', label: t('yrPlatformLabel'), value: platformMeta(A.topPlatform[0]).label(), unit: '', sub: `${A.topPlatform[1]} ${t('yrGamesLabel').toLowerCase()}` });
-        if (A.priciest) slides.push({ kind: 'stat', icon: 'fa-crown', label: t('yrMostExpensive'), value: A.priciest.name, unit: '', sub: `${(A.priciest.priceChf || 0).toFixed(2)} CHF` });
+        if (A.priciest) slides.push({ kind: 'stat', icon: 'fa-crown', label: t('yrMostExpensive'), value: A.priciest.name, unit: '', sub: `${amt((A.priciest.priceChf || 0).toFixed(2))} CHF` });
         if (firstGame) slides.push({ kind: 'stat', icon: 'fa-flag-checkered', label: t('yrFirstGame'), value: firstGame.name, unit: '', sub: firstGame.date });
         if (A.topMonth) slides.push({ kind: 'stat', icon: 'fa-calendar-days', label: t('yrMonthLabel'), value: monthLabel(A.topMonth[0]), unit: '', sub: `${A.topMonth[1]} ${t('yrGamesLabel').toLowerCase()}` });
         slides.push({ kind: 'stat', icon: 'fa-check-double', label: t('yrCompletedLabel'), value: String(A.completed), unit: `/ ${A.count}`, numeric: true });
@@ -3574,7 +3690,7 @@ async function renderRanking() {
             const name = escapeHtml(d.nickname || t('anonNickname'));
             const tr = document.createElement('tr');
             if (isYou) tr.style.color = 'var(--steam-blue)';
-            tr.innerHTML = `<td>${rank}</td><td>${name}${isYou ? ' <em>(' + t('rankingYou') + ')</em>' : ''}</td><td>${(d.totalEur || 0).toFixed(2)}</td>`;
+            tr.innerHTML = `<td>${rank}</td><td>${name}${isYou ? ' <em>(' + t('rankingYou') + ')</em>' : ''}</td><td>${amt((d.totalEur || 0).toFixed(2))}</td>`;
             tbody.appendChild(tr);
         });
     } catch (e) {
@@ -4067,6 +4183,9 @@ initPublicShareIfNeeded().then(isPublicShare => {
     changeLanguage(currentLang);
     if (!firebaseReady) { clearSessionData(); updateUserChip(); }
     loadCachedRates();
+    updateAmountsUI();
+    fillDefaultSelects();
+    applyGameFormDefaults();
     fetchExchangeRates();
     initCurrencyPreference();
     initCookieConsent();

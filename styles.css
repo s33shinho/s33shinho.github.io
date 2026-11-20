@@ -2036,3 +2036,14 @@ html.auth-hint #tableWrapper { display: none !important; }
     .footer-links a, .footer-links .btn-link { display: inline-block; padding: 8px 4px; }
     .nav-section-toggle { min-height: 40px; }
 }
+
+/* hide amounts (eye next to the library value) */
+/* the big number's glyphs reach above its line box; keep the row with the currency and the eye on top so both stay clickable */
+.summary-head { position: relative; z-index: 1; }
+.amt-eye { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 28px; margin-left: 4px; padding: 0; vertical-align: middle;
+    border: 1px solid var(--border-light); border-radius: var(--r-sm); background: transparent; color: var(--text-dim); cursor: pointer; }
+/* the dots in place of the big library value: smaller, so they read as a mask and not as a huge glyph */
+.summary-value #totalAmount.masked { font-size: 0.4em; letter-spacing: 0.2em; vertical-align: 0.45em; }
+.amt-eye:hover { color: var(--text-white); border-color: var(--text-dim); }
+.amt-eye[aria-pressed="true"] { color: var(--steam-blue); border-color: var(--accent-line); }
+@media (pointer: coarse) { .amt-eye { width: 40px; height: 36px; } }

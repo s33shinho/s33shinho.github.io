@@ -19,7 +19,7 @@
 // <script>/<link> tags in index.html (the paths in APP_SHELL below must match
 // them exactly, otherwise the precache grabs the old version).
 
-const CACHE_VERSION = 'v86';
+const CACHE_VERSION = 'v87';
 const CACHE_NAME = `backlog-wallet-${CACHE_VERSION}`;
 
 // Our own files - they must always match what is actually deployed.
@@ -27,8 +27,8 @@ const CACHE_NAME = `backlog-wallet-${CACHE_VERSION}`;
 const APP_SHELL = [
   '/',
   '/index.html',
-  '/styles.css?v=86',
-  '/app.js?v=86',
+  '/styles.css?v=87',
+  '/app.js?v=87',
   '/manifest.json',
   '/static.css?v=4',
   '/features/',
@@ -60,7 +60,8 @@ const RUNTIME_CACHEABLE_HOSTS = [
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then((cache) => cache.addAll(APP_SHELL))
+      // cache: 'reload' skips the browser's HTTP cache, so the new version is stored, not an old copy
+      .then((cache) => cache.addAll(APP_SHELL.map((u) => new Request(u, { cache: 'reload' }))))
       .then(() => self.skipWaiting())
   );
 });
@@ -99,10 +100,33 @@ self.addEventListener('fetch', (event) => {
   if (isNeverCached(url)) return;
   if (!isAppShellRequest(url) && !isRuntimeCacheableRequest(url)) return;
 
-  // stale-while-revalidate: answer from the cache right away if there is one, and fetch
-  // a fresher copy in the background for next time. Offline -> the cache stays.
-  // page loads like /?view=faq or /?source=pwa share one cached shell, so the query part is ignored
+  // Pages (HTML) come from the network first, so an update shows up right away; the cached copy
+  // is used offline, or when the network takes longer than 4 seconds.
+  // Page loads like /?view=faq or /?source=pwa share one cached shell, so the query part is ignored.
   const isPage = req.mode === 'navigate';
+  if (isPage) {
+    const fromCache = () => caches.open(CACHE_NAME)
+      .then((cache) => cache.match(req, { ignoreSearch: true }).then((m) => m || cache.match('/index.html')));
+    event.respondWith(new Promise((resolve) => {
+      let done = false;
+      const finish = (res) => { if (!done && res) { done = true; resolve(res); } };
+      const timer = setTimeout(() => { fromCache().then(finish); }, 4000);
+      fetch(req)
+        .then((res) => {
+          if (res && res.status === 200 && !url.search) {
+            const copy = res.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
+          }
+          clearTimeout(timer);
+          finish(res);
+        })
+        .catch(() => fromCache().then((m) => { clearTimeout(timer); if (!done) { done = true; resolve(m || Response.error()); } }));
+    }));
+    return;
+  }
+
+  // Other files: stale-while-revalidate - answer from the cache right away if there is one,
+  // and fetch a fresher copy in the background for next time. Offline -> the cache stays.
   event.respondWith(
     caches.open(CACHE_NAME).then((cache) =>
       cache.match(req, { ignoreSearch: isPage }).then((cached) => {
