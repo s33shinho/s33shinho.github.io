@@ -55,7 +55,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js" defer></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js" defer></script>
 
-    <link rel="stylesheet" href="styles.css?v=87">
+    <link rel="stylesheet" href="styles.css?v=88">
 </head>
 <body class="auth-pending">
     <a class="skip-link" href="#mainContent">Skip to content</a>
@@ -578,6 +578,10 @@
                     <div class="health-msg" id="healthMessage">-</div>
                 </div>
             </div>
+            <div class="card side-card check-card" id="checkCard" style="display:none;">
+                <div class="card-head"><span>Library check</span><button type="button" class="btn-chip" onclick="dismissLibraryCheck()" title="Hide until something new comes up">Hide</button></div>
+                <div class="card-body" id="checkList"></div>
+            </div>
             <div class="card side-card" id="storeCard">
                 <div class="card-head"><span data-i18n="sideStoreTitle">Where you spent</span></div>
                 <div class="card-body" id="storeBars"></div>
@@ -993,7 +997,7 @@
                     <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end; margin-bottom:18px;">
                         <div class="input-group" style="width:auto; min-width:170px;">
                             <label for="roulettePlatformFilter" data-i18n="source">Source</label>
-                            <select id="roulettePlatformFilter">
+                            <select id="roulettePlatformFilter" onchange="renderOldestBacklog()">
                                 <option value="all" data-i18n-opt="roulettePlatformAll">All platforms</option>
                                 <option value="Steam" data-i18n-opt="steam">Steam</option>
                                 <option value="PlayStation">PlayStation</option>
@@ -1007,6 +1011,13 @@
                         <button type="button" class="btn-primary" style="width:auto; padding:0 20px;" id="rouletteRollBtn" onclick="rollBacklogRoulette()"><span data-i18n="rouletteBtn">Pick a game</span></button>
                     </div>
                     <div id="rouletteResult"></div>
+                </div>
+            </div>
+            <div class="card" id="oldestCard">
+                <div class="card-head"><span>Waiting the longest</span></div>
+                <div class="card-body">
+                    <p class="auth-note" style="margin-bottom:12px;">Games you bought longest ago and have not started yet (status Not completed or not set).</p>
+                    <div id="oldestList"></div>
                 </div>
             </div>
         </section>
@@ -1167,7 +1178,7 @@
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v1.2.0 &middot; build 2026-11-20 12:53 UTC+1</span>
+        <span class="footer-build">v1.3.0 &middot; build 2026-11-20 13:06 UTC+1</span>
     </div>
 </footer>
 
@@ -1204,7 +1215,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=87" defer></script>
+    <script src="app.js?v=88" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.

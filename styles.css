@@ -2047,3 +2047,30 @@ html.auth-hint #tableWrapper { display: none !important; }
 .amt-eye:hover { color: var(--text-white); border-color: var(--text-dim); }
 .amt-eye[aria-pressed="true"] { color: var(--steam-blue); border-color: var(--accent-line); }
 @media (pointer: coarse) { .amt-eye { width: 40px; height: 36px; } }
+
+/* library check (home) */
+.check-card .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.check-intro { margin: 0 0 12px; color: var(--text-main); font-size: 13px; }
+.check-group { margin: 0 0 14px; }
+.check-group h5 { margin: 0 0 6px; font-size: 13px; font-weight: 600; color: var(--text-light); }
+.check-count { font-family: var(--font-mono); color: var(--steam-blue); margin-left: 4px; }
+.check-group ul { list-style: none; margin: 0; padding: 0; }
+.check-group li { padding: 3px 0; font-size: 13px; color: var(--text-main); line-height: 1.5; }
+.check-link { display: inline; width: auto; height: auto; min-height: 0; vertical-align: baseline; border-radius: 0; letter-spacing: 0;
+    background: none; border: 0; padding: 0; font: inherit; font-weight: 500; color: var(--text-light); text-align: left; cursor: pointer;
+    text-decoration: underline; text-decoration-color: var(--text-dim); text-underline-offset: 3px; }
+.check-link:hover { color: var(--text-white); }
+.check-note, .check-more { color: var(--text-dim); font-size: 12px; }
+.check-more { margin: 4px 0 0; }
+
+/* waiting the longest (What to play?) */
+#oldestCard { margin-top: 24px; }
+.oldest-list { list-style: none; margin: 0; padding: 0; }
+.oldest-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 0; border-top: 1px solid var(--border); }
+.oldest-row:first-child { border-top: 0; }
+.oldest-main { min-width: 0; }
+.oldest-name { color: var(--text-white); font-weight: 600; overflow-wrap: anywhere; }
+.oldest-meta { color: var(--text-dim); font-size: 13px; margin-top: 2px; }
+.oldest-age { color: var(--steam-blue); font-family: var(--font-mono); }
+.oldest-actions { display: flex; gap: 14px; flex: none; }
+@media (max-width: 560px) { .oldest-row { flex-direction: column; align-items: flex-start; gap: 8px; } }

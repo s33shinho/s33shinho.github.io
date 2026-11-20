@@ -218,7 +218,7 @@ function showView(view) {
     if (view === 'goals') renderGoals();
     if (view === 'shelf') renderShelf();
     if (view === 'achievements') renderAchievements();
-    if (view === 'roulette') { $('rouletteResult').innerHTML = ''; rouletteLastPickIdx = -1; clearInterval(rouletteSpinTimer); }
+    if (view === 'roulette') { $('rouletteResult').innerHTML = ''; rouletteLastPickIdx = -1; clearInterval(rouletteSpinTimer); renderOldestBacklog(); }
     if (view === 'admin' && isAdmin()) loadAdminPanel();
 }
 
@@ -2229,7 +2229,130 @@ async function initCurrencyPreference() {
     updateTotalDisplay();
 }
 
+// ---- games waiting the longest (What to play? page) ----
+// "waiting" = status Not completed or not set, with a real purchase date
+function backlogAge(dateStr) {
+    const d = new Date(dateStr + 'T12:00:00');
+    const now = new Date();
+    let months = (now.getFullYear() - d.getFullYear()) * 12 + (now.getMonth() - d.getMonth());
+    if (now.getDate() < d.getDate()) months--;
+    if (months >= 12) { const y = Math.floor(months / 12); return `${y} year${y === 1 ? '' : 's'}`; }
+    if (months >= 1) return `${months} month${months === 1 ? '' : 's'}`;
+    const days = Math.max(0, Math.floor((now - d) / 86400000));
+    return `${days} day${days === 1 ? '' : 's'}`;
+}
+
+function renderOldestBacklog() {
+    const el = $('oldestList');
+    if (!el) return;
+    const platform = $('roulettePlatformFilter') ? $('roulettePlatformFilter').value : 'all';
+    const today = todayLocal();
+    const rows = games.map((g, i) => ({ g, i }))
+        .filter(({ g }) => (!g.status || g.status === 'not_completed') && /^\d{4}-\d{2}-\d{2}$/.test(g.date || '') && g.date <= today)
+        .filter(({ g }) => platform === 'all' || (g.source || 'Steam') === platform)
+        .sort((a, b) => a.g.date.localeCompare(b.g.date))
+        .slice(0, 5);
+    if (!rows.length) {
+        el.innerHTML = `<p class="side-empty">Nothing is waiting here: every game with a purchase date has been started, finished or set aside.</p>`;
+        return;
+    }
+    el.innerHTML = `<ul class="oldest-list">${rows.map(({ g, i }) => {
+        const when = new Date(g.date + 'T12:00:00').toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
+        return `<li class="oldest-row">
+            <div class="oldest-main">
+                <div class="oldest-name">${escapeHtml(g.name)}</div>
+                <div class="oldest-meta"><span class="oldest-age">${backlogAge(g.date)}</span> waiting &middot; bought ${escapeHtml(when)} &middot; ${platformMeta(g.source || 'Steam').label()}</div>
+            </div>
+            <div class="oldest-actions">
+                <button type="button" class="btn-chip" onclick="setOldestStatus(${i}, 'in_progress')">Playing now</button>
+                <button type="button" class="btn-chip" onclick="setOldestStatus(${i}, 'wont_play')">Won't play</button>
+            </div>
+        </li>`;
+    }).join('')}</ul>`;
+}
+
+function setOldestStatus(index, status) {
+    const g = games[index];
+    if (!g) return;
+    g.status = status;
+    renderTable();
+    persistData();
+    renderOldestBacklog();
+    showToastText(`${g.name}: ${status === 'in_progress' ? 'marked as In progress' : "marked as Won't play"}`);
+}
+
+// ---- library check (home page): entries that would make the statistics wrong ----
+function titleKey(name) {
+    let k = String(name || '').toLowerCase().replace(/[™®©]/g, '').replace(/&/g, ' and ')
+        .replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim().replace(/^the /, '');
+    for (let n = 0; n < 3; n++) {
+        const before = k;
+        k = k.replace(/\s*\b(game of the year|goty|digital deluxe|deluxe|complete|definitive|ultimate|gold|standard|premium|enhanced|special|collectors?)( edition)?$/, '')
+             .replace(/\s*\bedition$/, '').trim();
+        if (k === before) break;
+    }
+    return k;
+}
+
+function libraryIssues() {
+    const today = todayLocal();
+    const x = { noDate: [], future: [], noPrice: [], dupGroups: [] };
+    const byKey = {};
+    games.forEach((g, i) => {
+        const d = g.date || '';
+        const valid = /^\d{4}-\d{2}-\d{2}$/.test(d) && !isNaN(new Date(d + 'T12:00:00'));
+        if (!valid) x.noDate.push(i); else if (d > today) x.future.push(i);
+        if (g.price === null || g.price === undefined || g.price === '' || isNaN(Number(g.price))) x.noPrice.push(i);
+        const tk = titleKey(g.name);
+        // the same game bought on two different stores is normal, so only the same store counts
+        if (tk) { const key = tk + '|' + (g.source || 'Steam'); (byKey[key] = byKey[key] || []).push(i); }
+    });
+    Object.values(byKey).forEach(list => { if (list.length > 1) x.dupGroups.push(list); });
+    return x;
+}
+
+function libraryCheckSignature(x) {
+    const ref = (i) => games[i] ? (games[i].id || games[i].name) : '';
+    const str = JSON.stringify([x.noDate.map(ref), x.future.map(ref), x.noPrice.map(ref), x.dupGroups.map(l => l.map(ref))]);
+    let h = 5381;
+    for (let i = 0; i < str.length; i++) h = ((h << 5) + h + str.charCodeAt(i)) | 0;
+    return String(h);
+}
+
+function renderLibraryCheck() {
+    const card = $('checkCard'), el = $('checkList');
+    if (!card || !el) return;
+    const x = libraryIssues();
+    const total = x.noDate.length + x.future.length + x.noPrice.length + x.dupGroups.length;
+    const sig = libraryCheckSignature(x);
+    card.dataset.sig = sig;
+    let dismissed = '';
+    try { dismissed = localStorage.getItem('libCheckDismissed') || ''; } catch (e) {}
+    if (!total || dismissed === sig) { card.style.display = 'none'; return; }
+    card.style.display = '';
+    const link = (i) => `<button type="button" class="check-link" onclick="editGame(${i})">${escapeHtml(games[i].name || '(no name)')}</button>`;
+    const group = (title, items) => {
+        if (!items.length) return '';
+        return `<div class="check-group"><h5>${title} <span class="check-count">${items.length}</span></h5><ul>${items.slice(0, 5).map(it => `<li>${it}</li>`).join('')}</ul>` +
+            (items.length > 5 ? `<p class="check-more">and ${items.length - 5} more</p>` : '') + `</div>`;
+    };
+    el.innerHTML = `<p class="check-intro">A few entries may need a look. Click a game to edit it.</p>` +
+        group('No purchase date', x.noDate.map(link)) +
+        group('Purchase date in the future', x.future.map(i => `${link(i)} <span class="check-note">${escapeHtml(games[i].date)}</span>`)) +
+        group('No price', x.noPrice.map(link)) +
+        group('Possible duplicates', x.dupGroups.map(l => l.map(link).join(' <span class="check-note">and</span> ') +
+            ` <span class="check-note">(${platformMeta(games[l[0]].source || 'Steam').label()})</span>`));
+}
+
+function dismissLibraryCheck() {
+    const card = $('checkCard');
+    if (!card) return;
+    try { localStorage.setItem('libCheckDismissed', card.dataset.sig || ''); } catch (e) {}
+    card.style.display = 'none';
+}
+
 function renderSideCards() {
+    try { renderLibraryCheck(); } catch (e) { console.warn(e); }
     const bars = $('storeBars'), info = $('infoList');
     if (!bars || !info) return;
     if (!games.length) {
