@@ -90,7 +90,7 @@ fldStatus: "Completion status (optional)", statusNone: "- not set -", statusComp
         syncCloud: "Cloud", syncSyncing: "Syncing...", syncErr: "Sync error", retryBtn: "Retry", libraryLoadError: "Couldn't load your library. Check your connection and try again.",
         savedCloud: "Saved", itemDeleted: "Item deleted", itemsDeleted: "{n} games deleted", bulkDeleteBtn: "Delete selected", savePending: "Not saved yet. Will retry automatically.", syncMerged: "Merged changes from your other device", syncRefreshed: "Updated from your other device", syncRestored: "Restored unsaved changes from this device", navFeedback: "Feedback & contact", feedbackDesc: "Got an idea for improving Backlog Wallet? Send it here.", feedbackSubject: "Subject", feedbackMessage: "Message", feedbackSend: "Send", feedbackSending: "Sending...", feedbackOk: "Thanks! Your message was sent.", feedbackFail: "Could not send the message. Please try again later.", feedbackWait: "Please wait a moment before sending another message.", feedbackNote: "Messages are delivered by email through Web3Forms. Please don't include sensitive personal data.", undoBtn: "Undo", smartImportBtn: "Smart import (Steam & more)", smartImportHint: "Paste your Steam purchase history (or any order list/receipt) below - one purchase per line works best. Steam doesn't offer an official export, so this is a best-effort reader: it tries to find a date, a price and a title on each line. Nothing gets added until you review and confirm the results below.", smartImportParseBtn: "Find purchases", smartImportPreviewNote: "Review each row - uncheck anything that isn't a game (wallet top-ups and refunds are pre-unchecked, but double-check). Every field can be edited directly.", smartImportCommitBtn: "Add checked games", smartImportFlag: "Looks like a top-up or refund, not a game", onThisDayLabel: "On this day", onThisDayText: "{years} today, you bought {name}", onThisDayExtra: " (and {n} more)", yrHeatmapHeading: "Purchase activity", yrHeatmapLess: "Less", yrHeatmapMore: "More", yrWrappedBtn: "View as Wrapped", yrWrappedIntro: "Your year in games", yrWrappedOutro: "That was {year}. See you next year.", yrFirstGame: "First game bought", yrHeatmapDayCount: "{date}: {count} game(s) bought", yrHeatmapDayNone: "{date}: nothing bought",
         emptyLib: "No games yet. Add the first one with the form above.", bulkAddBtn: "Add multiple games", bulkAddHint: "Paste one game per line, in the format: Title;Price;Currency;Source;Date (YYYY-MM-DD). Currency, Source and Date are optional: without them your default currency and store and today's date are used.", bulkAddSubmit: "Add all", bulkAddResult: "Games added: {added} (skipped invalid lines: {skipped})", bulkAddNone: "No valid entries found to add.", hideList: "Hide list", showList: "Show list", expandList: "Expand list", collapseList: "Collapse list", filterAllSources: "All sources", navRates: "Exchange Rates", ratesColCurrency: "Currency", ratesColRate: "Rate per 1 EUR", ratesBaseNote: "All rates are shown relative to 1 EUR (base currency).", ratesUpdated: "Updated", scrollTopTitle: "Back to top", changePasswordBtn: "Change password", currentPassword: "Current password", newPassword: "New password", newPasswordConfirm: "Confirm new password", changePasswordSubmit: "Change password", passwordMismatch: "The passwords do not match.", passwordChanged: "Password updated.",
-        confirmDuplicate: "A game with this name is already in your library. Add it again anyway?", advFiltersToggle: "Advanced filters", priceMin: "Price from", priceMax: "Price to", dateFrom: "Date from", dateTo: "Date to", resetFilters: "Clear filters", bulkAddResultDup: "Games added: {added} (invalid lines: {skipped}, duplicates: {dup})", bulkAddAllDup: "All pasted games ({dup}) are already in your library - nothing was added.", navAchievements: "Achievements", achievementsDesc: "Unlock badges as you grow your game library.", achUnlocked: "Unlocked", achLocked: "Locked", achMaxLevel: "Max level!", achLevel: "Level {level}/{max}", achFirstGameT: "First Step", achFirstGameD: "Add your first game to the library.", achCollectorT: "Collector", achCollectorD: "Own {target} games in your library.", achDiversityT: "Multi-Platform", achDiversityD: "Own games from {target} different platforms.", achFinisherT: "Finisher", achFinisherD: "Complete {target} games from your library.", achPhysicalT: "Box Collector", achPhysicalD: "Own {target} physical games.", achInvestorT: "Big Investor", achInvestorD: "Reach a library value of {target}.", achDreamT: "Dream Fulfilled", achDreamD: "Reach at least one savings goal.", achCurrenciesT: "Multi-Currency", achCurrenciesD: "Buy games in {target} different currencies.", achVeteranT: "Collection Veteran", achVeteranD: "Keep your library going for {target}.", achBalancedT: "Balanced Collection", achBalancedD: "Own both digital and physical games in your library.", navRoulette: "What to play?", rouletteDesc: "Can't decide what to play tonight? Roll the dice on your backlog.", rouletteBtn: "Pick a game", rouletteRerollBtn: "Pick another", rouletteEmptyLib: "No games to pick from yet. Add a few first.", rouletteAllDone: "No games marked as \"Not completed\" - set that status on some games in your library so there's something to roll for.", roulettePlatformAll: "All platforms", navSectionLibrary: "Your library", navSectionTools: "Tools",
+        confirmDuplicate: "A game with this name is already in your library. Add it again anyway?", advFiltersToggle: "Advanced filters", priceMin: "Price from", priceMax: "Price to", dateFrom: "Date from", dateTo: "Date to", resetFilters: "Clear filters", bulkAddResultDup: "Games added: {added} (invalid lines: {skipped}, duplicates: {dup})", bulkAddAllDup: "All pasted games ({dup}) are already in your library - nothing was added.", navAchievements: "Achievements", achievementsDesc: "Unlock badges as you grow your game library.", achUnlocked: "Unlocked", achLocked: "Locked", achMaxLevel: "Max level!", achLevel: "Level {level}/{max}", achFirstGameT: "First Step", achFirstGameD: "Add your first game to the library.", achCollectorT: "Collector", achCollectorD: "Own {target} games in your library.", achDiversityT: "Multi-Platform", achDiversityD: "Own games from {target} different platforms.", achFinisherT: "Finisher", achFinisherD: "Complete {target} games from your library.", achPhysicalT: "Box Collector", achPhysicalD: "Own {target} physical games.", achInvestorT: "Big Investor", achInvestorD: "Reach a library value of {target}.", achDreamT: "Dream Fulfilled", achDreamD: "Reach at least one savings goal.", achCurrenciesT: "Multi-Currency", achCurrenciesD: "Buy games in {target} different currencies.", achVeteranT: "Collection Veteran", achVeteranD: "Keep your library going for {target}.", achBalancedT: "Balanced Collection", achBalancedD: "Own both digital and physical games in your library.", navRoulette: "What to play?", rouletteDesc: "Can't decide what to play tonight? Roll the dice on your backlog.", rouletteBtn: "Pick a game", rouletteRerollBtn: "Pick another", rouletteEmptyLib: "No games to pick from yet. Add a few first.", rouletteAllDone: "No games marked as \"Not completed\" - set that status on some games in your library so there's something to roll for.", roulettePlatformAll: "All sources", navSectionLibrary: "Your library", navSectionTools: "Tools",
         navTerms: "Terms & Conditions", navPrivacy: "Privacy Policy", rememberMe: "Remember me", footerContact: "Contact", cookieConsentText: "No tracking or advertising cookies here. The site only keeps technical data in your browser (local storage) to work properly and remember your settings, such as language, theme and your login. Details are in the Privacy Policy.", cookieMoreInfo: "More information", cookieAcceptBtn: "OK",
         faqHtml: "<h3>Is it free?</h3><p>Yes. It is a hobby project. You need an account to use it, and the account is free.</p><h3>Can I import my Steam purchases?</h3><p>Sort of. Steam has no official export, but Smart import lets you paste your purchase history (or any order list) and it picks out titles, prices and dates. You review the result before anything is added.</p><h3>I buy in different currencies. Does that work?</h3><p>Yes. Each game keeps the price and currency you paid in. Totals are converted with live rates from open.er-api.com, and if that service is down the app falls back to saved rates.</p><h3>Where is my data stored?</h3><p>In Firebase (Google Cloud), behind access rules, so only your account can read your library. You can download everything as JSON at any time.</p><h3>What happens if I delete my account?</h3><p>Everything is removed. The app downloads a backup of your data first, so you can import it again later if you change your mind.</p><h3>Can I switch between light and dark?</h3><p>Yes, with the moon/sun button at the top. You can also set your nickname and preferred currency in your account.</p><h3>Can I cheat the ranking?</h3><p>Not easily, but it is not impossible either. Your entry is worked out from your own library in your browser, and obviously broken values are rejected, but a determined person could still fake one. It is a ranking for fun, and entries that look fake can be removed.</p><h3>I found a bug or have an idea.</h3><p>Use Feedback &amp; contact in the footer. The e-mail address is on that page too.</p>",
         yrYearLabel: "Year", yrCompareLabel: "Compare with", yrCompareNone: "— no comparison —", yrAllYearsBtn: "All years", yrCompareHeading: "Year comparison", yrAllYearsHeading: "Spending year by year", yrAvgPrice: "Average game price", yrCompletedLabel: "Completed games", yrVsTitle: "{a} compared with {b}",
@@ -268,7 +268,6 @@ function changeLanguage(lang) {
     setAuthMode(authMode, true);
     renderTable();
     renderGoals();
-    if (typeof updateFooterDateTime === 'function') updateFooterDateTime();
 }
 
 let ratesLive = false;
@@ -1075,12 +1074,15 @@ form.addEventListener('submit', function (e) {
         date: $('purchaseDate').value,
         status: $('gameStatus').value || null,
         ownership: $('gameOwnership').value || 'digital',
-        priceChf: price * rates[currency],
+        priceChf: price * (rates[currency] || 1),
         id: newGameId()
     };
 
     if (editingIndex > -1) {
-        gameData.id = games[editingIndex].id || gameData.id;
+        const prev = games[editingIndex];
+        gameData.id = prev.id || gameData.id;
+        // same price and currency: keep the value from the day it was bought instead of re-pricing it at today's rate
+        if (Number(prev.price) === price && prev.currency === currency && Number(prev.priceChf) > 0) gameData.priceChf = Number(prev.priceChf);
         games[editingIndex] = gameData;
         cancelEdit();
     } else {
@@ -1107,8 +1109,6 @@ function editGame(index) {
 
     editingIndex = index;
     $('submitBtn').querySelector('span').textContent = t('saveBtn');
-    $('submitBtn').style.backgroundColor = '#e6a32e';
-    $('submitBtn').style.color = '#000';
     $('cancelEditBtn').style.display = 'inline-flex';
     const formCard = $('addFormBody').closest('.card') || $('addFormBody');
     formCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1757,7 +1757,7 @@ const ACHIEVEMENTS = [
     { id: 'physical', icon: 'fa-compact-disc', titleKey: 'achPhysicalT', descKey: 'achPhysicalD', kind: 'tier', tiers: [5, 20, 50],
         valueFn: (g) => g.filter(x => x.ownership === 'physical').length },
     { id: 'investor', icon: 'fa-sack-dollar', titleKey: 'achInvestorT', descKey: 'achInvestorD', kind: 'tier', tiers: [1000, 5000, 10000, 25000, 50000], unit: 'CHF',
-        valueFn: (g) => g.reduce((s, x) => s + (x.priceChf || 0), 0) },
+        valueFn: (g) => g.reduce((s, x) => s + gameChf(x), 0) },
     { id: 'currencies', icon: 'fa-coins', titleKey: 'achCurrenciesT', descKey: 'achCurrenciesD', kind: 'tier', tiers: [2, 4, 6],
         valueFn: (g) => new Set(g.map(x => (x.currency || 'PLN').toUpperCase())).size },
     { id: 'veteran', icon: 'fa-hourglass-half', titleKey: 'achVeteranT', descKey: 'achVeteranD', kind: 'tier', tiers: [1, 3, 5], unit: 'years',
@@ -1875,7 +1875,7 @@ function renderRouletteFinalCard(g) {
     result.innerHTML = `
         <div class="roulette-pick" id="rouletteCard">
             <div class="roulette-name">${escapeHtml(g.name)}</div>
-            <p class="roulette-meta">Bought${when} on ${store} for ${moneyStr(g.priceChf)} ${displayCurrency()}, ${copy}.</p>
+            <p class="roulette-meta">Bought${when} on ${store} for ${moneyStr(gameChf(g))} ${displayCurrency()}, ${copy}.</p>
             <button type="button" class="btn-tool" onclick="rollBacklogRoulette()">${t('rouletteRerollBtn')}</button>
         </div>`;
 }
@@ -1998,7 +1998,7 @@ function renderShelf() {
         box.style.background = `color-mix(in srgb, ${baseColor} ${82 + (hue % 18)}%, ${hue % 2 ? '#000' : '#fff'})`;
         box.title = g.name;
         box.innerHTML = `
-            <div class="game-box-top">${escapeHtml(meta.label())}</div>
+            <div class="game-box-top">${displaySrc === 'PlayStation' ? '<span class="gb-short">PS</span>' : ''}<span class="gb-long">${escapeHtml(meta.label())}</span></div>
             <div class="game-box-title-wrap"><div class="game-box-title">${escapeHtml(g.name)}</div></div>
             <div class="game-box-own" title="${own === 'physical' ? t('ownPhysical') : t('ownDigital')}"><i class="${ownIcon}"></i></div>`;
         wrap.appendChild(box);
@@ -2098,20 +2098,21 @@ function renderTable() {
     const toChf = (v) => (filterCur === 'CHF') ? v : v * (rates[filterCur] || 1);
     updateFilterCurrencyLabels(filterCur);
     const indexed = games.map((g, i) => ({ g, i }));
-    indexed.forEach(({ g }) => globalTotalChf += g.priceChf);
+    indexed.forEach(({ g }) => globalTotalChf += gameChf(g, filterCur));
 
     let visible = indexed.filter(({ g }) => {
         const matchesSearch = g.name.toLowerCase().includes(q);
         const matchesSource = (srcFilter === 'all') || ((g.source || 'Steam') === srcFilter);
         const matchesOwnership = (ownFilter === 'all') || ((g.ownership || 'digital') === ownFilter);
-        const matchesPriceMin = isNaN(priceMinF) || g.priceChf >= toChf(priceMinF);
-        const matchesPriceMax = isNaN(priceMaxF) || g.priceChf <= toChf(priceMaxF);
+        const matchesPriceMin = isNaN(priceMinF) || gameChf(g, filterCur) >= toChf(priceMinF);
+        const matchesPriceMax = isNaN(priceMaxF) || gameChf(g, filterCur) <= toChf(priceMaxF);
         const matchesDateFrom = !dateFromF || (g.date && g.date >= dateFromF);
         const matchesDateTo = !dateToF || (g.date && g.date <= dateToF);
         return matchesSearch && matchesSource && matchesOwnership && matchesPriceMin && matchesPriceMax && matchesDateFrom && matchesDateTo;
     });
     visible.sort((a, b) => {
         let va = a.g[sortKey], vb = b.g[sortKey];
+        if (sortKey === 'priceChf') { va = gameChf(a.g, filterCur); vb = gameChf(b.g, filterCur); }
         if (sortKey === 'source') { va = va || 'Steam'; vb = vb || 'Steam'; }
         if (sortKey === 'ownership') { va = va || 'digital'; vb = vb || 'digital'; }
         if (typeof va === 'string') return va.localeCompare(vb) * sortDir;
@@ -2142,7 +2143,7 @@ function renderTable() {
                 <td data-label="${t('fldOwnership')}"><span class="own-chip" data-own="${own}"><i class="${ownIcon}"></i>${ownLabel}</span></td>
                 <td data-label="${t('purchaseDate')}">${escapeHtml(g.date || "")}</td>
                 <td data-label="${t('colOrigPrice')}">${amt((Number(g.price) || 0).toFixed(2))} <span style="font-size:12px; color:var(--text-dim);">${escapeHtml(g.currency || "")}</span></td>
-                <td data-label="${valueColLabel(filterCur)}" class="value-cell">${amt((g.priceChf / (rates[filterCur] || 1)).toFixed(2))} <span style="font-size:12px;">${filterCur}</span></td>
+                <td data-label="${valueColLabel(filterCur)}" class="value-cell${g.currency === filterCur ? ' value-same' : ''}">${amt((gameChf(g, filterCur) / (rates[filterCur] || 1)).toFixed(2))} <span style="font-size:12px;">${filterCur}</span></td>
                 <td class="action-icons">
                     <button class="edit" onclick="editGame(${i})" aria-label="Edit ${escapeHtml(g.name)}"><i class="fa-solid fa-pen"></i></button>
                     <button class="del" onclick="deleteGame(${i})" aria-label="Delete ${escapeHtml(g.name)}"><i class="fa-solid fa-trash"></i></button>
@@ -2160,6 +2161,16 @@ function renderTable() {
 
 // the currency picked next to the library value; every money figure is shown in it
 function displayCurrency() { return ($('totalCurrency') && $('totalCurrency').value) || 'EUR'; }
+// What one game is worth in CHF for showing it in `cur`. A game bought in that same currency
+// keeps exactly the price that was paid (24.99 PLN stays 24.99 PLN); other games use the CHF
+// value saved at purchase time, converted at today's rate.
+function gameChf(g, cur) {
+    if (!g) return 0;
+    cur = cur || displayCurrency();
+    const p = Number(g.price);
+    if (g.currency === cur && rates[cur] && isFinite(p)) return p * rates[cur];
+    return Number(g.priceChf) || 0;
+}
 function chfToDisplay(chf) { return (chf || 0) / (rates[displayCurrency()] || 1); }
 function moneyStr(chf) { return amt(chfToDisplay(chf).toLocaleString(currentLang, { minimumFractionDigits: 2, maximumFractionDigits: 2 })); }
 
@@ -2205,6 +2216,7 @@ function rerenderAmounts() {
 
 function updateTotalDisplay() {
     const currency = $('totalCurrency').value;
+    globalTotalChf = (games || []).reduce((t, g) => t + gameChf(g, currency), 0);
     let total = globalTotalChf;
     if (currency !== 'CHF' && rates[currency]) {
         total = globalTotalChf / rates[currency];
@@ -2363,14 +2375,14 @@ function renderSideCards() {
     const fmt = (chf) => amt((chf / rate).toLocaleString(currentLang, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
 
     const bySrc = {};
-    games.forEach(g => { const s = g.source || 'Steam'; bySrc[s] = (bySrc[s] || 0) + (g.priceChf || 0); });
+    games.forEach(g => { const s = g.source || 'Steam'; bySrc[s] = (bySrc[s] || 0) + gameChf(g); });
     const rows = Object.entries(bySrc).sort((x, y) => y[1] - x[1]).slice(0, 6);
     const top = rows.length ? (rows[0][1] || 1) : 1;
     bars.innerHTML = rows.map(([s, v]) => `<div class="bar-row"><span class="bar-name">${platformMeta(s).label()}</span><span class="bar-val">${fmt(v)} <small>${cur}</small></span><span class="bar-track"><i style="width:${Math.max(2, Math.round(v / top * 100))}%"></i></span></div>`).join('');
 
     const dated = games.filter(g => g.date && g.date.length >= 10).map(g => g.date).sort();
-    const sumChf = games.reduce((s, g) => s + (g.priceChf || 0), 0);
-    const priciest = games.reduce((m, g) => (g.priceChf || 0) > (m.priceChf || 0) ? g : m, games[0]);
+    const sumChf = games.reduce((s, g) => s + gameChf(g), 0);
+    const priciest = games.reduce((m, g) => gameChf(g) > gameChf(m) ? g : m, games[0]);
     const physical = games.filter(g => (g.ownership || 'digital') === 'physical').length;
     const tracked = games.filter(g => g.status).length;
     const niceDate = (d) => { const dt = new Date(d + 'T12:00:00'); return isNaN(dt) ? d : dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); };
@@ -2381,7 +2393,7 @@ function renderSideCards() {
         [dated.length ? niceDate(dated[0]) : '-', 'First purchase', ''],
         [dated.length ? niceDate(dated[dated.length - 1]) : '-', 'Latest purchase', ''],
         [`${fmt(sumChf / games.length)} ${cur}`, 'Average price per game', ''],
-        [`${fmt(priciest.priceChf || 0)} ${cur}`, 'Most expensive game', priciest.name || ''],
+        [`${fmt(gameChf(priciest))} ${cur}`, 'Most expensive game', priciest.name || ''],
         [String(boughtThisYear), 'Games bought this year', ''],
         [`${games.length - physical} / ${physical}`, 'Digital / physical copies', ''],
         [String(untracked), untracked === 1 ? 'Game without a status' : 'Games without a status', untracked ? 'Set a status so the numbers above are accurate.' : 'Every game has a status.']
@@ -2394,11 +2406,11 @@ function renderSideCards() {
     if (costEl) {
         const completed = games.filter(g => g.status === 'completed').length;
         const dead = games.filter(g => !g.status || g.status === 'not_completed' || g.status === 'wont_play');
-        const deadChf = dead.reduce((s, g) => s + (g.priceChf || 0), 0);
+        const deadChf = dead.reduce((s, g) => s + gameChf(g), 0);
         const nowD = new Date();
         const yNow = String(nowD.getFullYear()), yPrev = String(nowD.getFullYear() - 1);
         const todayMd = `${String(nowD.getMonth() + 1).padStart(2, '0')}-${String(nowD.getDate()).padStart(2, '0')}`;
-        const sumWhere = (fn) => games.filter(fn).reduce((s, g) => s + (g.priceChf || 0), 0);
+        const sumWhere = (fn) => games.filter(fn).reduce((s, g) => s + gameChf(g), 0);
         const thisYearChf = sumWhere(g => (g.date || '').startsWith(yNow));
         const samePeriodChf = sumWhere(g => (g.date || '').startsWith(yPrev) && (g.date || '').slice(5, 10) <= todayMd);
         let change = '-';
@@ -2444,7 +2456,7 @@ function renderSideCards() {
         let datedSum = 0;
         games.forEach(g => {
             const m = parseInt((g.date || '').slice(5, 7), 10);
-            if (m >= 1 && m <= 12) { byMonth[m - 1] += g.priceChf || 0; datedSum += g.priceChf || 0; }
+            if (m >= 1 && m <= 12) { byMonth[m - 1] += gameChf(g); datedSum += gameChf(g); }
         });
         if (datedSum > 0) {
             const best = byMonth.indexOf(Math.max(...byMonth));
@@ -2454,7 +2466,7 @@ function renderSideCards() {
 
         // the single most expensive calendar month
         const bySpecific = {};
-        games.forEach(g => { const k = (g.date || '').slice(0, 7); if (/^\d{4}-\d{2}$/.test(k)) bySpecific[k] = (bySpecific[k] || 0) + (g.priceChf || 0); });
+        games.forEach(g => { const k = (g.date || '').slice(0, 7); if (/^\d{4}-\d{2}$/.test(k)) bySpecific[k] = (bySpecific[k] || 0) + gameChf(g); });
         const recordMonth = Object.entries(bySpecific).sort((a, b) => b[1] - a[1])[0];
         if (recordMonth) {
             const [ry, rm] = recordMonth[0].split('-');
@@ -2463,7 +2475,7 @@ function renderSideCards() {
 
         // typical price: the median, and how the games split into price ranges (all in the chosen currency;
         // the range limits are 10, 30 and 60 EUR converted and rounded to a round number)
-        const chfSorted = games.map(g => g.priceChf || 0).sort((a, b) => a - b);
+        const chfSorted = games.map(g => gameChf(g)).sort((a, b) => a - b);
         const medianChf = (chfSorted[Math.floor((chfSorted.length - 1) / 2)] + chfSorted[Math.floor(chfSorted.length / 2)]) / 2;
         const roundNice = (x) => {
             const mag = Math.pow(10, Math.floor(Math.log10(x)));
@@ -2482,8 +2494,10 @@ function renderSideCards() {
         const byCur = {};
         games.forEach(g => { const c = g.currency || 'EUR'; byCur[c] = (byCur[c] || 0) + 1; });
         const curRows = Object.entries(byCur).sort((a, b) => b[1] - a[1]);
-        habitFacts.push([curRows[0][0], 'Currency you pay in most',
-            curRows.slice(0, 3).map(([c, n]) => `${c} ${Math.round(n / games.length * 100)}%`).join(', ') + ' of your purchases.']);
+        const curPct = curRows.slice(0, 3).map(([c, n]) => [c, Math.round(n / games.length * 100)]);
+        habitFacts.push([curRows[0][0], 'Currency you pay in most', curRows.length === 1
+            ? `All of your purchases were in ${curRows[0][0]}.`
+            : `${curPct[0][1]}% of your purchases were in ${curPct[0][0]}` + curPct.slice(1).map(([c, p]) => `, ${p}% in ${c}`).join('') + '.']);
 
         habitsEl.innerHTML = `<dl class="facts">${habitFacts.map(([v, l, n]) => `<div class="fact"><dd>${escapeHtml(String(v))}</dd><dt>${escapeHtml(l)}</dt><small>${escapeHtml(String(n))}</small></div>`).join('')}</dl>`;
     }
@@ -2500,8 +2514,8 @@ function updateStats() {
 
     const prevDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
     const prevYm = `${prevDate.getFullYear()}-${String(prevDate.getMonth() + 1).padStart(2, '0')}`;
-    const spentThisMonth = games.filter(g => (g.date || '').startsWith(ym)).reduce((s, g) => s + (g.priceChf || 0), 0);
-    const spentPrevMonth = games.filter(g => (g.date || '').startsWith(prevYm)).reduce((s, g) => s + (g.priceChf || 0), 0);
+    const spentThisMonth = games.filter(g => (g.date || '').startsWith(ym)).reduce((s, g) => s + gameChf(g), 0);
+    const spentPrevMonth = games.filter(g => (g.date || '').startsWith(prevYm)).reduce((s, g) => s + gameChf(g), 0);
     const countThisMonth = games.filter(g => (g.date || '').startsWith(ym)).length;
     const countPrevMonth = games.filter(g => (g.date || '').startsWith(prevYm)).length;
     const trendEl = $('statMonthTrend');
@@ -2668,7 +2682,7 @@ function updateCharts() {
             games.forEach(g => {
                 if (!g.date || !g.date.startsWith(String(y))) return;
                 const m = parseInt(g.date.slice(5, 7), 10) - 1;
-                if (m >= 0 && m < 12) perMonth[m] += (g.priceChf || 0) / rate;
+                if (m >= 0 && m < 12) perMonth[m] += gameChf(g) / rate;
             });
             let run = 0;
             const data = perMonth.map((v, m) => {
@@ -2761,7 +2775,7 @@ function updateCharts() {
         const sums = {};
         games.forEach(g => {
             const k = periodKey(g.date, gran);
-            if (k) sums[k] = (sums[k] || 0) + (g.priceChf || 0);
+            if (k) sums[k] = (sums[k] || 0) + gameChf(g);
         });
         const keys = Object.keys(sums).sort((a, b) => {
             const va = periodSortValue(a, gran), vb = periodSortValue(b, gran);
@@ -2919,8 +2933,8 @@ function layoutReceipt(ctx, period, draw) {
     const money = (chf) => amt((chf / rate).toLocaleString(currentLang, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
     const all = receiptGames(period);
     const shown = all.length > RECEIPT_MAX_ITEMS ? all.slice(all.length - RECEIPT_MAX_ITEMS) : all;
-    const totalChf = all.reduce((t, g) => t + (g.priceChf || 0), 0);
-    const deadChf = all.filter(g => !g.status || g.status === 'not_completed' || g.status === 'wont_play').reduce((t, g) => t + (g.priceChf || 0), 0);
+    const totalChf = all.reduce((t, g) => t + gameChf(g), 0);
+    const deadChf = all.filter(g => !g.status || g.status === 'not_completed' || g.status === 'wont_play').reduce((t, g) => t + gameChf(g), 0);
     let y = 0;
 
     const font = (w, px) => { ctx.font = `${w} ${px}px ${CANVAS_MONO}`; };
@@ -2960,7 +2974,7 @@ function layoutReceipt(ctx, period, draw) {
         y += 10;
     }
     shown.forEach(g => {
-        const price = money(g.priceChf || 0);
+        const price = money(gameChf(g));
         font(500, 15);
         const pw = ctx.measureText(price).width;
         const lines = wrapReceiptText(ctx, g.name || '(no name)', CW - pw - 18, 2);
@@ -2983,7 +2997,7 @@ function layoutReceipt(ctx, period, draw) {
     const byStore = {};
     all.forEach(g => {
         const k = platformMeta(g.source || 'Steam').label();
-        (byStore[k] = byStore[k] || { n: 0, chf: 0 }); byStore[k].n++; byStore[k].chf += g.priceChf || 0;
+        (byStore[k] = byStore[k] || { n: 0, chf: 0 }); byStore[k].n++; byStore[k].chf += gameChf(g);
     });
     rule(12, 4);
     font(400, 12.5); y += 12.5 + 8;
@@ -3074,7 +3088,7 @@ function renderReceiptPreview() {
             img.src = receiptCanvas.toDataURL('image/png');
             img.style.display = 'block';
             const cur = ($('totalCurrency') && $('totalCurrency').value) || 'EUR';
-            const total = list.reduce((t, g) => t + (g.priceChf || 0), 0) / (rates[cur] || 1);
+            const total = list.reduce((t, g) => t + gameChf(g), 0) / (rates[cur] || 1);
             img.alt = `Receipt for ${period === 'all' ? 'all time' : period}: ${list.length} game${list.length === 1 ? '' : 's'}` +
                 (amountsHidden ? '' : `, total ${total.toFixed(2)} ${cur}`);
             btn.disabled = false;
@@ -3464,7 +3478,7 @@ async function updateLeaderboardEntry() {
         return;
     }
     try {
-        const totalEur = rates.EUR ? (globalTotalChf / rates.EUR) : 0;
+        const totalEur = rates.EUR ? (games.reduce((t, g) => t + gameChf(g, 'EUR'), 0) / rates.EUR) : 0;
         await db.collection('leaderboard').doc(currentUser.uid).set({
             nickname: (userProfile && userProfile.nickname) ? userProfile.nickname.slice(0, 40) : '',
             totalEur: Math.round(totalEur * 100) / 100,
@@ -3502,7 +3516,7 @@ function initYearReview() {
 // so the card and the comparison can never drift apart
 function yearStats(year) {
     const yGames = year === 'all' ? games.slice() : games.filter(g => (g.date || '').startsWith(year));
-    const totalChf = yGames.reduce((s, g) => s + (g.priceChf || 0), 0);
+    const totalChf = yGames.reduce((s, g) => s + gameChf(g), 0);
 
     const platformCounts = {};
     yGames.forEach(g => { const p = g.source || 'Steam'; platformCounts[p] = (platformCounts[p] || 0) + 1; });
@@ -3512,7 +3526,7 @@ function yearStats(year) {
     yGames.forEach(g => { const m = (g.date || '').slice(0, 7); if (m) monthCounts[m] = (monthCounts[m] || 0) + 1; });
     const topMonth = Object.entries(monthCounts).sort((a, b) => b[1] - a[1])[0] || null;
 
-    const priciest = yGames.slice().sort((a, b) => (b.priceChf || 0) - (a.priceChf || 0))[0] || null;
+    const priciest = yGames.slice().sort((a, b) => gameChf(b) - gameChf(a))[0] || null;
     const completed = yGames.filter(g => g.status === 'completed').length;
 
     return {
@@ -3557,7 +3571,7 @@ function renderYearReview() {
         $('yrTopPlatform').textContent = A.topPlatform ? platformMeta(A.topPlatform[0]).label() : '-';
         $('yrTopMonth').textContent = A.topMonth ? `${monthLabel(A.topMonth[0])} (${A.topMonth[1]})` : '-';
         $('yrExpensive').innerHTML = A.priciest
-            ? `${t('yrMostExpensive')}: <strong style="color:var(--text-white);">${escapeHtml(A.priciest.name)}</strong> (${moneyStr(A.priciest.priceChf)} ${displayCurrency()})`
+            ? `${t('yrMostExpensive')}: <strong style="color:var(--text-white);">${escapeHtml(A.priciest.name)}</strong> (${moneyStr(gameChf(A.priciest))} ${displayCurrency()})`
             : '';
     }
 
@@ -3631,13 +3645,19 @@ function renderPurchaseHeatmap(year, yearGames) {
         weeks.map(week => `<div class="heatmap-col">` +
             week.map(d => d.count === null
                 ? `<i class="heatmap-cell heatmap-cell-empty"></i>`
-                : `<button type="button" class="heatmap-cell${d.count > 0 ? ' heatmap-cell-active' : ''}" style="background:${alphaFor(d.count)}" title="${d.date}: ${d.count}" onclick="showHeatmapDay('${d.date}', ${d.count})" onmouseenter="showHeatmapDay('${d.date}', ${d.count})"></button>`
+                : `<button type="button" class="heatmap-cell${d.count > 0 ? ' heatmap-cell-active' : ''}"${d.count > 0 ? '' : ' tabindex="-1"'} style="background:${alphaFor(d.count)}" title="${d.date}: ${d.count}" aria-label="${d.date}: ${d.count} bought" onclick="showHeatmapDay('${d.date}', ${d.count})" onmouseenter="showHeatmapDay('${d.date}', ${d.count})"></button>`
             ).join('') +
             `</div>`
         ).join('') +
         `</div>`;
 
     el.innerHTML = monthRow + grid;
+    // on a narrow screen the year does not fit, so start the scroll at the current month instead of January
+    el.scrollLeft = 0;
+    if (String(year) === String(new Date().getFullYear()) && el.scrollWidth > el.clientWidth) {
+        const todayWeek = weeks.findIndex(w => w.some(d => d.date === todayLocal()));
+        if (todayWeek > -1) el.scrollLeft = Math.max(0, (todayWeek + 3) * colStep - el.clientWidth);
+    }
     const detail = $('yrHeatmapDetail');
     if (detail) detail.innerHTML = '';
 }
@@ -3716,7 +3736,7 @@ function showAllYearsChart() {
 
     const years = Array.from(new Set(games.map(g => (g.date || '').slice(0, 4)).filter(Boolean))).sort();
     const totals = years.map(y => Math.round(chfToDisplay(games.filter(g => (g.date || '').startsWith(y))
-        .reduce((s, g) => s + (g.priceChf || 0), 0)) * 100) / 100);
+        .reduce((s, g) => s + gameChf(g), 0)) * 100) / 100);
     const counts = years.map(y => games.filter(g => (g.date || '').startsWith(y)).length);
 
     const css = getComputedStyle(document.documentElement);
@@ -3764,7 +3784,7 @@ function buildWrappedSlides(year) {
         slides.push({ kind: 'stat', icon: 'fa-coins', label: t(isAll ? 'yrTotalSpentAll' : 'yrTotalSpent'), value: moneyStr(A.totalChf), unit: displayCurrency(), numeric: !amountsHidden });
         slides.push({ kind: 'stat', icon: 'fa-layer-group', label: t('yrGamesLabel'), value: String(A.count), unit: '', numeric: true });
         if (A.topPlatform) slides.push({ kind: 'stat', icon: 'fa-gamepad', label: t('yrPlatformLabel'), value: platformMeta(A.topPlatform[0]).label(), unit: '', sub: `${A.topPlatform[1]} ${t('yrGamesLabel').toLowerCase()}` });
-        if (A.priciest) slides.push({ kind: 'stat', icon: 'fa-crown', label: t('yrMostExpensive'), value: A.priciest.name, unit: '', sub: `${moneyStr(A.priciest.priceChf)} ${displayCurrency()}` });
+        if (A.priciest) slides.push({ kind: 'stat', icon: 'fa-crown', label: t('yrMostExpensive'), value: A.priciest.name, unit: '', sub: `${moneyStr(gameChf(A.priciest))} ${displayCurrency()}` });
         if (firstGame) slides.push({ kind: 'stat', icon: 'fa-flag-checkered', label: t('yrFirstGame'), value: firstGame.name, unit: '', sub: firstGame.date });
         if (A.topMonth) slides.push({ kind: 'stat', icon: 'fa-calendar-days', label: t('yrMonthLabel'), value: monthLabel(A.topMonth[0]), unit: '', sub: `${A.topMonth[1]} ${t('yrGamesLabel').toLowerCase()}` });
         slides.push({ kind: 'stat', icon: 'fa-check-double', label: t('yrCompletedLabel'), value: String(A.completed), unit: `/ ${A.count}`, numeric: true });
@@ -4539,14 +4559,6 @@ initPublicShareIfNeeded().then(isPublicShare => {
     initCookieConsent();
 });
 
-function updateFooterDateTime(){
- const el=document.getElementById('footerDateTime');
- if(!el) return;
- const lang='en';
- el.textContent=new Date().toLocaleString(lang,{dateStyle:'medium',timeStyle:'short'});
-}
-document.addEventListener('DOMContentLoaded',updateFooterDateTime);
-setInterval(updateFooterDateTime,30000);
 
 
 // ---------------------------------------------------------------------------

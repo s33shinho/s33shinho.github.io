@@ -55,7 +55,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js" defer></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js" defer></script>
 
-    <link rel="stylesheet" href="styles.css?v=95">
+    <link rel="stylesheet" href="styles.css?v=96">
 </head>
 <body class="auth-pending">
     <a class="skip-link" href="#mainContent">Skip to content</a>
@@ -848,6 +848,7 @@
                         <button type="button" class="btn-tool" style="width:auto;" onclick="showAllYearsChart()"><span data-i18n="yrAllYearsBtn">All years</span></button>
                         <button type="button" class="btn-tool" style="width:auto;" onclick="openWrapped()"><span data-i18n="yrWrappedBtn">View as Wrapped</span></button>
                         <button type="button" class="btn-tool" style="width:auto;" onclick="openReceipt($('yearReviewSelect').value)">Receipt</button>
+                        <button type="button" class="btn-tool" style="width:auto;" onclick="downloadYearReviewImage()"><span data-i18n="yrDownloadBtn">Download as image</span></button>
                     </div>
                     <div id="yearReviewCard" class="year-wrap-card">
                         <div class="year-wrap-badge">Backlog Wallet</div>
@@ -886,9 +887,6 @@
                     <div id="yrAllYearsWrap" style="display:none; margin-top:22px;">
                         <div class="section-heading" style="display:flex; justify-content:space-between; align-items:center;"><span data-i18n="yrAllYearsHeading">Spending year by year</span><button type="button" class="btn-chip" onclick="exportChartPng(yearsChartInstance, 'backlog-wallet-years.png')"><i class="fa-solid fa-download"></i> <span data-i18n="chartDownloadPng">Download PNG</span></button></div>
                         <div class="chart-area" style="height:280px; padding:0;"><canvas id="yearsChart" role="img" aria-label="Chart of spending per year"></canvas></div>
-                    </div>
-                    <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
-                        <button type="button" class="btn-primary" style="width:auto; padding:0 20px;" onclick="downloadYearReviewImage()"><span data-i18n="yrDownloadBtn">Download as image</span></button>
                     </div>
                     <p id="yrEmptyMsg" class="auth-note" style="display:none; margin-top:12px;" data-i18n="yrEmpty">No games this year.</p>
                 </div>
@@ -1183,8 +1181,7 @@
         <div class="footer-note" data-i18n="footerNote">Built by one person, updated when I get to it.</div>
     </div>
     <div class="footer-meta">
-        <span id="footerDateTime"></span>
-        <span class="footer-build">v1.6.1, build 2026-11-21 13:51 UTC+1</span>
+        <span class="footer-build">v1.7.0, build 2026-11-21 14:06 UTC+1</span>
     </div>
 </footer>
 
@@ -1241,7 +1238,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=95" defer></script>
+    <script src="app.js?v=96" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.
