@@ -2185,3 +2185,19 @@ html[data-theme="light"] .app-preview { background: #fffdf8 !important; box-shad
     #gamesTable td.name-cell .pill { display: flex; width: fit-content; margin: 5px 0 0; padding: 0 !important; line-height: 1.3; }
     #gamesTable td:nth-child(4), #gamesTable td:nth-child(5), #gamesTable td:nth-child(6), #gamesTable td:nth-child(8) { align-self: baseline; }
 }
+
+/* 1.5.2 fixes */
+#ratesTable .rate-code { color: var(--text-white); font-weight: 600; }
+#ratesTable .rate-val { text-align: right; }
+#ratesTable th:nth-child(2) { text-align: right; }
+#ratesTable { max-width: 560px; }
+.wrapped-modal { background: var(--bg-panel); }
+.add-card #addFormToggleBtn.is-open::before { content: "\00d7"; }
+.skip-link { color: #fff; background: var(--text-white); color: var(--bg-app); }
+.search-shortcut-hint { color: var(--text-main); }
+.year-wrap-badge { color: var(--text-main); border-color: var(--border-light); letter-spacing: 0; }
+/* add-game form: the number of columns follows the width of the form itself, not the window */
+#addFormBody { container-type: inline-size; }
+#addGameForm.form-grid { grid-template-columns: 1fr 1fr; }
+@container (min-width: 520px) { #addGameForm.form-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@container (min-width: 880px) { #addGameForm.form-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); } }

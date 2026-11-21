@@ -297,7 +297,7 @@ function renderCurrencyRatesTab(source) {
         }
         if (!rate) return;
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td style="color:#fff;">${code}</td><td>${rate.toFixed(rate < 10 ? 4 : 2)}</td>`;
+        tr.innerHTML = `<td class="rate-code">${code}</td><td class="rate-val">${rate.toLocaleString('en-GB', { minimumFractionDigits: rate < 10 ? 4 : 2, maximumFractionDigits: rate < 10 ? 4 : 2 })}</td>`;
         tbody.appendChild(tr);
     });
 
@@ -1266,6 +1266,7 @@ function toggleAddForm(force) {
     if ($('addFormToggleIcon')) $('addFormToggleIcon').classList.toggle('fa-chevron-up', show);
     if ($('addFormToggleIcon')) $('addFormToggleIcon').classList.toggle('fa-chevron-down', !show);
     if ($('addFormToggleText')) $('addFormToggleText').textContent = show ? t('addFormHide') : t('addFormShow');
+    if ($('addFormToggleBtn')) { $('addFormToggleBtn').classList.toggle('is-open', show); $('addFormToggleBtn').setAttribute('aria-expanded', show ? 'true' : 'false'); }
     if (show && force === undefined) setTimeout(() => $('gameName') && $('gameName').focus({ preventScroll: true }), 60);
 }
 
