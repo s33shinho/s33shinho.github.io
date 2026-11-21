@@ -2266,3 +2266,17 @@ html { scroll-padding-top: calc(var(--topbar-h) + 12px); }
 }
 /* phone cards: the second amount only says something when the game was bought in another currency */
 @media (max-width: 760px) { #gamesTable td.value-same { visibility: hidden; } }
+
+/* 1.7.1 */
+/* tell the browser which theme is on, so its own parts (select lists, checkboxes, scrollbars) match it */
+:root { color-scheme: dark; }
+:root[data-theme="light"] { color-scheme: light; }
+/* Windows draws a select's list on white when the select itself is transparent: give the options their own colours */
+option, optgroup { background-color: var(--bg-panel); color: var(--text-white); }
+/* quieter scrollbars; the table keeps room for its scrollbar so it never touches the last column */
+* { scrollbar-color: color-mix(in srgb, var(--text-dim) 45%, var(--bg-panel)) transparent; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--text-dim) 45%, var(--bg-panel)); }
+*::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+.table-container { scrollbar-gutter: stable; }
+@media (min-width: 761px) { #gamesTable th:last-child, #gamesTable td:last-child { padding-right: 14px; } }
