@@ -2201,3 +2201,15 @@ html[data-theme="light"] .app-preview { background: #fffdf8 !important; box-shad
 #addGameForm.form-grid { grid-template-columns: 1fr 1fr; }
 @container (min-width: 520px) { #addGameForm.form-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @container (min-width: 880px) { #addGameForm.form-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+
+/* 1.6.0: quieter What to play?, Wrapped, Donate and Savings Goals */
+.roulette-pick { padding: 22px 0 6px; border-top: 1px solid var(--border); max-width: 640px; }
+.roulette-name { font-size: 28px; font-weight: 700; color: var(--text-white); letter-spacing: -0.02em; line-height: 1.15; min-height: 32px; }
+.roulette-spinning { color: var(--text-dim); }
+.roulette-meta { margin: 8px 0 16px; font-size: 15px; color: var(--text-main); }
+.roulette-pick .btn-tool { width: auto; padding: 0 16px; }
+.wrapped-brand { font-size: 14px; font-weight: 600; color: var(--text-dim); margin-bottom: 28px; }
+#donateContent p { max-width: 60ch; }
+#donateContent .donate-link { font-weight: 600; }
+@media (min-width: 560px) { #addGoalForm.form-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+#addGoalForm .btn-primary { width: auto; align-self: flex-start; padding: 0 22px; }
