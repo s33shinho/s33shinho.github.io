@@ -55,7 +55,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js" defer></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js" defer></script>
 
-    <link rel="stylesheet" href="styles.css?v=97">
+    <link rel="stylesheet" href="styles.css?v=98">
 </head>
 <body class="auth-pending">
     <a class="skip-link" href="#mainContent">Skip to content</a>
@@ -85,6 +85,7 @@
         </div>
         <div class="acct-hr"></div>
         <button type="button" class="acct-row" onclick="acctGo('auth')"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg><span>Account</span></button>
+        <button type="button" class="acct-row" id="acctAdminRow" onclick="acctGo('admin')" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6l8-3z"/></svg><span>Admin panel</span></button>
         <div class="acct-row acct-appearance"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18V3z"/><circle cx="12" cy="12" r="9"/></svg><span>Appearance</span>
             <div class="acct-seg" role="group" aria-label="Appearance">
                 <button type="button" id="acctThemeDark" aria-label="Dark" aria-pressed="true" onclick="setThemeChoice('dark')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg></button>
@@ -111,7 +112,6 @@
             <button class="nav-item active" data-view="home" onclick="showView('home')"><i class="fa-solid fa-house"></i> <span data-i18n="navHome">Home</span></button>
 
             <button class="nav-item" id="navAuthBtn" data-view="auth" onclick="showView('auth')"><i class="fa-solid fa-right-to-bracket" id="navAuthIcon"></i> <span data-i18n="navAuth" id="navAuthLabel">Login / Register</span></button>
-            <button class="nav-item" id="navAdminBtn" data-view="admin" onclick="showView('admin')" style="display:none;"><i class="fa-solid fa-user-shield"></i> <span>Admin panel</span></button>
 
             <div class="nav-dropdown" id="navLibraryWrap" style="display:none;">
                 <button type="button" class="nav-section-toggle" onclick="toggleNavGroup('library')" aria-expanded="true">
@@ -120,17 +120,17 @@
                 </button>
                 <div class="nav-group" id="navGroup-library">
                     <button class="nav-item" id="navShelfBtn" data-view="shelf" onclick="showView('shelf')"><i class="fa-solid fa-border-all"></i> <span data-i18n="navShelf">Virtual Shelf</span></button>
-                    <button class="nav-item" id="navAchievementsBtn" data-view="achievements" onclick="showView('achievements')"><i class="fa-solid fa-medal"></i> <span data-i18n="navAchievements">Achievements</span></button>
                     <button class="nav-item" id="navRouletteBtn" data-view="roulette" onclick="showView('roulette')"><i class="fa-solid fa-dice"></i> <span data-i18n="navRoulette">What to play?</span></button>
+                    <button class="nav-item" id="navAchievementsBtn" data-view="achievements" onclick="showView('achievements')"><i class="fa-solid fa-medal"></i> <span data-i18n="navAchievements">Achievements</span></button>
                     <button class="nav-item" id="navGoalsBtn" data-view="goals" onclick="showView('goals')" style="display:none;"><i class="fa-solid fa-piggy-bank"></i> <span data-i18n="navGoals">Savings Goals</span></button>
-                    <button class="nav-item" id="navRankingBtn" data-view="ranking" onclick="showView('ranking')" style="display:none;"><i class="fa-solid fa-ranking-star"></i> <span data-i18n="navRanking">Ranking</span></button>
                     <button class="nav-item" id="navYearReviewBtn" data-view="yearreview" onclick="showView('yearreview')" style="display:none;"><i class="fa-solid fa-gift"></i> <span data-i18n="navYearReview">Year in Review</span></button>
+                    <button class="nav-item" id="navRankingBtn" data-view="ranking" onclick="showView('ranking')" style="display:none;"><i class="fa-solid fa-ranking-star"></i> <span data-i18n="navRanking">Ranking</span></button>
                 </div>
             </div>
 
-            <div class="nav-dropdown">
+            <div class="nav-dropdown nav-more">
                 <button type="button" class="nav-section-toggle" onclick="toggleNavGroup('tools')" aria-expanded="true">
-                    <span data-i18n="navSectionTools">Tools</span>
+                    <span data-i18n="navSectionTools">More</span>
                     <i class="fa-solid fa-chevron-down nav-section-chevron" id="navGroupChevron-tools"></i>
                 </button>
                 <div class="nav-group" id="navGroup-tools">
@@ -427,7 +427,7 @@
                 </div>
                 <div id="libraryListBody">
                 <div class="table-tools">
-                    <label style="display:flex; align-items:center; gap:8px; width:auto; cursor:pointer; padding:0 4px; white-space:nowrap;">
+                    <label class="select-all-tools" style="display:flex; align-items:center; gap:8px; width:auto; cursor:pointer; padding:0 4px; white-space:nowrap;">
                         <input type="checkbox" id="selectAllCbTools" aria-label="Select all games" onchange="toggleSelectAll(this.checked)">
                         <span data-i18n="bulkSelectAllBtn" style="font-size:13px; color:var(--text-main);">Select all</span>
                     </label>
@@ -1175,13 +1175,16 @@
     <div class="footer-links">
         <a href="/features/">Features</a>
         <a href="/faq/">FAQ</a>
+        <a href="#" onclick="showView('rates'); return false;">Exchange Rates</a>
+        <a href="/changelog/">Changelog</a>
         <a href="#" onclick="showView('privacy'); return false;" data-i18n="navPrivacy">Privacy Policy</a>
         <a href="#" onclick="showView('terms'); return false;" data-i18n="navTerms">Terms &amp; Conditions</a>
         <a href="#" onclick="showView('feedback'); return false;" data-i18n="navFeedback">Send feedback</a>
+        <a href="#" onclick="showView('donate'); return false;">Donate</a>
         <div class="footer-note" data-i18n="footerNote">Built by one person, updated when I get to it.</div>
     </div>
     <div class="footer-meta">
-        <span class="footer-build">v1.7.1, build 2026-11-21 14:13 UTC+1</span>
+        <span class="footer-build">v1.5.7, build 2026-11-21 14:26 UTC+1</span>
     </div>
 </footer>
 
@@ -1238,7 +1241,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=97" defer></script>
+    <script src="app.js?v=98" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.

@@ -1716,7 +1716,6 @@ button.acct-row:hover, button.acct-row:focus-visible { background: var(--bg-inpu
     body:not(.signed-out) .acct-btn { display: grid; }
 }
 @media (max-width: 359px) { .topbar h1 { letter-spacing: 0.2em; gap: 8px; } }
-@media (min-width: 860px) { .acct-menu, .acct-btn { display: none !important; } }
 
 /* ---- log in / register (v2.4) ---- */
 .auth-info, .auth-cardhead, .auth-peek, .auth-forgot { display: none; }
@@ -2280,3 +2279,36 @@ option, optgroup { background-color: var(--bg-panel); color: var(--text-white); 
 *::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
 .table-container { scrollbar-gutter: stable; }
 @media (min-width: 761px) { #gamesTable th:last-child, #gamesTable td:last-child { padding-right: 14px; } }
+
+/* 1.5.7: a shorter main menu. Account and Admin panel live in the account menu, the secondary pages in the footer */
+body:not(.signed-out) #navAuthBtn { display: none; }
+@media (min-width: 860px) {
+    .nav-more, #navAuthBtn { display: none !important; }
+    /* signed out there is nothing to navigate yet: no menu strip, the top bar has Log in */
+    body.signed-out .drawer, html:not(.auth-hint) body.auth-pending .drawer { display: none; }
+    body.signed-out main.main-wrap, html:not(.auth-hint) body.auth-pending main.main-wrap { padding-top: 34px; }
+    /* signed in: one account button instead of name, log out and theme buttons */
+    body:not(.signed-out) #userChip, body:not(.signed-out) #quickLogoutBtn, body:not(.signed-out) #themeToggleBtn { display: none !important; }
+    body:not(.signed-out) .acct-btn { display: grid; }
+    .acct-menu { right: max(16px, calc((100% - 1380px) / 2)); }
+}
+@media (max-width: 859px) {
+    .nav-more .nav-item { font-size: 17px; font-weight: 600; letter-spacing: 0; line-height: 1.3; padding: 7px 0; color: var(--text-main); }
+    .nav-more .nav-item.active { color: var(--steam-blue); }
+}
+/* shelf: the dark plank sits right under each row of boxes */
+.shelf-wrap {
+    background-image:
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 40px),
+        repeating-linear-gradient(180deg, transparent 0 210px, rgba(0,0,0,0.35) 210px 220px, transparent 220px 224px);
+    background-position: 0 0, 0 20px;
+}
+@media (max-width: 620px) {
+    .shelf-wrap {
+        background-image:
+            repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 40px),
+            repeating-linear-gradient(180deg, transparent 0 168px, rgba(0,0,0,0.35) 168px 178px, transparent 178px 182px);
+    }
+}
+/* the table header already has a select-all box on wider screens */
+@media (min-width: 761px) { .select-all-tools { display: none !important; } }

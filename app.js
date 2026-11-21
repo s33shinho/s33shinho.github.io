@@ -75,7 +75,7 @@ fldStatus: "Completion status (optional)", statusNone: "- not set -", statusComp
         granMonth: "Month", granQuarter: "Quarter", granYear: "Year",
         chartPurchases: "Number of purchases", chartCumulative: "Total games owned", chartSources: "Purchase sources",
         steam: "Steam", keyStore: "Key Store", noResults: "Nothing matches those filters.",
-        liveRates: "Live", offlineRates: "Offline", suspiciousName: "That title looks made up. Fix it and try again.", priceTooHigh: "That price looks too high (the limit is about 2000 CHF). Check it and try again.", navYearReview: "Year in Review", yrTotalSpent: "Spent this year", yrGamesLabel: "Games bought", yrPlatformLabel: "Favorite platform", yrMonthLabel: "Most active month", yrMostExpensive: "Priciest purchase", yrDownloadBtn: "Download as image", yrEmpty: "No games this year.", navRanking: "Ranking", rankingTitle: "Library Value Ranking", rankingColRank: "Rank", rankingColNickname: "Player", rankingColValue: "Value (EUR)", rankingYou: "You", rankingEmpty: "Nobody has joined the ranking yet. You can opt in under Account.", rankingNote: "Each entry is worked out from the library on that account when it is saved. This is a ranking for fun, and entries that look fake can be removed.", vsLastMonth: "vs last month", anonNickname: "Player", fldOwnership: "Ownership", ownDigital: "Digital", ownPhysical: "Physical", filterAllOwnership: "All formats", chartOptOwnership: "Digital vs Physical", bulkBarSelected: "Selected: {n}", bulkSetOwnershipLabel: "Set format:", bulkSetSourceLabel: "Set source:", bulkSetStatusLabel: "Set status:", bulkClearStatus: "Clear status (unset)", bulkNoChange: "— no change —", bulkApplyBtn: "Apply", bulkClearBtn: "Deselect all", bulkSelectAllBtn: "Select all", bulkNoSelection: "No games selected.", bulkApplied: "Updated {n} games.", navGoals: "Savings Goals", goalsDesc: "Save up for games you want and track your progress.", goalName: "Game title", goalTargetAmount: "Target amount", goalSavedAmount: "Saved so far", goalAddBtn: "Add goal", goalEmpty: "You don't have any savings goals yet.", goalRemaining: "Remaining", goalReached: "Goal reached!", goalDeleteConfirm: "Delete this goal?", goalUpdateSaved: "Update", navShelf: "Virtual Shelf", shelfDesc: "Your library as a virtual game shelf - covers are generated automatically based on the title and platform.", shelfEmpty: "Your shelf is still empty - add your first game in the Library tab.",
+        liveRates: "Live", offlineRates: "Offline", suspiciousName: "That title looks made up. Fix it and try again.", priceTooHigh: "That price looks too high (the limit is about 2000 CHF). Check it and try again.", navYearReview: "Year in Review", yrTotalSpent: "Spent this year", yrGamesLabel: "Games bought", yrPlatformLabel: "Most games from", yrMonthLabel: "Most active month", yrMostExpensive: "Priciest purchase", yrDownloadBtn: "Download as image", yrEmpty: "No games this year.", navRanking: "Ranking", rankingTitle: "Library Value Ranking", rankingColRank: "Rank", rankingColNickname: "Player", rankingColValue: "Value (EUR)", rankingYou: "You", rankingEmpty: "Nobody has joined the ranking yet. You can opt in under Account.", rankingNote: "Each entry is worked out from the library on that account when it is saved. This is a ranking for fun, and entries that look fake can be removed.", vsLastMonth: "vs last month", anonNickname: "Player", fldOwnership: "Ownership", ownDigital: "Digital", ownPhysical: "Physical", filterAllOwnership: "All formats", chartOptOwnership: "Digital vs Physical", bulkBarSelected: "Selected: {n}", bulkSetOwnershipLabel: "Set format:", bulkSetSourceLabel: "Set source:", bulkSetStatusLabel: "Set status:", bulkClearStatus: "Clear status (unset)", bulkNoChange: "— no change —", bulkApplyBtn: "Apply", bulkClearBtn: "Deselect all", bulkSelectAllBtn: "Select all", bulkNoSelection: "No games selected.", bulkApplied: "Updated {n} games.", navGoals: "Savings Goals", goalsDesc: "Save up for games you want and track your progress.", goalName: "Game title", goalTargetAmount: "Target amount", goalSavedAmount: "Saved so far", goalAddBtn: "Add goal", goalEmpty: "You don't have any savings goals yet.", goalRemaining: "Remaining", goalReached: "Goal reached!", goalDeleteConfirm: "Delete this goal?", goalUpdateSaved: "Update", navShelf: "Virtual Shelf", shelfDesc: "Your library as a virtual game shelf - covers are generated automatically based on the title and platform.", shelfEmpty: "Your shelf is still empty - add your first game in the Library tab.",
         searchPh: "Search games...", exportCsv: "Export CSV",
         tabLogin: "Log in", tabRegister: "Create account", tabReset: "Reset password",
         email: "E-mail", password: "Password", loginBtn: "Log in", registerBtn: "Create account", resetBtn: "Send reset link", logoutBtn: "Log out",
@@ -90,7 +90,7 @@ fldStatus: "Completion status (optional)", statusNone: "- not set -", statusComp
         syncCloud: "Cloud", syncSyncing: "Syncing...", syncErr: "Sync error", retryBtn: "Retry", libraryLoadError: "Couldn't load your library. Check your connection and try again.",
         savedCloud: "Saved", itemDeleted: "Item deleted", itemsDeleted: "{n} games deleted", bulkDeleteBtn: "Delete selected", savePending: "Not saved yet. Will retry automatically.", syncMerged: "Merged changes from your other device", syncRefreshed: "Updated from your other device", syncRestored: "Restored unsaved changes from this device", navFeedback: "Feedback & contact", feedbackDesc: "Got an idea for improving Backlog Wallet? Send it here.", feedbackSubject: "Subject", feedbackMessage: "Message", feedbackSend: "Send", feedbackSending: "Sending...", feedbackOk: "Thanks! Your message was sent.", feedbackFail: "Could not send the message. Please try again later.", feedbackWait: "Please wait a moment before sending another message.", feedbackNote: "Messages are delivered by email through Web3Forms. Please don't include sensitive personal data.", undoBtn: "Undo", smartImportBtn: "Smart import (Steam & more)", smartImportHint: "Paste your Steam purchase history (or any order list/receipt) below - one purchase per line works best. Steam doesn't offer an official export, so this is a best-effort reader: it tries to find a date, a price and a title on each line. Nothing gets added until you review and confirm the results below.", smartImportParseBtn: "Find purchases", smartImportPreviewNote: "Review each row - uncheck anything that isn't a game (wallet top-ups and refunds are pre-unchecked, but double-check). Every field can be edited directly.", smartImportCommitBtn: "Add checked games", smartImportFlag: "Looks like a top-up or refund, not a game", onThisDayLabel: "On this day", onThisDayText: "{years} today, you bought {name}", onThisDayExtra: " (and {n} more)", yrHeatmapHeading: "Purchase activity", yrHeatmapLess: "Less", yrHeatmapMore: "More", yrWrappedBtn: "View as Wrapped", yrWrappedIntro: "Your year in games", yrWrappedOutro: "That was {year}. See you next year.", yrFirstGame: "First game bought", yrHeatmapDayCount: "{date}: {count} game(s) bought", yrHeatmapDayNone: "{date}: nothing bought",
         emptyLib: "No games yet. Add the first one with the form above.", bulkAddBtn: "Add multiple games", bulkAddHint: "Paste one game per line, in the format: Title;Price;Currency;Source;Date (YYYY-MM-DD). Currency, Source and Date are optional: without them your default currency and store and today's date are used.", bulkAddSubmit: "Add all", bulkAddResult: "Games added: {added} (skipped invalid lines: {skipped})", bulkAddNone: "No valid entries found to add.", hideList: "Hide list", showList: "Show list", expandList: "Expand list", collapseList: "Collapse list", filterAllSources: "All sources", navRates: "Exchange Rates", ratesColCurrency: "Currency", ratesColRate: "Rate per 1 EUR", ratesBaseNote: "All rates are shown relative to 1 EUR (base currency).", ratesUpdated: "Updated", scrollTopTitle: "Back to top", changePasswordBtn: "Change password", currentPassword: "Current password", newPassword: "New password", newPasswordConfirm: "Confirm new password", changePasswordSubmit: "Change password", passwordMismatch: "The passwords do not match.", passwordChanged: "Password updated.",
-        confirmDuplicate: "A game with this name is already in your library. Add it again anyway?", advFiltersToggle: "Advanced filters", priceMin: "Price from", priceMax: "Price to", dateFrom: "Date from", dateTo: "Date to", resetFilters: "Clear filters", bulkAddResultDup: "Games added: {added} (invalid lines: {skipped}, duplicates: {dup})", bulkAddAllDup: "All pasted games ({dup}) are already in your library - nothing was added.", navAchievements: "Achievements", achievementsDesc: "Unlock badges as you grow your game library.", achUnlocked: "Unlocked", achLocked: "Locked", achMaxLevel: "Max level!", achLevel: "Level {level}/{max}", achFirstGameT: "First Step", achFirstGameD: "Add your first game to the library.", achCollectorT: "Collector", achCollectorD: "Own {target} games in your library.", achDiversityT: "Multi-Platform", achDiversityD: "Own games from {target} different platforms.", achFinisherT: "Finisher", achFinisherD: "Complete {target} games from your library.", achPhysicalT: "Box Collector", achPhysicalD: "Own {target} physical games.", achInvestorT: "Big Investor", achInvestorD: "Reach a library value of {target}.", achDreamT: "Dream Fulfilled", achDreamD: "Reach at least one savings goal.", achCurrenciesT: "Multi-Currency", achCurrenciesD: "Buy games in {target} different currencies.", achVeteranT: "Collection Veteran", achVeteranD: "Keep your library going for {target}.", achBalancedT: "Balanced Collection", achBalancedD: "Own both digital and physical games in your library.", navRoulette: "What to play?", rouletteDesc: "Can't decide what to play tonight? Roll the dice on your backlog.", rouletteBtn: "Pick a game", rouletteRerollBtn: "Pick another", rouletteEmptyLib: "No games to pick from yet. Add a few first.", rouletteAllDone: "No games marked as \"Not completed\" - set that status on some games in your library so there's something to roll for.", roulettePlatformAll: "All sources", navSectionLibrary: "Your library", navSectionTools: "Tools",
+        confirmDuplicate: "A game with this name is already in your library. Add it again anyway?", advFiltersToggle: "Advanced filters", priceMin: "Price from", priceMax: "Price to", dateFrom: "Date from", dateTo: "Date to", resetFilters: "Clear filters", bulkAddResultDup: "Games added: {added} (invalid lines: {skipped}, duplicates: {dup})", bulkAddAllDup: "All pasted games ({dup}) are already in your library - nothing was added.", navAchievements: "Achievements", achievementsDesc: "Unlock badges as you grow your game library.", achUnlocked: "Unlocked", achLocked: "Locked", achMaxLevel: "Max level!", achLevel: "Level {level}/{max}", achFirstGameT: "First Step", achFirstGameD: "Add your first game to the library.", achCollectorT: "Collector", achCollectorD: "Own {target} games in your library.", achDiversityT: "Multi-Platform", achDiversityD: "Own games from {target} different platforms.", achFinisherT: "Finisher", achFinisherD: "Complete {target} games from your library.", achPhysicalT: "Box Collector", achPhysicalD: "Own {target} physical games.", achInvestorT: "Big Investor", achInvestorD: "Reach a library value of {target}.", achDreamT: "Dream Fulfilled", achDreamD: "Reach at least one savings goal.", achCurrenciesT: "Multi-Currency", achCurrenciesD: "Buy games in {target} different currencies.", achVeteranT: "Collection Veteran", achVeteranD: "Keep your library going for {target}.", achBalancedT: "Balanced Collection", achBalancedD: "Own both digital and physical games in your library.", navRoulette: "What to play?", rouletteDesc: "Can't decide what to play tonight? Roll the dice on your backlog.", rouletteBtn: "Pick a game", rouletteRerollBtn: "Pick another", rouletteEmptyLib: "No games to pick from yet. Add a few first.", rouletteAllDone: "No games marked as \"Not completed\" - set that status on some games in your library so there's something to roll for.", roulettePlatformAll: "All sources", navSectionLibrary: "Your library", navSectionTools: "More",
         navTerms: "Terms & Conditions", navPrivacy: "Privacy Policy", rememberMe: "Remember me", footerContact: "Contact", cookieConsentText: "No tracking or advertising cookies here. The site only keeps technical data in your browser (local storage) to work properly and remember your settings, such as language, theme and your login. Details are in the Privacy Policy.", cookieMoreInfo: "More information", cookieAcceptBtn: "OK",
         faqHtml: "<h3>Is it free?</h3><p>Yes. It is a hobby project. You need an account to use it, and the account is free.</p><h3>Can I import my Steam purchases?</h3><p>Sort of. Steam has no official export, but Smart import lets you paste your purchase history (or any order list) and it picks out titles, prices and dates. You review the result before anything is added.</p><h3>I buy in different currencies. Does that work?</h3><p>Yes. Each game keeps the price and currency you paid in. Totals are converted with live rates from open.er-api.com, and if that service is down the app falls back to saved rates.</p><h3>Where is my data stored?</h3><p>In Firebase (Google Cloud), behind access rules, so only your account can read your library. You can download everything as JSON at any time.</p><h3>What happens if I delete my account?</h3><p>Everything is removed. The app downloads a backup of your data first, so you can import it again later if you change your mind.</p><h3>Can I switch between light and dark?</h3><p>Yes, with the moon/sun button at the top. You can also set your nickname and preferred currency in your account.</p><h3>Can I cheat the ranking?</h3><p>Not easily, but it is not impossible either. Your entry is worked out from your own library in your browser, and obviously broken values are rejected, but a determined person could still fake one. It is a ranking for fun, and entries that look fake can be removed.</p><h3>I found a bug or have an idea.</h3><p>Use Feedback &amp; contact in the footer. The e-mail address is on that page too.</p>",
         yrYearLabel: "Year", yrCompareLabel: "Compare with", yrCompareNone: "— no comparison —", yrAllYearsBtn: "All years", yrCompareHeading: "Year comparison", yrAllYearsHeading: "Spending year by year", yrAvgPrice: "Average game price", yrCompletedLabel: "Completed games", yrVsTitle: "{a} compared with {b}",
@@ -973,8 +973,8 @@ function updateAuthUI() {
     if (navYearReview) navYearReview.style.display = logged ? '' : 'none';
     const navGoals = $('navGoalsBtn');
     if (navGoals) navGoals.style.display = logged ? '' : 'none';
-    const navAdmin = $('navAdminBtn');
-    if (navAdmin) navAdmin.style.display = isAdmin() ? '' : 'none';
+    const acctAdmin = $('acctAdminRow');
+    if (acctAdmin) acctAdmin.hidden = !isAdmin();
 }
 
 if (firebaseReady) {
@@ -1786,21 +1786,23 @@ function renderAchievements() {
             done = !!def.check(games, wishGoals);
             state = done ? 'Done' : 'Not yet';
         } else {
-            const value = def.valueFn(games);
+            const money = def.unit === 'CHF';
+            // money levels are round numbers in the chosen currency (1,000 EUR, not 1,087 EUR)
+            const tiers = money ? def.tiers.map(th => niceRound(chfToDisplay(th))) : def.tiers;
+            const value = money ? chfToDisplay(def.valueFn(games)) : def.valueFn(games);
             let tierIdx = -1;
-            def.tiers.forEach((th, i) => { if (value >= th) tierIdx = i; });
+            tiers.forEach((th, i) => { if (value >= th) tierIdx = i; });
             done = tierIdx >= 0;
-            const maxed = tierIdx === def.tiers.length - 1;
-            const next = maxed ? def.tiers[tierIdx] : def.tiers[tierIdx + 1];
+            const maxed = tierIdx === tiers.length - 1;
+            const next = maxed ? tiers[tierIdx] : tiers[tierIdx + 1];
             pct = maxed ? 100 : Math.min(100, Math.round((value / next) * 100));
-            state = `Level ${Math.max(0, tierIdx + 1)} of ${def.tiers.length}`;
-            if (maxed) progress = 'Every level done.';
-            else if (def.unit === 'CHF') {
-                const money = (chf) => Math.round(chfToDisplay(chf)).toLocaleString(currentLang);
-                progress = `${amt(money(value))} of ${money(next)} ${displayCurrency()} for the next level.`;
-            } else if (def.unit === 'years') progress = `${Math.floor(value * 12)} of ${next * 12} months for the next level.`;
+            state = maxed ? 'Done' : tierIdx < 0 ? 'Not yet' : `Level ${tierIdx + 1} of ${tiers.length}`;
+            const num = (v) => Math.round(v).toLocaleString(currentLang);
+            if (maxed) progress = `All ${tiers.length} levels done.`;
+            else if (money) progress = `${amt(num(value))} of ${num(next)} ${displayCurrency()} for the next level.`;
+            else if (def.unit === 'years') progress = `${Math.floor(value * 12)} of ${next * 12} months for the next level.`;
             else progress = `${Math.round(value)} of ${next} ${ACH_NOUN[def.id] || ''} for the next level.`;
-            def._target = def.unit === 'CHF' ? `${Math.round(chfToDisplay(next)).toLocaleString(currentLang)} ${displayCurrency()}`
+            def._target = money ? `${num(next)} ${displayCurrency()}`
                 : def.unit === 'years' ? `${next} year${next === 1 ? '' : 's'}` : next;
         }
         const desc = t(def.descKey).replace('{target}', def._target || '');
@@ -1984,11 +1986,12 @@ function renderShelf() {
         const srcRaw = g.source || 'Steam';
         const displaySrc = shelfDisplaySource(srcRaw);
         const meta = platformMeta(displaySrc);
+        // muted, slightly warm versions of the platform colours, so the shelf belongs to the rest of the site
         const platformColors = {
-            Steam: '#2a6ea6', PlayStation: '#1e3d6b', Xbox: '#1f6b2c', Nintendo: '#a12e2e',
-            GOG: '#5b3a8a', 'Epic Games': '#2b2b2b'
+            Steam: '#3e5568', PlayStation: '#33405a', Xbox: '#4b5a3c', Nintendo: '#8a3f33',
+            GOG: '#5c4862', 'Epic Games': '#3a3632'
         };
-        const baseColor = platformColors[displaySrc] || '#2a6ea6';
+        const baseColor = platformColors[displaySrc] || '#6a5947';
         const hue = hashStringToHue(g.name + srcRaw);
         const own = g.ownership || 'digital';
         const ownIcon = own === 'physical' ? 'fa-solid fa-compact-disc' : 'fa-solid fa-cloud';
@@ -2634,6 +2637,22 @@ function periodSortValue(key, gran) {
     return key;
 }
 
+// 1, 2, 2.5 or 5 times a power of ten, whichever is closest (4,574 -> 5,000; 1,087 -> 1,000)
+function niceRound(v) {
+    if (!(v > 0)) return 0;
+    const mag = Math.pow(10, Math.floor(Math.log10(v)));
+    const best = [1, 2, 2.5, 5, 10].map(n => n * mag).reduce((a, b) => Math.abs(Math.log(b / v)) < Math.abs(Math.log(a / v)) ? b : a);
+    return Math.round(best);
+}
+
+// "2026-03" reads as "Mar" when every point is in one year, otherwise "Mar ’26"
+function periodLabels(keys, gran) {
+    if (gran !== 'month') return keys;
+    const oneYear = new Set(keys.map(k => k.slice(0, 4))).size <= 1;
+    return keys.map(k => monthLabel(k) + (oneYear ? '' : ` ’${k.slice(2, 4)}`));
+}
+const X_TICKS = { maxRotation: 0, autoSkipPadding: 14 };
+
 function niceStepSize(maxValue) {
     if (maxValue <= 10) return 1;
     const roughStep = maxValue / 8;
@@ -2700,7 +2719,7 @@ function updateCharts() {
                 interaction: { mode: 'index', intersect: false },
                 scales: {
                     y: { beginAtZero: true, ticks: moneyTicks(), grid: { color: gridColor }, border: { display: false } },
-                    x: { grid: { display: false }, border: { display: false } }
+                    x: { grid: { display: false }, border: { display: false }, ticks: X_TICKS }
                 },
                 plugins: {
                     legend: { display: true, labels: { color: cssVar('--text-main'), boxWidth: 12 } },
@@ -2785,13 +2804,13 @@ function updateCharts() {
         const data = keys.map(k => Math.round((run += sums[k] / rate) * 100) / 100);
         mainChart = new Chart(ctx, {
             type: 'line',
-            data: { labels: keys, datasets: [{ label: cur, data, borderColor: cssVar('--text-light'), backgroundColor: 'rgba(127,127,127,0.10)', borderWidth: 2, fill: true, tension: 0, pointRadius: 0, pointHoverRadius: 4, pointBackgroundColor: cssVar('--steam-blue') }] },
+            data: { labels: periodLabels(keys, gran), datasets: [{ label: cur, data, borderColor: cssVar('--text-light'), backgroundColor: 'rgba(127,127,127,0.10)', borderWidth: 2, fill: true, tension: 0, pointRadius: 0, pointHoverRadius: 4, pointBackgroundColor: cssVar('--steam-blue') }] },
             options: {
                 maintainAspectRatio: false,
                 interaction: { mode: 'index', intersect: false },
                 scales: {
                     y: { beginAtZero: true, ticks: moneyTicks(), grid: { color: gridColor }, border: { display: false } },
-                    x: { grid: { display: false }, border: { display: false } }
+                    x: { grid: { display: false }, border: { display: false }, ticks: X_TICKS }
                 },
                 plugins: { legend: { display: false }, title: chartTitle(t('chartCumSpendTitle').replace('{cur}', cur)), tooltip: moneyTooltip() }
             }
@@ -2813,12 +2832,12 @@ function updateCharts() {
         const maxCount = Math.max(1, ...labels.map(l => counts[l]));
         mainChart = new Chart(ctx, {
             type: 'bar',
-            data: { labels, datasets: [{ data: labels.map(l => counts[l]), backgroundColor: labels.map(l => l === periodKey(todayLocal(), gran) ? cssVar('--steam-blue') : cssVar('--text-dim')), hoverBackgroundColor: cssVar('--text-light'), borderRadius: 0, maxBarThickness: 28 }] },
+            data: { labels: periodLabels(labels, gran), datasets: [{ data: labels.map(l => counts[l]), backgroundColor: labels.map(l => l === periodKey(todayLocal(), gran) ? cssVar('--steam-blue') : cssVar('--text-dim')), hoverBackgroundColor: cssVar('--text-light'), borderRadius: 0, maxBarThickness: 28 }] },
             options: {
                 maintainAspectRatio: false,
                 scales: {
                     y: { beginAtZero: true, ticks: { stepSize: niceStepSize(maxCount), precision: 0 }, grid: { color: gridColor }, border: { display: false } },
-                    x: { grid: { display: false }, border: { display: false } }
+                    x: { grid: { display: false }, border: { display: false }, ticks: X_TICKS }
                 },
                 plugins: { legend: { display: false }, title: chartTitle(`${t('chartPurchases')} / ${t('gran' + gran.charAt(0).toUpperCase() + gran.slice(1))}`) }
             }
@@ -2830,7 +2849,7 @@ function updateCharts() {
         mainChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels,
+                labels: periodLabels(labels, gran),
                 datasets: [{
                     data: cumData,
                     borderColor: cssVar('--steam-blue'),
@@ -2846,7 +2865,7 @@ function updateCharts() {
                 maintainAspectRatio: false,
                 scales: {
                     y: { beginAtZero: true, ticks: { stepSize: niceStepSize(maxTotal), precision: 0 }, grid: { color: gridColor }, border: { display: false } },
-                    x: { grid: { display: false }, border: { display: false } }
+                    x: { grid: { display: false }, border: { display: false }, ticks: X_TICKS }
                 },
                 plugins: { legend: { display: false }, title: chartTitle(t('chartCumulative')) }
             }
