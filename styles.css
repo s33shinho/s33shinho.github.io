@@ -2074,3 +2074,18 @@ html.auth-hint #tableWrapper { display: none !important; }
 .oldest-age { color: var(--steam-blue); font-family: var(--font-mono); }
 .oldest-actions { display: flex; gap: 14px; flex: none; }
 @media (max-width: 560px) { .oldest-row { flex-direction: column; align-items: flex-start; gap: 8px; } }
+
+/* receipt (image export of purchases) */
+.receipt-modal { position: relative; width: min(540px, 100%); max-height: 92vh; display: flex; flex-direction: column;
+    background: var(--bg-panel); border: 1px solid var(--border-light); border-radius: var(--r-lg); box-shadow: var(--shadow-lg); overflow: hidden; }
+.receipt-top { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px 6px; }
+.receipt-top h2 { margin: 0; font-size: 22px; color: var(--text-white); letter-spacing: -0.02em; }
+.receipt-close { width: 36px; height: 36px; padding: 0; border: 1px solid var(--border-light); background: transparent; color: var(--text-light); border-radius: var(--r-sm); }
+.receipt-close:hover { color: var(--text-white); border-color: var(--text-dim); }
+.receipt-controls { display: flex; align-items: flex-end; gap: 12px; padding: 8px 20px 16px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+.receipt-controls .input-group { width: auto; min-width: 150px; margin: 0; }
+.receipt-controls .btn-primary { width: auto; padding: 0 18px; }
+.receipt-controls .btn-primary:disabled { opacity: 0.55; cursor: default; }
+.receipt-preview { overflow: auto; padding: 20px; background: var(--bg-dark); flex: 1; min-height: 160px; }
+.receipt-preview img { display: block; width: 100%; max-width: 420px; height: auto; margin: 0 auto; }
+@media (max-width: 560px) { .receipt-preview { padding: 12px; } }

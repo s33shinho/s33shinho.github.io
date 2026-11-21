@@ -2859,6 +2859,232 @@ function exportMainChart() {
     exportChartPng(mainChart, `backlog-wallet-${$('chartType').value}.png`);
 }
 
+// ---- Receipt: the purchases of a period drawn as a shop receipt (PNG) ----
+const RECEIPT_W = 576;              // CSS px, roughly an 80 mm till roll
+const RECEIPT_MAX_ITEMS = 600;      // longer lists show the newest ones; totals always count everything
+let receiptCanvas = null, receiptPeriodValue = 'all';
+
+function receiptGames(period) {
+    const dated = (g) => /^\d{4}-\d{2}-\d{2}$/.test(g.date || '');
+    const list = games.filter(g => period === 'all' ? true : (dated(g) && g.date.slice(0, 4) === period));
+    // oldest first, like a till roll; games without a date go last
+    return list.slice().sort((a, b) => {
+        const da = dated(a) ? a.date : '9999', db = dated(b) ? b.date : '9999';
+        return da < db ? -1 : da > db ? 1 : 0;
+    });
+}
+
+function receiptYears() {
+    return [...new Set(games.map(g => (g.date || '').slice(0, 4)).filter(y => /^\d{4}$/.test(y)))].sort().reverse();
+}
+
+function wrapReceiptText(ctx, text, maxW, maxLines) {
+    const words = String(text).split(/\s+/).filter(Boolean);
+    const lines = [];
+    let cur = '';
+    const push = (w) => {
+        // a single word wider than the line is cut into pieces
+        while (ctx.measureText(w).width > maxW) {
+            let n = w.length;
+            while (n > 1 && ctx.measureText(w.slice(0, n)).width > maxW) n--;
+            lines.push(w.slice(0, n)); w = w.slice(n);
+        }
+        return w;
+    };
+    words.forEach(w => {
+        const test = cur ? cur + ' ' + w : w;
+        if (ctx.measureText(test).width <= maxW) { cur = test; return; }
+        if (cur) lines.push(cur);
+        cur = push(w);
+    });
+    if (cur) lines.push(cur);
+    if (lines.length > maxLines) {
+        const keep = lines.slice(0, maxLines);
+        let last = keep[maxLines - 1] + '…';
+        while (ctx.measureText(last).width > maxW && last.length > 2) last = last.slice(0, -2) + '…';
+        keep[maxLines - 1] = last;
+        return keep;
+    }
+    return lines.length ? lines : [''];
+}
+
+// draw=false only measures and returns the height
+function layoutReceipt(ctx, period, draw) {
+    const INK = '#1d1b17', SOFT = '#5f5a51', PAPER = '#f7f4ec';
+    const PAD = 34, W = RECEIPT_W, L = PAD, Rx = W - PAD, CW = W - PAD * 2;
+    const cur = ($('totalCurrency') && $('totalCurrency').value) || 'EUR';
+    const rate = rates[cur] || 1;
+    const money = (chf) => amt((chf / rate).toLocaleString(currentLang, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+    const all = receiptGames(period);
+    const shown = all.length > RECEIPT_MAX_ITEMS ? all.slice(all.length - RECEIPT_MAX_ITEMS) : all;
+    const totalChf = all.reduce((t, g) => t + (g.priceChf || 0), 0);
+    const deadChf = all.filter(g => !g.status || g.status === 'not_completed' || g.status === 'wont_play').reduce((t, g) => t + (g.priceChf || 0), 0);
+    let y = 0;
+
+    const font = (w, px) => { ctx.font = `${w} ${px}px ${CANVAS_MONO}`; };
+    const text = (str, x, baseline, align, color) => {
+        if (!draw) return;
+        ctx.fillStyle = color || INK; ctx.textAlign = align || 'left'; ctx.fillText(str, x, baseline);
+    };
+    const rule = (gapAbove, gapBelow, double) => {
+        y += gapAbove;
+        if (draw) { ctx.fillStyle = INK; ctx.fillRect(L, y, CW, 1.5); if (double) ctx.fillRect(L, y + 4, CW, 1.5); }
+        y += (double ? 5.5 : 1.5) + gapBelow;
+    };
+    const pair = (label, value, px, weight, color) => {
+        font(weight || 400, px || 14); y += (px || 14) + 7;
+        text(label, L, y, 'left', color); text(value, Rx, y, 'right', color);
+    };
+
+    if (draw) { ctx.fillStyle = PAPER; ctx.fillRect(0, 0, W, ctx.canvas.height / (ctx.getTransform().a || 1)); }
+
+    // header
+    y = 40;
+    font(700, 28); y += 28; text('BACKLOG WALLET', W / 2, y, 'center');
+    font(400, 13); y += 22; text('backlogwallet.com', W / 2, y, 'center', SOFT);
+    y += 22;
+    const periodLabel = period === 'all' ? 'All time' : period;
+    pair('RECEIPT', periodLabel.toUpperCase());
+    pair('Printed', new Date().toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }));
+    const nick = (userProfile && userProfile.nickname) || '';
+    if (nick) pair('Customer', nick.length > 28 ? nick.slice(0, 27) + '…' : nick);
+    pair('Amounts in', `${cur}, today's rates`);
+    rule(16, 14);
+
+    // items
+    if (shown.length < all.length) {
+        font(400, 13); y += 18;
+        text(`+ ${all.length - shown.length} earlier purchases, counted in the total`, L, y, 'left', SOFT);
+        y += 10;
+    }
+    shown.forEach(g => {
+        const price = money(g.priceChf || 0);
+        font(500, 15);
+        const pw = ctx.measureText(price).width;
+        const lines = wrapReceiptText(ctx, g.name || '(no name)', CW - pw - 18, 2);
+        lines.forEach((ln, i) => {
+            y += 15 + (i ? 4 : 8);
+            text(ln, L, y);
+            if (i === 0) text(price, Rx, y, 'right');
+        });
+        const sub = [/^\d{4}-\d{2}-\d{2}$/.test(g.date || '') ? g.date : 'no date', platformMeta(g.source || 'Steam').label()];
+        if (g.currency && g.currency !== cur && !amountsHidden) sub.push(`paid ${(Number(g.price) || 0).toFixed(2)} ${g.currency}`);
+        font(400, 12.5); y += 12.5 + 5;
+        text(sub.join(' · '), L, y, 'left', SOFT);
+        y += 6;
+    });
+
+    rule(14, 4);
+    pair('ITEMS', String(all.length));
+
+    // breakdown by store, like the tax table at the bottom of a receipt
+    const byStore = {};
+    all.forEach(g => {
+        const k = platformMeta(g.source || 'Steam').label();
+        (byStore[k] = byStore[k] || { n: 0, chf: 0 }); byStore[k].n++; byStore[k].chf += g.priceChf || 0;
+    });
+    rule(12, 4);
+    font(400, 12.5); y += 12.5 + 8;
+    text('STORE', L, y, 'left', SOFT); text('GAMES', Rx - 150, y, 'right', SOFT); text('AMOUNT', Rx, y, 'right', SOFT);
+    Object.entries(byStore).sort((a, b) => b[1].chf - a[1].chf).forEach(([name, v]) => {
+        font(400, 14); y += 14 + 7;
+        text(name, L, y); text(String(v.n), Rx - 150, y, 'right'); text(money(v.chf), Rx, y, 'right');
+    });
+    rule(14, 4);
+    pair('of which dead backlog', money(deadChf), 14, 400, SOFT);
+
+    // total
+    rule(14, 6, true);
+    font(700, 24); y += 24 + 6;
+    text('TOTAL', L, y); text(`${money(totalChf)} ${cur}`, Rx, y, 'right');
+    rule(14, 0, true);
+
+    // barcode: decorative, the same library always gives the same bars
+    y += 28;
+    let h = 2166136261;
+    const seed = `${period}|${all.length}|${totalChf.toFixed(2)}|${all.map(g => g.id || g.name).join(',')}`;
+    for (let i = 0; i < seed.length; i++) { h ^= seed.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+    const bars = [];
+    let bw = 0;
+    while (bw < 300) { h ^= h << 13; h ^= h >>> 17; h ^= h << 5; h >>>= 0; const bar = 1 + (h % 3), gap = 1 + ((h >>> 3) % 3); bars.push([bar, gap]); bw += bar + gap; }
+    if (draw) {
+        let x = (W - bw) / 2;
+        ctx.fillStyle = INK;
+        bars.forEach(([bar, gap]) => { ctx.fillRect(x, y, bar, 58); x += bar + gap; });
+    }
+    y += 58;
+    font(400, 12.5); y += 12.5 + 8;
+    text(`BW ${period === 'all' ? 'ALL' : period} ${String(all.length).padStart(4, '0')}`, W / 2, y, 'center', SOFT);
+
+    // footer
+    y += 18;
+    font(500, 14); y += 14 + 8; text('THANK YOU', W / 2, y, 'center');
+    font(400, 13); y += 13 + 6; text('Now go play something.', W / 2, y, 'center', SOFT);
+    y += 44;
+    return Math.ceil(y);
+}
+
+function buildReceiptCanvas(period) {
+    const scratch = document.createElement('canvas').getContext('2d');
+    const H = layoutReceipt(scratch, period, false);
+    // phones refuse very large canvases (iOS: about 16.7 million pixels), so long receipts get a smaller scale
+    const scale = Math.max(0.5, Math.min(2, Math.sqrt(16000000 / (RECEIPT_W * H)), 32000 / H));
+    const c = document.createElement('canvas');
+    c.width = Math.round(RECEIPT_W * scale);
+    c.height = Math.round(H * scale);
+    const ctx = c.getContext('2d');
+    ctx.scale(scale, scale);
+    ctx.textBaseline = 'alphabetic';
+    layoutReceipt(ctx, period, true);
+    return c;
+}
+
+function openReceipt(period) {
+    const sel = $('receiptPeriod');
+    if (!sel) return;
+    const years = receiptYears();
+    sel.innerHTML = `<option value="all">All time</option>` + years.map(y => `<option value="${y}">${y}</option>`).join('');
+    sel.value = (period && (period === 'all' || years.includes(period))) ? period : 'all';
+    $('receiptOverlay').style.display = 'flex';
+    renderReceiptPreview();
+}
+
+function closeReceipt() {
+    $('receiptOverlay').style.display = 'none';
+}
+
+function renderReceiptPreview() {
+    const period = $('receiptPeriod').value || 'all';
+    receiptPeriodValue = period;
+    const img = $('receiptImg'), empty = $('receiptEmpty'), btn = $('receiptDownloadBtn');
+    const list = receiptGames(period);
+    if (!list.length) {
+        receiptCanvas = null;
+        img.style.display = 'none'; empty.style.display = 'block'; btn.disabled = true;
+        return;
+    }
+    empty.style.display = 'none'; btn.disabled = true;
+    Promise.all([ensureCanvasFonts(), document.fonts && document.fonts.load ? document.fonts.load('400 13px "IBM Plex Mono"') : null])
+        .catch(() => {})
+        .then(() => {
+            if (receiptPeriodValue !== period) return;   // the period changed while fonts were loading
+            receiptCanvas = buildReceiptCanvas(period);
+            img.src = receiptCanvas.toDataURL('image/png');
+            img.style.display = 'block';
+            const cur = ($('totalCurrency') && $('totalCurrency').value) || 'EUR';
+            const total = list.reduce((t, g) => t + (g.priceChf || 0), 0) / (rates[cur] || 1);
+            img.alt = `Receipt for ${period === 'all' ? 'all time' : period}: ${list.length} game${list.length === 1 ? '' : 's'}` +
+                (amountsHidden ? '' : `, total ${total.toFixed(2)} ${cur}`);
+            btn.disabled = false;
+        });
+}
+
+function downloadReceipt() {
+    // the canvas is ready before the tap, so the download/share sheet opens straight from it (iOS needs that)
+    if (!receiptCanvas) return;
+    savePng(receiptCanvas, `backlog-wallet-receipt-${receiptPeriodValue === 'all' ? 'all-time' : receiptPeriodValue}.png`);
+}
+
 function exportCSV() {
     const rows = [['Name', 'Source', 'Ownership', 'Date', 'Price', 'Currency', 'PriceCHF', 'Status']];
     games.forEach(g => rows.push([g.name, g.source || 'Steam', g.ownership || 'digital', g.date, g.price, g.currency, g.priceChf.toFixed(2), g.status || '']));
@@ -4338,7 +4564,8 @@ setInterval(updateFooterDateTime,30000);
     const dialogs = [
         { id: 'adminUserModal', close: () => typeof closeAdminUserModal === 'function' && closeAdminUserModal() },
         { id: 'banModal', close: () => typeof closeBanModal === 'function' && closeBanModal() },
-        { id: 'wrappedOverlay', inner: '.wrapped-modal', close: () => typeof closeWrapped === 'function' && closeWrapped() }
+        { id: 'wrappedOverlay', inner: '.wrapped-modal', close: () => typeof closeWrapped === 'function' && closeWrapped() },
+        { id: 'receiptOverlay', inner: '.receipt-modal', close: () => typeof closeReceipt === 'function' && closeReceipt() }
     ];
     const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
     const open = [];   // stack of {el, root, close, returnTo}

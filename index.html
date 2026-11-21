@@ -55,7 +55,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js" defer></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js" defer></script>
 
-    <link rel="stylesheet" href="styles.css?v=88">
+    <link rel="stylesheet" href="styles.css?v=89">
 </head>
 <body class="auth-pending">
     <a class="skip-link" href="#mainContent">Skip to content</a>
@@ -413,6 +413,7 @@
                     <div style="display:flex; gap:14px; align-items:center;">
                         <button class="btn-chip" id="hideListBtn" onclick="toggleListHidden()"><i class="fa-solid fa-eye-slash" id="hideListIcon"></i> <span id="hideListText" data-i18n="hideList">Hide list</span></button>
                         <button class="btn-chip" id="expandCollapseBtn" onclick="toggleListExpand()"><i class="fa-solid fa-up-right-and-down-left-from-center" id="expandCollapseIcon"></i> <span id="expandCollapseText" data-i18n="expandList">Expand list</span></button>
+                        <button class="btn-chip" onclick="openReceipt('all')">Receipt</button>
                         <button class="btn-chip" onclick="exportCSV()"><span data-i18n="exportCsv">Export CSV</span></button>
                     </div>
                 </div>
@@ -842,6 +843,7 @@
                         </div>
                         <button type="button" class="btn-tool" style="width:auto;" onclick="showAllYearsChart()"><span data-i18n="yrAllYearsBtn">All years</span></button>
                         <button type="button" class="btn-tool" style="width:auto;" onclick="openWrapped()"><span data-i18n="yrWrappedBtn">View as Wrapped</span></button>
+                        <button type="button" class="btn-tool" style="width:auto;" onclick="openReceipt($('yearReviewSelect').value)">Receipt</button>
                     </div>
                     <div id="yearReviewCard" class="year-wrap-card">
                         <div class="year-wrap-badge">Backlog Wallet</div>
@@ -1178,7 +1180,7 @@
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v1.3.0 &middot; build 2026-11-20 13:06 UTC+1</span>
+        <span class="footer-build">v1.4.0 &middot; build 2026-11-21 13:03 UTC+1</span>
     </div>
 </footer>
 
@@ -1205,6 +1207,26 @@
         </div>
     </div>
 
+    <div id="receiptOverlay" class="wrapped-overlay" style="display:none;" onclick="if (event.target === this) closeReceipt()">
+        <div class="receipt-modal" role="dialog" aria-modal="true" aria-labelledby="receiptTitle">
+            <div class="receipt-top">
+                <h2 id="receiptTitle">Receipt</h2>
+                <button type="button" class="receipt-close" onclick="closeReceipt()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="receipt-controls">
+                <div class="input-group">
+                    <label for="receiptPeriod">Period</label>
+                    <select id="receiptPeriod" onchange="renderReceiptPreview()"></select>
+                </div>
+                <button type="button" class="btn-primary" id="receiptDownloadBtn" onclick="downloadReceipt()">Download image</button>
+            </div>
+            <div class="receipt-preview">
+                <img id="receiptImg" alt="" style="display:none;">
+                <p id="receiptEmpty" class="side-empty" style="display:none;">No purchases in this period.</p>
+            </div>
+        </div>
+    </div>
+
     <div id="cookieConsent" style="display:none; position:fixed; left:0; right:0; bottom:0; z-index:600; background:var(--bg-dark); border-top:1px solid var(--border-light); padding:16px; box-shadow:0 -4px 14px rgba(0,0,0,0.5);">
         <div style="max-width:900px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; gap:14px;">
             <p id="cookieConsentText" style="flex:1; min-width:220px; color:var(--text-light); font-size:13px; line-height:1.5; margin:0;"></p>
@@ -1215,7 +1237,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=88" defer></script>
+    <script src="app.js?v=89" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.
