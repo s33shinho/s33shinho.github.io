@@ -55,7 +55,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js" defer></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js" defer></script>
 
-    <link rel="stylesheet" href="styles.css?v=99">
+    <link rel="stylesheet" href="styles.css?v=100">
 </head>
 <body class="auth-pending">
     <a class="skip-link" href="#mainContent">Skip to content</a>
@@ -281,7 +281,7 @@
                 </div>
                 <div class="summary-stats">
                     <div><span class="summary-num"><b id="statTotal">0</b></span><small data-i18n="statTotalGames">Games total</small></div>
-                    <div><span class="summary-num"><b id="statMonth">0</b> <span class="trend" id="statMonthTrend"></span></span><small data-i18n="statThisMonth">This month</small></div>
+                    <div><span class="summary-num"><b id="statUnplayed">0</b> <span class="trend" id="statUnplayedNote"></span></span><small data-i18n="statUnplayed">Not played through</small></div>
                     <div><span class="summary-num"><b id="statYear">0</b></span><small data-i18n="statThisYear">This year</small></div>
                     <div><span class="summary-num"><b id="statSpentMonth">0</b> <span class="trend" id="statSpentMonthTrend"></span></span><small data-i18n="statSpentThisMonth">Spent this month</small></div>
                 </div>
@@ -559,6 +559,7 @@
                         <tbody></tbody>
                     </table>
                 </div>
+                <button type="button" class="btn-tool list-more" id="listMoreBtn" hidden onclick="toggleListExpand(true)"></button>
                 </div>
             </div>
 
@@ -824,7 +825,7 @@
                 <div class="card-head"><span data-i18n="rankingTitle">Library value ranking</span></div>
                 <div class="card-body">
                     <p class="auth-note" data-i18n="rankingNote" style="margin-bottom:12px;">Each entry is worked out from the library on that account when it is saved. This is a ranking for fun, and entries that look fake can be removed.</p>
-                    <div class="table-container" style="max-height:none;">
+                    <div class="table-container" id="rankingTableWrap" style="max-height:none;">
                         <table id="rankingTable">
                             <thead>
                                 <tr>
@@ -836,7 +837,11 @@
                             <tbody id="rankingTbody"></tbody>
                         </table>
                     </div>
-                    <p id="rankingEmptyMsg" class="auth-note" style="display:none; margin-top:12px;">Nobody has joined the ranking yet. You can join it in <a href="#" onclick="showView('auth'); return false;">your account</a>.</p>
+                    <div id="rankingEmptyMsg" class="ranking-cta" hidden>
+                        <p class="ranking-cta-title" id="rankingCtaTitle"></p>
+                        <p class="ranking-cta-text" id="rankingCtaText"></p>
+                        <button type="button" class="btn-primary" id="rankingJoinBtn" onclick="joinRankingFromView()" hidden>Join the ranking</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -999,7 +1004,8 @@
                 </div>
                 <div class="card-body">
                     <p class="auth-note" data-i18n="achievementsDesc" style="margin-bottom:14px;">Unlock badges as you grow your game library.</p>
-                    <div id="achievementsList" style="display:flex; flex-direction:column; gap:14px;"></div>
+                    <p class="ach-summary" id="achSummary"></p>
+                    <div id="achievementsList"></div>
                 </div>
             </div>
         </section>
@@ -1197,7 +1203,7 @@
         <div class="footer-note" data-i18n="footerNote">Built by one person, updated when I get to it.</div>
     </div>
     <div class="footer-meta">
-        <span class="footer-build">v1.5.8, build 2026-11-21 14:51 UTC+1</span>
+        <span class="footer-build">v1.5.9, build 2026-11-21 15:20 UTC+1</span>
     </div>
 </footer>
 
@@ -1244,17 +1250,13 @@
         </div>
     </div>
 
-    <div id="cookieConsent" style="display:none; position:fixed; left:0; right:0; bottom:0; z-index:600; background:var(--bg-dark); border-top:1px solid var(--border-light); padding:16px; box-shadow:0 -4px 14px rgba(0,0,0,0.5);">
-        <div style="max-width:900px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; gap:14px;">
-            <p id="cookieConsentText" style="flex:1; min-width:220px; color:var(--text-light); font-size:13px; line-height:1.5; margin:0;"></p>
-            <div style="display:flex; gap:10px; flex-shrink:0;">
-                <button class="btn-tool" style="width:auto;" onclick="showView('privacy'); return false;" id="cookieMoreInfoBtn"></button>
-                <button class="btn-primary" style="width:auto;" onclick="dismissStorageNotice()" id="cookieAcceptBtn"></button>
-            </div>
-        </div>
+    <div id="cookieConsent" class="storage-note" role="region" aria-label="Storage notice" style="display:none;">
+        <p id="cookieConsentText"></p>
+        <a href="/privacy/" class="storage-note-link" id="cookieMoreInfoBtn" onclick="showView('privacy'); return false;"></a>
+        <button type="button" class="btn-primary" id="cookieAcceptBtn" onclick="dismissStorageNotice()"></button>
     </div>
 
-    <script src="app.js?v=99" defer></script>
+    <script src="app.js?v=100" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.

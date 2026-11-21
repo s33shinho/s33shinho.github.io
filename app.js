@@ -70,7 +70,7 @@ regConsentPre: "I am at least 16 years old and I accept the", regConsentAnd: "an
         gameTitle: "Game title", price: "Price", currency: "Currency", source: "Source", purchaseDate: "Purchase date", addBtn: "Add", saveBtn: "Save", cancelBtn: "Cancel", addGame: "Add game",
 fldStatus: "Completion status (optional)", statusNone: "- not set -", statusCompleted: "Completed", statusNotCompleted: "Not completed", statusInProgress: "In progress", statusToggleHint: "click to change", statusEndless: "Endless game", statusWontPlay: "Won't play",         addFormShow: "Add a game", addFormHide: "Close the form",
         myLibrary: "Your library", colPlatform: "Platform", colOrigPrice: "Original price", colChfPrice: "CHF value", colOptions: "Options", totalValue: "Library value",
-        statTotalGames: "Games total", statThisMonth: "This month", statSpentThisMonth: "Spent this month", statThisYear: "This year",
+        statTotalGames: "Games total", statUnplayed: "Not played through", statSpentThisMonth: "Spent this month", statThisYear: "This year",
         chartsTitle: "Statistics", chartOptPurchases: "Purchases over time", chartOptCumulative: "Total games over time", chartOptCumSpend: "Total spent over time", chartCumSpendTitle: "Total spent over time ({cur})", chartOptSources: "Sources",
         granMonth: "Month", granQuarter: "Quarter", granYear: "Year",
         chartPurchases: "Number of purchases", chartCumulative: "Total games owned", chartSources: "Where you bought your games",
@@ -91,7 +91,7 @@ fldStatus: "Completion status (optional)", statusNone: "- not set -", statusComp
         savedCloud: "Saved", itemDeleted: "Item deleted", itemsDeleted: "{n} games deleted", bulkDeleteBtn: "Delete selected", savePending: "Not saved yet. Will retry automatically.", syncMerged: "Merged changes from your other device", syncRefreshed: "Updated from your other device", syncRestored: "Restored unsaved changes from this device", navFeedback: "Feedback & contact", feedbackDesc: "Got an idea for improving Backlog Wallet? Send it here.", feedbackSubject: "Subject", feedbackMessage: "Message", feedbackSend: "Send", feedbackSending: "Sending...", feedbackOk: "Thanks! Your message was sent.", feedbackFail: "Could not send the message. Please try again later.", feedbackWait: "Please wait a moment before sending another message.", feedbackNote: "Messages are delivered by email through Web3Forms. Please don't include sensitive personal data.", undoBtn: "Undo", smartImportBtn: "Smart import (Steam & more)", smartImportHint: "Paste your Steam purchase history (or any order list/receipt) below. One purchase per line works best. Steam doesn't offer an official export, so this is a best-effort reader: it tries to find a date, a price and a title on each line. Nothing gets added until you review and confirm the results below.", smartImportParseBtn: "Find purchases", smartImportPreviewNote: "Check each row and untick anything that isn't a game. Wallet top-ups and refunds are already unticked. Every field can be edited.", smartImportCommitBtn: "Add checked games", smartImportFlag: "Looks like a top-up or refund, not a game", onThisDayLabel: "On this day", onThisDayText: "{years} today, you bought {name}", onThisDayExtra: " (and {n} more)", yrHeatmapHeading: "Purchase activity", yrHeatmapLess: "Less", yrHeatmapMore: "More", yrWrappedBtn: "View as Wrapped", yrWrappedIntro: "Your year in games", yrWrappedOutro: "That was {year}. See you next year.", yrFirstGame: "First game bought", yrHeatmapDayCount: "{date}: {count} bought", yrHeatmapDayNone: "{date}: nothing bought",
         emptyLib: "No games yet. Add the first one with the form above.", bulkAddBtn: "Add multiple games", bulkAddHint: "Paste one game per line, in the format: Title;Price;Currency;Source;Date (YYYY-MM-DD). Currency, Source and Date are optional: without them your default currency and store and today's date are used.", bulkAddSubmit: "Add all", bulkAddResult: "Games added: {added} (skipped invalid lines: {skipped})", bulkAddNone: "No valid entries found to add.", hideList: "Hide list", showList: "Show list", expandList: "Expand list", collapseList: "Collapse list", filterAllSources: "All sources", navRates: "Exchange rates", ratesColCurrency: "Currency", ratesColRate: "Rate per 1 EUR", ratesBaseNote: "All rates are shown relative to 1 EUR (base currency).", ratesUpdated: "Updated", scrollTopTitle: "Back to top", changePasswordBtn: "Change password", currentPassword: "Current password", newPassword: "New password", newPasswordConfirm: "Confirm new password", changePasswordSubmit: "Change password", passwordMismatch: "The passwords do not match.", passwordChanged: "Password updated.",
         confirmDuplicate: "A game with this name is already in your library. Add it again anyway?", advFiltersToggle: "Advanced filters", priceMin: "Price from", priceMax: "Price to", dateFrom: "Date from", dateTo: "Date to", resetFilters: "Clear filters", bulkAddResultDup: "Games added: {added} (invalid lines: {skipped}, duplicates: {dup})", bulkAddAllDup: "All pasted games ({dup}) are already in your library, so nothing was added.", navAchievements: "Achievements", achievementsDesc: "Unlock badges as you grow your game library.", achUnlocked: "Unlocked", achLocked: "Locked", achMaxLevel: "Max level!", achLevel: "Level {level}/{max}", achFirstGameT: "First Step", achFirstGameD: "Add your first game to the library.", achCollectorT: "Collector", achCollectorD: "Own {target} games in your library.", achDiversityT: "Multi-Platform", achDiversityD: "Own games from {target} different platforms.", achFinisherT: "Finisher", achFinisherD: "Complete {target} games from your library.", achPhysicalT: "Box Collector", achPhysicalD: "Own {target} physical games.", achInvestorT: "Big Investor", achInvestorD: "Reach a library value of {target}.", achDreamT: "Dream Fulfilled", achDreamD: "Reach at least one savings goal.", achCurrenciesT: "Multi-Currency", achCurrenciesD: "Buy games in {target} different currencies.", achVeteranT: "Collection Veteran", achVeteranD: "Keep your library going for {target}.", achBalancedT: "Balanced Collection", achBalancedD: "Own both digital and physical games in your library.", navRoulette: "What to play?", rouletteDesc: "Can't decide what to play tonight? Roll the dice on your backlog.", rouletteBtn: "Pick a game", rouletteRerollBtn: "Pick another", rouletteEmptyLib: "No games to pick from yet. Add a few first.", rouletteAllDone: "No games are marked Not completed. Give some games that status and there will be something to pick from.", roulettePlatformAll: "All sources", navSectionLibrary: "Your library", navSectionTools: "More",
-        navTerms: "Terms & Conditions", navPrivacy: "Privacy Policy", rememberMe: "Remember me", footerContact: "Contact", cookieConsentText: "No tracking or advertising cookies here. The site only keeps technical data in your browser (local storage) to work properly and remember your settings, such as language, theme and your login. Details are in the Privacy Policy.", cookieMoreInfo: "More information", cookieAcceptBtn: "OK",
+        navTerms: "Terms & Conditions", navPrivacy: "Privacy Policy", rememberMe: "Remember me", footerContact: "Contact", cookieConsentText: "No tracking or ad cookies. Your login and settings are kept in this browser.", cookieMoreInfo: "More information", cookieAcceptBtn: "OK",
         faqHtml: "<h3>Is it free?</h3><p>Yes. It is a hobby project. You need an account to use it, and the account is free.</p><h3>Can I import my Steam purchases?</h3><p>Sort of. Steam has no official export, but Smart import lets you paste your purchase history (or any order list) and it picks out titles, prices and dates. You review the result before anything is added.</p><h3>I buy in different currencies. Does that work?</h3><p>Yes. Each game keeps the price and currency you paid in. Totals are converted with live rates from open.er-api.com, and if that service is down the app falls back to saved rates.</p><h3>Where is my data stored?</h3><p>In Firebase (Google Cloud), behind access rules, so only your account can read your library. You can download everything as JSON at any time.</p><h3>What happens if I delete my account?</h3><p>Everything is removed. The app downloads a backup of your data first, so you can import it again later if you change your mind.</p><h3>Can I switch between light and dark?</h3><p>Yes, with the moon/sun button at the top. You can also set your nickname and preferred currency in your account.</p><h3>Can I cheat the ranking?</h3><p>Not easily, but it is not impossible either. Your entry is worked out from your own library in your browser, and obviously broken values are rejected, but a determined person could still fake one. It is a ranking for fun, and entries that look fake can be removed.</p><h3>I found a bug or have an idea.</h3><p>Use Feedback &amp; contact in the footer. The e-mail address is on that page too.</p>",
         yrYearLabel: "Year", yrCompareLabel: "Compare with", yrCompareNone: "— no comparison —", yrAllYearsBtn: "All years", yrCompareHeading: "Year comparison", yrAllYearsHeading: "Spending year by year", yrAvgPrice: "Average game price", yrCompletedLabel: "Completed games", yrVsTitle: "{a} compared with {b}",
         donateHtml: "<p>Backlog Wallet is free and has no ads. I build it in my spare time, and if it is useful to you, you can buy me a coffee.</p><p><a class='donate-link' href='https://buymeacoffee.com/backlogwallet' target='_blank' rel='noopener'>Buy Me a Coffee</a></p><p>Thank you.</p>",
@@ -329,7 +329,7 @@ function loadCachedRates() {
         const c = JSON.parse(localStorage.getItem('ratesCache') || 'null');
         if (c && c.rates && c.rates.EUR && c.rates.PLN && Date.now() - c.t < 7 * 86400000) {
             applyChfRates(c.rates);
-            updateTotalDisplay();
+            rerenderAmounts();
         }
     } catch (e) {}
 }
@@ -351,7 +351,8 @@ async function fetchExchangeRates() {
         }
     });
 
-    updateTotalDisplay();
+    // everything that shows money was drawn with the rates known at that moment: draw it again
+    rerenderAmounts();
     renderCurrencyRatesTab(ratesLive ? 'live' : 'fallback');
 }
 
@@ -673,9 +674,13 @@ async function refreshFromCloud() {
         const remoteGames = Array.isArray(doc.data().games) ? doc.data().games : [];
         ensureGameIds(remoteGames);
         if (gamesSig(games) !== gamesSig(syncBase.games)) return;                 // unsaved local changes: the next save merges
-        if (gamesSig(remoteGames) === gamesSig(syncBase.games)) return;           // nothing new
+        if (JSON.stringify(wishGoals) !== JSON.stringify(syncBase.wishGoals)) return;
+        const remoteGoals = Array.isArray(doc.data().wishGoals) ? doc.data().wishGoals : [];
+        const gamesNew = gamesSig(remoteGames) !== gamesSig(syncBase.games);
+        const goalsNew = JSON.stringify(remoteGoals) !== JSON.stringify(syncBase.wishGoals || []);
+        if (!gamesNew && !goalsNew) return;                                        // nothing new
         games.splice(0, games.length, ...remoteGames);
-        if (Array.isArray(doc.data().wishGoals)) wishGoals = doc.data().wishGoals;
+        wishGoals = remoteGoals;
         syncBase = takeSnapshot(games, wishGoals, userProfile);
         selectedGames.clear();
         renderTable(); renderGoals();
@@ -1587,13 +1592,26 @@ function toggleListHidden() {
 }
 
 let listExpanded = false;
-function toggleListExpand() {
+// phones show the first rows of the list and a "Show all" button below it, instead of a box that
+// scrolls inside the page (a finger moving through the list would scroll the list, not the page)
+const PHONE_LIST_ROWS = 10;
+function toggleListExpand(fromMoreBtn) {
     listExpanded = !listExpanded;
     $('tableWrapper').classList.toggle('expanded', listExpanded);
     $('expandCollapseText').textContent = listExpanded ? t('collapseList') : t('expandList');
     $('expandCollapseIcon').className = listExpanded
         ? 'fa-solid fa-down-left-and-up-right-to-center'
         : 'fa-solid fa-up-right-and-down-left-from-center';
+    updateListMoreBtn();
+    // collapsing from the bottom of a long list: go back to the top of it, not to the charts below
+    if (fromMoreBtn && !listExpanded) $('tableWrapper').scrollIntoView({ block: 'start' });
+}
+function updateListMoreBtn() {
+    const btn = $('listMoreBtn');
+    if (!btn) return;
+    const rows = document.querySelectorAll('#gamesTable tbody tr:not(.empty-row)').length;
+    btn.hidden = rows <= PHONE_LIST_ROWS;
+    btn.textContent = listExpanded ? 'Show fewer' : `Show all ${rows} games`;
 }
 
 function getDisplayCurrency() {
@@ -1729,7 +1747,7 @@ function renderGoals() {
             </div>
             <div class="goal-progress-track"><div class="goal-progress-fill ${reached ? 'reached' : ''}" style="width:${pct}%;"></div></div>
             <div class="goal-card-footer">
-                <span style="font-size:13px; color:${reached ? '#5cb85c' : 'var(--text-dim)'};">
+                <span style="font-size:13px; color:${reached ? 'var(--ok)' : 'var(--text-dim)'};">
                     ${reached ? `<i class="fa-solid fa-check"></i> ${t('goalReached')}` : `${t('goalRemaining')}: ${amt(remaining.toFixed(2))} ${escapeHtml(goal.currency)} (${pct}%)`}
                 </span>
                 <div class="goal-card-actions">
@@ -1796,7 +1814,7 @@ const ACHIEVEMENTS = [
     { id: 'veteran', icon: 'fa-hourglass-half', titleKey: 'achVeteranT', descKey: 'achVeteranD', kind: 'tier', tiers: [1, 3, 5], unit: 'years',
         valueFn: (g) => {
             if (g.length === 0) return 0;
-            const dates = g.map(x => new Date(x.date)).filter(d => !isNaN(d));
+            const dates = g.map(x => parseLocalDate(x.date)).filter(d => !isNaN(d));
             if (dates.length === 0) return 0;
             const earliest = new Date(Math.min(...dates));
             return (Date.now() - earliest.getTime()) / (365.25 * 24 * 3600 * 1000);
@@ -1813,7 +1831,8 @@ function renderAchievements() {
     const list = $('achievementsList');
     if (!list) return;
     list.className = 'ach-list';
-    list.innerHTML = ACHIEVEMENTS.map(def => {
+    let doneCount = 0;
+    const cards = ACHIEVEMENTS.map(def => {
         let done, pct = 0, state, progress = '';
         if (def.kind === 'bool') {
             done = !!def.check(games, wishGoals);
@@ -1839,12 +1858,18 @@ function renderAchievements() {
                 : def.unit === 'years' ? `${next} year${next === 1 ? '' : 's'}` : next;
         }
         const desc = t(def.descKey).replace('{target}', def._target || '');
+        if (done) doneCount++;
         return `<div class="ach-row${done ? ' is-done' : ''}">
             <div class="ach-head"><h3>${escapeHtml(t(def.titleKey))}</h3><span class="ach-state">${state}</span></div>
             <p class="ach-desc">${escapeHtml(desc)}</p>
             ${def.kind === 'tier' ? `<div class="ach-bar"><i style="width:${pct}%"></i></div><p class="ach-progress">${progress}</p>` : ''}
         </div>`;
     }).join('');
+    const sum = $('achSummary');
+    if (sum) {
+        sum.innerHTML = `<b>${doneCount}</b> of ${ACHIEVEMENTS.length} unlocked<span class="ach-sum-bar"><i style="width:${Math.round(doneCount / ACHIEVEMENTS.length * 100)}%"></i></span>`;
+    }
+    list.innerHTML = cards;
 }
 
 let rouletteSpinTimer = null;
@@ -1975,7 +2000,7 @@ function measureShelfTextWidth(text, fontPx) {
     return ctx.measureText(text).width;
 }
 
-// Instead of truncating long titles with an ellipsis, we shrink the font so the whole title fits
+// Long titles get a smaller font so the whole title fits; only below 7px are they cut with "…"
 function fitShelfTitles() {
     document.querySelectorAll('#shelfWrap .game-box-title').forEach(titleEl => {
         const wrapEl = titleEl.parentElement;
@@ -1985,9 +2010,17 @@ function fitShelfTitles() {
         const refSize = 12;
         const measured = measureShelfTextWidth(text, refSize) || 1;
         let fontSize = Math.min(11.5, (refSize * available) / measured);
-        fontSize = Math.max(fontSize, 5.5); // minimum readable size instead of cutting with "…"
+        fontSize = Math.max(fontSize, 7);
         titleEl.style.fontSize = fontSize.toFixed(1) + 'px';
         titleEl.style.width = available + 'px';
+        // the canvas guess can be off by a few pixels (font not loaded yet, rounding): check the real width
+        const real = titleEl.scrollWidth;
+        if (real > available && fontSize > 7) {
+            fontSize = Math.max(7, fontSize * available / real - 0.2);
+            titleEl.style.fontSize = fontSize.toFixed(1) + 'px';
+        }
+        // below 7px nobody can read it: shorten with "…" (the full title is in the tooltip)
+        titleEl.title = text;
     });
 }
 
@@ -2193,6 +2226,7 @@ function renderTable() {
         });
     }
 
+    updateListMoreBtn();
     updateBulkEditBar();
     updateTotalDisplay();
     updateStats();
@@ -2560,49 +2594,42 @@ function updateStats() {
     const ym = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
     const y = String(now.getFullYear());
     $('statTotal').textContent = games.length;
-    $('statMonth').textContent = games.filter(g => (g.date || '').startsWith(ym)).length;
     $('statYear').textContent = games.filter(g => (g.date || '').startsWith(y)).length;
 
+    // games not played through: same rule as "Sitting in games you have not played through"
+    const unplayed = games.filter(g => !g.status || g.status === 'not_completed' || g.status === 'wont_play').length;
+    $('statUnplayed').textContent = unplayed;
+    const unplayedNote = $('statUnplayedNote');
+    if (unplayedNote) unplayedNote.textContent = games.length ? `${Math.round(unplayed / games.length * 100)}% of the library` : '';
+
+    // this month so far against the same days of last month (on the 21st: 1-21 Oct vs 1-21 Nov),
+    // so a month that has just started is not compared with a whole one
     const prevDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
     const prevYm = `${prevDate.getFullYear()}-${String(prevDate.getMonth() + 1).padStart(2, '0')}`;
-    const spentThisMonth = games.filter(g => (g.date || '').startsWith(ym)).reduce((s, g) => s + gameChf(g), 0);
-    const spentPrevMonth = games.filter(g => (g.date || '').startsWith(prevYm)).reduce((s, g) => s + gameChf(g), 0);
-    const countThisMonth = games.filter(g => (g.date || '').startsWith(ym)).length;
-    const countPrevMonth = games.filter(g => (g.date || '').startsWith(prevYm)).length;
-    const trendEl = $('statMonthTrend');
-    if (trendEl) {
-        if (countPrevMonth > 0) {
-            const pct = Math.round(((countThisMonth - countPrevMonth) / countPrevMonth) * 100);
-            const up = pct > 0;
-            if (pct === 0) { trendEl.style.color = 'var(--text-dim)'; trendEl.textContent = 'Same as last month'; }
-            else {
-                trendEl.style.color = up ? 'var(--warn, #e6a32e)' : '#5cb85c';
-                trendEl.innerHTML = `<i class="fa-solid fa-arrow-${up ? 'up' : 'down'}"></i> ${up ? '+' : ''}${pct}% ${t('vsLastMonth')}`;
-            }
-        } else {
-            trendEl.textContent = '';
-        }
-    }
+    const dayCut = String(now.getDate()).padStart(2, '0');
+    const inMonth = (g) => (g.date || '').startsWith(ym);
+    const inPrevSoFar = (g) => (g.date || '').startsWith(prevYm) && (g.date || '').slice(8, 10) <= dayCut;
+    const spentThisMonth = games.filter(inMonth).reduce((s, g) => s + gameChf(g), 0);
+    const spentPrevSoFar = games.filter(inPrevSoFar).reduce((s, g) => s + gameChf(g), 0);
 
-    const spentCurrency = ($('totalCurrency') && $('totalCurrency').value) || 'EUR';
+    const spentCurrency = displayCurrency();
     const rate = rates[spentCurrency] || 1;
-    const spentThisMonthDisplay = spentThisMonth / rate;
     const spentEl = $('statSpentMonth');
     if (spentEl) {
-        spentEl.textContent = amt(spentThisMonthDisplay.toLocaleString(currentLang, { minimumFractionDigits: 2, maximumFractionDigits: 2 })) + ' ' + spentCurrency;
+        spentEl.textContent = amt((spentThisMonth / rate).toLocaleString(currentLang, { minimumFractionDigits: 2, maximumFractionDigits: 2 })) + ' ' + spentCurrency;
     }
     const spentTrendEl = $('statSpentMonthTrend');
     if (spentTrendEl) {
-        if (spentPrevMonth > 0) {
-            const pct2 = Math.round(((spentThisMonth - spentPrevMonth) / spentPrevMonth) * 100);
-            const up2 = pct2 > 0;
-            if (pct2 === 0) { spentTrendEl.style.color = 'var(--text-dim)'; spentTrendEl.textContent = 'Same as last month'; }
+        spentTrendEl.className = 'trend';
+        spentTrendEl.style.color = '';
+        if (spentPrevSoFar > 0) {
+            const pct = Math.round(((spentThisMonth - spentPrevSoFar) / spentPrevSoFar) * 100);
+            if (pct === 0) spentTrendEl.textContent = 'Same as last month so far';
             else {
-                spentTrendEl.style.color = up2 ? 'var(--warn, #e6a32e)' : '#5cb85c';
-                spentTrendEl.innerHTML = `<i class="fa-solid fa-arrow-${up2 ? 'up' : 'down'}"></i> ${up2 ? '+' : ''}${pct2}% ${t('vsLastMonth')}`;
+                // spending less is the good direction for a wallet
+                spentTrendEl.classList.add(pct > 0 ? 'trend-up' : 'trend-down');
+                spentTrendEl.innerHTML = `<i class="fa-solid fa-arrow-${pct > 0 ? 'up' : 'down'}"></i> ${pct > 0 ? '+' : ''}${pct}% vs 1-${now.getDate()} ${monthLabel(prevYm)}`;
             }
-        } else if (spentThisMonth > 0) {
-            spentTrendEl.textContent = '';
         } else {
             spentTrendEl.textContent = '';
         }
@@ -2670,8 +2697,14 @@ const percentLabelPlugin = {
     }
 };
 
+// "2026-03-01" read as a calendar day where the user is (new Date("2026-03-01") is UTC midnight,
+// which is still February in the Americas)
+function parseLocalDate(dateStr) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(dateStr || '');
+    return m ? new Date(+m[1], +m[2] - 1, +m[3], 12) : new Date(NaN);
+}
 function periodKey(dateStr, gran) {
-    const d = new Date(dateStr);
+    const d = parseLocalDate(dateStr);
     if (isNaN(d)) return null;
     if (gran === 'year') return String(d.getFullYear());
     if (gran === 'quarter') return `Q${Math.floor(d.getMonth() / 3) + 1} ${d.getFullYear()}`;
@@ -3207,7 +3240,7 @@ function exportCSV() {
 
 function updateCookieConsentTexts() {
     $('cookieConsentText').textContent = t('cookieConsentText');
-    $('cookieMoreInfoBtn').textContent = t('cookieMoreInfo');
+    $('cookieMoreInfoBtn').textContent = 'Privacy';
     $('cookieAcceptBtn').textContent = t('cookieAcceptBtn');
 }
 function clearLocalData() {
@@ -3225,7 +3258,7 @@ function initCookieConsent() {
     let seen = false;
     try { seen = !!(localStorage.getItem('storageNoticeSeen') || localStorage.getItem('cookieConsent')); } catch (e) {}
     if (!seen) {
-        $('cookieConsent').style.display = 'block';
+        $('cookieConsent').style.display = 'flex';
     }
 }
 
@@ -3604,8 +3637,10 @@ function initYearReview() {
 }
 
 // so the card and the comparison can never drift apart
-function yearStats(year) {
-    const yGames = year === 'all' ? games.slice() : games.filter(g => (g.date || '').startsWith(year));
+// untilMd ("11-21") keeps only purchases up to that day of the year, for comparing a year in progress fairly
+function yearStats(year, untilMd) {
+    let yGames = year === 'all' ? games.slice() : games.filter(g => (g.date || '').startsWith(year));
+    if (untilMd) yGames = yGames.filter(g => (g.date || '').slice(5, 10) <= untilMd);
     const totalChf = yGames.reduce((s, g) => s + gameChf(g), 0);
 
     const platformCounts = {};
@@ -3800,12 +3835,20 @@ function renderYearComparison(A) {
     $('yrCmpColB').innerHTML = col(B, 'b');
 
     // verdict block: the handful of deltas that actually mean something
-    const deltaHtml = (labelKey, va, vb, suffix, invert, money) => {
+    // the year in progress is compared with the same part of the other year (1 Jan to today's date)
+    const now = new Date();
+    const partial = A.year === String(now.getFullYear()) && Number(otherYear) < now.getFullYear();
+    const todayMd = `${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    const Bv = partial ? yearStats(otherYear, todayMd) : B;
+    const periodNote = partial ? ` <span class="yr-verdict-note">1 Jan to ${now.getDate()} ${monthLabel(`${A.year}-${todayMd.slice(0, 2)}`)}</span>` : '';
+
+    // colour only where a direction is good or bad: spending (less is good) and finished games (more is good)
+    const deltaHtml = (labelKey, va, vb, suffix, invert, money, neutral) => {
         if (vb === 0 && va === 0) return '';
         const diff = va - vb;
         const pct = vb === 0 ? null : (diff / vb) * 100;
         let cls = 'flat';
-        if (Math.abs(diff) > 0.005) cls = (diff > 0) ? (invert ? 'down' : 'up') : (invert ? 'up' : 'down');
+        if (Math.abs(diff) > 0.005 && !neutral) cls = (diff > 0) ? (invert ? 'down' : 'up') : (invert ? 'up' : 'down');
         const arrow = Math.abs(diff) <= 0.005 ? '=' : (diff > 0 ? '▲' : '▼');
         const pctTxt = pct === null ? '' : ` (${pct > 0 ? '+' : ''}${pct.toFixed(0)}%)`;
         return `<div class="yr-cmp-line">
@@ -3815,11 +3858,11 @@ function renderYearComparison(A) {
     };
 
     $('yrVerdict').innerHTML =
-        `<div style="font-weight:600; color:var(--text-white); margin-bottom:6px;">${escapeHtml(t('yrVsTitle').replace('{a}', A.year).replace('{b}', B.year))}</div>` +
-        deltaHtml('yrTotalSpent', chfToDisplay(A.totalChf), chfToDisplay(B.totalChf), ' ' + displayCurrency(), false, true) +
-        deltaHtml('yrGamesLabel', A.count, B.count, '', false) +
-        deltaHtml('yrAvgPrice', chfToDisplay(A.avgChf), chfToDisplay(B.avgChf), ' ' + displayCurrency(), false, true) +
-        deltaHtml('yrCompletedLabel', A.completed, B.completed, '', true);
+        `<div class="yr-verdict-title">${escapeHtml(t('yrVsTitle').replace('{a}', A.year).replace('{b}', B.year))}${periodNote}</div>` +
+        deltaHtml('yrTotalSpent', chfToDisplay(A.totalChf), chfToDisplay(Bv.totalChf), ' ' + displayCurrency(), false, true) +
+        deltaHtml('yrGamesLabel', A.count, Bv.count, '', false, false, true) +
+        deltaHtml('yrAvgPrice', chfToDisplay(A.avgChf), chfToDisplay(Bv.avgChf), ' ' + displayCurrency(), false, true, true) +
+        deltaHtml('yrCompletedLabel', A.completed, Bv.completed, '', true);
 }
 
 let yearsChartInstance = null;
@@ -4137,16 +4180,41 @@ function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight) {
     lines.forEach((l, i) => ctx.fillText(l.trim(), x, y + i * lineHeight));
 }
 
+// what sits under (or instead of) the ranking table: an empty ranking, an error, or an invitation to join
+function setRankingCta(kind) {
+    const box = $('rankingEmptyMsg');
+    if (!box) return;
+    const texts = {
+        empty: ['Nobody is in the ranking yet', 'Join it and your library value is the first entry. Only your nickname and the total are shown.'],
+        alone: ['Nobody else has joined yet', 'You are in the ranking. Other players appear here once they join.'],
+        join: ['', 'You are not in the ranking. Only your nickname and your library value would be shown.'],
+        error: ['Could not load the ranking', 'Check your connection and open this page again.']
+    };
+    if (!kind) { box.hidden = true; return; }
+    box.hidden = false;
+    $('rankingCtaTitle').textContent = texts[kind][0];
+    $('rankingCtaTitle').hidden = !texts[kind][0];
+    $('rankingCtaText').textContent = texts[kind][1];
+    $('rankingJoinBtn').hidden = !(currentUser && !rankingOptIn && kind !== 'error');
+}
+async function joinRankingFromView() {
+    await toggleRanking(true);
+    updateRankingUI();
+    renderRanking();
+}
 async function renderRanking() {
     const tbody = $('rankingTbody');
-    const emptyMsg = $('rankingEmptyMsg');
+    const wrap = $('rankingTableWrap');
     if (!tbody) return;
     tbody.innerHTML = '';
-    if (!db) { if (emptyMsg) { emptyMsg.style.display = 'block'; } return; }
+    const showTable = (on) => { if (wrap) wrap.hidden = !on; };
+    if (!db) { showTable(false); setRankingCta('error'); return; }
     try {
         const snap = await db.collection('leaderboard').orderBy('totalEur', 'desc').limit(100).get();
-        if (snap.empty) { if (emptyMsg) emptyMsg.style.display = 'block'; return; }
-        if (emptyMsg) emptyMsg.style.display = 'none';
+        const others = snap.docs ? snap.docs.filter(d => !currentUser || d.id !== currentUser.uid).length : snap.size;
+        if (snap.empty) { showTable(false); setRankingCta(rankingOptIn ? 'alone' : 'empty'); return; }
+        showTable(true);
+        setRankingCta(!rankingOptIn ? 'join' : (others === 0 ? 'alone' : null));
         let rank = 0;
         snap.forEach(doc => {
             rank++;
@@ -4160,7 +4228,8 @@ async function renderRanking() {
         });
     } catch (e) {
         console.error(e);
-        if (emptyMsg) emptyMsg.style.display = 'block';
+        showTable(false);
+        setRankingCta('error');
     }
 }
 
