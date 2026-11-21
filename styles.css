@@ -147,7 +147,7 @@
         .feature-card h4 { font-family: var(--font-display); color: var(--text-white); font-size: 16px; margin-bottom: 6px; font-weight: 600; }
         .feature-card p { color: var(--text-main); font-size: 14px; line-height: 1.6; }
 
-        .acc-block { width: 100%; margin-top: 18px; padding-top: 18px; border-top: 1px dashed var(--border); }
+        .acc-block { width: 100%; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--border); }
         .acc-block:first-of-type { margin-top: 8px; }
         .acc-h { font-family: var(--font-body); color: var(--text-light); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: 600; }
         .acc-greeting { font-size: 15px; color: var(--text-light); }
@@ -554,7 +554,7 @@
         }
         .year-wrap-badge {
             display: inline-block; font-family: var(--font-body); font-size: 12px; letter-spacing: 2px;
-            text-transform: uppercase; color: var(--steam-blue); border: 1px dashed var(--steam-blue);
+            text-transform: uppercase; color: var(--steam-blue); border: 1px solid var(--accent-line);
             padding: 5px 14px; border-radius: 3px; margin-bottom: 18px;
         }
         .year-wrap-year { font-family: var(--font-mono); font-size: 22px; color: var(--text-dim); margin-bottom: 4px; }
@@ -565,7 +565,7 @@
         .year-wrap-stats > div { display: flex; flex-direction: column; align-items: center; }
         .year-wrap-stats span { font-family: var(--font-mono); font-size: 18px; font-weight: 600; color: var(--steam-blue); }
         .year-wrap-stats small { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; max-width: 100px; }
-        .year-wrap-highlight { font-size: 13px; color: var(--text-main); border-top: 1px dashed var(--border-light); padding-top: 16px; }
+        .year-wrap-highlight { font-size: 13px; color: var(--text-main); border-top: 1px solid var(--border-light); padding-top: 16px; }
 
         #gamesTable th:nth-child(7), #gamesTable th:nth-child(8) { text-align: right; }
         #gamesTable td:nth-child(7), #gamesTable td:nth-child(8) { text-align: right; font-weight: 600; color: var(--text-white); }
@@ -737,13 +737,13 @@
         @media (max-width: 760px) { .search-shortcut-hint { display: none; } }
 
         .toast {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(80px);
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(calc(100% + 40px)); visibility: hidden;
             background: var(--bg-dark); border: 1px solid var(--border-light); color: var(--text-light);
             padding: 10px 18px; border-radius: 4px; font-size: 13px; z-index: 500;
-            transition: transform 0.25s; box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+            transition: transform 0.25s, visibility 0s linear 0.25s; box-shadow: 0 4px 14px rgba(0,0,0,0.5);
             max-width: 90vw;
         }
-        .toast.show { transform: translateX(-50%) translateY(0); }
+        .toast.show { transform: translateX(-50%) translateY(0); visibility: visible; transition: transform 0.25s; }
 
         .toast-action {
             display: flex; align-items: center; gap: 14px;
@@ -1750,7 +1750,8 @@ body.signed-out #authBox[data-mode="register"] .auth-actions, body.signed-out #a
 body.signed-out #authBox[data-mode="register"] #regConsentGroup { padding-left: 166px !important; }
 body.signed-out #authBox[data-mode="register"] .auth-actions { margin-top: 16px; }
 body.signed-out #authNote { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); max-width: 560px; }
-.auth-info-links { margin: 14px 0 0; font-size: 13px; color: var(--text-dim); }
+.auth-info p { margin: 0 0 10px; font-size: 14px; line-height: 1.55; color: var(--text-main); }
+.auth-info-links { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 14px 0 0; font-size: 13px; color: var(--text-dim); }
 .auth-info-links a { color: var(--steam-blue); }
 @media (max-width: 899px) {
     body.signed-out .auth-layout { display: block; }

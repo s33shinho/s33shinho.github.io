@@ -55,7 +55,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js" defer></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js" defer></script>
 
-    <link rel="stylesheet" href="styles.css?v=89">
+    <link rel="stylesheet" href="styles.css?v=90">
 </head>
 <body class="auth-pending">
     <a class="skip-link" href="#mainContent">Skip to content</a>
@@ -759,15 +759,9 @@
             <aside class="card side-card auth-info">
                 <div class="card-head"><span>About Backlog Wallet</span></div>
                 <div class="card-body">
-                    <dl class="kv">
-                        <div><dt>Price</dt><dd>Free</dd></div>
-                        <div><dt>Sign-in</dt><dd>E-mail and password</dd></div>
-                        <div><dt>Library</dt><dd>Stored in your account</dd></div>
-                        <div><dt>Currencies</dt><dd>20+, live rates</dd></div>
-                        <div><dt>Import</dt><dd>Pasted text, JSON</dd></div>
-                        <div><dt>Export</dt><dd>JSON, CSV</dd></div>
-                    </dl>
-                    <p class="auth-info-links"><a href="/features/">What it does</a> &middot; <a href="/faq/">FAQ</a> &middot; <a href="/privacy/">Privacy</a></p>
+                    <p>It is free. You sign in with your e-mail and a password, and your library is kept in your account, so it is the same on your phone and your computer.</p>
+                    <p>Prices can be shown in more than 20 currencies at today's rates. You can paste a purchase list to bring games in, and take everything out again as JSON or CSV.</p>
+                    <p class="auth-info-links"><a href="/features/">What it does</a> <a href="/faq/">FAQ</a> <a href="/privacy/">Privacy</a></p>
                 </div>
             </aside>
             </div>
@@ -864,9 +858,9 @@
                         <div class="purchase-heatmap-legend">
                             <span data-i18n="yrHeatmapLess">Less</span>
                             <i style="background:var(--bg-input);"></i>
-                            <i style="background:rgba(95,180,238,0.25);"></i>
-                            <i style="background:rgba(95,180,238,0.5);"></i>
-                            <i style="background:rgba(95,180,238,0.75);"></i>
+                            <i style="background:color-mix(in srgb, var(--steam-blue) 28%, var(--bg-input));"></i>
+                            <i style="background:color-mix(in srgb, var(--steam-blue) 50%, var(--bg-input));"></i>
+                            <i style="background:color-mix(in srgb, var(--steam-blue) 75%, var(--bg-input));"></i>
                             <i style="background:var(--steam-blue);"></i>
                             <span data-i18n="yrHeatmapMore">More</span>
                         </div>
@@ -1180,7 +1174,7 @@
     </div>
     <div class="footer-meta">
         <span id="footerDateTime"></span>
-        <span class="footer-build">v1.4.0 &middot; build 2026-11-21 13:03 UTC+1</span>
+        <span class="footer-build">v1.4.1 &middot; build 2026-11-21 13:15 UTC+1</span>
     </div>
 </footer>
 
@@ -1237,7 +1231,7 @@
         </div>
     </div>
 
-    <script src="app.js?v=89" defer></script>
+    <script src="app.js?v=90" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.

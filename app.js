@@ -90,7 +90,7 @@ fldStatus: "Completion status (optional)", statusNone: "- not set -", statusComp
         syncCloud: "Cloud", syncSyncing: "Syncing...", syncErr: "Sync error", retryBtn: "Retry", libraryLoadError: "Couldn't load your library. Check your connection and try again.",
         savedCloud: "Saved", itemDeleted: "Item deleted", itemsDeleted: "{n} games deleted", bulkDeleteBtn: "Delete selected", savePending: "Not saved yet. Will retry automatically.", syncMerged: "Merged changes from your other device", syncRefreshed: "Updated from your other device", syncRestored: "Restored unsaved changes from this device", navFeedback: "Feedback & contact", feedbackDesc: "Got an idea for improving Backlog Wallet? Send it here.", feedbackSubject: "Subject", feedbackMessage: "Message", feedbackSend: "Send", feedbackSending: "Sending...", feedbackOk: "Thanks! Your message was sent.", feedbackFail: "Could not send the message. Please try again later.", feedbackWait: "Please wait a moment before sending another message.", feedbackNote: "Messages are delivered by email through Web3Forms. Please don't include sensitive personal data.", undoBtn: "Undo", smartImportBtn: "Smart import (Steam & more)", smartImportHint: "Paste your Steam purchase history (or any order list/receipt) below - one purchase per line works best. Steam doesn't offer an official export, so this is a best-effort reader: it tries to find a date, a price and a title on each line. Nothing gets added until you review and confirm the results below.", smartImportParseBtn: "Find purchases", smartImportPreviewNote: "Review each row - uncheck anything that isn't a game (wallet top-ups and refunds are pre-unchecked, but double-check). Every field can be edited directly.", smartImportCommitBtn: "Add checked games", onThisDayLabel: "On this day", onThisDayText: "{years} today, you bought {name}", onThisDayExtra: " (and {n} more)", yrHeatmapHeading: "Purchase activity", yrHeatmapLess: "Less", yrHeatmapMore: "More", yrWrappedBtn: "View as Wrapped", yrWrappedIntro: "Your year in games", yrWrappedOutro: "That was {year}. See you next year.", yrFirstGame: "First game bought", yrHeatmapDayCount: "{date}: {count} game(s) bought", yrHeatmapDayNone: "{date}: nothing bought",
         emptyLib: "No games yet. Add the first one with the form above.", bulkAddBtn: "Add multiple games", bulkAddHint: "Paste one game per line, in the format: Title;Price;Currency;Source;Date (YYYY-MM-DD). Currency, Source and Date are optional: without them your default currency and store and today's date are used.", bulkAddSubmit: "Add all", bulkAddResult: "Games added: {added} (skipped invalid lines: {skipped})", bulkAddNone: "No valid entries found to add.", hideList: "Hide list", showList: "Show list", expandList: "Expand list", collapseList: "Collapse list", filterAllSources: "All sources", navRates: "Exchange Rates", ratesColCurrency: "Currency", ratesColRate: "Rate per 1 EUR", ratesBaseNote: "All rates are shown relative to 1 EUR (base currency).", ratesUpdated: "Updated", scrollTopTitle: "Back to top", changePasswordBtn: "Change password", currentPassword: "Current password", newPassword: "New password", newPasswordConfirm: "Confirm new password", changePasswordSubmit: "Change password", passwordMismatch: "The passwords do not match.", passwordChanged: "Password updated.",
-        confirmDuplicate: "A game with this name is already in your library. Add it again anyway?", advFiltersToggle: "Advanced filters", priceMin: "Price from", priceMax: "Price to", dateFrom: "Date from", dateTo: "Date to", resetFilters: "Clear filters", bulkAddResultDup: "Games added: {added} (invalid lines: {skipped}, duplicates: {dup})", bulkAddAllDup: "All pasted games ({dup}) are already in your library - nothing was added.", navAchievements: "Achievements", achievementsDesc: "Unlock badges as you grow your game library.", achUnlocked: "Unlocked", achLocked: "Locked", achMaxLevel: "Max level!", achLevel: "Level {level}/{max}", achFirstGameT: "First Step", achFirstGameD: "Add your first game to the library.", achCollectorT: "Collector", achCollectorD: "Own {target} games in your library.", achDiversityT: "Multi-Platform", achDiversityD: "Own games from {target} different platforms.", achFinisherT: "Finisher", achFinisherD: "Complete {target} games from your library.", achPhysicalT: "Box Collector", achPhysicalD: "Own {target} physical games.", achInvestorT: "Big Investor", achInvestorD: "Reach a library value of {target}.", achDreamT: "Dream Fulfilled", achDreamD: "Reach at least one savings goal.", achCurrenciesT: "Multi-Currency", achCurrenciesD: "Buy games in {target} different currencies.", achVeteranT: "Collection Veteran", achVeteranD: "Keep your library going for {target} years.", achBalancedT: "Balanced Collection", achBalancedD: "Own both digital and physical games in your library.", navRoulette: "What to play?", rouletteDesc: "Can't decide what to play tonight? Roll the dice on your backlog.", rouletteBtn: "Pick a game", rouletteRerollBtn: "Pick another", rouletteEmptyLib: "No games to pick from yet. Add a few first.", rouletteAllDone: "No games marked as \"Not completed\" - set that status on some games in your library so there's something to roll for.", roulettePlatformAll: "All platforms", navSectionLibrary: "Your library", navSectionTools: "Tools",
+        confirmDuplicate: "A game with this name is already in your library. Add it again anyway?", advFiltersToggle: "Advanced filters", priceMin: "Price from", priceMax: "Price to", dateFrom: "Date from", dateTo: "Date to", resetFilters: "Clear filters", bulkAddResultDup: "Games added: {added} (invalid lines: {skipped}, duplicates: {dup})", bulkAddAllDup: "All pasted games ({dup}) are already in your library - nothing was added.", navAchievements: "Achievements", achievementsDesc: "Unlock badges as you grow your game library.", achUnlocked: "Unlocked", achLocked: "Locked", achMaxLevel: "Max level!", achLevel: "Level {level}/{max}", achFirstGameT: "First Step", achFirstGameD: "Add your first game to the library.", achCollectorT: "Collector", achCollectorD: "Own {target} games in your library.", achDiversityT: "Multi-Platform", achDiversityD: "Own games from {target} different platforms.", achFinisherT: "Finisher", achFinisherD: "Complete {target} games from your library.", achPhysicalT: "Box Collector", achPhysicalD: "Own {target} physical games.", achInvestorT: "Big Investor", achInvestorD: "Reach a library value of {target}.", achDreamT: "Dream Fulfilled", achDreamD: "Reach at least one savings goal.", achCurrenciesT: "Multi-Currency", achCurrenciesD: "Buy games in {target} different currencies.", achVeteranT: "Collection Veteran", achVeteranD: "Keep your library going for {target}.", achBalancedT: "Balanced Collection", achBalancedD: "Own both digital and physical games in your library.", navRoulette: "What to play?", rouletteDesc: "Can't decide what to play tonight? Roll the dice on your backlog.", rouletteBtn: "Pick a game", rouletteRerollBtn: "Pick another", rouletteEmptyLib: "No games to pick from yet. Add a few first.", rouletteAllDone: "No games marked as \"Not completed\" - set that status on some games in your library so there's something to roll for.", roulettePlatformAll: "All platforms", navSectionLibrary: "Your library", navSectionTools: "Tools",
         navTerms: "Terms & Conditions", navPrivacy: "Privacy Policy", rememberMe: "Remember me", footerContact: "Contact", cookieConsentText: "No tracking or advertising cookies here. The site only keeps technical data in your browser (local storage) to work properly and remember your settings, such as language, theme and your login. Details are in the Privacy Policy.", cookieMoreInfo: "More information", cookieAcceptBtn: "OK",
         faqHtml: "<h3>Is it free?</h3><p>Yes. It is a hobby project. You need an account to use it, and the account is free.</p><h3>Can I import my Steam purchases?</h3><p>Sort of. Steam has no official export, but Smart import lets you paste your purchase history (or any order list) and it picks out titles, prices and dates. You review the result before anything is added.</p><h3>I buy in different currencies. Does that work?</h3><p>Yes. Each game keeps the price and currency you paid in. Totals are converted with live rates from open.er-api.com, and if that service is down the app falls back to saved rates.</p><h3>Where is my data stored?</h3><p>In Firebase (Google Cloud), behind access rules, so only your account can read your library. You can download everything as JSON at any time.</p><h3>What happens if I delete my account?</h3><p>Everything is removed. The app downloads a backup of your data first, so you can import it again later if you change your mind.</p><h3>Can I switch between light and dark?</h3><p>Yes, with the moon/sun button at the top. You can also set your nickname and preferred currency in your account.</p><h3>Can I cheat the ranking?</h3><p>Not easily, but it is not impossible either. Your entry is worked out from your own library in your browser, and obviously broken values are rejected, but a determined person could still fake one. It is a ranking for fun, and entries that look fake can be removed.</p><h3>I found a bug or have an idea.</h3><p>Use Feedback &amp; contact in the footer. The e-mail address is on that page too.</p>",
         yrYearLabel: "Year", yrCompareLabel: "Compare with", yrCompareNone: "— no comparison —", yrAllYearsBtn: "All years", yrCompareHeading: "Year comparison", yrAllYearsHeading: "Spending year by year", yrAvgPrice: "Average game price", yrCompletedLabel: "Completed games", yrVsTitle: "{a} compared with {b}",
@@ -1786,15 +1786,14 @@ function renderAchievements() {
             const maxed = tierIdx === def.tiers.length - 1;
             const nextTarget = maxed ? def.tiers[tierIdx] : def.tiers[tierIdx + 1];
             progressPct = maxed ? 100 : Math.min(100, Math.round((value / nextTarget) * 100));
-            const fmt = (n) => {
-                if (def.unit === 'CHF') return Math.round(n).toLocaleString(currentLang) + ' CHF';
-                if (def.unit === 'years') return n.toFixed(1);
-                return Math.round(n);
-            };
-            statusText = maxed ? t('achMaxLevel') : `${def.unit === 'CHF' ? amt(fmt(value)) : fmt(value)} / ${fmt(nextTarget)}`;
+            const cur = displayCurrency();
+            const money = (chf) => Math.round(chfToDisplay(chf)).toLocaleString(currentLang);
+            if (def.unit === 'CHF') statusText = maxed ? t('achMaxLevel') : `${amt(money(value))} / ${money(nextTarget)} ${cur}`;
+            else if (def.unit === 'years') statusText = maxed ? t('achMaxLevel') : `${Math.floor(value * 12)} / ${nextTarget * 12} months`;
+            else statusText = maxed ? t('achMaxLevel') : `${Math.round(value)} / ${nextTarget}`;
             levelText = t('achLevel').replace('{level}', Math.max(0, tierIdx + 1)).replace('{max}', def.tiers.length);
-            const lastTier = def.tiers[def.tiers.length - 1];
-            descTarget = def.unit === 'CHF' ? lastTier.toLocaleString(currentLang) + ' CHF' : lastTier;
+            // the description names the level you are working towards (the last one once everything is done)
+            descTarget = def.unit === 'CHF' ? `${money(nextTarget)} ${cur}` : def.unit === 'years' ? `${nextTarget} year${nextTarget === 1 ? '' : 's'}` : nextTarget;
         }
         const descText = t(def.descKey).replace('{target}', descTarget);
         const card = document.createElement('div');
@@ -1882,7 +1881,7 @@ function renderRouletteFinalCard(g) {
                 <span class="source-txt ${meta.cls}">${meta.label()}</span>
                 <span><i class="${ownIcon}"></i> ${ownLabel}</span>
                 <span><i class="fa-solid fa-calendar"></i> ${escapeHtml(g.date || "-")}</span>
-                <span style="color:var(--steam-blue);">${amt(g.priceChf.toFixed(2))} CHF</span>
+                <span style="color:var(--steam-blue);">${moneyStr(g.priceChf)} ${displayCurrency()}</span>
             </div>
             <button type="button" class="btn-tool" style="width:auto; margin:0 auto;" onclick="rollBacklogRoulette()"><i class="fa-solid fa-shuffle"></i> ${t('rouletteRerollBtn')}</button>
         </div>`;
@@ -2165,6 +2164,11 @@ function renderTable() {
     renderShelf();
 }
 
+// the currency picked next to the library value; every money figure is shown in it
+function displayCurrency() { return ($('totalCurrency') && $('totalCurrency').value) || 'EUR'; }
+function chfToDisplay(chf) { return (chf || 0) / (rates[displayCurrency()] || 1); }
+function moneyStr(chf) { return amt(chfToDisplay(chf).toLocaleString(currentLang, { minimumFractionDigits: 2, maximumFractionDigits: 2 })); }
+
 function setAmountsHidden(hidden) {
     amountsHidden = !!hidden;
     try { if (amountsHidden) localStorage.setItem('hideAmounts', '1'); else localStorage.removeItem('hideAmounts'); } catch (e) {}
@@ -2217,10 +2221,8 @@ function updateTotalDisplay() {
 
 function onTotalCurrencyChange() {
     localStorage.setItem('totalCurrencyManual', $('totalCurrency').value);
-    updateTotalDisplay();
     updateFilterCurrencyLabels();
-    renderTable();
-    updateStats();
+    rerenderAmounts();
 }
 
 async function initCurrencyPreference() {
@@ -2512,9 +2514,12 @@ function updateStats() {
     if (trendEl) {
         if (countPrevMonth > 0) {
             const pct = Math.round(((countThisMonth - countPrevMonth) / countPrevMonth) * 100);
-            const up = pct >= 0;
-            trendEl.style.color = up ? 'var(--warn, #e6a32e)' : '#5cb85c';
-            trendEl.innerHTML = `<i class="fa-solid fa-arrow-${up ? 'up' : 'down'}"></i> ${up ? '+' : ''}${pct}% ${t('vsLastMonth')}`;
+            const up = pct > 0;
+            if (pct === 0) { trendEl.style.color = 'var(--text-dim)'; trendEl.textContent = 'Same as last month'; }
+            else {
+                trendEl.style.color = up ? 'var(--warn, #e6a32e)' : '#5cb85c';
+                trendEl.innerHTML = `<i class="fa-solid fa-arrow-${up ? 'up' : 'down'}"></i> ${up ? '+' : ''}${pct}% ${t('vsLastMonth')}`;
+            }
         } else {
             trendEl.textContent = '';
         }
@@ -2531,9 +2536,12 @@ function updateStats() {
     if (spentTrendEl) {
         if (spentPrevMonth > 0) {
             const pct2 = Math.round(((spentThisMonth - spentPrevMonth) / spentPrevMonth) * 100);
-            const up2 = pct2 >= 0;
-            spentTrendEl.style.color = up2 ? 'var(--warn, #e6a32e)' : '#5cb85c';
-            spentTrendEl.innerHTML = `<i class="fa-solid fa-arrow-${up2 ? 'up' : 'down'}"></i> ${up2 ? '+' : ''}${pct2}% ${t('vsLastMonth')}`;
+            const up2 = pct2 > 0;
+            if (pct2 === 0) { spentTrendEl.style.color = 'var(--text-dim)'; spentTrendEl.textContent = 'Same as last month'; }
+            else {
+                spentTrendEl.style.color = up2 ? 'var(--warn, #e6a32e)' : '#5cb85c';
+                spentTrendEl.innerHTML = `<i class="fa-solid fa-arrow-${up2 ? 'up' : 'down'}"></i> ${up2 ? '+' : ''}${pct2}% ${t('vsLastMonth')}`;
+            }
         } else if (spentThisMonth > 0) {
             spentTrendEl.textContent = '';
         } else {
@@ -3543,19 +3551,19 @@ function renderYearReview() {
 
     if (A.count === 0) {
         $('yrEmptyMsg').style.display = 'block';
-        $('yrTotal').innerHTML = amt('0.00') + ' <small>CHF</small>';
+        $('yrTotal').innerHTML = moneyStr(0) + ` <small>${displayCurrency()}</small>`;
         $('yrGames').textContent = '0';
         $('yrTopPlatform').textContent = '-';
         $('yrTopMonth').textContent = '-';
         $('yrExpensive').innerHTML = '';
     } else {
         $('yrEmptyMsg').style.display = 'none';
-        $('yrTotal').innerHTML = `${amt(A.totalChf.toFixed(2))} <small>CHF</small>`;
+        $('yrTotal').innerHTML = `${moneyStr(A.totalChf)} <small>${displayCurrency()}</small>`;
         $('yrGames').textContent = A.count;
         $('yrTopPlatform').textContent = A.topPlatform ? platformMeta(A.topPlatform[0]).label() : '-';
         $('yrTopMonth').textContent = A.topMonth ? `${monthLabel(A.topMonth[0])} (${A.topMonth[1]})` : '-';
         $('yrExpensive').innerHTML = A.priciest
-            ? `${t('yrMostExpensive')}: <strong style="color:var(--text-white);">${escapeHtml(A.priciest.name)}</strong> (${amt((A.priciest.priceChf || 0).toFixed(2))} CHF)`
+            ? `${t('yrMostExpensive')}: <strong style="color:var(--text-white);">${escapeHtml(A.priciest.name)}</strong> (${moneyStr(A.priciest.priceChf)} ${displayCurrency()})`
             : '';
     }
 
@@ -3603,9 +3611,9 @@ function renderPurchaseHeatmap(year, yearGames) {
         if (!count) return 'var(--bg-input)';
         const ratio = count / maxCount;
         if (ratio > 0.75) return 'var(--steam-blue)';
-        if (ratio > 0.5) return 'rgba(95,180,238,0.75)';
-        if (ratio > 0.25) return 'rgba(95,180,238,0.5)';
-        return 'rgba(95,180,238,0.25)';
+        if (ratio > 0.5) return 'color-mix(in srgb, var(--steam-blue) 75%, var(--bg-input))';
+        if (ratio > 0.25) return 'color-mix(in srgb, var(--steam-blue) 50%, var(--bg-input))';
+        return 'color-mix(in srgb, var(--steam-blue) 28%, var(--bg-input))';
     };
 
     const monthLabels = [];
@@ -3661,9 +3669,9 @@ function renderYearComparison(A) {
 
     // spending going up is the "bad" direction for a wallet, so the arrow colours follow that
     const rows = [
-        { key: 'yrTotalSpent', a: amt(A.totalChf.toFixed(2)) + ' CHF', b: amt(B.totalChf.toFixed(2)) + ' CHF', va: A.totalChf, vb: B.totalChf, money: true },
+        { key: 'yrTotalSpent', a: moneyStr(A.totalChf) + ' ' + displayCurrency(), b: moneyStr(B.totalChf) + ' ' + displayCurrency(), va: A.totalChf, vb: B.totalChf, money: true },
         { key: 'yrGamesLabel', a: A.count, b: B.count, va: A.count, vb: B.count },
-        { key: 'yrAvgPrice', a: amt(A.avgChf.toFixed(2)) + ' CHF', b: amt(B.avgChf.toFixed(2)) + ' CHF', va: A.avgChf, vb: B.avgChf, money: true },
+        { key: 'yrAvgPrice', a: moneyStr(A.avgChf) + ' ' + displayCurrency(), b: moneyStr(B.avgChf) + ' ' + displayCurrency(), va: A.avgChf, vb: B.avgChf, money: true },
         { key: 'yrCompletedLabel', a: A.completed, b: B.completed, va: A.completed, vb: B.completed, invert: true },
         { key: 'yrPlatformLabel', a: A.topPlatform ? platformMeta(A.topPlatform[0]).label() : '-', b: B.topPlatform ? platformMeta(B.topPlatform[0]).label() : '-' },
         { key: 'yrMonthLabel', a: A.topMonth ? monthLabel(A.topMonth[0]) : '-', b: B.topMonth ? monthLabel(B.topMonth[0]) : '-' }
@@ -3681,7 +3689,7 @@ function renderYearComparison(A) {
     $('yrCmpColB').innerHTML = col(B, 'b');
 
     // verdict block: the handful of deltas that actually mean something
-    const deltaHtml = (labelKey, va, vb, suffix, invert) => {
+    const deltaHtml = (labelKey, va, vb, suffix, invert, money) => {
         if (vb === 0 && va === 0) return '';
         const diff = va - vb;
         const pct = vb === 0 ? null : (diff / vb) * 100;
@@ -3691,15 +3699,15 @@ function renderYearComparison(A) {
         const pctTxt = pct === null ? '' : ` (${pct > 0 ? '+' : ''}${pct.toFixed(0)}%)`;
         return `<div class="yr-cmp-line">
             <span>${escapeHtml(t(labelKey))}</span>
-            <span class="yr-delta ${cls}">${arrow} ${suffix === ' CHF' ? amt(Math.abs(diff).toFixed(2)) : Math.abs(diff).toFixed(0)}${suffix}${pctTxt}</span>
+            <span class="yr-delta ${cls}">${arrow} ${money ? amt(Math.abs(diff).toLocaleString(currentLang, { minimumFractionDigits: 2, maximumFractionDigits: 2 })) : Math.abs(diff).toFixed(0)}${suffix}${pctTxt}</span>
         </div>`;
     };
 
     $('yrVerdict').innerHTML =
         `<div style="font-weight:600; color:var(--text-white); margin-bottom:6px;">${escapeHtml(t('yrVsTitle').replace('{a}', A.year).replace('{b}', B.year))}</div>` +
-        deltaHtml('yrTotalSpent', A.totalChf, B.totalChf, ' CHF', false) +
+        deltaHtml('yrTotalSpent', chfToDisplay(A.totalChf), chfToDisplay(B.totalChf), ' ' + displayCurrency(), false, true) +
         deltaHtml('yrGamesLabel', A.count, B.count, '', false) +
-        deltaHtml('yrAvgPrice', A.avgChf, B.avgChf, ' CHF', false) +
+        deltaHtml('yrAvgPrice', chfToDisplay(A.avgChf), chfToDisplay(B.avgChf), ' ' + displayCurrency(), false, true) +
         deltaHtml('yrCompletedLabel', A.completed, B.completed, '', true);
 }
 
@@ -3713,8 +3721,8 @@ function showAllYearsChart() {
     if (!open) return;
 
     const years = Array.from(new Set(games.map(g => (g.date || '').slice(0, 4)).filter(Boolean))).sort();
-    const totals = years.map(y => games.filter(g => (g.date || '').startsWith(y))
-        .reduce((s, g) => s + (g.priceChf || 0), 0));
+    const totals = years.map(y => Math.round(chfToDisplay(games.filter(g => (g.date || '').startsWith(y))
+        .reduce((s, g) => s + (g.priceChf || 0), 0)) * 100) / 100);
     const counts = years.map(y => games.filter(g => (g.date || '').startsWith(y)).length);
 
     const css = getComputedStyle(document.documentElement);
@@ -3729,7 +3737,7 @@ function showAllYearsChart() {
         data: {
             labels: years,
             datasets: [
-                { type: 'bar', label: t('yrTotalSpent') + ' (CHF)', data: totals, backgroundColor: coin, borderRadius: 0, yAxisID: 'y' },
+                { type: 'bar', label: t('yrTotalSpent') + ` (${displayCurrency()})`, data: totals, backgroundColor: coin, borderRadius: 0, yAxisID: 'y' },
                 { type: 'line', label: t('yrGamesLabel'), data: counts, borderColor: accent, backgroundColor: accent, borderWidth: 2, pointRadius: 2, tension: 0, yAxisID: 'y1' }
             ]
         },
@@ -3759,10 +3767,10 @@ function buildWrappedSlides(year) {
     const slides = [];
     slides.push({ kind: 'intro', year: yl, all: isAll });
     if (A.count > 0) {
-        slides.push({ kind: 'stat', icon: 'fa-coins', label: t(isAll ? 'yrTotalSpentAll' : 'yrTotalSpent'), value: amt(A.totalChf.toFixed(2)), unit: 'CHF', numeric: !amountsHidden });
+        slides.push({ kind: 'stat', icon: 'fa-coins', label: t(isAll ? 'yrTotalSpentAll' : 'yrTotalSpent'), value: moneyStr(A.totalChf), unit: displayCurrency(), numeric: !amountsHidden });
         slides.push({ kind: 'stat', icon: 'fa-layer-group', label: t('yrGamesLabel'), value: String(A.count), unit: '', numeric: true });
         if (A.topPlatform) slides.push({ kind: 'stat', icon: 'fa-gamepad', label: t('yrPlatformLabel'), value: platformMeta(A.topPlatform[0]).label(), unit: '', sub: `${A.topPlatform[1]} ${t('yrGamesLabel').toLowerCase()}` });
-        if (A.priciest) slides.push({ kind: 'stat', icon: 'fa-crown', label: t('yrMostExpensive'), value: A.priciest.name, unit: '', sub: `${amt((A.priciest.priceChf || 0).toFixed(2))} CHF` });
+        if (A.priciest) slides.push({ kind: 'stat', icon: 'fa-crown', label: t('yrMostExpensive'), value: A.priciest.name, unit: '', sub: `${moneyStr(A.priciest.priceChf)} ${displayCurrency()}` });
         if (firstGame) slides.push({ kind: 'stat', icon: 'fa-flag-checkered', label: t('yrFirstGame'), value: firstGame.name, unit: '', sub: firstGame.date });
         if (A.topMonth) slides.push({ kind: 'stat', icon: 'fa-calendar-days', label: t('yrMonthLabel'), value: monthLabel(A.topMonth[0]), unit: '', sub: `${A.topMonth[1]} ${t('yrGamesLabel').toLowerCase()}` });
         slides.push({ kind: 'stat', icon: 'fa-check-double', label: t('yrCompletedLabel'), value: String(A.completed), unit: `/ ${A.count}`, numeric: true });
@@ -4180,7 +4188,7 @@ async function initPublicShareIfNeeded() {
         $('publicShareBody').innerHTML = `
             <div class="stats-row" style="margin-bottom:20px;">
                 <div class="stat-tile"><div class="stat-label"><i class="fa-solid fa-gamepad"></i> Games</div><div class="stat-value">${pubGames.length}</div></div>
-                <div class="stat-tile stat-hero"><div class="stat-label"><i class="fa-solid fa-coins"></i> Library value</div><div class="stat-value">${totalChf.toFixed(2)} <small>CHF</small></div></div>
+                <div class="stat-tile stat-hero"><div class="stat-label"><i class="fa-solid fa-coins"></i> Library value</div><div class="stat-value">${chfToDisplay(totalChf).toFixed(2)} <small>${displayCurrency()}</small></div></div>
             </div>
             <div class="table-container" style="max-height:500px; padding:0;">
                 <table><thead><tr><th>Title</th><th>Platform</th><th>Date</th><th style="text-align:right;">Price</th></tr></thead><tbody>${rows || '<tr><td colspan="4" style="text-align:center; color:var(--text-dim);">No games.</td></tr>'}</tbody></table>
