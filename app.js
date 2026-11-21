@@ -1768,49 +1768,42 @@ const ACHIEVEMENTS = [
         check: (g, goals) => (goals || []).some(x => (x.savedAmount || 0) >= (x.targetAmount || 0) && (x.targetAmount || 0) > 0) },
 ];
 
+const ACH_NOUN = { collector: 'games', diversity: 'platforms', finisher: 'games finished', physical: 'physical games', currencies: 'currencies' };
+
 function renderAchievements() {
     const list = $('achievementsList');
     if (!list) return;
-    list.innerHTML = '';
-    ACHIEVEMENTS.forEach(def => {
-        let unlocked, progressPct, statusText, levelText = '', descTarget = '';
+    list.className = 'ach-list';
+    list.innerHTML = ACHIEVEMENTS.map(def => {
+        let done, pct = 0, state, progress = '';
         if (def.kind === 'bool') {
-            unlocked = !!def.check(games, wishGoals);
-            progressPct = unlocked ? 100 : 0;
-            statusText = unlocked ? t('achUnlocked') : t('achLocked');
+            done = !!def.check(games, wishGoals);
+            state = done ? 'Done' : 'Not yet';
         } else {
             const value = def.valueFn(games);
             let tierIdx = -1;
             def.tiers.forEach((th, i) => { if (value >= th) tierIdx = i; });
-            unlocked = tierIdx >= 0;
+            done = tierIdx >= 0;
             const maxed = tierIdx === def.tiers.length - 1;
-            const nextTarget = maxed ? def.tiers[tierIdx] : def.tiers[tierIdx + 1];
-            progressPct = maxed ? 100 : Math.min(100, Math.round((value / nextTarget) * 100));
-            const cur = displayCurrency();
-            const money = (chf) => Math.round(chfToDisplay(chf)).toLocaleString(currentLang);
-            if (def.unit === 'CHF') statusText = maxed ? t('achMaxLevel') : `${amt(money(value))} / ${money(nextTarget)} ${cur}`;
-            else if (def.unit === 'years') statusText = maxed ? t('achMaxLevel') : `${Math.floor(value * 12)} / ${nextTarget * 12} months`;
-            else statusText = maxed ? t('achMaxLevel') : `${Math.round(value)} / ${nextTarget}`;
-            levelText = t('achLevel').replace('{level}', Math.max(0, tierIdx + 1)).replace('{max}', def.tiers.length);
-            // the description names the level you are working towards (the last one once everything is done)
-            descTarget = def.unit === 'CHF' ? `${money(nextTarget)} ${cur}` : def.unit === 'years' ? `${nextTarget} year${nextTarget === 1 ? '' : 's'}` : nextTarget;
+            const next = maxed ? def.tiers[tierIdx] : def.tiers[tierIdx + 1];
+            pct = maxed ? 100 : Math.min(100, Math.round((value / next) * 100));
+            state = `Level ${Math.max(0, tierIdx + 1)} of ${def.tiers.length}`;
+            if (maxed) progress = 'Every level done.';
+            else if (def.unit === 'CHF') {
+                const money = (chf) => Math.round(chfToDisplay(chf)).toLocaleString(currentLang);
+                progress = `${amt(money(value))} of ${money(next)} ${displayCurrency()} for the next level.`;
+            } else if (def.unit === 'years') progress = `${Math.floor(value * 12)} of ${next * 12} months for the next level.`;
+            else progress = `${Math.round(value)} of ${next} ${ACH_NOUN[def.id] || ''} for the next level.`;
+            def._target = def.unit === 'CHF' ? `${Math.round(chfToDisplay(next)).toLocaleString(currentLang)} ${displayCurrency()}`
+                : def.unit === 'years' ? `${next} year${next === 1 ? '' : 's'}` : next;
         }
-        const descText = t(def.descKey).replace('{target}', descTarget);
-        const card = document.createElement('div');
-        card.className = 'goal-card';
-        card.style.opacity = unlocked ? '1' : '0.55';
-        card.innerHTML = `
-            <div class="goal-card-head">
-                <span class="goal-card-title"><i class="fa-solid ${def.icon}" style="margin-right:8px; color:${unlocked ? 'var(--steam-blue)' : 'var(--text-dim)'};"></i>${t(def.titleKey)}</span>
-                <span class="goal-card-amounts"><i class="fa-solid ${unlocked ? 'fa-check' : 'fa-lock'}" style="color:${unlocked ? 'var(--ok)' : 'var(--text-dim)'};"></i></span>
-            </div>
-            <p style="font-size:13px; color:var(--text-dim); margin:4px 0 8px;">${escapeHtml(descText)}</p>
-            ${def.kind === 'tier' ? `<div class="goal-progress-track"><div class="goal-progress-fill ${progressPct >= 100 ? 'reached' : ''}" style="width:${progressPct}%;"></div></div>` : ''}
-            <div class="goal-card-footer">
-                <span style="font-size:12px; color:${unlocked ? '#5cb85c' : 'var(--text-dim)'};">${statusText}${levelText ? ' · ' + levelText : ''}</span>
-            </div>`;
-        list.appendChild(card);
-    });
+        const desc = t(def.descKey).replace('{target}', def._target || '');
+        return `<div class="ach-row${done ? ' is-done' : ''}">
+            <div class="ach-head"><h3>${escapeHtml(t(def.titleKey))}</h3><span class="ach-state">${state}</span></div>
+            <p class="ach-desc">${escapeHtml(desc)}</p>
+            ${def.kind === 'tier' ? `<div class="ach-bar"><i style="width:${pct}%"></i></div><p class="ach-progress">${progress}</p>` : ''}
+        </div>`;
+    }).join('');
 }
 
 let rouletteSpinTimer = null;
@@ -1895,7 +1888,8 @@ function hashStringToHue(str) {
 }
 
 const CANVAS_SANS = '"Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif';
-const CANVAS_MONO = '"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace';
+const CANVAS_MONO = '"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace';   // receipt only
+const CANVAS_NUM = CANVAS_SANS;
 
 let canvasFontsReady = false;
 function ensureCanvasFonts() {
@@ -2000,7 +1994,8 @@ function renderShelf() {
         const ownIcon = own === 'physical' ? 'fa-solid fa-compact-disc' : 'fa-solid fa-cloud';
         const box = document.createElement('div');
         box.className = 'game-box';
-        box.style.background = `linear-gradient(155deg, ${baseColor} 0%, hsl(${hue}, 45%, 28%) 100%)`;
+        // one flat colour per platform, a little lighter or darker per game, like real boxes on a shelf
+        box.style.background = `color-mix(in srgb, ${baseColor} ${82 + (hue % 18)}%, ${hue % 2 ? '#000' : '#fff'})`;
         box.title = g.name;
         box.innerHTML = `
             <div class="game-box-top">${escapeHtml(meta.label())}</div>
@@ -2142,14 +2137,13 @@ function renderTable() {
             tr.innerHTML = `
                 <td style="text-align:left;"><input type="checkbox" class="row-select-cb" aria-label="Select ${escapeHtml(g.name)}" data-idx="${i}" onchange="toggleSelectGame(${i}, this.checked)" ${selectedGames.has(i) ? 'checked' : ''}></td>
                 <td style="color:var(--text-dim);">${rowNum + 1}</td>
-                <td class="name-cell" style="color:var(--text-white);" title="${escapeHtml(g.name)}"><span class="name-text">${escapeHtml(g.name)}</span>${g.status ? `<span class="pill pill-${escapeHtml(g.status)}">${st.label}</span>` : ''}</td>
+                <td class="name-cell" style="color:var(--text-white);" title="${escapeHtml(g.name)}"><span class="name-text">${escapeHtml(g.name)}</span><button type="button" class="pill pill-${escapeHtml(g.status || 'none')}" onclick="cycleStatus(${i})" title="${t('statusToggleHint')}" aria-label="${escapeHtml(g.name)}: ${g.status ? st.label : 'no status'} (${t('statusToggleHint')})">${g.status ? st.label : 'No status'}</button></td>
                 <td data-label="${t('colPlatform')}"><span class="source-txt ${srcClass}">${srcDisplay}</span></td>
                 <td data-label="${t('fldOwnership')}"><span class="own-chip" data-own="${own}"><i class="${ownIcon}"></i>${ownLabel}</span></td>
                 <td data-label="${t('purchaseDate')}">${escapeHtml(g.date || "")}</td>
                 <td data-label="${t('colOrigPrice')}">${amt((Number(g.price) || 0).toFixed(2))} <span style="font-size:12px; color:var(--text-dim);">${escapeHtml(g.currency || "")}</span></td>
-                <td data-label="${valueColLabel(filterCur)}" style="color:var(--steam-blue);">${amt((g.priceChf / (rates[filterCur] || 1)).toFixed(2))} <span style="font-size:12px;">${filterCur}</span></td>
+                <td data-label="${valueColLabel(filterCur)}" class="value-cell">${amt((g.priceChf / (rates[filterCur] || 1)).toFixed(2))} <span style="font-size:12px;">${filterCur}</span></td>
                 <td class="action-icons">
-                    <button class="st ${st.cls}" onclick="cycleStatus(${i})" title="${st.label} (${t('statusToggleHint')})" aria-label="${escapeHtml(g.name)}: ${st.label} (${t('statusToggleHint')})"><i class="${st.icon}"></i></button>
                     <button class="edit" onclick="editGame(${i})" aria-label="Edit ${escapeHtml(g.name)}"><i class="fa-solid fa-pen"></i></button>
                     <button class="del" onclick="deleteGame(${i})" aria-label="Delete ${escapeHtml(g.name)}"><i class="fa-solid fa-trash"></i></button>
                 </td>`;
@@ -2263,7 +2257,7 @@ function renderOldestBacklog() {
         return `<li class="oldest-row">
             <div class="oldest-main">
                 <div class="oldest-name">${escapeHtml(g.name)}</div>
-                <div class="oldest-meta"><span class="oldest-age">${backlogAge(g.date)}</span> waiting &middot; bought ${escapeHtml(when)} &middot; ${platformMeta(g.source || 'Steam').label()}</div>
+                <div class="oldest-meta">Bought in ${escapeHtml(when)} on ${platformMeta(g.source || 'Steam').label()}, waiting <span class="oldest-age">${backlogAge(g.date)}</span></div>
             </div>
             <div class="oldest-actions">
                 <button type="button" class="btn-chip" onclick="setOldestStatus(${i}, 'in_progress')">Playing now</button>
@@ -2599,7 +2593,7 @@ const percentLabelPlugin = {
             if (!value) return;
             const pct = Math.round((value / total) * 100);
             const pos = arc.tooltipPosition();
-            ctx.font = `600 12px ${CANVAS_MONO}`;
+            ctx.font = `600 12px ${CANVAS_NUM}`;
             ctx.fillStyle = '#ffffff';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
@@ -2777,7 +2771,7 @@ function updateCharts() {
         const data = keys.map(k => Math.round((run += sums[k] / rate) * 100) / 100);
         mainChart = new Chart(ctx, {
             type: 'line',
-            data: { labels: keys, datasets: [{ label: cur, data, borderColor: cssVar('--steam-blue'), backgroundColor: cssVar('--accent-soft'), borderWidth: 2, fill: true, tension: 0, pointRadius: 0, pointHoverRadius: 4, pointBackgroundColor: cssVar('--steam-blue') }] },
+            data: { labels: keys, datasets: [{ label: cur, data, borderColor: cssVar('--text-light'), backgroundColor: 'rgba(127,127,127,0.10)', borderWidth: 2, fill: true, tension: 0, pointRadius: 0, pointHoverRadius: 4, pointBackgroundColor: cssVar('--steam-blue') }] },
             options: {
                 maintainAspectRatio: false,
                 interaction: { mode: 'index', intersect: false },
@@ -2805,7 +2799,7 @@ function updateCharts() {
         const maxCount = Math.max(1, ...labels.map(l => counts[l]));
         mainChart = new Chart(ctx, {
             type: 'bar',
-            data: { labels, datasets: [{ data: labels.map(l => counts[l]), backgroundColor: cssVar('--steam-blue'), hoverBackgroundColor: cssVar('--btn-green-hover'), borderRadius: 0, maxBarThickness: 28 }] },
+            data: { labels, datasets: [{ data: labels.map(l => counts[l]), backgroundColor: labels.map(l => l === periodKey(todayLocal(), gran) ? cssVar('--steam-blue') : cssVar('--text-dim')), hoverBackgroundColor: cssVar('--text-light'), borderRadius: 0, maxBarThickness: 28 }] },
             options: {
                 maintainAspectRatio: false,
                 scales: {
@@ -2858,7 +2852,7 @@ function exportChartPng(chart, filename) {
     ctx.fillRect(0, 0, c.width, c.height);
     ctx.drawImage(src, 0, 0);
     ctx.fillStyle = cssVar('--text-dim') || '#78829a';
-    ctx.font = `${Math.round(11 * (window.devicePixelRatio || 1))}px ${CANVAS_MONO}`;
+    ctx.font = `${Math.round(11 * (window.devicePixelRatio || 1))}px ${CANVAS_NUM}`;
     ctx.textAlign = 'right';
     ctx.fillText('backlogwallet.com', c.width - 12, c.height - Math.round(9 * (window.devicePixelRatio || 1)));
     savePng(c, filename);
@@ -3852,7 +3846,7 @@ async function downloadWrappedSlide() {
 
     if (s.kind === 'intro') {
         ctx.fillStyle = '#f2f5fa';
-        ctx.font = `700 80px ${CANVAS_MONO}`;
+        ctx.font = `700 80px ${CANVAS_NUM}`;
         ctx.fillText(s.year, w / 2, h / 2);
         ctx.fillStyle = '#a8b2c4';
         ctx.font = `400 20px ${CANVAS_SANS}`;
@@ -3862,14 +3856,14 @@ async function downloadWrappedSlide() {
         ctx.font = `600 34px ${CANVAS_SANS}`;
         wrapCanvasText(ctx, t(s.all ? 'yrWrappedOutroAll' : 'yrWrappedOutro').replace('{year}', s.year), w / 2, h / 2, w - 160, 44);
         ctx.fillStyle = '#78829a';
-        ctx.font = `400 14px ${CANVAS_MONO}`;
+        ctx.font = `400 14px ${CANVAS_NUM}`;
         ctx.fillText('backlogwallet.com', w / 2, h - 60);
     } else {
         ctx.fillStyle = '#78829a';
         ctx.font = `600 13px ${CANVAS_SANS}`;
-        ctx.fillText(s.label.toUpperCase(), w / 2, h / 2 - 60);
+        ctx.fillText(s.label, w / 2, h / 2 - 60);
         ctx.fillStyle = '#f0b429';
-        const valueFace = s.numeric ? CANVAS_MONO : CANVAS_SANS;
+        const valueFace = s.numeric ? CANVAS_NUM : CANVAS_SANS;
         ctx.font = s.value.length > 16 ? `600 40px ${valueFace}` : `700 64px ${valueFace}`;
         wrapCanvasText(ctx, s.value, w / 2, h / 2, w - 140, 56);
         if (s.unit) {
@@ -3913,15 +3907,15 @@ async function downloadYearReviewImage() {
     ctx.fillText('BACKLOG WALLET', 140, 83);
 
     ctx.fillStyle = '#8a96a3';
-    ctx.font = `500 26px ${CANVAS_MONO}`;
+    ctx.font = `500 26px ${CANVAS_NUM}`;
     ctx.fillText(year, w / 2, 170);
 
     ctx.fillStyle = '#8a96a3';
     ctx.font = `600 11px ${CANVAS_SANS}`;
-    ctx.fillText(t(isAll ? 'yrTotalSpentAll' : 'yrTotalSpent').toUpperCase(), w / 2, 220);
+    ctx.fillText(t(isAll ? 'yrTotalSpentAll' : 'yrTotalSpent'), w / 2, 220);
 
     ctx.fillStyle = '#f5f1e8';
-    ctx.font = `600 72px ${CANVAS_MONO}`;
+    ctx.font = `600 72px ${CANVAS_NUM}`;
     ctx.fillText($('yrTotal').textContent.replace('CHF', '').trim(), w / 2, 310);
     ctx.fillStyle = '#8a96a3';
     ctx.font = `400 20px ${CANVAS_SANS}`;
@@ -3936,11 +3930,11 @@ async function downloadYearReviewImage() {
     stats.forEach((s, i) => {
         const cx = colW * i + colW / 2;
         ctx.fillStyle = '#ff6b3d';
-        ctx.font = `600 24px ${CANVAS_MONO}`;
+        ctx.font = `600 24px ${CANVAS_NUM}`;
         ctx.fillText(s[0], cx, 430);
         ctx.fillStyle = '#8a96a3';
         ctx.font = `600 10px ${CANVAS_SANS}`;
-        ctx.fillText(String(s[1]).toUpperCase(), cx, 452);
+        ctx.fillText(String(s[1]), cx, 452);
     });
 
     ctx.strokeStyle = 'rgba(255,255,255,0.15)';
@@ -3954,7 +3948,7 @@ async function downloadYearReviewImage() {
     wrapCanvasText(ctx, highlightText, w / 2, 540, w - 160, 20);
 
     ctx.fillStyle = '#6e7982';
-    ctx.font = `400 11px ${CANVAS_MONO}`;
+    ctx.font = `400 11px ${CANVAS_NUM}`;
     ctx.fillText('backlogwallet.com', w / 2, h - 40);
 
     savePng(canvas, `backlog-wallet-${isAll ? 'all-time' : year}.png`);

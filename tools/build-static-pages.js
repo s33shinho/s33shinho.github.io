@@ -61,7 +61,7 @@ function page({ slug, title, desc, h1, body, jsonld }) {
 ${body}
     </main>
     <footer class="site-foot">
-        <a href="/">Open the app</a> · <a href="/privacy/">Privacy Policy</a> · <a href="/terms/">Terms &amp; Conditions</a> · <a href="mailto:info@backlogwallet.com">info@backlogwallet.com</a>
+        <p class="foot-links"><a href="/">Open the app</a> <a href="/privacy/">Privacy Policy</a> <a href="/terms/">Terms &amp; Conditions</a> <a href="mailto:info@backlogwallet.com">info@backlogwallet.com</a></p>
         <div>Built by one person, updated when I get to it.</div>
     </footer>
 </body>
