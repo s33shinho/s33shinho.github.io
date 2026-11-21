@@ -52,7 +52,7 @@ heroFact4: "Steam, PlayStation, Xbox, Nintendo, GOG, Epic, key stores, physical 
         saveProfileBtn: "Save changes",
         profileSaved: "Your changes have been saved.",
         accDataHead: "Your data & privacy (GDPR)",
-regConsentPre: "I am at least 16 years old and I accept the", regConsentAnd: "and the", authErrConsent: "Please confirm that you are at least 16 and accept the Terms and the Privacy Policy.", accRankHead: "Public ranking", accRankNote: "Optional. If you join, your nickname, the total value of your library (in EUR) and the number of games are shown to everyone on the Ranking page. Leave it off and nothing about you is listed.", accRankEnable: "Show me in the ranking", rankOnMsg: "You are now listed in the ranking.", rankOffMsg: "You are no longer listed in the ranking.", clearLocalConfirm: "This removes the library, goals and settings stored in this browser, including a guest library that is not saved to an account. Data in your account is not touched. Continue?", accStoredHead: "What we store about you", accStoredNote: "That is all of it. There is no tracking and no advertising profile; visits are only counted anonymously. Your password is kept by Firebase Authentication as a hash and is not visible to us.", stEmail: "E-mail", stNick: "Nickname", stRegistered: "Registered", stGames: "Games in your library", stGoals: "Savings goals", stRanking: "Public ranking", stShare: "Public link to your library", stTerms: "Terms accepted", stOn: "On", stOff: "Off", stEarlier: "Before 12 Nov 2026", regPassHint: "Use at least 8 characters. A short phrase is easier to remember than a random word.", accShareHead: "Share your library", accShareNote: "Enable to generate a public read-only link - anyone with it will see your nickname and game list (not your email).", accShareEnable: "Share publicly", copyLinkBtn: "Copy link", shareEnabledMsg: "Your library is now shared publicly.", shareDisabledMsg: "Sharing disabled.", linkCopiedMsg: "Link copied to clipboard.",         accDataNote: "You are in control of your data. Export a full copy at any time, or permanently delete your account and everything stored with it.",
+regConsentPre: "I am at least 16 years old and I accept the", regConsentAnd: "and the", authErrConsent: "Please confirm that you are at least 16 and accept the Terms and the Privacy Policy.", accRankHead: "Public ranking", accRankNote: "Optional. If you join, your nickname, the total value of your library (in EUR) and the number of games are shown to everyone on the Ranking page. Leave it off and nothing about you is listed.", accRankEnable: "Show me in the ranking", rankOnMsg: "You are now listed in the ranking.", rankOffMsg: "You are no longer listed in the ranking.", clearLocalConfirm: "This removes the library, goals and settings stored in this browser, including a guest library that is not saved to an account. Data in your account is not touched. Continue?", accStoredHead: "What we store about you", accStoredNote: "That is all of it. There is no tracking and no advertising profile; visits are only counted anonymously. Your password is kept by Firebase Authentication as a hash and is not visible to us.", stEmail: "E-mail", stNick: "Nickname", stRegistered: "Registered", stGames: "Games in your library", stGoals: "Savings goals", stRanking: "Public ranking", stShare: "Public link to your library", stTerms: "Terms accepted", stOn: "On", stOff: "Off", stEarlier: "Before 12 Nov 2026", regPassHint: "Use at least 8 characters. A short phrase is easier to remember than a random word.", accShareHead: "Share your library", accShareNote: "Turn this on to get a public, read-only link. Anyone with the link sees your nickname and your game list, but not your e-mail.", accShareEnable: "Share publicly", copyLinkBtn: "Copy link", shareEnabledMsg: "Your library is now shared publicly.", shareDisabledMsg: "Sharing disabled.", linkCopiedMsg: "Link copied to clipboard.",         accDataNote: "You are in control of your data. Export a full copy at any time, or permanently delete your account and everything stored with it.",
         exportDataBtn: "Export my data (JSON)",
         deleteAccountBtn: "Delete account and all data",
         deleteAccountConfirm: "This will permanently delete your account and your entire library. This cannot be undone. Continue?",
@@ -66,16 +66,16 @@ regConsentPre: "I am at least 16 years old and I accept the", regConsentAnd: "an
         
         
         
-        appTitle: "Backlog Wallet", menu: "Menu", navHome: "Home", navAuth: "Login / Register", navFaq: "FAQ", navChangelog: "Changelog", navDonate: "Donate", language: "Language",
-        gameTitle: "Game Title", price: "Price", currency: "Currency", source: "Source", purchaseDate: "Purchase Date", addBtn: "Add", saveBtn: "Save", cancelBtn: "Cancel", addGame: "Add game",
+        appTitle: "Backlog Wallet", menu: "Menu", navHome: "Home", navAuth: "Log in / Create account", navFaq: "FAQ", navChangelog: "Changelog", navDonate: "Donate", language: "Language",
+        gameTitle: "Game title", price: "Price", currency: "Currency", source: "Source", purchaseDate: "Purchase date", addBtn: "Add", saveBtn: "Save", cancelBtn: "Cancel", addGame: "Add game",
 fldStatus: "Completion status (optional)", statusNone: "- not set -", statusCompleted: "Completed", statusNotCompleted: "Not completed", statusInProgress: "In progress", statusToggleHint: "click to change", statusEndless: "Endless game", statusWontPlay: "Won't play",         addFormShow: "Add a game", addFormHide: "Close the form",
-        myLibrary: "Your Library", colPlatform: "Platform", colOrigPrice: "Original Price", colChfPrice: "CHF Value", colOptions: "Options", totalValue: "Library value",
+        myLibrary: "Your library", colPlatform: "Platform", colOrigPrice: "Original price", colChfPrice: "CHF value", colOptions: "Options", totalValue: "Library value",
         statTotalGames: "Games total", statThisMonth: "This month", statSpentThisMonth: "Spent this month", statThisYear: "This year",
         chartsTitle: "Statistics", chartOptPurchases: "Purchases over time", chartOptCumulative: "Total games over time", chartOptCumSpend: "Total spent over time", chartCumSpendTitle: "Total spent over time ({cur})", chartOptSources: "Sources",
         granMonth: "Month", granQuarter: "Quarter", granYear: "Year",
-        chartPurchases: "Number of purchases", chartCumulative: "Total games owned", chartSources: "Purchase sources",
-        steam: "Steam", keyStore: "Key Store", noResults: "Nothing matches those filters.",
-        liveRates: "Live", offlineRates: "Offline", suspiciousName: "That title looks made up. Fix it and try again.", priceTooHigh: "That price looks too high (the limit is about 2000 CHF). Check it and try again.", navYearReview: "Year in Review", yrTotalSpent: "Spent this year", yrGamesLabel: "Games bought", yrPlatformLabel: "Most games from", yrMonthLabel: "Most active month", yrMostExpensive: "Priciest purchase", yrDownloadBtn: "Download as image", yrEmpty: "No games this year.", navRanking: "Ranking", rankingTitle: "Library Value Ranking", rankingColRank: "Rank", rankingColNickname: "Player", rankingColValue: "Value (EUR)", rankingYou: "You", rankingEmpty: "Nobody has joined the ranking yet. You can opt in under Account.", rankingNote: "Each entry is worked out from the library on that account when it is saved. This is a ranking for fun, and entries that look fake can be removed.", vsLastMonth: "vs last month", anonNickname: "Player", fldOwnership: "Ownership", ownDigital: "Digital", ownPhysical: "Physical", filterAllOwnership: "All formats", chartOptOwnership: "Digital vs Physical", bulkBarSelected: "Selected: {n}", bulkSetOwnershipLabel: "Set format:", bulkSetSourceLabel: "Set source:", bulkSetStatusLabel: "Set status:", bulkClearStatus: "Clear status (unset)", bulkNoChange: "— no change —", bulkApplyBtn: "Apply", bulkClearBtn: "Deselect all", bulkSelectAllBtn: "Select all", bulkNoSelection: "No games selected.", bulkApplied: "Updated {n} games.", navGoals: "Savings Goals", goalsDesc: "Save up for games you want and track your progress.", goalName: "Game title", goalTargetAmount: "Target amount", goalSavedAmount: "Saved so far", goalAddBtn: "Add goal", goalEmpty: "You don't have any savings goals yet.", goalRemaining: "Remaining", goalReached: "Goal reached!", goalDeleteConfirm: "Delete this goal?", goalUpdateSaved: "Update", navShelf: "Virtual Shelf", shelfDesc: "Your library as a virtual game shelf - covers are generated automatically based on the title and platform.", shelfEmpty: "Your shelf is still empty - add your first game in the Library tab.",
+        chartPurchases: "Number of purchases", chartCumulative: "Total games owned", chartSources: "Where you bought your games",
+        steam: "Steam", keyStore: "Key store", noResults: "Nothing matches those filters.",
+        liveRates: "Live", offlineRates: "Offline", suspiciousName: "That title looks made up. Fix it and try again.", priceTooHigh: "That price looks too high (the limit is about 2000 CHF). Check it and try again.", navYearReview: "Year in Review", yrTotalSpent: "Spent this year", yrGamesLabel: "Games bought", yrPlatformLabel: "Most games from", yrMonthLabel: "Most active month", yrMostExpensive: "Priciest purchase", yrDownloadBtn: "Download as image", yrEmpty: "No games this year.", navRanking: "Ranking", rankingTitle: "Library value ranking", rankingColRank: "Rank", rankingColNickname: "Player", rankingColValue: "Value (EUR)", rankingYou: "You", rankingEmpty: "Nobody has joined the ranking yet. You can opt in under Account.", rankingNote: "Each entry is worked out from the library on that account when it is saved. This is a ranking for fun, and entries that look fake can be removed.", vsLastMonth: "vs last month", anonNickname: "Player", fldOwnership: "Ownership", ownDigital: "Digital", ownPhysical: "Physical", filterAllOwnership: "All formats", chartOptOwnership: "Digital vs physical", bulkBarSelected: "Selected: {n}", bulkSetOwnershipLabel: "Set format:", bulkSetSourceLabel: "Set source:", bulkSetStatusLabel: "Set status:", bulkClearStatus: "Clear status (unset)", bulkNoChange: "— no change —", bulkApplyBtn: "Apply", bulkClearBtn: "Deselect all", bulkSelectAllBtn: "Select all", bulkNoSelection: "No games selected.", bulkApplied: "Updated {n} games.", navGoals: "Savings goals", goalsDesc: "Save up for games you want and track your progress.", goalName: "Game title", goalTargetAmount: "Target amount", goalSavedAmount: "Saved so far", goalAddBtn: "Add goal", goalEmpty: "You don't have any savings goals yet.", goalRemaining: "Remaining", goalReached: "Goal reached!", goalDeleteConfirm: "Delete this goal?", goalUpdateSaved: "Update", navShelf: "Virtual shelf", shelfDesc: "Your library as boxes on a shelf, coloured by the store you bought each game in.", shelfEmpty: "Nothing on the shelf yet. Games you add on the Home page show up here as boxes.",
         searchPh: "Search games...", exportCsv: "Export CSV",
         tabLogin: "Log in", tabRegister: "Create account", tabReset: "Reset password",
         email: "E-mail", password: "Password", loginBtn: "Log in", registerBtn: "Create account", resetBtn: "Send reset link", logoutBtn: "Log out",
@@ -85,12 +85,12 @@ fldStatus: "Completion status (optional)", statusNone: "- not set -", statusComp
         
         registerCheckEmail: "Account created. Confirm your e-mail (check spam too) and you are in.", verifyGateTitle: "Confirm your email address", verifyGateBody: "We've sent a confirmation link to your email. Click it, then come back here and check again.", resendVerifyBtn: "Resend email", recheckVerifyBtn: "Check again", verifyEmailSent: "Sent again.", verifyStillNotVerified: "Not confirmed yet. Check your inbox and spam folder.", verifyNowVerified: "Confirmed, thanks.",
         loginOk: "Logged in.", logoutOk: "Logged out.",
-        authErrInvalid: "Wrong e-mail or password.", authErrInUse: "This e-mail is already registered.", authErrWeak: "Password must be at least 8 characters.", authErrNoUser: "No account found with this e-mail.", authErrGeneric: "Something went wrong, try again.", authErrEmailOnly: "Log in with the e-mail address you registered with.", accRegisteredSince: "Registered", importDataBtn: "Import data (JSON)", importDataNote: "Import a JSON file previously downloaded with \"Download my data\" (e.g. from another account or as a backup restore). Games are added to your current library - duplicates (by name) are skipped automatically.", importInvalidFile: "Invalid file - please choose a JSON file previously downloaded with \"Download my data\".", importResult: "Games imported: {added} (invalid lines skipped: {skipped}, duplicates: {dup}).", importTooBig: "That file is too large to import (limit 2 MB).", libraryFull: "Library limit reached (3000 games).", banGateTitle: "This account has been suspended", banGateReasonLabel: "Reason", banGateNoReason: "The administrator did not provide a reason.", banGatePermanent: "This is a permanent suspension.", banGateUntilPrefix: "Suspended until:", banGateContact: "If you believe this is a mistake, please get in touch through Feedback & contact (linked in the footer).", banGateBackBtn: "Back to home page", authErrTooFast: "Form filled out too quickly - please try again in a moment.", authErrTooSoon: "Too many registration attempts in a short time - please try again in a minute.", healthLabel: "Backlog health", healthGradeExemplary: "Exemplary backlog", healthGradeGood: "In good shape", healthGradeAverage: "Average", healthGradeGrowing: "Growing debt", healthGradeOverwhelmed: "Backlog took over", healthGradeUnknown: "Unknown", healthMsgExemplary: "You're keeping up with your games - respect!", healthMsgGood: "Your backlog is under control, keep it up.", healthMsgAverage: "A few games have piled up, but that's normal.", healthMsgGrowing: "Your backlog is growing faster than you're clearing it.", healthMsgOverwhelmed: "Maybe it's time to buy less and play more?", healthNoStatusMsg: "Set a status (Completed/Not completed) on your games to see your score.", healthEmptyMsg: "Add your first game to see your score.", sideStoreTitle: "Where you spent", sideCostTitle: "What it cost you", sideHabitsTitle: "Your buying habits", costPerCompleted: "Spent per completed game", costDead: "Dead backlog value", costDeadShare: "Share of library value", costThisYear: "Spent this year", costSamePeriod: "Same period last year", costChange: "Change", costHint: "Dead backlog = games with no status, Not completed or Won't play. Set statuses on your games to make it accurate.", chartOptYoy: "Spending, year over year", chartYoyTitle: "Cumulative spending ({cur}), by year", chartDownloadPng: "Download PNG", yrAllTime: "All time", yrTotalSpentAll: "Spent in total", yrWrappedIntroAll: "Your whole library", yrWrappedOutroAll: "That was your whole library so far. Keep going.", sideInfoTitle: "Your library in numbers", sideEmpty: "Nothing to show yet.", infoFirst: "First purchase", infoLast: "Latest purchase", infoAvg: "Average price", infoMax: "Most expensive", infoFormats: "Digital / physical", infoTracked: "With a status",
+        authErrInvalid: "Wrong e-mail or password.", authErrInUse: "This e-mail is already registered.", authErrWeak: "Password must be at least 8 characters.", authErrNoUser: "No account found with this e-mail.", authErrGeneric: "Something went wrong, try again.", authErrEmailOnly: "Log in with the e-mail address you registered with.", accRegisteredSince: "Registered", importDataBtn: "Import data (JSON)", importDataNote: "Import a JSON file previously downloaded with \"Download my data\" (e.g. from another account or as a backup restore). Games are added to your current library. Games with a name that is already there are skipped.", importInvalidFile: "That file can't be read. Choose a JSON file downloaded with \"Download my data\".", importResult: "Games imported: {added} (invalid lines skipped: {skipped}, duplicates: {dup}).", importTooBig: "That file is too large to import (limit 2 MB).", libraryFull: "Library limit reached (3000 games).", banGateTitle: "This account has been suspended", banGateReasonLabel: "Reason", banGateNoReason: "The administrator did not provide a reason.", banGatePermanent: "This is a permanent suspension.", banGateUntilPrefix: "Suspended until:", banGateContact: "If you believe this is a mistake, please get in touch through Feedback & contact (linked in the footer).", banGateBackBtn: "Back to home page", authErrTooFast: "That was filled in too quickly. Try again in a moment.", authErrTooSoon: "Too many sign-ups in a short time. Try again in a minute.", healthLabel: "Backlog health", healthGradeExemplary: "Exemplary backlog", healthGradeGood: "In good shape", healthGradeAverage: "Average", healthGradeGrowing: "Growing debt", healthGradeOverwhelmed: "Backlog took over", healthGradeUnknown: "Unknown", healthMsgExemplary: "You're keeping up with your games. Nicely done.", healthMsgGood: "Your backlog is under control, keep it up.", healthMsgAverage: "A few games have piled up, but that's normal.", healthMsgGrowing: "Your backlog is growing faster than you're clearing it.", healthMsgOverwhelmed: "Maybe it's time to buy less and play more?", healthNoStatusMsg: "Set a status (Completed/Not completed) on your games to see your score.", healthEmptyMsg: "Add your first game to see your score.", sideStoreTitle: "Where you spent", sideCostTitle: "What it cost you", sideHabitsTitle: "Your buying habits", costPerCompleted: "Spent per completed game", costDead: "Dead backlog value", costDeadShare: "Share of library value", costThisYear: "Spent this year", costSamePeriod: "Same period last year", costChange: "Change", costHint: "Dead backlog = games with no status, Not completed or Won't play. Set statuses on your games to make it accurate.", chartOptYoy: "Spending, year over year", chartYoyTitle: "Spent so far in each year ({cur})", chartDownloadPng: "Download PNG", yrAllTime: "All time", yrTotalSpentAll: "Spent in total", yrWrappedIntroAll: "Your whole library", yrWrappedOutroAll: "That was your whole library so far. Keep going.", sideInfoTitle: "Your library in numbers", sideEmpty: "Nothing to show yet.", infoFirst: "First purchase", infoLast: "Latest purchase", infoAvg: "Average price", infoMax: "Most expensive", infoFormats: "Digital / physical", infoTracked: "With a status",
         firebaseNotConfigured: "Firebase is not configured. Paste your config in the file (FIREBASE CONFIG section).",
         syncCloud: "Cloud", syncSyncing: "Syncing...", syncErr: "Sync error", retryBtn: "Retry", libraryLoadError: "Couldn't load your library. Check your connection and try again.",
-        savedCloud: "Saved", itemDeleted: "Item deleted", itemsDeleted: "{n} games deleted", bulkDeleteBtn: "Delete selected", savePending: "Not saved yet. Will retry automatically.", syncMerged: "Merged changes from your other device", syncRefreshed: "Updated from your other device", syncRestored: "Restored unsaved changes from this device", navFeedback: "Feedback & contact", feedbackDesc: "Got an idea for improving Backlog Wallet? Send it here.", feedbackSubject: "Subject", feedbackMessage: "Message", feedbackSend: "Send", feedbackSending: "Sending...", feedbackOk: "Thanks! Your message was sent.", feedbackFail: "Could not send the message. Please try again later.", feedbackWait: "Please wait a moment before sending another message.", feedbackNote: "Messages are delivered by email through Web3Forms. Please don't include sensitive personal data.", undoBtn: "Undo", smartImportBtn: "Smart import (Steam & more)", smartImportHint: "Paste your Steam purchase history (or any order list/receipt) below - one purchase per line works best. Steam doesn't offer an official export, so this is a best-effort reader: it tries to find a date, a price and a title on each line. Nothing gets added until you review and confirm the results below.", smartImportParseBtn: "Find purchases", smartImportPreviewNote: "Review each row - uncheck anything that isn't a game (wallet top-ups and refunds are pre-unchecked, but double-check). Every field can be edited directly.", smartImportCommitBtn: "Add checked games", smartImportFlag: "Looks like a top-up or refund, not a game", onThisDayLabel: "On this day", onThisDayText: "{years} today, you bought {name}", onThisDayExtra: " (and {n} more)", yrHeatmapHeading: "Purchase activity", yrHeatmapLess: "Less", yrHeatmapMore: "More", yrWrappedBtn: "View as Wrapped", yrWrappedIntro: "Your year in games", yrWrappedOutro: "That was {year}. See you next year.", yrFirstGame: "First game bought", yrHeatmapDayCount: "{date}: {count} game(s) bought", yrHeatmapDayNone: "{date}: nothing bought",
-        emptyLib: "No games yet. Add the first one with the form above.", bulkAddBtn: "Add multiple games", bulkAddHint: "Paste one game per line, in the format: Title;Price;Currency;Source;Date (YYYY-MM-DD). Currency, Source and Date are optional: without them your default currency and store and today's date are used.", bulkAddSubmit: "Add all", bulkAddResult: "Games added: {added} (skipped invalid lines: {skipped})", bulkAddNone: "No valid entries found to add.", hideList: "Hide list", showList: "Show list", expandList: "Expand list", collapseList: "Collapse list", filterAllSources: "All sources", navRates: "Exchange Rates", ratesColCurrency: "Currency", ratesColRate: "Rate per 1 EUR", ratesBaseNote: "All rates are shown relative to 1 EUR (base currency).", ratesUpdated: "Updated", scrollTopTitle: "Back to top", changePasswordBtn: "Change password", currentPassword: "Current password", newPassword: "New password", newPasswordConfirm: "Confirm new password", changePasswordSubmit: "Change password", passwordMismatch: "The passwords do not match.", passwordChanged: "Password updated.",
-        confirmDuplicate: "A game with this name is already in your library. Add it again anyway?", advFiltersToggle: "Advanced filters", priceMin: "Price from", priceMax: "Price to", dateFrom: "Date from", dateTo: "Date to", resetFilters: "Clear filters", bulkAddResultDup: "Games added: {added} (invalid lines: {skipped}, duplicates: {dup})", bulkAddAllDup: "All pasted games ({dup}) are already in your library - nothing was added.", navAchievements: "Achievements", achievementsDesc: "Unlock badges as you grow your game library.", achUnlocked: "Unlocked", achLocked: "Locked", achMaxLevel: "Max level!", achLevel: "Level {level}/{max}", achFirstGameT: "First Step", achFirstGameD: "Add your first game to the library.", achCollectorT: "Collector", achCollectorD: "Own {target} games in your library.", achDiversityT: "Multi-Platform", achDiversityD: "Own games from {target} different platforms.", achFinisherT: "Finisher", achFinisherD: "Complete {target} games from your library.", achPhysicalT: "Box Collector", achPhysicalD: "Own {target} physical games.", achInvestorT: "Big Investor", achInvestorD: "Reach a library value of {target}.", achDreamT: "Dream Fulfilled", achDreamD: "Reach at least one savings goal.", achCurrenciesT: "Multi-Currency", achCurrenciesD: "Buy games in {target} different currencies.", achVeteranT: "Collection Veteran", achVeteranD: "Keep your library going for {target}.", achBalancedT: "Balanced Collection", achBalancedD: "Own both digital and physical games in your library.", navRoulette: "What to play?", rouletteDesc: "Can't decide what to play tonight? Roll the dice on your backlog.", rouletteBtn: "Pick a game", rouletteRerollBtn: "Pick another", rouletteEmptyLib: "No games to pick from yet. Add a few first.", rouletteAllDone: "No games marked as \"Not completed\" - set that status on some games in your library so there's something to roll for.", roulettePlatformAll: "All sources", navSectionLibrary: "Your library", navSectionTools: "More",
+        savedCloud: "Saved", itemDeleted: "Item deleted", itemsDeleted: "{n} games deleted", bulkDeleteBtn: "Delete selected", savePending: "Not saved yet. Will retry automatically.", syncMerged: "Merged changes from your other device", syncRefreshed: "Updated from your other device", syncRestored: "Restored unsaved changes from this device", navFeedback: "Feedback & contact", feedbackDesc: "Got an idea for improving Backlog Wallet? Send it here.", feedbackSubject: "Subject", feedbackMessage: "Message", feedbackSend: "Send", feedbackSending: "Sending...", feedbackOk: "Thanks! Your message was sent.", feedbackFail: "Could not send the message. Please try again later.", feedbackWait: "Please wait a moment before sending another message.", feedbackNote: "Messages are delivered by email through Web3Forms. Please don't include sensitive personal data.", undoBtn: "Undo", smartImportBtn: "Smart import (Steam & more)", smartImportHint: "Paste your Steam purchase history (or any order list/receipt) below. One purchase per line works best. Steam doesn't offer an official export, so this is a best-effort reader: it tries to find a date, a price and a title on each line. Nothing gets added until you review and confirm the results below.", smartImportParseBtn: "Find purchases", smartImportPreviewNote: "Check each row and untick anything that isn't a game. Wallet top-ups and refunds are already unticked. Every field can be edited.", smartImportCommitBtn: "Add checked games", smartImportFlag: "Looks like a top-up or refund, not a game", onThisDayLabel: "On this day", onThisDayText: "{years} today, you bought {name}", onThisDayExtra: " (and {n} more)", yrHeatmapHeading: "Purchase activity", yrHeatmapLess: "Less", yrHeatmapMore: "More", yrWrappedBtn: "View as Wrapped", yrWrappedIntro: "Your year in games", yrWrappedOutro: "That was {year}. See you next year.", yrFirstGame: "First game bought", yrHeatmapDayCount: "{date}: {count} bought", yrHeatmapDayNone: "{date}: nothing bought",
+        emptyLib: "No games yet. Add the first one with the form above.", bulkAddBtn: "Add multiple games", bulkAddHint: "Paste one game per line, in the format: Title;Price;Currency;Source;Date (YYYY-MM-DD). Currency, Source and Date are optional: without them your default currency and store and today's date are used.", bulkAddSubmit: "Add all", bulkAddResult: "Games added: {added} (skipped invalid lines: {skipped})", bulkAddNone: "No valid entries found to add.", hideList: "Hide list", showList: "Show list", expandList: "Expand list", collapseList: "Collapse list", filterAllSources: "All sources", navRates: "Exchange rates", ratesColCurrency: "Currency", ratesColRate: "Rate per 1 EUR", ratesBaseNote: "All rates are shown relative to 1 EUR (base currency).", ratesUpdated: "Updated", scrollTopTitle: "Back to top", changePasswordBtn: "Change password", currentPassword: "Current password", newPassword: "New password", newPasswordConfirm: "Confirm new password", changePasswordSubmit: "Change password", passwordMismatch: "The passwords do not match.", passwordChanged: "Password updated.",
+        confirmDuplicate: "A game with this name is already in your library. Add it again anyway?", advFiltersToggle: "Advanced filters", priceMin: "Price from", priceMax: "Price to", dateFrom: "Date from", dateTo: "Date to", resetFilters: "Clear filters", bulkAddResultDup: "Games added: {added} (invalid lines: {skipped}, duplicates: {dup})", bulkAddAllDup: "All pasted games ({dup}) are already in your library, so nothing was added.", navAchievements: "Achievements", achievementsDesc: "Unlock badges as you grow your game library.", achUnlocked: "Unlocked", achLocked: "Locked", achMaxLevel: "Max level!", achLevel: "Level {level}/{max}", achFirstGameT: "First Step", achFirstGameD: "Add your first game to the library.", achCollectorT: "Collector", achCollectorD: "Own {target} games in your library.", achDiversityT: "Multi-Platform", achDiversityD: "Own games from {target} different platforms.", achFinisherT: "Finisher", achFinisherD: "Complete {target} games from your library.", achPhysicalT: "Box Collector", achPhysicalD: "Own {target} physical games.", achInvestorT: "Big Investor", achInvestorD: "Reach a library value of {target}.", achDreamT: "Dream Fulfilled", achDreamD: "Reach at least one savings goal.", achCurrenciesT: "Multi-Currency", achCurrenciesD: "Buy games in {target} different currencies.", achVeteranT: "Collection Veteran", achVeteranD: "Keep your library going for {target}.", achBalancedT: "Balanced Collection", achBalancedD: "Own both digital and physical games in your library.", navRoulette: "What to play?", rouletteDesc: "Can't decide what to play tonight? Roll the dice on your backlog.", rouletteBtn: "Pick a game", rouletteRerollBtn: "Pick another", rouletteEmptyLib: "No games to pick from yet. Add a few first.", rouletteAllDone: "No games are marked Not completed. Give some games that status and there will be something to pick from.", roulettePlatformAll: "All sources", navSectionLibrary: "Your library", navSectionTools: "More",
         navTerms: "Terms & Conditions", navPrivacy: "Privacy Policy", rememberMe: "Remember me", footerContact: "Contact", cookieConsentText: "No tracking or advertising cookies here. The site only keeps technical data in your browser (local storage) to work properly and remember your settings, such as language, theme and your login. Details are in the Privacy Policy.", cookieMoreInfo: "More information", cookieAcceptBtn: "OK",
         faqHtml: "<h3>Is it free?</h3><p>Yes. It is a hobby project. You need an account to use it, and the account is free.</p><h3>Can I import my Steam purchases?</h3><p>Sort of. Steam has no official export, but Smart import lets you paste your purchase history (or any order list) and it picks out titles, prices and dates. You review the result before anything is added.</p><h3>I buy in different currencies. Does that work?</h3><p>Yes. Each game keeps the price and currency you paid in. Totals are converted with live rates from open.er-api.com, and if that service is down the app falls back to saved rates.</p><h3>Where is my data stored?</h3><p>In Firebase (Google Cloud), behind access rules, so only your account can read your library. You can download everything as JSON at any time.</p><h3>What happens if I delete my account?</h3><p>Everything is removed. The app downloads a backup of your data first, so you can import it again later if you change your mind.</p><h3>Can I switch between light and dark?</h3><p>Yes, with the moon/sun button at the top. You can also set your nickname and preferred currency in your account.</p><h3>Can I cheat the ranking?</h3><p>Not easily, but it is not impossible either. Your entry is worked out from your own library in your browser, and obviously broken values are rejected, but a determined person could still fake one. It is a ranking for fun, and entries that look fake can be removed.</p><h3>I found a bug or have an idea.</h3><p>Use Feedback &amp; contact in the footer. The e-mail address is on that page too.</p>",
         yrYearLabel: "Year", yrCompareLabel: "Compare with", yrCompareNone: "— no comparison —", yrAllYearsBtn: "All years", yrCompareHeading: "Year comparison", yrAllYearsHeading: "Spending year by year", yrAvgPrice: "Average game price", yrCompletedLabel: "Completed games", yrVsTitle: "{a} compared with {b}",
@@ -395,7 +395,9 @@ function retryLoadCloudData() {
 }
 
 // nobody is signed in: the library lives in the account, so there is nothing to show
+let libraryReady = false;   // true once the library came back from the account, so an empty one really is empty
 function clearSessionData() {
+    libraryReady = false;
     syncBase = null; pendingSave = false; clearTimeout(saveRetryTimer);
     games = [];
     wishGoals = [];
@@ -405,6 +407,7 @@ function clearSessionData() {
 
 async function loadCloudData() {
     if (!db || !currentUser) return;
+    libraryReady = false;
     setBadge('loading', 'syncSyncing');
     showLibraryError(false);
     setLibraryLoading(true);
@@ -483,6 +486,7 @@ async function loadCloudData() {
         games = cloudGames;
         restorePendingBackup();
         setBadge('success', 'syncCloud');
+        libraryReady = true;
         applyProfile();
         updateUserChip();
         updateAuthUI();
@@ -1096,6 +1100,13 @@ form.addEventListener('submit', function (e) {
     persistData();
 });
 
+// first-run buttons: open the add form on the right part
+function firstRunStart(mode) {
+    toggleAddForm(true);
+    if (mode === 'paste') { if (typeof toggleSmartImport === 'function') toggleSmartImport(true); setTimeout(() => { const ta = $('smartImportTextarea'); if (ta) ta.focus(); }, 160); }
+    else setTimeout(() => { const n = $('gameName'); if (n) n.focus(); }, 160);
+}
+
 function editGame(index) {
     toggleAddForm(true);
     const game = games[index];
@@ -1110,6 +1121,7 @@ function editGame(index) {
     editingIndex = index;
     $('submitBtn').querySelector('span').textContent = t('saveBtn');
     $('cancelEditBtn').style.display = 'inline-flex';
+    if ($('deleteEditBtn')) $('deleteEditBtn').style.display = 'inline-flex';
     const formCard = $('addFormBody').closest('.card') || $('addFormBody');
     formCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
     $('gameName').focus({ preventScroll: true });
@@ -1123,7 +1135,25 @@ function cancelEdit() {
     $('submitBtn').style.backgroundColor = '';
     $('submitBtn').style.color = '';
     $('cancelEditBtn').style.display = 'none';
+    if ($('deleteEditBtn')) $('deleteEditBtn').style.display = 'none';
 }
+
+// delete from the edit form (on phones the list has no trash icons); Undo in the toast brings it back
+function deleteFromEdit() {
+    const i = editingIndex;
+    if (i < 0 || !games[i]) return;
+    cancelEdit();
+    toggleAddForm(false);
+    deleteGame(i);
+}
+
+// on phones a game in the list opens for editing when tapped; the checkbox and status keep their own job
+document.addEventListener('click', (e) => {
+    const row = e.target.closest && e.target.closest('#gamesTable tbody tr[data-idx]');
+    if (!row || !window.matchMedia('(max-width: 760px)').matches) return;
+    if (e.target.closest('input, button, a, select, label')) return;
+    editGame(parseInt(row.dataset.idx, 10));
+});
 
 // Deleting is instant, but for a few seconds it can be undone from the toast.
 let pendingUndo = null;
@@ -1267,6 +1297,7 @@ function toggleAddForm(force) {
     if ($('addFormToggleIcon')) $('addFormToggleIcon').classList.toggle('fa-chevron-down', !show);
     if ($('addFormToggleText')) $('addFormToggleText').textContent = show ? t('addFormHide') : t('addFormShow');
     if ($('addFormToggleBtn')) { $('addFormToggleBtn').classList.toggle('is-open', show); $('addFormToggleBtn').setAttribute('aria-expanded', show ? 'true' : 'false'); }
+    const card = body.closest('.add-card'); if (card) card.classList.toggle('form-open', show);
     if (show && force === undefined) setTimeout(() => $('gameName') && $('gameName').focus({ preventScroll: true }), 60);
 }
 
@@ -1613,10 +1644,12 @@ function renderBacklogHealth() {
     if (result.state === 'empty') {
         fill.style.width = '0%';
         numEl.textContent = '-';
-        gradeEl.textContent = t('healthLabel');
+        gradeEl.textContent = '';
         msgEl.textContent = t('healthEmptyMsg');
+        if (fill.closest('.health-card')) fill.closest('.health-card').classList.add('is-empty');
         return;
     }
+    if (fill.closest('.health-card')) fill.closest('.health-card').classList.remove('is-empty');
     if (result.state === 'untracked') {
         fill.style.width = '50%';
         fill.style.background = 'var(--text-dim)';
@@ -2082,6 +2115,10 @@ function renderTable() {
     const tbody = document.querySelector('#gamesTable tbody');
     tbody.innerHTML = '';
     globalTotalChf = 0;
+    document.body.classList.toggle('lib-empty', libraryReady && games.length === 0);
+    // when every game was bought in the currency on screen, "Value in" would only repeat the price
+    const curNow = getDisplayCurrency();
+    $('gamesTable').classList.toggle('one-currency', games.length > 0 && games.every(g => g.currency === curNow));
     renderBacklogHealth();
     renderOnThisDay();
 
@@ -2123,9 +2160,9 @@ function renderTable() {
     });
 
     if (games.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state">${t('emptyLib')}</div></td></tr>`;
+        tbody.innerHTML = `<tr class="empty-row"><td colspan="9"><div class="empty-state">${t('emptyLib')}</div></td></tr>`;
     } else if (visible.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state">${t('noResults')}</div></td></tr>`;
+        tbody.innerHTML = `<tr class="empty-row"><td colspan="9"><div class="empty-state">${t('noResults')}</div></td></tr>`;
     } else {
         visible.forEach(({ g, i }, rowNum) => {
             const srcRaw = g.source || "Steam";
@@ -2137,6 +2174,7 @@ function renderTable() {
             const ownLabel = own === 'physical' ? t('ownPhysical') : t('ownDigital');
             const st = statusButtonInfo(g.status);
             const tr = document.createElement('tr');
+            tr.dataset.idx = i;
             if (g.__flash) tr.className = 'row-new';
             tr.innerHTML = `
                 <td style="text-align:left;"><input type="checkbox" class="row-select-cb" aria-label="Select ${escapeHtml(g.name)}" data-idx="${i}" onchange="toggleSelectGame(${i}, this.checked)" ${selectedGames.has(i) ? 'checked' : ''}></td>
@@ -2144,7 +2182,7 @@ function renderTable() {
                 <td class="name-cell" style="color:var(--text-white);" title="${escapeHtml(g.name)}"><span class="name-text">${escapeHtml(g.name)}</span><button type="button" class="pill pill-${escapeHtml(g.status || 'none')}" onclick="cycleStatus(${i})" title="${t('statusToggleHint')}" aria-label="${escapeHtml(g.name)}: ${g.status ? st.label : 'no status'} (${t('statusToggleHint')})">${g.status ? st.label : 'No status'}</button></td>
                 <td data-label="${t('colPlatform')}"><span class="source-txt ${srcClass}">${srcDisplay}</span></td>
                 <td data-label="${t('fldOwnership')}"><span class="own-chip" data-own="${own}"><i class="${ownIcon}"></i>${ownLabel}</span></td>
-                <td data-label="${t('purchaseDate')}">${escapeHtml(g.date || "")}</td>
+                <td data-label="${t('purchaseDate')}"><time datetime="${escapeHtml(g.date || '')}">${escapeHtml(humanDate(g.date))}</time></td>
                 <td data-label="${t('colOrigPrice')}">${amt((Number(g.price) || 0).toFixed(2))} <span style="font-size:12px; color:var(--text-dim);">${escapeHtml(g.currency || "")}</span></td>
                 <td data-label="${valueColLabel(filterCur)}" class="value-cell${g.currency === filterCur ? ' value-same' : ''}">${amt((gameChf(g, filterCur) / (rates[filterCur] || 1)).toFixed(2))} <span style="font-size:12px;">${filterCur}</span></td>
                 <td class="action-icons">
@@ -2264,7 +2302,9 @@ function renderOldestBacklog() {
         .sort((a, b) => a.g.date.localeCompare(b.g.date))
         .slice(0, 5);
     if (!rows.length) {
-        el.innerHTML = `<p class="side-empty">Nothing is waiting here: every game with a purchase date has been started, finished or set aside.</p>`;
+        el.innerHTML = `<p class="side-empty">${games.length
+            ? (platform === 'all' ? 'Nothing is waiting here: every game with a purchase date has been started, finished or set aside.' : 'Nothing from this store is waiting to be played.')
+            : 'Your library is empty. Games you buy and do not start yet will show up here.'}</p>`;
         return;
     }
     el.innerHTML = `<ul class="oldest-list">${rows.map(({ g, i }) => {
@@ -2349,7 +2389,7 @@ function renderLibraryCheck() {
     };
     el.innerHTML = `<p class="check-intro">A few entries may need a look. Click a game to edit it.</p>` +
         group('No purchase date', x.noDate.map(link)) +
-        group('Purchase date in the future', x.future.map(i => `${link(i)} <span class="check-note">${escapeHtml(games[i].date)}</span>`)) +
+        group('Purchase date in the future', x.future.map(i => `${link(i)} <span class="check-note">${escapeHtml(humanDate(games[i].date))}</span>`)) +
         group('No price', x.noPrice.map(link)) +
         group('Possible duplicates', x.dupGroups.map(l => l.map(link).join(' <span class="check-note">and</span> ') +
             ` <span class="check-note">(${platformMeta(games[l[0]].source || 'Steam').label()})</span>`));
@@ -2388,7 +2428,7 @@ function renderSideCards() {
     const priciest = games.reduce((m, g) => gameChf(g) > gameChf(m) ? g : m, games[0]);
     const physical = games.filter(g => (g.ownership || 'digital') === 'physical').length;
     const tracked = games.filter(g => g.status).length;
-    const niceDate = (d) => { const dt = new Date(d + 'T12:00:00'); return isNaN(dt) ? d : dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); };
+    const niceDate = humanDate;
     const yNowInfo = String(new Date().getFullYear());
     const boughtThisYear = games.filter(g => (g.date || '').startsWith(yNowInfo)).length;
     const untracked = games.length - tracked;
@@ -2488,7 +2528,12 @@ function renderSideCards() {
         };
         const limits = [10, 30, 60].map(eur => roundNice(eur * (rates.EUR || 1) / rate));
         const inCur = chfSorted.map(v => v / rate);
-        const band = (lo, hi) => Math.round(inCur.filter(v => v >= lo && v < hi).length / inCur.length * 100);
+        // whole percentages that always add up to 100 (largest remainder), so 3 games read 34/33/33, not 33/33/33
+        const edges = [0, limits[0], limits[1], limits[2], Infinity];
+        const raw = edges.slice(0, 4).map((lo, k) => inCur.filter(v => v >= lo && v < edges[k + 1]).length / inCur.length * 100);
+        const pcts = raw.map(Math.floor);
+        raw.map((r, k) => [r - pcts[k], k]).sort((a, b) => b[0] - a[0]).slice(0, 100 - pcts.reduce((a, b) => a + b, 0)).forEach(([, k]) => pcts[k]++);
+        const band = (lo) => pcts[edges.indexOf(lo)];
         const nf = (n) => n.toLocaleString(currentLang, { maximumFractionDigits: 2 });
         habitFacts.push([`${fmt(medianChf)} ${cur}`, 'Median price per game',
             `Half of your games cost less than this. By price: ${band(0, limits[0])}% under ${nf(limits[0])} ${cur}, ${band(limits[0], limits[1])}% ${nf(limits[0])}-${nf(limits[1])} ${cur}, ${band(limits[1], limits[2])}% ${nf(limits[1])}-${nf(limits[2])} ${cur}, ${band(limits[2], Infinity)}% over ${nf(limits[2])} ${cur}.`]);
@@ -2498,9 +2543,12 @@ function renderSideCards() {
         games.forEach(g => { const c = g.currency || 'EUR'; byCur[c] = (byCur[c] || 0) + 1; });
         const curRows = Object.entries(byCur).sort((a, b) => b[1] - a[1]);
         const curPct = curRows.slice(0, 3).map(([c, n]) => [c, Math.round(n / games.length * 100)]);
-        habitFacts.push([curRows[0][0], 'Currency you pay in most', curRows.length === 1
-            ? `All of your purchases were in ${curRows[0][0]}.`
-            : `${curPct[0][1]}% of your purchases were in ${curPct[0][0]}` + curPct.slice(1).map(([c, p]) => `, ${p}% in ${c}`).join('') + '.']);
+        const tied = curRows.filter(([, n]) => n === curRows[0][1]).map(([c]) => c);
+        habitFacts.push(tied.length > 1
+            ? [tied.slice(0, 3).join(' / '), 'Currencies you pay in most', `A tie: ${tied.length === curRows.length ? 'each currency' : 'each of these'} has ${curPct[0][1]}% of your purchases.`]
+            : [curRows[0][0], 'Currency you pay in most', curRows.length === 1
+                ? `All of your purchases were in ${curRows[0][0]}.`
+                : `${curPct[0][1]}% of your purchases were in ${curPct[0][0]}` + curPct.slice(1).map(([c, p]) => `, ${p}% in ${c}`).join('') + '.']);
 
         habitsEl.innerHTML = `<dl class="facts">${habitFacts.map(([v, l, n]) => `<div class="fact"><dd>${escapeHtml(String(v))}</dd><dt>${escapeHtml(l)}</dt><small>${escapeHtml(String(n))}</small></div>`).join('')}</dl>`;
     }
@@ -2628,6 +2676,28 @@ function periodKey(dateStr, gran) {
     if (gran === 'year') return String(d.getFullYear());
     if (gran === 'quarter') return `Q${Math.floor(d.getMonth() / 3) + 1} ${d.getFullYear()}`;
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+}
+// every period from the first purchase to today (or the last purchase, if later), so months without
+// purchases still take their place on the time axis instead of being skipped
+function fillPeriods(keys, gran) {
+    if (!keys.length) return keys;
+    const toIdx = (k) => {
+        if (gran === 'year') return parseInt(k, 10);
+        if (gran === 'quarter') { const [q, y] = k.split(' '); return parseInt(y, 10) * 4 + parseInt(q[1], 10) - 1; }
+        return parseInt(k.slice(0, 4), 10) * 12 + parseInt(k.slice(5, 7), 10) - 1;
+    };
+    const fromIdx = (i) => {
+        if (gran === 'year') return String(i);
+        if (gran === 'quarter') return `Q${(i % 4) + 1} ${Math.floor(i / 4)}`;
+        return `${Math.floor(i / 12)}-${String((i % 12) + 1).padStart(2, '0')}`;
+    };
+    const idx = keys.map(toIdx);
+    const nowKey = periodKey(todayLocal(), gran);
+    const lo = Math.min(...idx), hi = Math.max(...idx, nowKey ? toIdx(nowKey) : -Infinity);
+    if (hi - lo > 600) return keys;   // a typo like year 1900 would make thousands of empty months
+    const out = [];
+    for (let i = lo; i <= hi; i++) out.push(fromIdx(i));
+    return out;
 }
 function periodSortValue(key, gran) {
     if (gran === 'quarter') {
@@ -2796,12 +2866,12 @@ function updateCharts() {
             const k = periodKey(g.date, gran);
             if (k) sums[k] = (sums[k] || 0) + gameChf(g);
         });
-        const keys = Object.keys(sums).sort((a, b) => {
+        const keys = fillPeriods(Object.keys(sums).sort((a, b) => {
             const va = periodSortValue(a, gran), vb = periodSortValue(b, gran);
             return va < vb ? -1 : va > vb ? 1 : 0;
-        });
+        }), gran);
         let run = 0;
-        const data = keys.map(k => Math.round((run += sums[k] / rate) * 100) / 100);
+        const data = keys.map(k => Math.round((run += (sums[k] || 0) / rate) * 100) / 100);
         mainChart = new Chart(ctx, {
             type: 'line',
             data: { labels: periodLabels(keys, gran), datasets: [{ label: cur, data, borderColor: cssVar('--text-light'), backgroundColor: 'rgba(127,127,127,0.10)', borderWidth: 2, fill: true, tension: 0, pointRadius: 0, pointHoverRadius: 4, pointBackgroundColor: cssVar('--steam-blue') }] },
@@ -2823,10 +2893,11 @@ function updateCharts() {
         const k = periodKey(g.date, gran);
         if (k) counts[k] = (counts[k] || 0) + 1;
     });
-    const labels = Object.keys(counts).sort((a, b) => {
+    const labels = fillPeriods(Object.keys(counts).sort((a, b) => {
         const va = periodSortValue(a, gran), vb = periodSortValue(b, gran);
         return va < vb ? -1 : va > vb ? 1 : 0;
-    });
+    }), gran);
+    labels.forEach(l => { counts[l] = counts[l] || 0; });
 
     if (type === 'purchases') {
         const maxCount = Math.max(1, ...labels.map(l => counts[l]));
@@ -2839,7 +2910,7 @@ function updateCharts() {
                     y: { beginAtZero: true, ticks: { stepSize: niceStepSize(maxCount), precision: 0 }, grid: { color: gridColor }, border: { display: false } },
                     x: { grid: { display: false }, border: { display: false }, ticks: X_TICKS }
                 },
-                plugins: { legend: { display: false }, title: chartTitle(`${t('chartPurchases')} / ${t('gran' + gran.charAt(0).toUpperCase() + gran.slice(1))}`) }
+                plugins: { legend: { display: false }, title: chartTitle(`Games bought per ${gran}`) }
             }
         });
     } else {
@@ -3556,6 +3627,13 @@ function yearStats(year) {
     };
 }
 
+// "2026-11-02" -> "2 Nov 2026" for reading; forms, sorting and exports keep the ISO date
+function humanDate(iso) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+    if (!m) return iso || '';
+    return `${parseInt(m[3], 10)} ${monthLabel(`${m[1]}-${m[2]}`)} ${m[1]}`;
+}
+
 function monthLabel(monthKey) {
     const monthNames = {
         en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -3664,7 +3742,7 @@ function renderPurchaseHeatmap(year, yearGames) {
         weeks.map(week => `<div class="heatmap-col">` +
             week.map(d => d.count === null
                 ? `<i class="heatmap-cell heatmap-cell-empty"></i>`
-                : `<button type="button" class="heatmap-cell${d.count > 0 ? ' heatmap-cell-active' : ''}"${d.count > 0 ? '' : ' tabindex="-1"'} style="background:${alphaFor(d.count)}" title="${d.date}: ${d.count}" aria-label="${d.date}: ${d.count} bought" onclick="showHeatmapDay('${d.date}', ${d.count})" onmouseenter="showHeatmapDay('${d.date}', ${d.count})"></button>`
+                : `<button type="button" class="heatmap-cell${d.count > 0 ? ' heatmap-cell-active' : ''}"${d.count > 0 ? '' : ' tabindex="-1"'} style="background:${alphaFor(d.count)}" title="${humanDate(d.date)}: ${d.count}" aria-label="${humanDate(d.date)}: ${d.count} bought" onclick="showHeatmapDay('${d.date}', ${d.count})" onmouseenter="showHeatmapDay('${d.date}', ${d.count})"></button>`
             ).join('') +
             `</div>`
         ).join('') +
@@ -3685,8 +3763,8 @@ function showHeatmapDay(date, count) {
     const detail = $('yrHeatmapDetail');
     if (!detail) return;
     detail.innerHTML = count > 0
-        ? t('yrHeatmapDayCount').replace('{date}', `<strong>${escapeHtml(date)}</strong>`).replace('{count}', count)
-        : t('yrHeatmapDayNone').replace('{date}', `<strong>${escapeHtml(date)}</strong>`);
+        ? t('yrHeatmapDayCount').replace('{date}', `<strong>${escapeHtml(humanDate(date))}</strong>`).replace('{count}', count === 1 ? '1 game' : `${count} games`)
+        : t('yrHeatmapDayNone').replace('{date}', `<strong>${escapeHtml(humanDate(date))}</strong>`);
 }
 
 function renderYearComparison(A) {
@@ -4284,7 +4362,7 @@ async function loadAdminPanel() {
         $('adminStatAvgPrice').textContent = priceCount ? (priceSumEur / priceCount).toFixed(2) : '-';
         const totalSourced = steamCount + keyCount;
         $('adminStatSourceSplit').textContent = totalSourced
-            ? `Steam ${Math.round(steamCount / totalSourced * 100)}% / Key Store ${Math.round(keyCount / totalSourced * 100)}%`
+            ? `Steam ${Math.round(steamCount / totalSourced * 100)}% / Key store ${Math.round(keyCount / totalSourced * 100)}%`
             : '-';
 
         const topGamesTbody = $('adminTopGamesTbody');
