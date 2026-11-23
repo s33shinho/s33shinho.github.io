@@ -4867,15 +4867,15 @@ initPublicShareIfNeeded().then(isPublicShare => {
     const rTotalEl = $('storyReceiptTotal'), receiptEl = $('storyReceipt'), stepEls = [...$('storySteps').children];
     const pctEl = $('storyPct'), deadEl = $('storyDead'), yGamesEl = $('storyYGames'), ySpentEl = $('storyYSpent');
 
-    // layout is measured once (and again on resize), never inside an animation frame
-    let spineBox = [], shelfMax = 0, shelfLeft = 0;
+    // The shelf slides with a native scroll-driven CSS animation where the browser has one
+    // (Safari 26+, Chrome 115+): it runs with the scroll itself, no script per frame. The script
+    // only tells it how far to slide. Older browsers get the same slide from the script below.
+    const cssShelf = !!(window.CSS && CSS.supports && CSS.supports('animation-timeline: view()') && CSS.supports('view-timeline-name: --a'));
+    if (cssShelf) root.classList.add('story-css-shelf');
+    let shelfMax = 0;
     function measureShelf(stage) {
-        shelfTrack.style.transform = '';
-        const tl = shelfTrack.getBoundingClientRect().left;
-        shelfLeft = tl;
-        spineBox = spines.map(sp => { const r = sp.getBoundingClientRect(); return { c: r.left - tl + r.width / 2 }; });
         shelfMax = Math.max(0, shelfTrack.scrollWidth - stage.clientWidth);
-        shelfTrack._stransform = '';
+        shelfTrack.style.setProperty('--shelf-max', shelfMax + 'px');
     }
 
     const R = {
@@ -4908,13 +4908,8 @@ initPublicShareIfNeeded().then(isPublicShare => {
             curChips.forEach((c, i) => setOn(c, 'on', i === on));
         },
         shelf(p) {
-            const tx = -ease(p) * shelfMax;
-            setStyle(shelfTrack, 'transform', `translate3d(${tx.toFixed(1)}px, 0, 0)`);
-            const mid = innerWidth / 2, reach = innerWidth * 0.18;
-            spines.forEach((sp, i) => {
-                const d = clamp(Math.abs(shelfLeft + spineBox[i].c + tx - mid) / reach);
-                setStyle(sp, 'transform', d < 1 ? `translate3d(0, ${(-(1 - d) * 18).toFixed(1)}px, 0)` : '');
-            });
+            if (cssShelf) return;
+            setStyle(shelfTrack, 'transform', `translate3d(${(-ease(p) * shelfMax).toFixed(1)}px, 0, 0)`);
         },
         backlog(p) {
             const e = ease(clamp(p * 1.1));
