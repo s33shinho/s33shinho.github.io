@@ -2402,3 +2402,133 @@ button.acct-row:focus-visible { background: var(--bg-input); box-shadow: inset 3
 .storage-note-link { font-size: 13px; color: var(--text-light); text-decoration: underline; white-space: nowrap; }
 .storage-note .btn-primary { width: auto; height: 34px; padding: 0 16px; flex-shrink: 0; }
 @media (max-width: 480px) { .storage-note { gap: 10px; padding: 8px 8px 8px 12px; } .storage-note p { font-size: 12.5px; } }
+
+/* ---------- 1.6.0: landing scroll story ----------
+   Each .story-scene is a tall track; its .story-stage sticks under the top bar while app.js
+   (initLandingStory) turns scroll progress into transforms. Without JS or with reduced motion
+   every scene simply shows its finished state. */
+.story-hero.hero-grid { grid-template-columns: minmax(0, 1fr) !important; max-width: 1080px; }
+.story-hero { will-change: transform, opacity; }
+.story { --story-top: calc(var(--topbar-h) + var(--navstrip-h)); --story-paper: #f5f1e8; --story-ink: #1d1b17; --story-ink-dim: #5f5a51; }
+html[data-theme="light"] .story { --story-paper: #fffdf8; }
+.story-scene { position: relative; }
+.s-receipt { height: 330vh; }
+.s-currency { height: 270vh; }
+.s-shelf { height: 300vh; }
+.s-backlog { height: 260vh; }
+.s-year { height: 230vh; }
+.story-stage { position: sticky; top: var(--story-top); height: calc(100vh - var(--story-top)); height: calc(100svh - var(--story-top)); overflow: hidden; display: flex; align-items: center; }
+.story-stage-col { flex-direction: column; align-items: stretch; justify-content: center; }
+.story-in { width: 100%; max-width: 1080px; margin: 0 auto; }
+.story h3 { font-family: var(--font-body); color: var(--text-white); font-size: clamp(28px, 3.8vw, 46px); font-weight: 800; line-height: 1.04; letter-spacing: -0.035em; text-wrap: balance; margin: 0; }
+.story p { color: var(--text-main); }
+.story-eyebrow { display: block; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--steam-blue); margin-bottom: 10px; }
+
+/* receipt */
+.story-receipt-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 380px); gap: clamp(24px, 6vw, 96px); align-items: center; }
+.story-steps { display: grid; gap: 28px; }
+.story-step { opacity: 0.28; transition: opacity 0.35s ease; }
+.story-step.on { opacity: 1; }
+.story-step h3 { margin-bottom: 8px; }
+.story-step p { max-width: 42ch; font-size: 16.5px; line-height: 1.5; margin: 0; }
+.story-receipt {
+    background: var(--story-paper); color: var(--story-ink); font-family: var(--font-mono); font-size: 13px; line-height: 1.45;
+    padding: 22px 22px 26px; box-shadow: 0 26px 56px rgba(0,0,0,0.34);
+    clip-path: inset(0 0 var(--cut, 0%) 0);
+}
+html[data-theme="light"] .story-receipt { box-shadow: 0 0 0 1px #d9d3c6, 0 18px 40px rgba(21,20,18,0.14); }
+.story-receipt * { color: var(--story-ink); }
+.sr-head { text-align: center; margin-bottom: 14px; }
+.sr-head b { display: block; font-size: 18px; }
+.sr-head span, .sr-item small, .sr-foot span { color: var(--story-ink-dim) !important; font-size: 11px; }
+.sr-line, .sr-total { display: flex; justify-content: space-between; gap: 12px; }
+.sr-rule { height: 1.5px; background: var(--story-ink); margin: 10px 0; }
+.sr-rule.sr-double { height: 5px; background: linear-gradient(var(--story-ink) 0 1.5px, transparent 1.5px 3.5px, var(--story-ink) 3.5px 5px); }
+.sr-item { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; padding: 3px 0; opacity: var(--o, 1); transform: translateY(calc((1 - var(--o, 1)) * 6px)); }
+.sr-item span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
+.sr-item small { grid-column: 1 / -1; }
+.sr-total { font-size: 17px; font-weight: 700; padding: 4px 0; font-variant-numeric: tabular-nums; }
+.sr-foot { text-align: center; margin-top: 14px; font-size: 12px; font-weight: 500; }
+.sr-foot span { display: block; font-weight: 400; margin-top: 2px; }
+
+/* currency */
+.story-cur { display: grid; gap: 20px; justify-items: start; }
+.story-cur h3 { max-width: 18ch; }
+.story-cur-stack { position: relative; width: 100%; height: clamp(100px, 18vw, 210px); }
+.story-cur-state { position: absolute; left: 0; top: 0; display: flex; align-items: baseline; gap: 16px; white-space: nowrap; }
+.story-cur-state b { font-family: var(--font-body); color: var(--text-white); font-weight: 900; font-size: clamp(68px, 15vw, 190px); line-height: 1; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
+.story-cur-state span { font-family: var(--font-mono); font-size: clamp(18px, 2.4vw, 28px); font-weight: 600; color: var(--steam-blue); }
+.story-cur-track { display: flex; flex-wrap: wrap; gap: 8px; }
+.story-cur-track span { font-family: var(--font-mono); font-size: 13px; padding: 5px 10px; border: 1px solid var(--border-light); border-radius: 999px; color: var(--text-dim); transition: color .25s, border-color .25s, background .25s; }
+.story-cur-track span.on { color: var(--text-white); border-color: var(--steam-blue); background: var(--accent-soft); }
+.story-note { font-size: 14px; color: var(--text-dim) !important; max-width: 52ch; margin: 0; }
+
+/* shelf */
+.story-shelf-head { margin-bottom: 26px; }
+.story-shelf-head p { margin: 8px 0 0; font-size: 16.5px; }
+.story-shelf { position: relative; padding-bottom: 18px; overflow: visible; }
+.story-shelf::after { content: ""; position: absolute; left: -100vw; right: -100vw; bottom: 0; height: 18px; background: var(--bg-raised); border-top: 1px solid var(--border-light); }
+.story-shelf-track { display: flex; gap: 10px; align-items: flex-end; width: max-content; }
+.story-spine { flex: 0 0 auto; width: clamp(44px, 5vw, 60px); height: clamp(200px, 34vh, 310px); border-radius: 4px 4px 2px 2px; display: flex; flex-direction: column; color: #fff; box-shadow: inset -6px 0 10px rgba(0,0,0,0.25), inset 2px 0 0 rgba(255,255,255,0.08); }
+.story-spine .st { font-size: 10px; font-weight: 700; text-align: center; padding: 6px 2px; background: rgba(0,0,0,0.28); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.story-spine .tt { flex: 1; writing-mode: vertical-rl; transform: rotate(180deg); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13.5px; padding: 8px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 2px rgba(0,0,0,0.6); }
+.story-spine .dt { width: 10px; height: 10px; border-radius: 50%; margin: 0 auto 10px; background: rgba(255,255,255,0.75); }
+
+/* backlog */
+.story-backlog-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: clamp(24px, 5vw, 72px); align-items: center; }
+.story-pct { font-family: var(--font-body); font-weight: 900; font-size: clamp(88px, 16vw, 200px); line-height: 0.85; letter-spacing: -0.05em; color: var(--steam-blue); font-variant-numeric: tabular-nums; }
+.story-backlog-copy h3 { font-size: clamp(22px, 2.8vw, 34px); margin: 14px 0 8px; }
+.story-backlog-copy p { max-width: 40ch; margin: 0; }
+.story-backlog-copy b { color: var(--text-white); font-family: var(--font-mono); }
+.story-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.story-tile { border: 1px solid var(--border); background: var(--bg-raised); border-radius: 4px; padding: 10px 10px 9px; font-size: 13px; font-weight: 600; color: var(--text-white); min-width: 0;
+    opacity: calc(1 - var(--d, 0) * 0.72); filter: grayscale(var(--d, 0)); transform: scale(calc(1 - var(--d, 0) * 0.04)); }
+.story-tile span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.story-tile small { display: flex; align-items: center; gap: 6px; font-weight: 400; color: var(--text-dim); font-size: 11.5px; margin-top: 2px; }
+.story-tile small::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--c, var(--text-dim)); flex: 0 0 auto; }
+.story-tile.done { --c: var(--ok); border-color: color-mix(in srgb, var(--ok) calc(var(--g, 1) * 55%), var(--border)); }
+.story-tile.prog { --c: var(--warn); }
+.story-tile.not { --c: var(--err); }
+
+/* year */
+.story-year-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px 40px; margin-bottom: 26px; }
+.story-year-stats { display: flex; gap: 32px; }
+.story-year-stats b { display: block; font-family: var(--font-mono); color: var(--text-white); font-size: clamp(22px, 3vw, 32px); font-weight: 600; font-variant-numeric: tabular-nums; }
+.story-year-stats small { color: var(--text-dim); font-size: 13px; }
+.story-heat-scroll { overflow-x: auto; padding-bottom: 6px; scrollbar-width: none; }
+.story-heat { display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, 13px); grid-auto-columns: 13px; gap: 3px; width: max-content; }
+.story-heat i { border-radius: 2px; background: var(--border); transition: background .25s, transform .25s; }
+.story-heat i.lit { background: var(--steam-blue); }
+.story-heat i.lit.now { transform: scale(1.35); }
+.story-heat-months { display: grid; grid-template-columns: repeat(12, 1fr); width: calc(53 * 16px); font-size: 12px; color: var(--text-dim); margin-top: 8px; }
+
+/* closing call to action */
+.story-end { max-width: 1080px; margin: 0 auto; padding: 110px 0 90px; }
+.story-end h3 { font-size: clamp(34px, 5.6vw, 68px); font-weight: 900; max-width: 15ch; margin-bottom: 16px; }
+.story-end p { max-width: 52ch; font-size: 17px; margin: 0 0 26px; }
+
+@media (max-width: 760px) {
+    .story-receipt-grid, .story-backlog-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    .story-steps { gap: 10px; }
+    .story-step:not(.on) { display: none; }
+    .story-step p { font-size: 15px; }
+    .story-receipt { font-size: 11.5px; padding: 14px 16px 18px; }
+    .story-receipt .sr-item:nth-child(n+7) { display: none; }
+    .story-note { display: none; }
+    .story-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+    .story-tile { padding: 7px 8px; font-size: 12px; }
+    .story-tile:nth-child(n+13) { display: none; }
+    .story-pct { font-size: 76px; }
+    .story-backlog-copy h3 { font-size: 22px; margin: 8px 0 6px; }
+    .story-backlog-copy p { font-size: 14px; }
+    .story-year-stats { gap: 20px; }
+    .story-end { padding: 80px 0 60px; }
+}
+
+/* no pinning when the system asks for less motion; app.js shows every scene finished */
+@media (prefers-reduced-motion: reduce) {
+    .story-scene { height: auto !important; }
+    .story-stage { position: relative; top: 0; height: auto; padding: 64px 0; }
+    .story-step { opacity: 1; }
+    .story-step:not(.on) { display: block; }
+}

@@ -4794,3 +4794,161 @@ initPublicShareIfNeeded().then(isPublicShare => {
     };
     updateAriaSort();
 })();
+
+// ---------------------------------------------------------------------------
+// Landing page scroll story (signed-out home page).
+// Every .story-scene is a tall track with a sticky stage. On scroll we work out how far
+// through each scene the reader is (0..1) and set transforms, opacity and counters from it.
+// Only transform/opacity/clip-path change, in one requestAnimationFrame per scroll.
+// With "reduce motion" the scenes are not pinned and show their finished state.
+// ---------------------------------------------------------------------------
+(function initLandingStory() {
+    const root = $('landingStory');
+    if (!root) return;
+    const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+    const ease = (x) => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    const fmt2 = (n) => n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+
+    // example library (the same games as the landing receipt used before)
+    const receipt = [
+        ['Hollow Knight', 14.99, '2 Mar 2024 · Steam'], ['Hades', 18.74, '19 Jun 2024 · GOG'],
+        ["Baldur's Gate 3", 54.19, '27 Nov 2024 · Steam'], ['Celeste', 22.07, '30 Mar 2025 · Key store'],
+        ['Stardew Valley', 9.71, '14 Feb 2025 · Nintendo'], ['Disco Elysium', 7.49, '8 May 2025 · GOG'],
+        ['Persona 5 Royal', 28.13, '30 Jul 2025 · PlayStation'], ['Metroid Dread', 49.99, '31 Oct 2025 · Nintendo']
+    ];
+    const STORE = { Steam: '#3d5468', GOG: '#6a577c', PS: '#3f557a', Nintendo: '#8a3a2f', Epic: '#3d3a36', Xbox: '#3d5c38', Keys: '#56697c' };
+    const shelf = [['Alan Wake 2', 'Epic'], ['Animal Well', 'Steam'], ['Balatro', 'Steam'], ["Baldur's Gate 3", 'Steam'], ['Celeste', 'Keys'],
+        ['Control', 'Epic'], ['Cyberpunk 2077', 'GOG'], ['Death Stranding', 'PS'], ['Disco Elysium', 'GOG'], ['Dredge', 'Steam'],
+        ['Elden Ring', 'Xbox'], ['Hades', 'GOG'], ['Hollow Knight', 'Steam'], ['Inscryption', 'Nintendo'], ['Lies of P', 'PS'],
+        ['Metroid Dread', 'Nintendo'], ['Outer Wilds', 'Xbox'], ['Pentiment', 'Xbox'], ['Persona 5 Royal', 'PS'], ['Pizza Tower', 'GOG'],
+        ['Red Dead Redemption 2', 'Steam'], ['Return of the Obra Dinn', 'Steam'], ['Sea of Stars', 'Xbox'], ['Sekiro', 'GOG'],
+        ['Slay the Spire', 'Epic'], ['Stardew Valley', 'Nintendo'], ['Tunic', 'Epic'], ['The Witcher 3', 'Steam'], ['Zelda: Tears of the Kingdom', 'Nintendo']];
+    const tiles = [['Hollow Knight', 'done'], ['Hades', 'done'], ["Baldur's Gate 3", 'not'], ['Celeste', 'done'], ['Elden Ring', 'not'], ['Stardew Valley', 'none'],
+        ['Persona 5 Royal', 'prog'], ['Sekiro', 'not'], ['Outer Wilds', 'done'], ['Disco Elysium', 'none'], ['Tunic', 'not'], ['Balatro', 'done'],
+        ['Cyberpunk 2077', 'wont'], ['Pentiment', 'none'], ['Pizza Tower', 'done'], ['Animal Well', 'not'], ['Dredge', 'none'], ['Inscryption', 'not'],
+        ['Slay the Spire', 'done'], ['Lies of P', 'none'], ['Sea of Stars', 'not'], ['Metroid Dread', 'not'], ['Alan Wake 2', 'done'], ['Control', 'done']];
+    const ST = { done: 'Completed', not: 'Not completed', none: 'No status', prog: 'In progress', wont: "Won't play" };
+    const curs = [['59.99', 'USD', 'Paid: USD'], ['55.19', 'EUR', '1 USD = 0.920 EUR'], ['47.99', 'CHF', '1 USD = 0.800 CHF'], ['46.79', 'GBP', '1 USD = 0.780 GBP'], ['238.76', 'PLN', '1 USD = 3.980 PLN']];
+
+    // build the scenes
+    const rBox = $('storyReceiptItems');
+    const rRows = receipt.map(([n, p, s]) => { const r = el('div', 'sr-item', `<span></span><span>${fmt2(p)}</span><small></small>`); r.children[0].textContent = n; r.children[2].textContent = s; rBox.appendChild(r); return r; });
+    const curStates = curs.map(([v, c]) => { const s = el('div', 'story-cur-state', `<b>${v}</b><span>${c}</span>`); $('storyCurStack').appendChild(s); return s; });
+    const curChips = curs.map(([, , label]) => { const c = el('span', '', ''); c.textContent = label; $('storyCurTrack').appendChild(c); return c; });
+    const shelfTrack = $('storyShelfTrack');
+    const spines = shelf.map(([n, s]) => { const b = el('div', 'story-spine', `<div class="st">${s}</div><div class="tt"></div><div class="dt"></div>`); b.style.background = STORE[s]; b.querySelector('.tt').textContent = n; shelfTrack.appendChild(b); return b; });
+    const tileEls = tiles.map(([n, st]) => { const t = el('div', 'story-tile ' + st, `<span></span><small>${ST[st]}</small>`); t.querySelector('span').textContent = n; $('storyTiles').appendChild(t); return t; });
+    const deadTiles = tileEls.filter((t, i) => ['not', 'none', 'wont'].includes(tiles[i][1]));
+    const doneTiles = tileEls.filter((t, i) => tiles[i][1] === 'done');
+
+    // purchase calendar for the current year, filled up to this week
+    const now = new Date();
+    const yearStart = new Date(now.getFullYear(), 0, 1);
+    const lastWeek = Math.min(52, Math.floor((now - yearStart) / (7 * 86400000)));
+    $('storyYearTitle').textContent = `${now.getFullYear()}, week by week.`;
+    let seed = 11; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+    const buys = {};
+    for (let k = 0; k < 9; k++) buys[Math.floor(rnd() * (lastWeek + 1)) * 7 + Math.floor(rnd() * 7)] = 9 + rnd() * 50;
+    const heat = $('storyHeat');
+    const cells = [];
+    for (let w = 0; w < 53; w++) for (let d = 0; d < 7; d++) { const c = el('i'); c._w = w; c._v = buys[w * 7 + d] || 0; heat.appendChild(c); cells.push(c); }
+    const heatScroll = $('storyHeatScroll');
+    const hero = $('storyHero');
+
+    const R = {
+        receipt(p) {
+            const n = rRows.length, printed = clamp(p * 1.15);
+            let total = 0;
+            rRows.forEach((r, i) => { const o = i === 0 ? 1 : clamp(printed * n - i + 0.6); r.style.setProperty('--o', o); total += receipt[i][1] * o; });
+            $('storyReceipt').style.setProperty('--cut', `${(1 - ease(printed)) * 58}%`);
+            $('storyReceiptTotal').textContent = fmt2(total);
+            const step = p < 0.34 ? 0 : p < 0.68 ? 1 : 2;
+            [...$('storySteps').children].forEach((s, i) => s.classList.toggle('on', i === step));
+        },
+        currency(p) {
+            // hold each currency, change only in the middle of each step
+            const raw = clamp(p * 1.12) * (curStates.length - 1), base = Math.floor(raw);
+            const idx = Math.min(curStates.length - 1, base + ease(clamp((raw - base - 0.35) / 0.3)));
+            curStates.forEach((s, i) => {
+                const d = i - idx, a = Math.abs(d);
+                s.style.transform = `translateY(${d * 55}%)`;
+                s.style.opacity = clamp(1 - a * 1.6);
+                s.style.filter = a > 0.01 ? `blur(${Math.min(10, a * 12)}px)` : '';
+            });
+            curChips.forEach((c, i) => c.classList.toggle('on', i === Math.round(idx)));
+        },
+        shelf(p, stage) {
+            const max = shelfTrack.scrollWidth - stage.clientWidth;
+            shelfTrack.style.transform = `translateX(${-ease(p) * Math.max(0, max)}px)`;
+            const mid = innerWidth / 2;
+            spines.forEach(s => {
+                const r = s.getBoundingClientRect();
+                const d = clamp(Math.abs(r.left + r.width / 2 - mid) / (innerWidth * 0.18));
+                s.style.transform = d < 1 ? `translateY(${-(1 - d) * 18}px)` : '';
+            });
+        },
+        backlog(p) {
+            const e = ease(clamp(p * 1.1));
+            deadTiles.forEach((t, i) => t.style.setProperty('--d', clamp((e - i / deadTiles.length * 0.75) / 0.25)));
+            doneTiles.forEach(t => t.style.setProperty('--g', e));
+            $('storyPct').textContent = Math.round(45 * e) + '%';
+            $('storyDead').textContent = fmt2(393.16 * e) + ' EUR';
+        },
+        year(p) {
+            const wk = clamp(p * 1.1) * lastWeek;
+            let g = 0, spent = 0;
+            cells.forEach(c => {
+                const lit = c._v > 0 && c._w <= wk;
+                c.classList.toggle('lit', lit);
+                c.classList.toggle('now', lit && wk - c._w < 1.5);
+                if (lit) { g++; spent += c._v; }
+            });
+            if (heatScroll.scrollWidth > heatScroll.clientWidth) heatScroll.scrollLeft = Math.max(0, wk * 16 - heatScroll.clientWidth * 0.7);
+            $('storyYGames').textContent = g;
+            $('storyYSpent').textContent = fmt2(spent);
+        }
+    };
+    const scenes = [...root.querySelectorAll('[data-scene]')].map(s => ({ s, stage: s.querySelector('.story-stage'), fn: R[s.dataset.scene] }));
+
+    // the stage sticks right under the top bar (and the phone menu strip, when there is one)
+    let topPx = 0;
+    function setTop() {
+        const bar = document.querySelector('.topbar');
+        const strip = document.querySelector('.drawer');
+        let top = bar ? bar.getBoundingClientRect().bottom : 0;
+        if (strip && getComputedStyle(strip).position === 'fixed' && strip.getBoundingClientRect().top <= top + 1 && strip.getBoundingClientRect().height < 80) top = Math.max(top, strip.getBoundingClientRect().bottom);
+        topPx = Math.max(0, Math.round(top));
+        root.style.setProperty('--story-top', topPx + 'px');
+    }
+
+    function visible() { return root.offsetParent !== null; }
+    function frame() {
+        if (!visible()) return;
+        const vh = innerHeight;
+        scenes.forEach(({ s, stage, fn }) => {
+            const r = s.getBoundingClientRect();
+            if (r.bottom < -vh || r.top > vh * 2) return;
+            // 0 when the stage first sticks under the top bar, 1 when it is about to scroll away
+            fn(clamp((topPx - r.top) / Math.max(1, r.height - stage.offsetHeight)), stage);
+        });
+        // the hero drifts up and fades as the first scene comes in
+        if (hero) {
+            const h = clamp(scrollY / (vh * 0.9));
+            hero.style.transform = h ? `translateY(${-h * 60}px)` : '';
+            hero.style.opacity = h ? String(1 - h * 0.6) : '';
+        }
+    }
+
+    if (reduced) { scenes.forEach(({ s, stage, fn }) => fn(1, stage)); return; }
+    let queued = false;
+    const request = () => { if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; frame(); }); } };
+    addEventListener('scroll', request, { passive: true });
+    addEventListener('resize', () => { setTop(); request(); });
+    // the landing appears once the login check is done: start drawing when it becomes visible
+    new MutationObserver(() => { setTop(); request(); }).observe($('homeLanding'), { attributes: true, attributeFilter: ['style'] });
+    setTop();
+    frame();
+    R.receipt(0); R.currency(0); R.backlog(0); R.year(0);
+})();
