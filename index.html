@@ -55,7 +55,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js" defer></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js" defer></script>
 
-    <link rel="stylesheet" href="styles.css?v=100">
+    <link rel="stylesheet" href="styles.css?v=101">
 </head>
 <body class="auth-pending">
     <a class="skip-link" href="#mainContent">Skip to content</a>
@@ -166,7 +166,7 @@
 
             <div id="homeLanding">
                 <section class="hero hero-fullbleed">
-                    <div class="hero-inner hero-grid">
+                    <div class="hero-inner hero-grid story-hero" id="storyHero">
                         <div class="hero-copy">
                             <h2 data-i18n="heroTagline">A ledger for the games you buy.</h2>
                             <p class="lead" data-i18n="heroLead">Log what you paid, where you bought it and when. Backlog Wallet adds it up, converts it to your currency and shows how much of your library is still unplayed.</p>
@@ -179,26 +179,97 @@
                                 <span data-i18n="heroFact4">Steam, PlayStation, Xbox, Nintendo, GOG, Epic, key stores, physical copies</span>
                             </div>
                         </div>
-                        <div class="app-preview" aria-hidden="true">
-                            <div class="rp-head"><b>BACKLOG WALLET</b><span>backlogwallet.com</span></div>
-                            <div class="rp-line"><span>RECEIPT</span><span>EXAMPLE</span></div>
-                            <div class="rp-rule"></div>
-                            <div class="rp-item"><span>Hollow Knight</span><span>14.99</span><small>2024-03-02 &middot; Steam</small></div>
-                            <div class="rp-item"><span>Hades</span><span>18.74</span><small>2024-06-19 &middot; GOG</small></div>
-                            <div class="rp-item"><span>Baldur's Gate 3</span><span>59.99</span><small>2024-11-27 &middot; Steam</small></div>
-                            <div class="rp-item"><span>Stardew Valley</span><span>9.99</span><small>2025-02-14 &middot; Steam</small></div>
-                            <div class="rp-item"><span>Disco Elysium</span><span>7.49</span><small>2025-05-08 &middot; GOG</small></div>
-                            <div class="rp-rule"></div>
-                            <div class="rp-line"><span>ITEMS</span><span>5</span></div>
-                            <div class="rp-line rp-soft"><span>of which dead backlog</span><span>67.48</span></div>
-                            <div class="rp-rule rp-double"></div>
-                            <div class="rp-total"><span>TOTAL</span><span>111.20 EUR</span></div>
-                            <div class="rp-rule rp-double"></div>
-                            <svg class="rp-code" viewBox="0 0 84 34" preserveAspectRatio="none"><rect x="0" width="2" height="34"/><rect x="3" width="1" height="34"/><rect x="7" width="1" height="34"/><rect x="10" width="2" height="34"/><rect x="13" width="3" height="34"/><rect x="17" width="1" height="34"/><rect x="20" width="1" height="34"/><rect x="24" width="2" height="34"/><rect x="27" width="1" height="34"/><rect x="30" width="3" height="34"/><rect x="34" width="2" height="34"/><rect x="37" width="1" height="34"/><rect x="41" width="1" height="34"/><rect x="44" width="2" height="34"/><rect x="47" width="1" height="34"/><rect x="51" width="2" height="34"/><rect x="54" width="1" height="34"/><rect x="57" width="1" height="34"/><rect x="61" width="1" height="34"/><rect x="63" width="2" height="34"/><rect x="67" width="1" height="34"/><rect x="71" width="1" height="34"/><rect x="74" width="1" height="34"/><rect x="76" width="3" height="34"/><rect x="81" width="1" height="34"/></svg>
-                            <div class="rp-foot">THANK YOU<span>Now go play something.</span></div>
-                        </div>
                     </div>
                 </section>
+
+                <!-- scroll story: each scene is a tall track with a pinned stage; app.js drives it by scroll progress -->
+                <div class="story" id="landingStory">
+                    <section class="story-scene s-receipt" data-scene="receipt" aria-label="How it works">
+                        <div class="story-stage">
+                            <div class="story-in story-receipt-grid">
+                                <div class="story-steps" id="storySteps">
+                                    <div class="story-step on"><span class="story-eyebrow">Log</span><h3>Write down what you paid.</h3><p>Title, price, currency, store and date. Or paste a whole order list and Backlog Wallet reads it for you.</p></div>
+                                    <div class="story-step"><span class="story-eyebrow">Where</span><h3>Steam, GOG, PlayStation, a key store, a box on the shelf.</h3><p>Every store and every format sits in one list.</p></div>
+                                    <div class="story-step"><span class="story-eyebrow">Total</span><h3>It adds up to a real number.</h3><p>One total, in your currency, that grows with every purchase.</p></div>
+                                </div>
+                                <div class="story-receipt" id="storyReceipt" aria-label="Example receipt">
+                                    <div class="sr-head"><b>BACKLOG WALLET</b><span>backlogwallet.com</span></div>
+                                    <div class="sr-line"><span>RECEIPT</span><span>EXAMPLE</span></div>
+                                    <div class="sr-rule"></div>
+                                    <div id="storyReceiptItems"></div>
+                                    <div class="sr-rule sr-double"></div>
+                                    <div class="sr-total"><span>TOTAL</span><span><span id="storyReceiptTotal">14.99</span> EUR</span></div>
+                                    <div class="sr-rule sr-double"></div>
+                                    <div class="sr-foot">THANK YOU<span>Now go play something.</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="story-scene s-currency" data-scene="currency" aria-label="Currencies">
+                        <div class="story-stage">
+                            <div class="story-in story-cur">
+                                <span class="story-eyebrow">20+ currencies</span>
+                                <h3>Bought in dollars. Counted in yours.</h3>
+                                <div class="story-cur-stack" id="storyCurStack"></div>
+                                <div class="story-cur-track" id="storyCurTrack"></div>
+                                <p class="story-note">Baldur's Gate 3 at 59.99 USD, at example rates. A game bought in your own currency keeps the exact price you paid.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="story-scene s-shelf" data-scene="shelf" aria-label="Virtual shelf">
+                        <div class="story-stage story-stage-col">
+                            <div class="story-in story-shelf-head">
+                                <span class="story-eyebrow">Virtual shelf</span>
+                                <h3>Your whole library on one shelf.</h3>
+                                <p>Every box coloured by the store it came from.</p>
+                            </div>
+                            <div class="story-shelf"><div class="story-shelf-track" id="storyShelfTrack"></div></div>
+                        </div>
+                    </section>
+
+                    <section class="story-scene s-backlog" data-scene="backlog" aria-label="Backlog">
+                        <div class="story-stage">
+                            <div class="story-in story-backlog-grid">
+                                <div class="story-backlog-copy">
+                                    <span class="story-eyebrow">Backlog</span>
+                                    <div class="story-pct" id="storyPct">45%</div>
+                                    <h3>of what you spent sits in games you never finished.</h3>
+                                    <p>In this example that is <b id="storyDead">393.16 EUR</b> in games with no status, not completed, or set to won't play.</p>
+                                </div>
+                                <div class="story-tiles" id="storyTiles"></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="story-scene s-year" data-scene="year" aria-label="Year in Review">
+                        <div class="story-stage">
+                            <div class="story-in">
+                                <div class="story-year-head">
+                                    <div><span class="story-eyebrow">Year in Review</span><h3 id="storyYearTitle">Your year, week by week.</h3></div>
+                                    <div class="story-year-stats">
+                                        <div><b id="storyYGames">0</b><small>Games bought</small></div>
+                                        <div><b id="storyYSpent">0.00</b><small>Spent, EUR</small></div>
+                                    </div>
+                                </div>
+                                <div class="story-heat-scroll" id="storyHeatScroll">
+                                    <div class="story-heat" id="storyHeat"></div>
+                                    <div class="story-heat-months"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="story-end">
+                        <h3>Start with the games you already have.</h3>
+                        <p>Free. Your library syncs between your devices, and nothing is shared unless you choose to.</p>
+                        <div class="hero-cta">
+                            <button class="btn-primary" onclick="goRegister()"><span>Create a free account</span></button>
+                            <button class="btn-tool" onclick="goLogin()"><span>Log in</span></button>
+                        </div>
+                    </section>
+                </div>
 
                 <div class="points">
                     <div class="points-row"><h3 data-i18n="feat1T">Purchases</h3><p data-i18n="feat1D">Title, price, store, date, digital or physical. Add games one at a time, or paste a whole list.</p></div>
@@ -1203,7 +1274,7 @@
         <div class="footer-note" data-i18n="footerNote">Built by one person, updated when I get to it.</div>
     </div>
     <div class="footer-meta">
-        <span class="footer-build">v1.5.9, build 2026-11-21 15:20 UTC+1</span>
+        <span class="footer-build">v1.6.0, build 2026-11-23 10:09 UTC</span>
     </div>
 </footer>
 
@@ -1256,7 +1327,7 @@
         <button type="button" class="btn-primary" id="cookieAcceptBtn" onclick="dismissStorageNotice()"></button>
     </div>
 
-    <script src="app.js?v=100" defer></script>
+    <script src="app.js?v=101" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.
