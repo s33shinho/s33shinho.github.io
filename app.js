@@ -4856,99 +4856,151 @@ initPublicShareIfNeeded().then(isPublicShare => {
     for (let w = 0; w < 53; w++) for (let d = 0; d < 7; d++) { const c = el('i'); c._w = w; c._v = buys[w * 7 + d] || 0; heat.appendChild(c); cells.push(c); }
     const heatScroll = $('storyHeatScroll');
     const hero = $('storyHero');
+    const buyCells = cells.filter(c => c._v > 0);           // only these ever change
+
+    // write helpers: touch the DOM only when a value really changes
+    const setText = (node, v) => { if (node._t !== v) { node._t = v; node.textContent = v; } };
+    const setStyle = (node, prop, v) => { const k = '_s' + prop; if (node[k] !== v) { node[k] = v; node.style[prop] = v; } };
+    const setOn = (node, cls, on) => { const k = '_c' + cls; if (node[k] !== on) { node[k] = on; node.classList.toggle(cls, on); } };
+    const q = (v, step) => Math.round(v / step) * step;   // fewer distinct values = fewer repaints
+
+    const rTotalEl = $('storyReceiptTotal'), receiptEl = $('storyReceipt'), stepEls = [...$('storySteps').children];
+    const pctEl = $('storyPct'), deadEl = $('storyDead'), yGamesEl = $('storyYGames'), ySpentEl = $('storyYSpent');
+
+    // layout is measured once (and again on resize), never inside an animation frame
+    let spineBox = [], shelfMax = 0, shelfLeft = 0;
+    function measureShelf(stage) {
+        shelfTrack.style.transform = '';
+        const tl = shelfTrack.getBoundingClientRect().left;
+        shelfLeft = tl;
+        spineBox = spines.map(sp => { const r = sp.getBoundingClientRect(); return { c: r.left - tl + r.width / 2 }; });
+        shelfMax = Math.max(0, shelfTrack.scrollWidth - stage.clientWidth);
+        shelfTrack._stransform = '';
+    }
 
     const R = {
         receipt(p) {
             const n = rRows.length, printed = clamp(p * 1.15);
             let total = 0;
-            rRows.forEach((r, i) => { const o = i === 0 ? 1 : clamp(printed * n - i + 0.6); r.style.setProperty('--o', o); total += receipt[i][1] * o; });
-            $('storyReceipt').style.setProperty('--cut', `${(1 - ease(printed)) * 58}%`);
-            $('storyReceiptTotal').textContent = fmt2(total);
+            rRows.forEach((r, i) => {
+                const o = i === 0 ? 1 : q(clamp(printed * n - i + 0.6), 0.05);
+                setStyle(r, 'opacity', String(o));
+                setStyle(r, 'transform', o < 1 ? `translateY(${((1 - o) * 6).toFixed(1)}px)` : '');
+                total += receipt[i][1] * o;
+            });
+            setStyle(receiptEl, 'clipPath', `inset(0 0 ${q((1 - ease(printed)) * 58, 1)}% 0)`);
+            setText(rTotalEl, fmt2(total));
             const step = p < 0.34 ? 0 : p < 0.68 ? 1 : 2;
-            [...$('storySteps').children].forEach((s, i) => s.classList.toggle('on', i === step));
+            stepEls.forEach((st, i) => setOn(st, 'on', i === step));
         },
         currency(p) {
-            // hold each currency, change only in the middle of each step
+            // hold each currency, change only in the middle of each step; no blur (it repaints huge text)
             const raw = clamp(p * 1.12) * (curStates.length - 1), base = Math.floor(raw);
             const idx = Math.min(curStates.length - 1, base + ease(clamp((raw - base - 0.35) / 0.3)));
-            curStates.forEach((s, i) => {
+            curStates.forEach((st, i) => {
                 const d = i - idx, a = Math.abs(d);
-                s.style.transform = `translateY(${d * 55}%)`;
-                s.style.opacity = clamp(1 - a * 1.6);
-                s.style.filter = a > 0.01 ? `blur(${Math.min(10, a * 12)}px)` : '';
+                if (a >= 1) { setStyle(st, 'opacity', '0'); setStyle(st, 'visibility', 'hidden'); return; }
+                setStyle(st, 'visibility', '');
+                setStyle(st, 'opacity', clamp(1 - a * 1.6).toFixed(2));
+                setStyle(st, 'transform', `translate3d(0, ${(d * 55).toFixed(1)}%, 0) scale(${(1 - a * 0.06).toFixed(3)})`);
             });
-            curChips.forEach((c, i) => c.classList.toggle('on', i === Math.round(idx)));
+            const on = Math.round(idx);
+            curChips.forEach((c, i) => setOn(c, 'on', i === on));
         },
-        shelf(p, stage) {
-            const max = shelfTrack.scrollWidth - stage.clientWidth;
-            shelfTrack.style.transform = `translateX(${-ease(p) * Math.max(0, max)}px)`;
-            const mid = innerWidth / 2;
-            spines.forEach(s => {
-                const r = s.getBoundingClientRect();
-                const d = clamp(Math.abs(r.left + r.width / 2 - mid) / (innerWidth * 0.18));
-                s.style.transform = d < 1 ? `translateY(${-(1 - d) * 18}px)` : '';
+        shelf(p) {
+            const tx = -ease(p) * shelfMax;
+            setStyle(shelfTrack, 'transform', `translate3d(${tx.toFixed(1)}px, 0, 0)`);
+            const mid = innerWidth / 2, reach = innerWidth * 0.18;
+            spines.forEach((sp, i) => {
+                const d = clamp(Math.abs(shelfLeft + spineBox[i].c + tx - mid) / reach);
+                setStyle(sp, 'transform', d < 1 ? `translate3d(0, ${(-(1 - d) * 18).toFixed(1)}px, 0)` : '');
             });
         },
         backlog(p) {
             const e = ease(clamp(p * 1.1));
-            deadTiles.forEach((t, i) => t.style.setProperty('--d', clamp((e - i / deadTiles.length * 0.75) / 0.25)));
-            doneTiles.forEach(t => t.style.setProperty('--g', e));
-            $('storyPct').textContent = Math.round(45 * e) + '%';
-            $('storyDead').textContent = fmt2(393.16 * e) + ' EUR';
+            deadTiles.forEach((t, i) => {
+                const d = q(clamp((e - i / deadTiles.length * 0.75) / 0.25), 0.05);
+                setStyle(t, 'opacity', (1 - d * 0.7).toFixed(2));
+                setOn(t, 'dim', d > 0.5);
+            });
+            setText(pctEl, Math.round(45 * e) + '%');
+            setText(deadEl, fmt2(393.16 * e) + ' EUR');
         },
         year(p) {
             const wk = clamp(p * 1.1) * lastWeek;
             let g = 0, spent = 0;
-            cells.forEach(c => {
-                const lit = c._v > 0 && c._w <= wk;
-                c.classList.toggle('lit', lit);
-                c.classList.toggle('now', lit && wk - c._w < 1.5);
+            buyCells.forEach(c => {
+                const lit = c._w <= wk;
+                setOn(c, 'lit', lit);
+                setOn(c, 'now', lit && wk - c._w < 1.5);
                 if (lit) { g++; spent += c._v; }
             });
-            if (heatScroll.scrollWidth > heatScroll.clientWidth) heatScroll.scrollLeft = Math.max(0, wk * 16 - heatScroll.clientWidth * 0.7);
-            $('storyYGames').textContent = g;
-            $('storyYSpent').textContent = fmt2(spent);
+            if (heatScroll._wide) {
+                const sl = Math.round(Math.max(0, wk * 16 - heatScroll.clientWidth * 0.7) / 16) * 16;
+                if (heatScroll._sl !== sl) { heatScroll._sl = sl; heatScroll.scrollLeft = sl; }
+            }
+            setText(yGamesEl, String(g));
+            setText(ySpentEl, fmt2(spent));
         }
     };
-    const scenes = [...root.querySelectorAll('[data-scene]')].map(s => ({ s, stage: s.querySelector('.story-stage'), fn: R[s.dataset.scene] }));
+    const scenes = [...root.querySelectorAll('[data-scene]')].map(s => ({ s, stage: s.querySelector('.story-stage'), fn: R[s.dataset.scene], top: 0, run: 1, p: -1 }));
 
     // the stage sticks right under the top bar (and the phone menu strip, when there is one)
-    let topPx = 0;
-    function setTop() {
+    let topPx = 0, active = false;
+    function measure() {
         const bar = document.querySelector('.topbar');
         const strip = document.querySelector('.drawer');
         let top = bar ? bar.getBoundingClientRect().bottom : 0;
         if (strip && getComputedStyle(strip).position === 'fixed' && strip.getBoundingClientRect().top <= top + 1 && strip.getBoundingClientRect().height < 80) top = Math.max(top, strip.getBoundingClientRect().bottom);
         topPx = Math.max(0, Math.round(top));
         root.style.setProperty('--story-top', topPx + 'px');
+        active = root.offsetParent !== null;
+        if (!active) return;
+        scenes.forEach(sc => {
+            const r = sc.s.getBoundingClientRect();
+            sc.top = r.top + scrollY;
+            sc.run = Math.max(1, r.height - sc.stage.offsetHeight);
+            sc.p = -1;
+        });
+        const shelfScene = scenes.find(sc => sc.s.dataset.scene === 'shelf');
+        if (shelfScene) measureShelf(shelfScene.stage);
+        heatScroll._wide = heatScroll.scrollWidth > heatScroll.clientWidth;
+        heroH = innerHeight * 0.9;
     }
 
-    function visible() { return root.offsetParent !== null; }
+    let heroH = innerHeight * 0.9;
     function frame() {
-        if (!visible()) return;
-        const vh = innerHeight;
-        scenes.forEach(({ s, stage, fn }) => {
-            const r = s.getBoundingClientRect();
-            if (r.bottom < -vh || r.top > vh * 2) return;
+        if (!active) return;
+        const y = scrollY, vh = innerHeight;
+        scenes.forEach(sc => {
             // 0 when the stage first sticks under the top bar, 1 when it is about to scroll away
-            fn(clamp((topPx - r.top) / Math.max(1, r.height - stage.offsetHeight)), stage);
+            const p = q(clamp((y + topPx - sc.top) / sc.run), 0.0005);
+            const near = y + vh * 2 > sc.top && y < sc.top + sc.run + vh * 2;
+            if (!near || p === sc.p) return;
+            sc.p = p;
+            sc.fn(p);
         });
         // the hero drifts up and fades as the first scene comes in
         if (hero) {
-            const h = clamp(scrollY / (vh * 0.9));
-            hero.style.transform = h ? `translateY(${-h * 60}px)` : '';
-            hero.style.opacity = h ? String(1 - h * 0.6) : '';
+            const h = q(clamp(y / heroH), 0.002);
+            if (hero._h !== h) {
+                hero._h = h;
+                hero.style.transform = h ? `translate3d(0, ${(-h * 60).toFixed(1)}px, 0)` : '';
+                hero.style.opacity = h ? (1 - h * 0.6).toFixed(3) : '';
+            }
         }
     }
 
-    if (reduced) { scenes.forEach(({ s, stage, fn }) => fn(1, stage)); return; }
+    if (reduced) { measure(); scenes.forEach(sc => sc.fn(1)); return; }
     let queued = false;
     const request = () => { if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; frame(); }); } };
     addEventListener('scroll', request, { passive: true });
-    addEventListener('resize', () => { setTop(); request(); });
-    // the landing appears once the login check is done: start drawing when it becomes visible
-    new MutationObserver(() => { setTop(); request(); }).observe($('homeLanding'), { attributes: true, attributeFilter: ['style'] });
-    setTop();
+    let resizeTimer = null;
+    addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => { measure(); frame(); }, 120); });
+    // the landing appears once the login check is done (and fonts change sizes): measure again then
+    new MutationObserver(() => { measure(); frame(); }).observe($('homeLanding'), { attributes: true, attributeFilter: ['style'] });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { measure(); frame(); });
+    addEventListener('load', () => { measure(); frame(); });
+    measure();
     frame();
-    R.receipt(0); R.currency(0); R.backlog(0); R.year(0);
 })();
