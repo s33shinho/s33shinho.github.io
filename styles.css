@@ -2470,7 +2470,7 @@ html[data-theme="light"] .story-receipt { box-shadow: 0 0 0 1px #d9d3c6, 0 18px 
 .story-shelf { position: relative; padding-bottom: 18px; overflow: visible; }
 .story-shelf::after { content: ""; position: absolute; left: -100vw; right: -100vw; bottom: 0; height: 18px; background: var(--bg-raised); border-top: 1px solid var(--border-light); }
 .story-shelf-track { display: flex; gap: 10px; align-items: flex-end; width: max-content; will-change: transform; }
-.story-spine { flex: 0 0 auto; width: clamp(44px, 5vw, 60px); height: clamp(200px, 34vh, 310px); border-radius: 4px 4px 2px 2px; display: flex; flex-direction: column; color: #fff; box-shadow: inset -6px 0 10px rgba(0,0,0,0.25), inset 2px 0 0 rgba(255,255,255,0.08); will-change: transform; contain: layout paint; }
+.story-spine { flex: 0 0 auto; width: clamp(44px, 5vw, 60px); height: clamp(200px, 34vh, 310px); border-radius: 4px 4px 2px 2px; display: flex; flex-direction: column; color: #fff; box-shadow: inset -6px 0 10px rgba(0,0,0,0.25), inset 2px 0 0 rgba(255,255,255,0.08); }
 .story-spine .st { font-size: 10px; font-weight: 700; text-align: center; padding: 6px 2px; background: rgba(0,0,0,0.28); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .story-spine .tt { flex: 1; writing-mode: vertical-rl; transform: rotate(180deg); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13.5px; padding: 8px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 2px rgba(0,0,0,0.6); }
 .story-spine .dt { width: 10px; height: 10px; border-radius: 50%; margin: 0 auto 10px; background: rgba(255,255,255,0.75); }
@@ -2534,3 +2534,14 @@ html[data-theme="light"] .story-receipt { box-shadow: 0 0 0 1px #d9d3c6, 0 18px 
     .story-step { opacity: 1; }
     .story-step:not(.on) { display: block; }
 }
+
+/* 1.6.2: the shelf slide runs as a scroll-driven animation (no script per frame). The timeline is
+   the shelf scene itself; the inset keeps the pinned phase under the top bar, so 0% is when the
+   stage sticks and 100% is when it is about to scroll away. */
+@keyframes story-shelf-slide {
+    from { transform: translate3d(0, 0, 0); animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+    to { transform: translate3d(calc(-1 * var(--shelf-max, 0px)), 0, 0); }
+}
+.story-css-shelf .s-shelf { view-timeline-name: --story-shelf; view-timeline-axis: block; view-timeline-inset: var(--story-top) 0px; }
+.story-css-shelf .story-shelf-track { animation: story-shelf-slide linear both; animation-timeline: --story-shelf; animation-range: contain 0% contain 100%; }
+@media (prefers-reduced-motion: reduce) { .story-css-shelf .story-shelf-track { animation: none; } }
