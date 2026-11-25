@@ -483,6 +483,7 @@
                         <div id="steamImportPanel" class="steam-import" style="display:none; margin-top:10px;">
                             <p class="steam-intro">Paste the link to your Steam profile, your custom URL name or your SteamID. Your profile and its Game details need to be set to Public in Steam's privacy settings.</p>
                             <p class="hltb-note">Steam does not share when you bought a game or what you paid, so imported games come in without a purchase date and price. You will need to add those yourself.</p>
+                            <p class="steam-undo" id="steamUndoNote" hidden><span id="steamUndoText"></span> <button type="button" class="btn-chip" onclick="undoSteamImport()">Undo that import</button></p>
                             <form class="steam-form" onsubmit="loadSteamGames(); return false;">
                                 <input type="text" id="steamProfileInput" aria-label="Steam profile link or SteamID" placeholder="steamcommunity.com/id/yourname" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="200">
                                 <button type="submit" class="btn-primary" id="steamLoadBtn">Load my games</button>
@@ -644,7 +645,7 @@
                     <span id="libraryLoadErrorText" data-i18n="libraryLoadError">Couldn't load your library. Check your connection and try again.</span>
                     <button type="button" class="btn-tool" onclick="retryLoadCloudData()"><span data-i18n="retryBtn">Retry</span></button>
                 </div>
-                <div class="missing-bar" id="missingBar" hidden><span id="missingBarText"></span><button type="button" class="btn-chip" onclick="setOnlyMissing(false)">Show all games</button></div>
+                <div class="missing-bar" id="missingBar" hidden><span id="missingBarText"></span><span class="missing-bar-actions"><button type="button" class="btn-chip" id="missingUndoBtn" onclick="undoSteamImport()" hidden>Undo last import</button><button type="button" class="btn-chip" onclick="setOnlyMissing(false)">Show all games</button></span></div>
                 <div class="table-container" id="tableWrapper">
                     <table id="gamesTable">
                         <thead>
@@ -1307,7 +1308,7 @@
         <div class="footer-note" data-i18n="footerNote">Built by one person, updated when I get to it.</div>
     </div>
     <div class="footer-meta">
-        <span class="footer-build">v1.7.1, build 2026-11-25 15:13 UTC+1</span>
+        <span class="footer-build">v1.7.1, build 2026-11-25 15:29 UTC+1</span>
     </div>
 </footer>
 

@@ -1554,6 +1554,45 @@ const STEAM_ERRORS = {
 };
 let steamImport = null;
 
+// The last Steam import is remembered in this browser, so all its games can be removed in one go.
+// Removing goes through deleteGames, so the usual Undo toast can bring them back.
+function steamImportKey() { return 'steamLastImport:' + ((typeof currentUser !== 'undefined' && currentUser && currentUser.uid) || 'local'); }
+function lastSteamImport() {
+    let rec = null;
+    try { rec = JSON.parse(localStorage.getItem(steamImportKey()) || 'null'); } catch (e) {}
+    if (!rec || !Array.isArray(rec.ids)) return null;
+    const ids = new Set(rec.ids);
+    const present = games.filter(g => ids.has(g.id));
+    return present.length ? { at: rec.at, games: present } : null;
+}
+function undoSteamImport(skipConfirm) {
+    const rec = lastSteamImport();
+    if (!rec) { showToastText('Nothing from the last Steam import is left to remove.'); return; }
+    const n = rec.games.length;
+    const edited = rec.games.filter(g => hasPrice(g) || hasDate(g)).length;
+    if (!skipConfirm) {
+        const msg = `Remove the ${n} ${n === 1 ? 'game' : 'games'} added by your last Steam import?` +
+            (edited ? ` ${edited} of them already ${edited === 1 ? 'has' : 'have'} a price or date you added.` : '');
+        if (!confirm(msg)) return;
+    }
+    const ids = new Set(rec.games.map(g => g.id));
+    deleteGames(games.map((g, i) => ids.has(g.id) ? i : -1).filter(i => i > -1));
+    renderSteamUndoNote();
+}
+function renderSteamUndoNote() {
+    const rec = lastSteamImport();
+    const n = rec ? rec.games.length : 0;
+    const label = n ? `Undo last import (${n})` : '';
+    ['steamUndoNote', 'missingUndoBtn'].forEach(id => { const el = $(id); if (el) el.hidden = !n; });
+    const txt = $('steamUndoText');
+    if (txt && n) {
+        const when = rec.at ? new Date(rec.at).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+        txt.textContent = `Your last import${when ? ` on ${when}` : ''} added ${n} ${n === 1 ? 'game' : 'games'} that ${n === 1 ? 'is' : 'are'} still in your library.`;
+    }
+    const mb = $('missingUndoBtn');
+    if (mb && n) mb.textContent = label;
+}
+
 // every "Import from Steam" button: home page, add form open, panel in view
 function openSteamImport() {
     if (!$('view-home').classList.contains('active')) showView('home');
@@ -1583,6 +1622,7 @@ function toggleSteamImport(forceState) {
     if (show) {
         const inp = $('steamProfileInput');
         try { const last = localStorage.getItem('steamProfile'); if (last && !inp.value) inp.value = last; } catch (e) {}
+        renderSteamUndoNote();
         setTimeout(() => inp.focus({ preventScroll: true }), 60);
     } else {
         steamImport = null;
@@ -1794,9 +1834,10 @@ function commitSteamImport() {
         persistData();
     }
     if (added) {
+        try { localStorage.setItem(steamImportKey(), JSON.stringify({ at: Date.now(), ids: newlyAdded.map(g => g.id) })); } catch (e) {}
         toggleAddForm(false);
         setOnlyMissing(true);
-        showToastText(`${added} ${added === 1 ? 'game' : 'games'} added from Steam. Add a purchase date and price to each one.${skipped ? ` ${skipped} skipped.` : ''}`);
+        showUndoToast(`${added} ${added === 1 ? 'game' : 'games'} added from Steam. Add a purchase date and price to each one.${skipped ? ` ${skipped} skipped.` : ''}`, () => setTimeout(() => undoSteamImport(true), 0));
     } else {
         showToastText(ticked.size ? `Nothing was added (${skipped} skipped).` : 'No games were added.');
     }
@@ -2664,6 +2705,7 @@ function updateMissingBar() {
     const n = games.filter(isIncomplete).length;
     if (onlyMissing && !n) onlyMissing = false;
     bar.hidden = !onlyMissing;
+    if (onlyMissing) renderSteamUndoNote();
     if (onlyMissing) $('missingBarText').textContent = `Showing ${n} ${n === 1 ? 'game' : 'games'} without a purchase date or price. Edit each one to add them.`;
 }
 
