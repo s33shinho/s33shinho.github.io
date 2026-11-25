@@ -2545,3 +2545,44 @@ html[data-theme="light"] .story-receipt { box-shadow: 0 0 0 1px #d9d3c6, 0 18px 
 .story-css-shelf .s-shelf { view-timeline-name: --story-shelf; view-timeline-axis: block; view-timeline-inset: var(--story-top) 0px; }
 .story-css-shelf .story-shelf-track { animation: story-shelf-slide linear both; animation-timeline: --story-shelf; animation-range: contain 0% contain 100%; }
 @media (prefers-reduced-motion: reduce) { .story-css-shelf .story-shelf-track { animation: none; } }
+
+/* Import from Steam */
+.steam-intro { font-size: 13px; color: var(--text-main); margin: 0 0 8px; line-height: 1.5; }
+.steam-form { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.steam-form input { flex: 1 1 260px; min-width: 0; }
+.steam-form .btn-primary, .steam-form .btn-tool { width: auto; padding: 0 16px; }
+.steam-status { margin: 10px 0 0; font-size: 13px; color: var(--text-main); line-height: 1.5; }
+.steam-status-err { color: var(--err); }
+#steamImportResult { margin-top: 16px; }
+.steam-head { margin: 0 0 14px; font-size: 14px; color: var(--text-main); line-height: 1.5; }
+.steam-head b { color: var(--text-white); }
+.steam-group { margin: 0 0 16px; }
+.steam-group-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+.steam-group h5 { margin: 0; font-size: 13px; font-weight: 600; color: var(--text-light); }
+.steam-pick { display: flex; gap: 6px; }
+.steam-sub { margin: 0 0 8px; font-size: 12.5px; color: var(--text-dim); line-height: 1.5; }
+.steam-list { list-style: none; margin: 0; padding: 0; max-height: 340px; overflow-y: auto; border-top: 1px solid var(--border); }
+.steam-item { border-bottom: 1px solid var(--border); }
+.steam-item label, .steam-list-plain .steam-item { display: flex; align-items: baseline; gap: 10px; padding: 7px 2px; font-size: 13.5px; cursor: pointer; }
+.steam-list-plain .steam-item { cursor: default; }
+.steam-item input[type="checkbox"] { flex: none; align-self: center; margin: 0; }
+.steam-name { flex: 1 1 auto; min-width: 0; color: var(--text-white); overflow-wrap: anywhere; }
+.steam-meta { flex: none; max-width: 50%; font-size: 12px; color: var(--text-dim); text-align: right; }
+.steam-fold > summary { cursor: pointer; font-size: 13px; font-weight: 600; color: var(--text-light); padding: 4px 0 8px; }
+.steam-fold[open] > summary { margin-bottom: 4px; }
+.steam-warn { margin-top: 4px; }
+.steam-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.steam-actions .btn-primary, .steam-actions .btn-tool { width: auto; padding: 0 16px; }
+@media (max-width: 640px) {
+    .steam-item label, .steam-list-plain .steam-item { flex-wrap: wrap; padding: 10px 2px; font-size: 15px; }
+    .steam-meta { flex-basis: 100%; max-width: none; text-align: left; padding-left: 26px; }
+    .steam-list-plain .steam-meta { padding-left: 0; }
+    .steam-list { max-height: 420px; }
+    .steam-form .btn-primary { flex: 1 1 auto; }
+}
+
+/* games without a date or price */
+.cell-missing { color: var(--text-dim); font-size: 12.5px; }
+.missing-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 14px; margin: 0 0 12px; padding: 10px 12px; border: 1px solid var(--border-light); border-radius: var(--r-md); font-size: 13px; color: var(--text-main); }
+.missing-bar[hidden] { display: none; }
+.check-filter { margin-top: 2px; }
