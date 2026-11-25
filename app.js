@@ -1107,10 +1107,18 @@ form.addEventListener('submit', function (e) {
     persistData();
 });
 
+// welcome page for a new, empty library: greets the user by nickname when there is one
+function renderFirstRunHello() {
+    const el = $('firstRunHello');
+    if (!el) return;
+    const nick = (typeof userProfile !== 'undefined' && userProfile && userProfile.nickname) || '';
+    el.textContent = nick ? `Welcome to Backlog Wallet, ${nick}` : 'Welcome to Backlog Wallet';
+}
+
 // first-run buttons: open the add form on the right part
 function firstRunStart(mode) {
     toggleAddForm(true);
-    if (mode === 'steam') { toggleSteamImport(true); setTimeout(() => { const p = $('steamImportPanel'); if (p) p.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 160); }
+    if (mode === 'steam') { openSteamImport(); return; }
     else if (mode === 'paste') { if (typeof toggleSmartImport === 'function') toggleSmartImport(true); setTimeout(() => { const ta = $('smartImportTextarea'); if (ta) ta.focus(); }, 160); }
     else setTimeout(() => { const n = $('gameName'); if (n) n.focus(); }, 160);
 }
@@ -1543,6 +1551,27 @@ const STEAM_ERRORS = {
     upstream: 'Steam did not answer. Try again in a moment.'
 };
 let steamImport = null;
+
+// every "Import from Steam" button: home page, add form open, panel in view
+function openSteamImport() {
+    if (!$('view-home').classList.contains('active')) showView('home');
+    toggleAddForm(true);
+    toggleSteamImport(true);
+    setTimeout(() => { const p = $('steamImportPanel'); if (p) p.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 160);
+}
+
+// existing libraries that were never compared with Steam get a one-time hint on the home page
+function renderSteamTip() {
+    const tip = $('steamTip');
+    if (!tip) return;
+    let dismissed = false;
+    try { dismissed = localStorage.getItem('steamTipDismissed') === '1'; } catch (e) {}
+    tip.hidden = dismissed || !libraryReady || !games.length || games.some(g => g.steamAppId);
+}
+function dismissSteamTip() {
+    try { localStorage.setItem('steamTipDismissed', '1'); } catch (e) {}
+    renderSteamTip();
+}
 
 function toggleSteamImport(forceState) {
     const panel = $('steamImportPanel');
@@ -2397,6 +2426,8 @@ function renderTable() {
     $('gamesTable').classList.toggle('one-currency', games.length > 0 && games.every(g => g.currency === curNow));
     renderBacklogHealth();
     renderOnThisDay();
+    renderSteamTip();
+    renderFirstRunHello();
     updateMissingBar();
 
     ['name','source','ownership','date','price','priceChf'].forEach(k => {
