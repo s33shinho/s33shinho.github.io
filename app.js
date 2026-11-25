@@ -92,11 +92,11 @@ fldStatus: "Completion status (optional)", statusNone: "- not set -", statusComp
         emptyLib: "No games yet. Add the first one with the form above.", bulkAddBtn: "Add multiple games", bulkAddHint: "Paste one game per line, in the format: Title;Price;Currency;Source;Date (YYYY-MM-DD). Currency, Source and Date are optional: without them your default currency and store and today's date are used.", bulkAddSubmit: "Add all", bulkAddResult: "Games added: {added} (skipped invalid lines: {skipped})", bulkAddNone: "No valid entries found to add.", hideList: "Hide list", showList: "Show list", expandList: "Expand list", collapseList: "Collapse list", filterAllSources: "All sources", navRates: "Exchange rates", ratesColCurrency: "Currency", ratesColRate: "Rate per 1 EUR", ratesBaseNote: "All rates are shown relative to 1 EUR (base currency).", ratesUpdated: "Updated", scrollTopTitle: "Back to top", changePasswordBtn: "Change password", currentPassword: "Current password", newPassword: "New password", newPasswordConfirm: "Confirm new password", changePasswordSubmit: "Change password", passwordMismatch: "The passwords do not match.", passwordChanged: "Password updated.",
         confirmDuplicate: "A game with this name is already in your library. Add it again anyway?", advFiltersToggle: "Advanced filters", priceMin: "Price from", priceMax: "Price to", dateFrom: "Date from", dateTo: "Date to", resetFilters: "Clear filters", bulkAddResultDup: "Games added: {added} (invalid lines: {skipped}, duplicates: {dup})", bulkAddAllDup: "All pasted games ({dup}) are already in your library, so nothing was added.", navAchievements: "Achievements", achievementsDesc: "Unlock badges as you grow your game library.", achUnlocked: "Unlocked", achLocked: "Locked", achMaxLevel: "Max level!", achLevel: "Level {level}/{max}", achFirstGameT: "First Step", achFirstGameD: "Add your first game to the library.", achCollectorT: "Collector", achCollectorD: "Own {target} games in your library.", achDiversityT: "Multi-Platform", achDiversityD: "Own games from {target} different platforms.", achFinisherT: "Finisher", achFinisherD: "Complete {target} games from your library.", achPhysicalT: "Box Collector", achPhysicalD: "Own {target} physical games.", achInvestorT: "Big Investor", achInvestorD: "Reach a library value of {target}.", achDreamT: "Dream Fulfilled", achDreamD: "Reach at least one savings goal.", achCurrenciesT: "Multi-Currency", achCurrenciesD: "Buy games in {target} different currencies.", achVeteranT: "Collection Veteran", achVeteranD: "Keep your library going for {target}.", achBalancedT: "Balanced Collection", achBalancedD: "Own both digital and physical games in your library.", navRoulette: "What to play?", rouletteDesc: "Can't decide what to play tonight? Roll the dice on your backlog.", rouletteBtn: "Pick a game", rouletteRerollBtn: "Pick another", rouletteEmptyLib: "No games to pick from yet. Add a few first.", rouletteAllDone: "No games are marked Not completed. Give some games that status and there will be something to pick from.", roulettePlatformAll: "All sources", navSectionLibrary: "Your library", navSectionTools: "More",
         navTerms: "Terms & Conditions", navPrivacy: "Privacy Policy", rememberMe: "Remember me", footerContact: "Contact", cookieConsentText: "No tracking or ad cookies. Your login and settings are kept in this browser.", cookieMoreInfo: "More information", cookieAcceptBtn: "OK",
-        faqHtml: "<h3>Is it free?</h3><p>Yes. It is a hobby project. You need an account to use it, and the account is free.</p><h3>Can I import my Steam purchases?</h3><p>Sort of. Steam has no official export, but Smart import lets you paste your purchase history (or any order list) and it picks out titles, prices and dates. You review the result before anything is added.</p><h3>I buy in different currencies. Does that work?</h3><p>Yes. Each game keeps the price and currency you paid in. Totals are converted with live rates from open.er-api.com, and if that service is down the app falls back to saved rates.</p><h3>Where is my data stored?</h3><p>In Firebase (Google Cloud), behind access rules, so only your account can read your library. You can download everything as JSON at any time.</p><h3>What happens if I delete my account?</h3><p>Everything is removed. The app downloads a backup of your data first, so you can import it again later if you change your mind.</p><h3>Can I switch between light and dark?</h3><p>Yes, with the moon/sun button at the top. You can also set your nickname and preferred currency in your account.</p><h3>Can I cheat the ranking?</h3><p>Not easily, but it is not impossible either. Your entry is worked out from your own library in your browser, and obviously broken values are rejected, but a determined person could still fake one. It is a ranking for fun, and entries that look fake can be removed.</p><h3>I found a bug or have an idea.</h3><p>Use Feedback &amp; contact in the footer. The e-mail address is on that page too.</p>",
+        faqHtml: "<h3>Is it free?</h3><p>Yes. It is a hobby project. You need an account to use it, and the account is free.</p><h3>Can I import my Steam purchases?</h3><p>Two ways. Import from Steam reads the games on your Steam account (the profile and its game details must be public), but Steam does not share purchase dates or prices, so you add those yourself. Smart import lets you paste your Steam purchase history (or any order list) and picks out titles, prices and dates. Either way you review the result before anything is added.</p><h3>I buy in different currencies. Does that work?</h3><p>Yes. Each game keeps the price and currency you paid in. Totals are converted with live rates from open.er-api.com, and if that service is down the app falls back to saved rates.</p><h3>Where is my data stored?</h3><p>In Firebase (Google Cloud), behind access rules, so only your account can read your library. You can download everything as JSON at any time.</p><h3>What happens if I delete my account?</h3><p>Everything is removed. The app downloads a backup of your data first, so you can import it again later if you change your mind.</p><h3>Can I switch between light and dark?</h3><p>Yes, with the moon/sun button at the top. You can also set your nickname and preferred currency in your account.</p><h3>Can I cheat the ranking?</h3><p>Not easily, but it is not impossible either. Your entry is worked out from your own library in your browser, and obviously broken values are rejected, but a determined person could still fake one. It is a ranking for fun, and entries that look fake can be removed.</p><h3>I found a bug or have an idea.</h3><p>Use Feedback &amp; contact in the footer. The e-mail address is on that page too.</p>",
         yrYearLabel: "Year", yrCompareLabel: "Compare with", yrCompareNone: "— no comparison —", yrAllYearsBtn: "All years", yrCompareHeading: "Year comparison", yrAllYearsHeading: "Spending year by year", yrAvgPrice: "Average game price", yrCompletedLabel: "Completed games", yrVsTitle: "{a} compared with {b}",
         donateHtml: "<p>Backlog Wallet is free and has no ads. I build it in my spare time, and if it is useful to you, you can buy me a coffee.</p><p><a class='donate-link' href='https://buymeacoffee.com/backlogwallet' target='_blank' rel='noopener'>Buy Me a Coffee</a></p><p>Thank you.</p>",
         termsHtml: "<p><em>Last updated: 16 November 2026</em></p><h3>1. General</h3><p>These Terms govern the use of Backlog Wallet (the \"App\"). By creating an account or using the App you accept them. How we handle personal data is described in the <a href='#' onclick=\"showView('privacy'); return false;\">Privacy Policy</a>.</p><h3>2. The service</h3><p>The App is a free tool for personal tracking of video game purchases, built and run by an individual as a hobby project. It is not affiliated with, endorsed by or connected to Valve Corporation, Steam or any other store or platform named in it; those names are used only to describe where you bought a game.</p><h3>3. Who can use it</h3><p>You must be at least 16 years old to create an account. An account is required to use the App.</p><h3>4. Your account</h3><p>Give a working e-mail address and keep your password confidential; you are responsible for activity under your account. One person, one account. You can delete your account and data yourself at any time in \"Your account\".</p><h3>5. Nicknames and shared content</h3><p>Your nickname can be shown publicly if you join the ranking or share your library. Do not use a nickname or enter content that is unlawful, offensive, misleading, impersonates someone else or contains other people's personal data. We may change or remove such content.</p><h3>6. Acceptable use</h3><ul><li>No unlawful use.</li><li>No attempts to compromise the security of the App or its infrastructure, to scrape it at scale, to overload it or to manipulate the ranking.</li><li>You are responsible for the data you enter.</li></ul><h3>7. Suspension and termination</h3><p>We may suspend or delete an account that breaks these Terms or harms the App or other users, normally after notifying you at your e-mail address unless that is not possible or appropriate. You may stop using the App and delete your account at any time.</p><h3>8. Availability and changes to the App</h3><p>The App is provided as a hobby project without a guaranteed level of availability. Features may change or be removed, or the service may be discontinued; we will try to announce this in advance and you can export your data at any time.</p><h3>9. Third-party services and donations</h3><p>Currency rates and some other parts of the App come from third parties and may be inaccurate or unavailable. Donations through Buy Me a Coffee are voluntary, are handled by that service and give no additional rights or features.</p><h3>10. Ownership</h3><p>The App's design and code belong to its author. Your data remains yours; you allow us to store and process it only to run the App for you.</p><h3>11. Liability</h3><p>The App is provided \"as is\". To the extent the law allows, we are not liable for data loss or for indirect losses. Nothing in these Terms limits liability that cannot be limited by law, such as liability for intent or gross negligence or for injury to life, body or health, or your mandatory rights as a consumer.</p><h3>12. Changes to these Terms</h3><p>We may update these Terms. The date at the top shows the latest version and significant changes are listed in the changelog. If you do not agree to a change, you can delete your account; continuing to use the App after the change means you accept it.</p><h3>13. Governing law</h3><p>These Terms are governed by the law of the country where the administrator is established, without depriving you of the mandatory consumer protection of the country where you live.</p><h3>14. Contact</h3><p>Questions about these Terms: <a href='mailto:info@backlogwallet.com'>info@backlogwallet.com</a> or the Feedback &amp; contact page.</p>",
-        privacyHtml: "<p><em>Last updated: 20 November 2026</em></p><div class='policy-summary'><strong>In short</strong><ul><li>We keep your e-mail, nickname and game library so the app can sync them between your devices.</li><li>Nothing is sold. No ads and no tracking cookies; visits are only counted anonymously.</li><li>The public ranking and the public link are off until you switch them on.</li><li>Google (Firebase) stores the data; Cloudflare and GitHub host the site.</li><li>You can export or delete everything yourself under Your account, or write to info@backlogwallet.com.</li></ul><p>The full text follows.</p></div><h3>1. Who is responsible</h3><p>Backlog Wallet is a small, non-commercial project run by an individual developer, who is the data controller for the personal data described here. You can reach us at <a href='mailto:info@backlogwallet.com'>info@backlogwallet.com</a> or through the Feedback &amp; contact page.</p><h3>2. What data we process</h3><ul><li><strong>Account:</strong> your e-mail address, your password (handled by Firebase Authentication; we never see it in plain text), your nickname, your library, savings goals, display settings (currency, theme, default store and currency for new games), the date you registered, whether your e-mail is verified, and the time you accepted these terms. A record linking your nickname to your account ID (not your e-mail address) is kept so that nicknames stay unique.</li><li><strong>Public ranking (optional, off by default):</strong> only if you switch it on in your account, your nickname, the total value of your library in EUR and your number of games are shown to other signed-in users on the Ranking page.</li><li><strong>Public sharing (optional, off by default):</strong> only if you switch it on, anyone who has your link can see your nickname and game list (never your e-mail).</li><li><strong>Feedback form:</strong> the subject and message you type (and any contact details you include) are sent to us by e-mail through Web3Forms. Please do not include sensitive data.</li><li><strong>Visit statistics:</strong> Cloudflare Web Analytics measures page views and page-load speed. It uses no cookies, does not follow you across other sites and does not build profiles of visitors.</li><li><strong>Server logs:</strong> our hosting providers (Cloudflare and GitHub) process technical request data such as your IP address and browser type to deliver and protect the site. We do not have access to these logs for profiling.</li><li><strong>What we do not do:</strong> we do not use advertising or profiling tools, we do not build profiles, and we make no automated decisions about you. We no longer determine your country from your IP address; a value stored earlier is deleted automatically the next time you log in.</li></ul><h3>3. Cookies and local storage</h3><p>The site sets no tracking or advertising cookies. It uses your browser's local storage (and, for the login session, the storage of the Firebase Authentication library) only for technical purposes you asked for or that are needed to run the app: theme, currency, the latest exchange rates (so totals appear faster), whether amounts are hidden, your \"remember me\" choice, dismissed hints, menu state, a short anti-spam timer, the fact that you have seen the storage notice, and your login session. Because this storage is strictly necessary or requested by you, no consent banner is required; the notice only informs you. You can clear it at any time in your browser settings, or right here: <a href='#' onclick='clearLocalData(); return false;'>clear local data on this device</a> (this removes everything this site has saved on this device and signs you out; your account data is not affected).</p><h3>4. Services we use and who receives data</h3><ul><li><strong>Google (Firebase Authentication and Cloud Firestore):</strong> stores accounts and libraries. The Firestore database is located in the European Union (multi-region eur3: Belgium and the Netherlands).</li><li><strong>Cloudflare:</strong> DNS and security proxy in front of the site, and anonymous visit statistics (Web Analytics). <strong>GitHub (GitHub Pages):</strong> hosts the site files.</li><li><strong>Web3Forms:</strong> forwards feedback messages to our inbox.</li><li><strong>Resources loaded by your browser:</strong> the Firebase code from Google (gstatic.com) and currency rates from open.er-api.com. When the page loads, these providers receive your IP address and basic browser information, as with any website resource.</li><li><strong>Buy Me a Coffee:</strong> only if you click the donation link; its own privacy policy then applies.</li></ul><p>We do not sell your data and do not share it for marketing. Your data is not made public except through the optional ranking and sharing features above.</p><h3>5. Legal bases (GDPR)</h3><ul><li><strong>Contract (Art. 6(1)(b)):</strong> running your account and syncing your library.</li><li><strong>Consent (Art. 6(1)(a)):</strong> the public ranking and public sharing. You can withdraw consent at any time by switching the option off; the ranking entry is then deleted.</li><li><strong>Legitimate interest (Art. 6(1)(f)):</strong> keeping the site secure and available, preventing abuse, anonymous visit statistics, loading the third-party resources listed above, and answering your messages.</li></ul><h3>6. How long we keep data</h3><p>Account and library data: until you delete your account. Ranking entry: until you switch it off or delete your account. Deleting your account from \"Your account\" removes your sign-in account, profile, library, public link, ranking entry and nickname record; copies may remain in provider backups for a limited period under the provider's own rules. Feedback e-mails: up to 12 months after your last message, then they are deleted. Local browser data: until you clear it.</p><h3>7. International transfers</h3><p>Google, Cloudflare, GitHub and Web3Forms may process data outside the EEA/Switzerland, including in the United States. Where this happens we rely on the provider's safeguards, such as the EU-US Data Privacy Framework certification and/or Standard Contractual Clauses.</p><h3>8. Your rights</h3><p>You have the right to access, rectify, erase and port your data, to restrict or object to processing, and to withdraw consent. Export and deletion are available to you directly in \"Your account\"; for anything else write to <a href='mailto:info@backlogwallet.com'>info@backlogwallet.com</a> and we will answer within one month. You may complain to the data-protection supervisory authority in your country of residence (for example UODO in Poland, the FDPIC in Switzerland).</p><h3>9. Age</h3><p>The App is not intended for children. You must be at least 16 years old to create an account.</p><h3>10. Security</h3><p>Data is transmitted over HTTPS and stored with Firebase's security features and access rules; no method of transmission or storage is 100% secure. Your library and profile can be read only by you and by the site administrator, apart from what you choose to make public. The administrator uses them for support, handling abuse and deletion requests, and for the aggregate figures shown in the admin panel.</p><h3>11. Changes</h3><p>If we change this policy, the date at the top is updated and significant changes are listed in the changelog.</p>",
+        privacyHtml: "<p><em>Last updated: 25 November 2026</em></p><div class='policy-summary'><strong>In short</strong><ul><li>We keep your e-mail, nickname and game library so the app can sync them between your devices.</li><li>Nothing is sold. No ads and no tracking cookies; visits are only counted anonymously.</li><li>The public ranking and the public link are off until you switch them on.</li><li>Google (Firebase) stores the data; Cloudflare and GitHub host the site.</li><li>You can export or delete everything yourself under Your account, or write to info@backlogwallet.com.</li></ul><p>The full text follows.</p></div><h3>1. Who is responsible</h3><p>Backlog Wallet is a small, non-commercial project run by an individual developer, who is the data controller for the personal data described here. You can reach us at <a href='mailto:info@backlogwallet.com'>info@backlogwallet.com</a> or through the Feedback &amp; contact page.</p><h3>2. What data we process</h3><ul><li><strong>Account:</strong> your e-mail address, your password (handled by Firebase Authentication; we never see it in plain text), your nickname, your library, savings goals, display settings (currency, theme, default store and currency for new games), the date you registered, whether your e-mail is verified, and the time you accepted these terms. A record linking your nickname to your account ID (not your e-mail address) is kept so that nicknames stay unique.</li><li><strong>Public ranking (optional, off by default):</strong> only if you switch it on in your account, your nickname, the total value of your library in EUR and your number of games are shown to other signed-in users on the Ranking page.</li><li><strong>Public sharing (optional, off by default):</strong> only if you switch it on, anyone who has your link can see your nickname and game list (never your e-mail).</li><li><strong>Feedback form:</strong> the subject and message you type (and any contact details you include) are sent to us by e-mail through Web3Forms. Please do not include sensitive data.</li><li><strong>Import from Steam (optional):</strong> if you use it, the Steam profile link or ID you type is sent through our Cloudflare server to the Steam Web API (Valve) to read the list of games on that account. The link is not stored on our server; the answer is kept in Cloudflare's cache for up to 5 minutes. Only the games you choose to add are saved in your library, each with its Steam app number, so a later import recognises them.</li><li><strong>Visit statistics:</strong> Cloudflare Web Analytics measures page views and page-load speed. It uses no cookies, does not follow you across other sites and does not build profiles of visitors.</li><li><strong>Server logs:</strong> our hosting providers (Cloudflare and GitHub) process technical request data such as your IP address and browser type to deliver and protect the site. We do not have access to these logs for profiling.</li><li><strong>What we do not do:</strong> we do not use advertising or profiling tools, we do not build profiles, and we make no automated decisions about you. We no longer determine your country from your IP address; a value stored earlier is deleted automatically the next time you log in.</li></ul><h3>3. Cookies and local storage</h3><p>The site sets no tracking or advertising cookies. It uses your browser's local storage (and, for the login session, the storage of the Firebase Authentication library) only for technical purposes you asked for or that are needed to run the app: theme, currency, the latest exchange rates (so totals appear faster), whether amounts are hidden, your \"remember me\" choice, dismissed hints, menu state, a short anti-spam timer, the Steam profile link you last imported from, the fact that you have seen the storage notice, and your login session. Because this storage is strictly necessary or requested by you, no consent banner is required; the notice only informs you. You can clear it at any time in your browser settings, or right here: <a href='#' onclick='clearLocalData(); return false;'>clear local data on this device</a> (this removes everything this site has saved on this device and signs you out; your account data is not affected).</p><h3>4. Services we use and who receives data</h3><ul><li><strong>Google (Firebase Authentication and Cloud Firestore):</strong> stores accounts and libraries. The Firestore database is located in the European Union (multi-region eur3: Belgium and the Netherlands).</li><li><strong>Cloudflare:</strong> DNS and security proxy in front of the site, and anonymous visit statistics (Web Analytics). <strong>GitHub (GitHub Pages):</strong> hosts the site files.</li><li><strong>Web3Forms:</strong> forwards feedback messages to our inbox.</li><li><strong>Valve (Steam Web API):</strong> only if you use Import from Steam; it receives the Steam account being looked up, from our server, not your IP address or e-mail.</li><li><strong>Resources loaded by your browser:</strong> the Firebase code from Google (gstatic.com) and currency rates from open.er-api.com. When the page loads, these providers receive your IP address and basic browser information, as with any website resource.</li><li><strong>Buy Me a Coffee:</strong> only if you click the donation link; its own privacy policy then applies.</li></ul><p>We do not sell your data and do not share it for marketing. Your data is not made public except through the optional ranking and sharing features above.</p><h3>5. Legal bases (GDPR)</h3><ul><li><strong>Contract (Art. 6(1)(b)):</strong> running your account and syncing your library.</li><li><strong>Consent (Art. 6(1)(a)):</strong> the public ranking and public sharing. You can withdraw consent at any time by switching the option off; the ranking entry is then deleted.</li><li><strong>Legitimate interest (Art. 6(1)(f)):</strong> keeping the site secure and available, preventing abuse, anonymous visit statistics, loading the third-party resources listed above, and answering your messages.</li></ul><h3>6. How long we keep data</h3><p>Account and library data: until you delete your account. Ranking entry: until you switch it off or delete your account. Deleting your account from \"Your account\" removes your sign-in account, profile, library, public link, ranking entry and nickname record; copies may remain in provider backups for a limited period under the provider's own rules. Feedback e-mails: up to 12 months after your last message, then they are deleted. Local browser data: until you clear it.</p><h3>7. International transfers</h3><p>Google, Cloudflare, GitHub, Web3Forms and Valve may process data outside the EEA/Switzerland, including in the United States. Where this happens we rely on the provider's safeguards, such as the EU-US Data Privacy Framework certification and/or Standard Contractual Clauses.</p><h3>8. Your rights</h3><p>You have the right to access, rectify, erase and port your data, to restrict or object to processing, and to withdraw consent. Export and deletion are available to you directly in \"Your account\"; for anything else write to <a href='mailto:info@backlogwallet.com'>info@backlogwallet.com</a> and we will answer within one month. You may complain to the data-protection supervisory authority in your country of residence (for example UODO in Poland, the FDPIC in Switzerland).</p><h3>9. Age</h3><p>The App is not intended for children. You must be at least 16 years old to create an account.</p><h3>10. Security</h3><p>Data is transmitted over HTTPS and stored with Firebase's security features and access rules; no method of transmission or storage is 100% secure. Your library and profile can be read only by you and by the site administrator, apart from what you choose to make public. The administrator uses them for support, handling abuse and deletion requests, and for the aggregate figures shown in the admin panel.</p><h3>11. Changes</h3><p>If we change this policy, the date at the top is updated and significant changes are listed in the changelog.</p>",
     }
 };
 
@@ -156,7 +156,8 @@ function isSuspiciousGameName(name) {
 }
 
 const MAX_PRICE_CHF = 2000;
-const MAX_GAMES = 3000;               // one library has to fit into a single database document
+const MAX_GAMES = 3000;
+let onlyMissing = false;              // library list shows only games without a date or price               // one library has to fit into a single database document
 const MAX_IMPORT_BYTES = 2 * 1024 * 1024;
 function findDuplicateIndex(name, excludeIndex) {
     const norm = (name || '').trim().toLowerCase();
@@ -1090,6 +1091,7 @@ form.addEventListener('submit', function (e) {
     if (editingIndex > -1) {
         const prev = games[editingIndex];
         gameData.id = prev.id || gameData.id;
+        if (prev.steamAppId) gameData.steamAppId = prev.steamAppId;
         // same price and currency: keep the value from the day it was bought instead of re-pricing it at today's rate
         if (Number(prev.price) === price && prev.currency === currency && Number(prev.priceChf) > 0) gameData.priceChf = Number(prev.priceChf);
         games[editingIndex] = gameData;
@@ -1108,7 +1110,8 @@ form.addEventListener('submit', function (e) {
 // first-run buttons: open the add form on the right part
 function firstRunStart(mode) {
     toggleAddForm(true);
-    if (mode === 'paste') { if (typeof toggleSmartImport === 'function') toggleSmartImport(true); setTimeout(() => { const ta = $('smartImportTextarea'); if (ta) ta.focus(); }, 160); }
+    if (mode === 'steam') { toggleSteamImport(true); setTimeout(() => { const p = $('steamImportPanel'); if (p) p.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 160); }
+    else if (mode === 'paste') { if (typeof toggleSmartImport === 'function') toggleSmartImport(true); setTimeout(() => { const ta = $('smartImportTextarea'); if (ta) ta.focus(); }, 160); }
     else setTimeout(() => { const n = $('gameName'); if (n) n.focus(); }, 160);
 }
 
@@ -1527,6 +1530,246 @@ function toggleSmartImport(forceState) {
     }
 }
 
+// ---- Import from Steam: the games on a public Steam account, without dates or prices ----
+// The list comes from the Steam Web API through backlogwallet.com/api/steam (tools/steam-worker.js).
+// Steam does not share when a game was bought or what was paid, so those stay empty until you add them.
+const STEAM_API_URL = '/api/steam';
+const STEAM_ERRORS = {
+    bad_input: "That doesn't look like a Steam profile. Paste a link such as steamcommunity.com/id/yourname or steamcommunity.com/profiles/7656...",
+    not_found: 'No Steam account was found for that link or name.',
+    private: 'This Steam profile is private. In Steam, open Edit Profile, then Privacy Settings, set My profile to Public and try again.',
+    games_private: 'The profile is public, but its game list is not. In Steam\'s Privacy Settings, set Game details to Public. You can switch it back after the import.',
+    busy: 'Steam is busy right now. Wait a minute and try again.',
+    upstream: 'Steam did not answer. Try again in a moment.'
+};
+let steamImport = null;
+
+function toggleSteamImport(forceState) {
+    const panel = $('steamImportPanel');
+    if (!panel) return;
+    const show = forceState !== undefined ? forceState : panel.style.display === 'none';
+    panel.style.display = show ? 'block' : 'none';
+    if (show) {
+        const inp = $('steamProfileInput');
+        try { const last = localStorage.getItem('steamProfile'); if (last && !inp.value) inp.value = last; } catch (e) {}
+        setTimeout(() => inp.focus({ preventScroll: true }), 60);
+    } else {
+        steamImport = null;
+        $('steamImportResult').innerHTML = '';
+        $('steamImportResult').hidden = true;
+        setSteamStatus('');
+    }
+}
+
+function setSteamStatus(msg, isErr) {
+    const el = $('steamImportStatus');
+    if (!el) return;
+    el.textContent = msg || '';
+    el.hidden = !msg;
+    el.classList.toggle('steam-status-err', !!isErr);
+}
+
+function steamCleanName(n) {
+    return String(n || '').replace(/[™®©]/g, '').replace(/\s+/g, ' ').trim().slice(0, 100);
+}
+
+async function loadSteamGames() {
+    const input = ($('steamProfileInput').value || '').trim();
+    if (!input) { setSteamStatus('Paste the link to your Steam profile first.', true); return; }
+    const btn = $('steamLoadBtn');
+    btn.disabled = true;
+    $('steamImportResult').hidden = true;
+    setSteamStatus('Loading your Steam library...');
+    let data = null, status = 0;
+    try {
+        const res = await fetch(STEAM_API_URL, {
+            method: 'POST', credentials: 'omit',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ profile: input })
+        });
+        status = res.status;
+        data = await res.json().catch(() => null);
+    } catch (e) { data = null; }
+    btn.disabled = false;
+    if (!data) {
+        setSteamStatus(status ? 'Import from Steam is not available right now. Try again later.' : 'Could not connect. Check your internet connection and try again.', true);
+        return;
+    }
+    if (data.error || !Array.isArray(data.games)) { setSteamStatus(STEAM_ERRORS[data.error] || STEAM_ERRORS.upstream, true); return; }
+    try { localStorage.setItem('steamProfile', input); } catch (e) {}
+    steamImport = matchSteamGames(data);
+    setSteamStatus('');
+    renderSteamImport();
+}
+
+// Sorts every Steam game into: new (not in the library), owned (already there) or check
+// (a similar title is there, e.g. "Half-Life" for "Half-Life 2", so you decide).
+// Titles are compared the way Library check compares them: edition words dropped, then equal.
+// Only Steam and key-store entries can stand for a Steam copy; the same game on a console is a second copy.
+const STEAM_LIKE_SOURCES = ['Steam', 'Kluczykarnia'];
+function matchSteamGames(data) {
+    const steamLike = (g) => STEAM_LIKE_SOURCES.includes(g.source || 'Steam');
+    const lib = games.map(g => ({ g, key: titleKey(g.name) }));
+    const byApp = new Map();
+    lib.forEach(x => { const a = Number(x.g.steamAppId); if (a && !byApp.has(a)) byApp.set(a, x); });
+    const byKey = new Map();
+    lib.forEach(x => { if (x.key) { if (!byKey.has(x.key)) byKey.set(x.key, []); byKey.get(x.key).push(x); } });
+    const squash = (k) => k.replace(/ /g, '');
+    const near = (a, b) => {
+        const short = a.length < b.length ? a : b;
+        if (short.length < 4) return false;
+        return a.startsWith(b + ' ') || b.startsWith(a + ' ') || squash(a) === squash(b);
+    };
+    const linking = new Set();      // library games that get a Steam app id in this import
+    const matchedLib = new Set();   // library games that stand for something on the account
+    const seen = new Set();
+    const rows = [];
+    // first pass: the same app id, or the same title on Steam or a key store
+    data.games.forEach(s => {
+        const appid = Number(s.appid);
+        const name = steamCleanName(s.name);
+        if (!appid || !name || seen.has(appid)) return;
+        seen.add(appid);
+        const row = { appid, name, key: titleKey(name), minutes: Number(s.minutes) || 0, kind: 'new', libId: null, link: false, note: '' };
+        rows.push(row);
+        const byId = byApp.get(appid);
+        if (byId) { row.kind = 'owned'; row.libId = byId.g.id; matchedLib.add(byId.g.id); return; }
+        // a library game already tied to another Steam app is a different game with the same name
+        const free = (row.key ? (byKey.get(row.key) || []) : []).filter(x => !x.g.steamAppId && steamLike(x.g));
+        if (!free.length) return;
+        const unlinked = free.filter(x => !linking.has(x.g.id));
+        const pick = unlinked.find(x => (x.g.source || 'Steam') === 'Steam') || unlinked[0] || free[0];
+        row.kind = 'owned'; row.libId = pick.g.id;
+        if (!linking.has(pick.g.id)) { row.link = true; linking.add(pick.g.id); }
+        free.forEach(x => matchedLib.add(x.g.id));
+    });
+    // second pass, for what is left: a similar title you should look at, or the same game on another platform
+    rows.forEach(row => {
+        if (row.kind !== 'new' || !row.key) return;
+        const same = byKey.get(row.key) || [];
+        const sameSteam = same.find(x => steamLike(x.g));     // same name, but tied to another Steam app
+        if (sameSteam) { row.kind = 'check'; row.libId = sameSteam.g.id; matchedLib.add(sameSteam.g.id); return; }
+        const close = lib.find(x => x.key && steamLike(x.g) && !x.g.steamAppId && !linking.has(x.g.id) && !matchedLib.has(x.g.id) && near(row.key, x.key));
+        if (close) { row.kind = 'check'; row.libId = close.g.id; matchedLib.add(close.g.id); return; }
+        if (same.length) row.note = `also on ${platformMeta(same[0].g.source).label()}`;
+    });
+    const onSteam = new Set(rows.map(r => r.appid));
+    const notOnSteam = games.filter(g => (g.source || 'Steam') === 'Steam' && !matchedLib.has(g.id) &&
+        !(g.steamAppId && onSteam.has(Number(g.steamAppId)))).map(g => g.id);
+    rows.sort((a, b) => a.name.localeCompare(b.name));
+    return { persona: data.persona || '', total: rows.length, rows, notOnSteam };
+}
+
+function editGameById(id) {
+    const i = games.findIndex(g => g.id === id);
+    if (i > -1) editGame(i);
+}
+
+function renderSteamImport() {
+    const el = $('steamImportResult');
+    const S = steamImport;
+    if (!el || !S) return;
+    const libGame = (id) => games.find(g => g.id === id) || null;
+    const played = (m) => m >= 60 ? `played ${Math.round(m / 60)} h` : (m > 0 ? `played ${m} min` : 'not played');
+    const fresh = S.rows.filter(r => r.kind === 'new');
+    const check = S.rows.filter(r => r.kind === 'check');
+    const owned = S.rows.filter(r => r.kind === 'owned');
+    const item = (r, checked, note) => `<li class="steam-item"><label><input type="checkbox" class="steam-cb" data-appid="${r.appid}"${checked ? ' checked' : ''} onchange="updateSteamCommit()"><span class="steam-name">${escapeHtml(r.name)}</span><span class="steam-meta">${note}</span></label></li>`;
+    const whereNote = (g) => g && (g.source || 'Steam') !== 'Steam' ? ` on ${platformMeta(g.source).label()}` : '';
+    const who = S.persona ? `<b>${escapeHtml(S.persona)}</b> has` : 'This account has';
+    let html = `<p class="steam-head">${who} ${S.total} ${S.total === 1 ? 'game' : 'games'} on Steam: ${fresh.length} not in your library yet, ${owned.length} already in it${check.length ? `, ${check.length} to check` : ''}.</p>`;
+
+    if (fresh.length) {
+        html += `<div class="steam-group"><div class="steam-group-head"><h5>Not in your library yet <span class="check-count">${fresh.length}</span></h5>
+            <span class="steam-pick"><button type="button" class="btn-chip" onclick="steamSelectAll(true)">Select all</button><button type="button" class="btn-chip" onclick="steamSelectAll(false)">Select none</button></span></div>
+            <ul class="steam-list">${fresh.map(r => item(r, true, escapeHtml(r.note ? `${played(r.minutes)}, ${r.note}` : played(r.minutes)))).join('')}</ul></div>`;
+    }
+    if (check.length) {
+        html += `<div class="steam-group"><div class="steam-group-head"><h5>Check these <span class="check-count">${check.length}</span></h5></div>
+            <p class="steam-sub">Your library has a game with a similar title. Tick one only if it is a different game, for example a sequel.</p>
+            <ul class="steam-list">${check.map(r => { const g = libGame(r.libId); return item(r, false, g ? `you have ${escapeHtml(g.name)}${escapeHtml(whereNote(g))}` : ''); }).join('')}</ul></div>`;
+    }
+    if (owned.length) {
+        html += `<details class="steam-group steam-fold"><summary>Already in your library <span class="check-count">${owned.length}</span></summary>
+            <ul class="steam-list steam-list-plain">${owned.map(r => {
+                const g = libGame(r.libId);
+                const as = g && g.name !== r.name ? ` as ${g.name}` : '';
+                return `<li class="steam-item"><span class="steam-name">${escapeHtml(r.name)}</span><span class="steam-meta">${escapeHtml(as + whereNote(g))}</span></li>`;
+            }).join('')}</ul></details>`;
+    }
+    if (S.notOnSteam.length) {
+        html += `<details class="steam-group steam-fold"><summary>In your library as Steam, but not on this account <span class="check-count">${S.notOnSteam.length}</span></summary>
+            <p class="steam-sub">Refunded, gifted away, free to play, or written differently on Steam? Click a game to edit it.</p>
+            <ul class="steam-list steam-list-plain">${S.notOnSteam.map(id => { const g = libGame(id); return g ? `<li class="steam-item"><button type="button" class="check-link" onclick="editGameById('${escapeHtml(id)}')">${escapeHtml(g.name)}</button></li>` : ''; }).join('')}</ul></details>`;
+    }
+    if (!fresh.length && !check.length) html += `<p class="steam-sub">Every game on this Steam account is already in your library.</p>`;
+    html += `<p class="hltb-note steam-warn">Steam only shares which games you own. Imported games come in without a purchase date and price, so you will need to add both yourself, game by game. Until you do, they are left out of spending totals and averages.</p>
+        <div class="steam-actions"><button type="button" class="btn-primary" id="steamCommitBtn" onclick="commitSteamImport()"></button>
+        <button type="button" class="btn-tool" onclick="toggleSteamImport(false)">Cancel</button></div>
+        <p class="steam-sub" id="steamCapNote" hidden></p>`;
+    el.innerHTML = html;
+    el.hidden = false;
+    updateSteamCommit();
+}
+
+function steamSelectAll(on) {
+    const S = steamImport;
+    if (!S) return;
+    const fresh = new Set(S.rows.filter(r => r.kind === 'new').map(r => r.appid));
+    document.querySelectorAll('#steamImportResult .steam-cb').forEach(cb => { if (fresh.has(Number(cb.dataset.appid))) cb.checked = on; });
+    updateSteamCommit();
+}
+
+function updateSteamCommit() {
+    const btn = $('steamCommitBtn');
+    if (!btn) return;
+    const n = document.querySelectorAll('#steamImportResult .steam-cb:checked').length;
+    btn.textContent = n ? `Add ${n} ${n === 1 ? 'game' : 'games'} without date and price` : 'Done';
+    const room = MAX_GAMES - games.length;
+    const cap = $('steamCapNote');
+    if (cap) {
+        cap.hidden = n <= room;
+        cap.textContent = n > room ? `A library holds up to ${MAX_GAMES} games, so only the first ${Math.max(0, room)} will be added.` : '';
+    }
+}
+
+function commitSteamImport() {
+    const S = steamImport;
+    if (!S) return;
+    const ticked = new Set([...document.querySelectorAll('#steamImportResult .steam-cb:checked')].map(cb => Number(cb.dataset.appid)));
+    let added = 0, skipped = 0, linked = 0;
+    const newlyAdded = [];
+    // games already in the library remember their Steam app, so the next import recognises them by it
+    S.rows.forEach(r => {
+        if (r.kind !== 'owned' || !r.link) return;
+        const g = games.find(x => x.id === r.libId);
+        if (g && !g.steamAppId) { g.steamAppId = r.appid; linked++; }
+    });
+    const haveApp = new Set(games.map(g => Number(g.steamAppId)).filter(Boolean));
+    S.rows.forEach(r => {
+        if (r.kind === 'owned' || !ticked.has(r.appid)) return;
+        if (haveApp.has(r.appid) || isSuspiciousGameName(r.name) || games.length >= MAX_GAMES) { skipped++; return; }
+        const g = { name: r.name, price: null, currency: defaultGameCurrency(), source: 'Steam', date: '', ownership: 'digital', status: null, priceChf: 0, id: newGameId(), steamAppId: r.appid };
+        games.push(g);
+        haveApp.add(r.appid);
+        newlyAdded.push(g);
+        added++;
+    });
+    toggleSteamImport(false);
+    if (added || linked) {
+        if (added) flashNewGames(newlyAdded);
+        renderTable();
+        persistData();
+    }
+    if (added) {
+        toggleAddForm(false);
+        setOnlyMissing(true);
+        showToastText(`${added} ${added === 1 ? 'game' : 'games'} added from Steam. Add a purchase date and price to each one.${skipped ? ` ${skipped} skipped.` : ''}`);
+    } else {
+        showToastText(ticked.size ? `Nothing was added (${skipped} skipped).` : 'No games were added.');
+    }
+}
+
 function submitBulkAdd() {
     const raw = $('bulkAddTextarea').value;
     const lines = raw.split('\n').map(l => l.trim()).filter(l => l.length > 0);
@@ -1935,7 +2178,7 @@ function renderRouletteFinalCard(g) {
     result.innerHTML = `
         <div class="roulette-pick" id="rouletteCard">
             <div class="roulette-name">${escapeHtml(g.name)}</div>
-            <p class="roulette-meta">Bought${when} on ${store} for ${moneyStr(gameChf(g))} ${displayCurrency()}, ${copy}.</p>
+            <p class="roulette-meta">Bought${when} on ${store}${hasPrice(g) ? ` for ${moneyStr(gameChf(g))} ${displayCurrency()}` : ''}, ${copy}.</p>
             <button type="button" class="btn-tool" onclick="rollBacklogRoulette()">${t('rouletteRerollBtn')}</button>
         </div>`;
 }
@@ -2154,6 +2397,7 @@ function renderTable() {
     $('gamesTable').classList.toggle('one-currency', games.length > 0 && games.every(g => g.currency === curNow));
     renderBacklogHealth();
     renderOnThisDay();
+    updateMissingBar();
 
     ['name','source','ownership','date','price','priceChf'].forEach(k => {
         const el = $('si-' + k);
@@ -2181,7 +2425,8 @@ function renderTable() {
         const matchesPriceMax = isNaN(priceMaxF) || gameChf(g, filterCur) <= toChf(priceMaxF);
         const matchesDateFrom = !dateFromF || (g.date && g.date >= dateFromF);
         const matchesDateTo = !dateToF || (g.date && g.date <= dateToF);
-        return matchesSearch && matchesSource && matchesOwnership && matchesPriceMin && matchesPriceMax && matchesDateFrom && matchesDateTo;
+        const matchesMissing = !onlyMissing || isIncomplete(g);
+        return matchesSearch && matchesSource && matchesOwnership && matchesPriceMin && matchesPriceMax && matchesDateFrom && matchesDateTo && matchesMissing;
     });
     visible.sort((a, b) => {
         let va = a.g[sortKey], vb = b.g[sortKey];
@@ -2215,9 +2460,9 @@ function renderTable() {
                 <td class="name-cell" style="color:var(--text-white);" title="${escapeHtml(g.name)}"><span class="name-text">${escapeHtml(g.name)}</span><button type="button" class="pill pill-${escapeHtml(g.status || 'none')}" onclick="cycleStatus(${i})" title="${t('statusToggleHint')}" aria-label="${escapeHtml(g.name)}: ${g.status ? st.label : 'no status'} (${t('statusToggleHint')})">${g.status ? st.label : 'No status'}</button></td>
                 <td data-label="${t('colPlatform')}"><span class="source-txt ${srcClass}">${srcDisplay}</span></td>
                 <td data-label="${t('fldOwnership')}"><span class="own-chip" data-own="${own}"><i class="${ownIcon}"></i>${ownLabel}</span></td>
-                <td data-label="${t('purchaseDate')}"><time datetime="${escapeHtml(g.date || '')}">${escapeHtml(humanDate(g.date))}</time></td>
-                <td data-label="${t('colOrigPrice')}">${amt((Number(g.price) || 0).toFixed(2))} <span style="font-size:12px; color:var(--text-dim);">${escapeHtml(g.currency || "")}</span></td>
-                <td data-label="${valueColLabel(filterCur)}" class="value-cell${g.currency === filterCur ? ' value-same' : ''}">${amt((gameChf(g, filterCur) / (rates[filterCur] || 1)).toFixed(2))} <span style="font-size:12px;">${filterCur}</span></td>
+                <td data-label="${t('purchaseDate')}">${hasDate(g) ? `<time datetime="${escapeHtml(g.date)}">${escapeHtml(humanDate(g.date))}</time>` : `<span class="cell-missing">No date</span>`}</td>
+                <td data-label="${t('colOrigPrice')}">${hasPrice(g) ? `${amt((Number(g.price) || 0).toFixed(2))} <span style="font-size:12px; color:var(--text-dim);">${escapeHtml(g.currency || "")}</span>` : `<span class="cell-missing">No price</span>`}</td>
+                <td data-label="${valueColLabel(filterCur)}" class="value-cell${g.currency === filterCur ? ' value-same' : ''}">${hasPrice(g) ? `${amt((gameChf(g, filterCur) / (rates[filterCur] || 1)).toFixed(2))} <span style="font-size:12px;">${filterCur}</span>` : `<span class="cell-missing">-</span>`}</td>
                 <td class="action-icons">
                     <button class="edit" onclick="editGame(${i})" aria-label="Edit ${escapeHtml(g.name)}"><i class="fa-solid fa-pen"></i></button>
                     <button class="del" onclick="deleteGame(${i})" aria-label="Delete ${escapeHtml(g.name)}"><i class="fa-solid fa-trash"></i></button>
@@ -2239,6 +2484,10 @@ function displayCurrency() { return ($('totalCurrency') && $('totalCurrency').va
 // What one game is worth in CHF for showing it in `cur`. A game bought in that same currency
 // keeps exactly the price that was paid (24.99 PLN stays 24.99 PLN); other games use the CHF
 // value saved at purchase time, converted at today's rate.
+// games imported from Steam have no price or purchase date until you add them
+function hasPrice(g) { return !!g && g.price !== null && g.price !== undefined && g.price !== '' && isFinite(Number(g.price)); }
+function hasDate(g) { return !!g && /^\d{4}-\d{2}-\d{2}$/.test(g.date || '') && !isNaN(new Date(g.date + 'T12:00:00')); }
+function isIncomplete(g) { return !hasPrice(g) || !hasDate(g); }
 function gameChf(g, cur) {
     if (!g) return 0;
     cur = cur || displayCurrency();
@@ -2366,6 +2615,24 @@ function setOldestStatus(index, status) {
     showToastText(`${g.name}: ${status === 'in_progress' ? 'marked as In progress' : "marked as Won't play"}`);
 }
 
+// "Show games without a date or price": narrows the library list until you switch it off
+function setOnlyMissing(on) {
+    onlyMissing = !!on;
+    renderTable();
+    if (on) {
+        const card = $('tableWrapper') && $('tableWrapper').closest('.card');
+        if (card) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+function updateMissingBar() {
+    const bar = $('missingBar');
+    if (!bar) return;
+    const n = games.filter(isIncomplete).length;
+    if (onlyMissing && !n) onlyMissing = false;
+    bar.hidden = !onlyMissing;
+    if (onlyMissing) $('missingBarText').textContent = `Showing ${n} ${n === 1 ? 'game' : 'games'} without a purchase date or price. Edit each one to add them.`;
+}
+
 // ---- library check (home page): entries that would make the statistics wrong ----
 function titleKey(name) {
     let k = String(name || '').toLowerCase().replace(/[™®©]/g, '').replace(/&/g, ' and ')
@@ -2393,6 +2660,11 @@ function libraryIssues() {
         if (tk) { const key = tk + '|' + (g.source || 'Steam'); (byKey[key] = byKey[key] || []).push(i); }
     });
     Object.values(byKey).forEach(list => { if (list.length > 1) x.dupGroups.push(list); });
+    // the same Steam game added twice under different titles
+    const byApp = {};
+    games.forEach((g, i) => { if (g.steamAppId) (byApp[g.steamAppId] = byApp[g.steamAppId] || []).push(i); });
+    const known = new Set(x.dupGroups.map(l => l.join(',')));
+    Object.values(byApp).forEach(list => { if (list.length > 1 && !known.has(list.join(','))) x.dupGroups.push(list); });
     return x;
 }
 
@@ -2426,7 +2698,8 @@ function renderLibraryCheck() {
         group('Purchase date in the future', x.future.map(i => `${link(i)} <span class="check-note">${escapeHtml(humanDate(games[i].date))}</span>`)) +
         group('No price', x.noPrice.map(link)) +
         group('Possible duplicates', x.dupGroups.map(l => l.map(link).join(' <span class="check-note">and</span> ') +
-            ` <span class="check-note">(${platformMeta(games[l[0]].source || 'Steam').label()})</span>`));
+            ` <span class="check-note">(${platformMeta(games[l[0]].source || 'Steam').label()})</span>`)) +
+        (games.some(isIncomplete) ? `<button type="button" class="btn-chip check-filter" onclick="setOnlyMissing(true)">Show games without a date or price in the list</button>` : '');
 }
 
 function dismissLibraryCheck() {
@@ -2459,6 +2732,7 @@ function renderSideCards() {
 
     const dated = games.filter(g => g.date && g.date.length >= 10).map(g => g.date).sort();
     const sumChf = games.reduce((s, g) => s + gameChf(g), 0);
+    const priced = games.filter(hasPrice);
     const priciest = games.reduce((m, g) => gameChf(g) > gameChf(m) ? g : m, games[0]);
     const physical = games.filter(g => (g.ownership || 'digital') === 'physical').length;
     const tracked = games.filter(g => g.status).length;
@@ -2469,7 +2743,7 @@ function renderSideCards() {
     const facts = [
         [dated.length ? niceDate(dated[0]) : '-', 'First purchase', ''],
         [dated.length ? niceDate(dated[dated.length - 1]) : '-', 'Latest purchase', ''],
-        [`${fmt(sumChf / games.length)} ${cur}`, 'Average price per game', ''],
+        [priced.length ? `${fmt(sumChf / priced.length)} ${cur}` : '-', 'Average price per game', priced.length < games.length ? `Games without a price are left out.` : ''],
         [`${fmt(gameChf(priciest))} ${cur}`, 'Most expensive game', priciest.name || ''],
         [String(boughtThisYear), 'Games bought this year', ''],
         [`${games.length - physical} / ${physical}`, 'Digital / physical copies', ''],
@@ -2552,7 +2826,8 @@ function renderSideCards() {
 
         // typical price: the median, and how the games split into price ranges (all in the chosen currency;
         // the range limits are 10, 30 and 60 EUR converted and rounded to a round number)
-        const chfSorted = games.map(g => gameChf(g)).sort((a, b) => a - b);
+        const chfSorted = priced.map(g => gameChf(g)).sort((a, b) => a - b);
+        if (chfSorted.length) {
         const medianChf = (chfSorted[Math.floor((chfSorted.length - 1) / 2)] + chfSorted[Math.floor(chfSorted.length / 2)]) / 2;
         const roundNice = (x) => {
             const mag = Math.pow(10, Math.floor(Math.log10(x)));
@@ -2571,6 +2846,7 @@ function renderSideCards() {
         const nf = (n) => n.toLocaleString(currentLang, { maximumFractionDigits: 2 });
         habitFacts.push([`${fmt(medianChf)} ${cur}`, 'Median price per game',
             `Half of your games cost less than this. By price: ${band(0, limits[0])}% under ${nf(limits[0])} ${cur}, ${band(limits[0], limits[1])}% ${nf(limits[0])}-${nf(limits[1])} ${cur}, ${band(limits[1], limits[2])}% ${nf(limits[1])}-${nf(limits[2])} ${cur}, ${band(limits[2], Infinity)}% over ${nf(limits[2])} ${cur}.`]);
+        }
 
         // which currencies you pay in
         const byCur = {};
@@ -3097,7 +3373,7 @@ function layoutReceipt(ctx, period, draw) {
         y += 10;
     }
     shown.forEach(g => {
-        const price = money(gameChf(g));
+        const price = hasPrice(g) ? money(gameChf(g)) : 'no price';
         font(500, 15);
         const pw = ctx.measureText(price).width;
         const lines = wrapReceiptText(ctx, g.name || '(no name)', CW - pw - 18, 2);
@@ -3107,7 +3383,7 @@ function layoutReceipt(ctx, period, draw) {
             if (i === 0) text(price, Rx, y, 'right');
         });
         const sub = [/^\d{4}-\d{2}-\d{2}$/.test(g.date || '') ? g.date : 'no date', platformMeta(g.source || 'Steam').label()];
-        if (g.currency && g.currency !== cur && !amountsHidden) sub.push(`paid ${(Number(g.price) || 0).toFixed(2)} ${g.currency}`);
+        if (hasPrice(g) && g.currency && g.currency !== cur && !amountsHidden) sub.push(`paid ${(Number(g.price) || 0).toFixed(2)} ${g.currency}`);
         font(400, 12.5); y += 12.5 + 5;
         text(sub.join(' · '), L, y, 'left', SOFT);
         y += 6;
@@ -3226,7 +3502,7 @@ function downloadReceipt() {
 
 function exportCSV() {
     const rows = [['Name', 'Source', 'Ownership', 'Date', 'Price', 'Currency', 'PriceCHF', 'Status']];
-    games.forEach(g => rows.push([g.name, g.source || 'Steam', g.ownership || 'digital', g.date, g.price, g.currency, g.priceChf.toFixed(2), g.status || '']));
+    games.forEach(g => rows.push([g.name, g.source || 'Steam', g.ownership || 'digital', g.date || '', hasPrice(g) ? g.price : '', g.currency, hasPrice(g) ? (Number(g.priceChf) || 0).toFixed(2) : '', g.status || '']));
     // a cell starting with = + - @ would be run as a formula by spreadsheet apps, so it gets a leading apostrophe
     const csvCell = v => { let x = String(v); if (/^[=+\-@\t\r]/.test(x)) x = "'" + x; return `"${x.replace(/"/g, '""')}"`; };
     const csv = rows.map(r => r.map(csvCell).join(',')).join('\n');
@@ -3520,8 +3796,9 @@ async function handleImportFile(event) {
         try {
             if (!g || typeof g.name !== 'string' || !g.name.trim()) { skipped++; return; }
             const name = g.name.trim().slice(0, 100);
-            const price = parseFloat(g.price);
-            if (isNaN(price) || price < 0 || isPriceTooHigh(price, (g.currency || 'EUR').toString().toUpperCase())) { skipped++; return; }
+            const noPrice = g.price === null || g.price === undefined || g.price === '';
+            const price = noPrice ? null : parseFloat(g.price);
+            if (!noPrice && (isNaN(price) || price < 0 || isPriceTooHigh(price, (g.currency || 'EUR').toString().toUpperCase()))) { skipped++; return; }
             if (isSuspiciousGameName(name)) { skipped++; return; }
             const nameKey = name.toLowerCase();
             if (existingNames.has(nameKey)) { duplicates++; return; }
@@ -3532,11 +3809,13 @@ async function handleImportFile(event) {
             const ownership = g.ownership === 'physical' ? 'physical' : 'digital';
             const validStatuses = ['completed', 'not_completed', 'in_progress', 'endless', 'wont_play'];
             const status = validStatuses.includes(g.status) ? g.status : null;
-            const date = (typeof g.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(g.date)) ? g.date : todayLocal();
-            const priceChf = price * (rates[currency] || 1);
+            const date = (typeof g.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(g.date)) ? g.date : (g.date === '' ? '' : todayLocal());
+            const priceChf = noPrice ? 0 : price * (rates[currency] || 1);
 
             if (games.length >= MAX_GAMES) { skipped++; return; }
-            games.push({ name, price, currency, source, date, ownership, status, priceChf, id: newGameId() });
+            const entry = { name, price, currency, source, date, ownership, status, priceChf, id: newGameId() };
+            if (Number.isInteger(g.steamAppId) && g.steamAppId > 0) entry.steamAppId = g.steamAppId;
+            games.push(entry);
             existingNames.add(nameKey);
             added++;
         } catch (e) { skipped++; }
@@ -3656,7 +3935,7 @@ function yearStats(year, untilMd) {
 
     return {
         year, games: yGames, count: yGames.length, totalChf,
-        avgChf: yGames.length ? totalChf / yGames.length : 0,
+        avgChf: yGames.filter(hasPrice).length ? totalChf / yGames.filter(hasPrice).length : 0,
         topPlatform, topMonth, priciest, completed,
         physical: yGames.filter(g => g.ownership === 'physical').length
     };
@@ -3916,7 +4195,7 @@ function buildWrappedSlides(year) {
     const A = yearStats(year);
     const isAll = year === 'all';
     const yl = isAll ? t('yrAllTime') : year;
-    const firstGame = A.games.slice().sort((a, b) => (a.date || '').localeCompare(b.date || ''))[0] || null;
+    const firstGame = A.games.filter(hasDate).sort((a, b) => a.date.localeCompare(b.date))[0] || null;
 
     const slides = [];
     slides.push({ kind: 'intro', year: yl, all: isAll });

@@ -73,7 +73,7 @@ const cta = `<p class="cta"><a class="btn" href="/">Open Backlog Wallet</a></p>`
 
 // ---------- features
 const features = [
-    ['Purchases', 'Log the title, price, currency, store, date and whether you own it digitally or physically. Add games one at a time, paste a whole list, or use Smart import on a Steam purchase history and review the result before anything is saved.'],
+    ['Purchases', 'Log the title, price, currency, store, date and whether you own it digitally or physically. Add games one at a time, paste a whole list, import the games on your Steam account, or use Smart import on a Steam purchase history and review the result before anything is saved.'],
     ['Statuses', 'Mark each game as completed, in progress, not completed, endless or one you will not play. Set statuses in bulk for many games at once.'],
     ['Currencies', 'Prices stay exactly as you paid them. Totals can be shown in any of 20+ currencies using live exchange rates, with saved rates as a fallback when you are offline.'],
     ['Spending charts', 'Spending per month, per year and per store, digital versus physical, and year-over-year comparison. Every chart can be saved as a PNG.'],

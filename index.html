@@ -55,7 +55,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js" defer></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js" defer></script>
 
-    <link rel="stylesheet" href="styles.css?v=103">
+    <link rel="stylesheet" href="styles.css?v=104">
 </head>
 <body class="auth-pending">
     <a class="skip-link" href="#mainContent">Skip to content</a>
@@ -363,6 +363,7 @@
                 <p>Add what you bought, where and for how much. Backlog Wallet adds it up, converts it to your currency and keeps track of what you have not played yet.</p>
                 <div class="first-run-actions">
                     <button type="button" class="btn-primary" onclick="firstRunStart('one')">Add a game</button>
+                    <button type="button" class="btn-tool" onclick="firstRunStart('steam')">Import from Steam</button>
                     <button type="button" class="btn-tool" onclick="firstRunStart('paste')">Paste a purchase list</button>
                 </div>
                 <p class="first-run-note">Moving from another device? <a href="#" onclick="showView('auth'); return false;">Import a backup</a> in your account.</p>
@@ -459,6 +460,18 @@
                         </button>
                         <button type="button" class="btn-chip" id="smartImportToggleBtn" onclick="toggleSmartImport()" style="margin-left:8px;"><span data-i18n="smartImportBtn">Smart import (Steam &amp; more)</span>
                         </button>
+                        <button type="button" class="btn-chip" id="steamImportToggleBtn" onclick="toggleSteamImport()" style="margin-left:8px;">Import from Steam</button>
+                        <div id="steamImportPanel" class="steam-import" style="display:none; margin-top:10px;">
+                            <p class="steam-intro">Paste the link to your Steam profile, your custom URL name or your SteamID. Your profile and its Game details need to be set to Public in Steam's privacy settings.</p>
+                            <p class="hltb-note">Steam does not share when you bought a game or what you paid, so imported games come in without a purchase date and price. You will need to add those yourself.</p>
+                            <form class="steam-form" onsubmit="loadSteamGames(); return false;">
+                                <input type="text" id="steamProfileInput" aria-label="Steam profile link or SteamID" placeholder="steamcommunity.com/id/yourname" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="200">
+                                <button type="submit" class="btn-primary" id="steamLoadBtn">Load my games</button>
+                                <button type="button" class="btn-tool" onclick="toggleSteamImport(false)"><span data-i18n="cancelBtn">Cancel</span></button>
+                            </form>
+                            <p class="steam-status" id="steamImportStatus" role="status" aria-live="polite" hidden></p>
+                            <div id="steamImportResult" hidden></div>
+                        </div>
                         <div id="smartImportPanel" style="display:none; margin-top:10px;">
                             <p style="font-size:12px; color:var(--text-dim); margin-bottom:8px; line-height:1.5;" data-i18n="smartImportHint">Paste your Steam purchase history (or any order list/receipt) below. One purchase per line works best. Steam doesn't offer an official export, so this is a best-effort reader: it tries to find a date, a price and a title on each line. Nothing gets added until you review and confirm the results below.</p>
                             <textarea id="smartImportTextarea" aria-label="Paste text to import games from" rows="6" style="height:auto; padding:10px; resize:vertical; font-family:var(--font-mono); font-size:12px; line-height:1.5;" placeholder="12 Mar, 2024   Hollow Knight   $14.99"></textarea>
@@ -612,6 +625,7 @@
                     <span id="libraryLoadErrorText" data-i18n="libraryLoadError">Couldn't load your library. Check your connection and try again.</span>
                     <button type="button" class="btn-tool" onclick="retryLoadCloudData()"><span data-i18n="retryBtn">Retry</span></button>
                 </div>
+                <div class="missing-bar" id="missingBar" hidden><span id="missingBarText"></span><button type="button" class="btn-chip" onclick="setOnlyMissing(false)">Show all games</button></div>
                 <div class="table-container" id="tableWrapper">
                     <table id="gamesTable">
                         <thead>
@@ -1274,7 +1288,7 @@
         <div class="footer-note" data-i18n="footerNote">Built by one person, updated when I get to it.</div>
     </div>
     <div class="footer-meta">
-        <span class="footer-build">v1.6.2, build 2026-11-23 12:26 UTC+1</span>
+        <span class="footer-build">v1.7.0, build 2026-11-25 12:05 UTC+1</span>
     </div>
 </footer>
 
@@ -1327,7 +1341,7 @@
         <button type="button" class="btn-primary" id="cookieAcceptBtn" onclick="dismissStorageNotice()"></button>
     </div>
 
-    <script src="app.js?v=103" defer></script>
+    <script src="app.js?v=104" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.
