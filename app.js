@@ -977,6 +977,8 @@ function updateAuthUI() {
     const libWrap = $('navLibraryWrap');
     if (libWrap) libWrap.style.display = logged ? '' : 'none';
     if (!logged && ['shelf', 'achievements', 'roulette', 'ranking', 'yearreview', 'goals'].some(v => $('view-' + v) && $('view-' + v).classList.contains('active'))) showView('home');
+    const navSteam = $('navSteamBtn');
+    if (navSteam) navSteam.style.display = logged ? '' : 'none';
     const navRanking = $('navRankingBtn');
     if (navRanking) navRanking.style.display = logged ? '' : 'none';
     const navYearReview = $('navYearReviewBtn');
@@ -1644,10 +1646,11 @@ function matchSteamGames(data) {
     const byKey = new Map();
     lib.forEach(x => { if (x.key) { if (!byKey.has(x.key)) byKey.set(x.key, []); byKey.get(x.key).push(x); } });
     const squash = (k) => k.replace(/ /g, '');
+    // one title inside the other as whole words: a sequel, a prefix like "Tom Clancy's", or a subtitle
     const near = (a, b) => {
-        const short = a.length < b.length ? a : b;
+        const short = a.length < b.length ? a : b, long = short === a ? b : a;
         if (short.length < 4) return false;
-        return a.startsWith(b + ' ') || b.startsWith(a + ' ') || squash(a) === squash(b);
+        return squash(a) === squash(b) || (' ' + long + ' ').includes(' ' + short + ' ');
     };
     const linking = new Set();      // library games that get a Steam app id in this import
     const matchedLib = new Set();   // library games that stand for something on the account

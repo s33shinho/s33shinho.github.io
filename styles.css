@@ -2606,3 +2606,4 @@ body.lib-empty #steamTip { display: none !important; }
     .first-run-steps li { font-size: 14.5px; }
     .first-run-actions .btn-primary { flex: 1 1 100%; }
 }
+@media (min-width: 761px) { .drawer .nav-item.nav-steam { color: var(--steam-blue); font-weight: 600; } }

@@ -112,6 +112,8 @@
         <nav>
             <button class="nav-item active" data-view="home" onclick="showView('home')"><i class="fa-solid fa-house"></i> <span data-i18n="navHome">Home</span></button>
 
+            <button class="nav-item nav-steam" id="navSteamBtn" onclick="toggleDrawer(false); openSteamImport()" style="display:none;"><i class="fa-solid fa-download"></i> <span>Import from Steam</span></button>
+
             <button class="nav-item" id="navAuthBtn" data-view="auth" onclick="showView('auth')"><i class="fa-solid fa-right-to-bracket" id="navAuthIcon"></i> <span data-i18n="navAuth" id="navAuthLabel">Log in / Create account</span></button>
 
             <div class="nav-dropdown" id="navLibraryWrap" style="display:none;">
@@ -1305,7 +1307,7 @@
         <div class="footer-note" data-i18n="footerNote">Built by one person, updated when I get to it.</div>
     </div>
     <div class="footer-meta">
-        <span class="footer-build">v1.7.1, build 2026-11-25 14:07 UTC+1</span>
+        <span class="footer-build">v1.7.1, build 2026-11-25 15:13 UTC+1</span>
     </div>
 </footer>
 
