@@ -977,6 +977,8 @@ function updateAuthUI() {
     const libWrap = $('navLibraryWrap');
     if (libWrap) libWrap.style.display = logged ? '' : 'none';
     if (!logged && ['shelf', 'achievements', 'roulette', 'ranking', 'yearreview', 'goals'].some(v => $('view-' + v) && $('view-' + v).classList.contains('active'))) showView('home');
+    const navSteam = $('navSteamBtn');
+    if (navSteam) navSteam.style.display = logged ? '' : 'none';
     const navRanking = $('navRankingBtn');
     if (navRanking) navRanking.style.display = logged ? '' : 'none';
     const navYearReview = $('navYearReviewBtn');
@@ -1107,10 +1109,18 @@ form.addEventListener('submit', function (e) {
     persistData();
 });
 
+// welcome page for a new, empty library: greets the user by nickname when there is one
+function renderFirstRunHello() {
+    const el = $('firstRunHello');
+    if (!el) return;
+    const nick = (typeof userProfile !== 'undefined' && userProfile && userProfile.nickname) || '';
+    el.textContent = nick ? `Welcome to Backlog Wallet, ${nick}` : 'Welcome to Backlog Wallet';
+}
+
 // first-run buttons: open the add form on the right part
 function firstRunStart(mode) {
     toggleAddForm(true);
-    if (mode === 'steam') { toggleSteamImport(true); setTimeout(() => { const p = $('steamImportPanel'); if (p) p.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 160); }
+    if (mode === 'steam') { openSteamImport(); return; }
     else if (mode === 'paste') { if (typeof toggleSmartImport === 'function') toggleSmartImport(true); setTimeout(() => { const ta = $('smartImportTextarea'); if (ta) ta.focus(); }, 160); }
     else setTimeout(() => { const n = $('gameName'); if (n) n.focus(); }, 160);
 }
@@ -1544,6 +1554,27 @@ const STEAM_ERRORS = {
 };
 let steamImport = null;
 
+// every "Import from Steam" button: home page, add form open, panel in view
+function openSteamImport() {
+    if (!$('view-home').classList.contains('active')) showView('home');
+    toggleAddForm(true);
+    toggleSteamImport(true);
+    setTimeout(() => { const p = $('steamImportPanel'); if (p) p.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 160);
+}
+
+// existing libraries that were never compared with Steam get a one-time hint on the home page
+function renderSteamTip() {
+    const tip = $('steamTip');
+    if (!tip) return;
+    let dismissed = false;
+    try { dismissed = localStorage.getItem('steamTipDismissed') === '1'; } catch (e) {}
+    tip.hidden = dismissed || !libraryReady || !games.length || games.some(g => g.steamAppId);
+}
+function dismissSteamTip() {
+    try { localStorage.setItem('steamTipDismissed', '1'); } catch (e) {}
+    renderSteamTip();
+}
+
 function toggleSteamImport(forceState) {
     const panel = $('steamImportPanel');
     if (!panel) return;
@@ -1615,10 +1646,11 @@ function matchSteamGames(data) {
     const byKey = new Map();
     lib.forEach(x => { if (x.key) { if (!byKey.has(x.key)) byKey.set(x.key, []); byKey.get(x.key).push(x); } });
     const squash = (k) => k.replace(/ /g, '');
+    // one title inside the other as whole words: a sequel, a prefix like "Tom Clancy's", or a subtitle
     const near = (a, b) => {
-        const short = a.length < b.length ? a : b;
+        const short = a.length < b.length ? a : b, long = short === a ? b : a;
         if (short.length < 4) return false;
-        return a.startsWith(b + ' ') || b.startsWith(a + ' ') || squash(a) === squash(b);
+        return squash(a) === squash(b) || (' ' + long + ' ').includes(' ' + short + ' ');
     };
     const linking = new Set();      // library games that get a Steam app id in this import
     const matchedLib = new Set();   // library games that stand for something on the account
@@ -2397,6 +2429,8 @@ function renderTable() {
     $('gamesTable').classList.toggle('one-currency', games.length > 0 && games.every(g => g.currency === curNow));
     renderBacklogHealth();
     renderOnThisDay();
+    renderSteamTip();
+    renderFirstRunHello();
     updateMissingBar();
 
     ['name','source','ownership','date','price','priceChf'].forEach(k => {

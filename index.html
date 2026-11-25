@@ -55,7 +55,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js" defer></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js" defer></script>
 
-    <link rel="stylesheet" href="styles.css?v=104">
+    <link rel="stylesheet" href="styles.css?v=105">
 </head>
 <body class="auth-pending">
     <a class="skip-link" href="#mainContent">Skip to content</a>
@@ -85,6 +85,7 @@
         </div>
         <div class="acct-hr"></div>
         <button type="button" class="acct-row" onclick="acctGo('auth')"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg><span>Account</span></button>
+        <button type="button" class="acct-row" onclick="toggleAcctMenu(false); openSteamImport()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg><span>Import from Steam</span></button>
         <button type="button" class="acct-row" id="acctAdminRow" onclick="acctGo('admin')" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6l8-3z"/></svg><span>Admin panel</span></button>
         <div class="acct-row acct-appearance"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18V3z"/><circle cx="12" cy="12" r="9"/></svg><span>Appearance</span>
             <div class="acct-seg" role="group" aria-label="Appearance">
@@ -110,6 +111,8 @@
         </div>
         <nav>
             <button class="nav-item active" data-view="home" onclick="showView('home')"><i class="fa-solid fa-house"></i> <span data-i18n="navHome">Home</span></button>
+
+            <button class="nav-item nav-steam" id="navSteamBtn" onclick="toggleDrawer(false); openSteamImport()" style="display:none;"><i class="fa-solid fa-download"></i> <span>Import from Steam</span></button>
 
             <button class="nav-item" id="navAuthBtn" data-view="auth" onclick="showView('auth')"><i class="fa-solid fa-right-to-bracket" id="navAuthIcon"></i> <span data-i18n="navAuth" id="navAuthLabel">Log in / Create account</span></button>
 
@@ -323,6 +326,14 @@
                 </div>
                 <button type="button" class="otd-close" onclick="dismissOnThisDay()" aria-label="Dismiss"><i class="fa-solid fa-xmark"></i></button>
             </div>
+            <div id="steamTip" class="on-this-day-banner steam-tip" hidden>
+                <div class="otd-body">
+                    <span class="otd-label">New</span>
+                    <span class="otd-text"><strong>Import from Steam.</strong> Compare your library with your Steam account: see the games you have not added yet and catch duplicates.</span>
+                    <span class="steam-tip-actions"><button type="button" class="btn-chip" onclick="openSteamImport()">Import from Steam</button></span>
+                </div>
+                <button type="button" class="otd-close" onclick="dismissSteamTip()" aria-label="Dismiss"><i class="fa-solid fa-xmark"></i></button>
+            </div>
             <div class="summary">
                 <div>
                     <div class="summary-head"><span class="summary-label" data-i18n="totalValue">Library value</span> <select id="totalCurrency" aria-label="Currency for library value" onchange="onTotalCurrencyChange()">
@@ -359,14 +370,21 @@
             </div>
 
             <section class="first-run" id="firstRun" aria-labelledby="firstRunTitle">
-                <h2 id="firstRunTitle">Start with the games you already have</h2>
-                <p>Add what you bought, where and for how much. Backlog Wallet adds it up, converts it to your currency and keeps track of what you have not played yet.</p>
+                <p class="first-run-kicker" id="firstRunHello">Welcome to Backlog Wallet</p>
+                <h2 id="firstRunTitle">Start by bringing in your Steam library</h2>
+                <p>The quickest way to fill your library is to import the games you already own on Steam. It takes a minute, and you pick exactly which games come in.</p>
                 <div class="first-run-actions">
-                    <button type="button" class="btn-primary" onclick="firstRunStart('one')">Add a game</button>
-                    <button type="button" class="btn-tool" onclick="firstRunStart('steam')">Import from Steam</button>
-                    <button type="button" class="btn-tool" onclick="firstRunStart('paste')">Paste a purchase list</button>
+                    <button type="button" class="btn-primary" onclick="firstRunStart('steam')">Import from Steam</button>
+                    <button type="button" class="btn-tool" onclick="firstRunStart('one')">Add a game by hand</button>
                 </div>
-                <p class="first-run-note">Moving from another device? <a href="#" onclick="showView('auth'); return false;">Import a backup</a> in your account.</p>
+                <h3 class="first-run-sub">How the import works</h3>
+                <ol class="first-run-steps">
+                    <li><b>Paste the link to your Steam profile.</b> Your profile and its game details need to be public in Steam's privacy settings, at least for the import.</li>
+                    <li><b>Pick the games.</b> You see everything on the account. Games already in your library are left out, and similar titles are shown for you to check.</li>
+                    <li><b>Add what you paid and when.</b> Steam does not share purchase prices or dates, so imported games come in without them. The list then shows only those games until each has a price and a date.</li>
+                </ol>
+                <p class="first-run-edit"><b>Your numbers, your call.</b> Prices and dates are always yours to set. If you paid a different price (a sale, a key from another shop, a gift) or bought a game on another day, open it and change it whenever you like.</p>
+                <p class="first-run-note">Not on Steam, or bought elsewhere too? <a href="#" onclick="firstRunStart('paste'); return false;">Paste a purchase list</a> from any shop. Moving from another device? <a href="#" onclick="showView('auth'); return false;">Import a backup</a> in your account.</p>
             </section>
 
             <div class="home-grid">
@@ -374,9 +392,10 @@
             <div class="card add-card">
                 <div class="card-head">
                     <span><span data-i18n="addGame">Add game</span></span>
-                    <button type="button" class="btn-chip" id="addFormToggleBtn" onclick="toggleAddForm()">
+                    <span class="add-head-actions"><button type="button" class="btn-chip" id="addFormToggleBtn" onclick="toggleAddForm()">
                         <span id="addFormToggleText" data-i18n="addFormShow">Add a game</span> <i class="fa-solid fa-chevron-down" id="addFormToggleIcon"></i>
                     </button>
+                    <button type="button" class="btn-chip" id="steamHeadBtn" onclick="openSteamImport()">Import from Steam</button></span>
                 </div>
                 <div class="card-body" id="addFormBody" style="display:none;">
                     <form id="addGameForm" class="form-grid">
@@ -1288,7 +1307,7 @@
         <div class="footer-note" data-i18n="footerNote">Built by one person, updated when I get to it.</div>
     </div>
     <div class="footer-meta">
-        <span class="footer-build">v1.7.0, build 2026-11-25 12:05 UTC+1</span>
+        <span class="footer-build">v1.7.1, build 2026-11-25 15:13 UTC+1</span>
     </div>
 </footer>
 
@@ -1341,7 +1360,7 @@
         <button type="button" class="btn-primary" id="cookieAcceptBtn" onclick="dismissStorageNotice()"></button>
     </div>
 
-    <script src="app.js?v=104" defer></script>
+    <script src="app.js?v=105" defer></script>
     <script>
         // PWA: register the service worker. It blocks nothing if it fails
         // (e.g. an older browser) - the app works normally, just without offline mode.
