@@ -1,0 +1,10 @@
+# Cloudflare Worker for Import from Steam (backlogwallet.com/api/steam).
+# Deployed by Workers Builds from this folder (root directory: tools/steam-worker).
+# The Steam Web API key is a secret named STEAM_KEY, set in the dashboard, never in this file.
+name = "steam-import"
+main = "worker.js"
+compatibility_date = "2026-11-01"
+workers_dev = false
+routes = [
+  { pattern = "backlogwallet.com/api/steam*", zone_name = "backlogwallet.com" }
+]

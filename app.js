@@ -1531,7 +1531,7 @@ function toggleSmartImport(forceState) {
 }
 
 // ---- Import from Steam: the games on a public Steam account, without dates or prices ----
-// The list comes from the Steam Web API through backlogwallet.com/api/steam (tools/steam-worker.js).
+// The list comes from the Steam Web API through backlogwallet.com/api/steam (tools/steam-worker/).
 // Steam does not share when a game was bought or what was paid, so those stay empty until you add them.
 const STEAM_API_URL = '/api/steam';
 const STEAM_ERRORS = {

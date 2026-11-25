@@ -3,12 +3,10 @@
 // Reads the list of games on a public Steam account through the official Steam Web API,
 // so the browser never sees the API key (and Steam's API sends no CORS headers anyway).
 //
-// Setup (Cloudflare dashboard):
-//   1. Workers & Pages > Create > Worker, name it "steam-import", paste this file, Deploy.
-//   2. Worker > Settings > Variables and Secrets > Add > type Secret, name STEAM_KEY,
-//      value = the key from https://steamcommunity.com/dev/apikey (domain: backlogwallet.com).
-//   3. Worker > Settings > Domains & Routes > Add > Route: backlogwallet.com/api/steam*
-//      (zone backlogwallet.com).
+// Setup: Workers & Pages > Create > Import a repository > this repo, root directory
+// tools/steam-worker (wrangler.toml there sets the name and the route backlogwallet.com/api/steam*).
+// Then Worker > Settings > Variables and Secrets > Add > type Secret, name STEAM_KEY,
+// value = the key from https://steamcommunity.com/dev/apikey.
 //
 // Request:  POST /api/steam   body {"profile": "<profile link, custom URL name or SteamID64>"}
 // Response: {"steamid", "persona", "games": [{"appid", "name", "minutes"}]}
