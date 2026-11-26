@@ -1550,7 +1550,11 @@ const STEAM_ERRORS = {
     private: 'This Steam profile is private. In Steam, open Edit Profile, then Privacy Settings, set My profile to Public and try again.',
     games_private: 'The profile is public, but its game list is not. In Steam\'s Privacy Settings, set Game details to Public. You can switch it back after the import.',
     busy: 'Steam is busy right now. Wait a minute and try again.',
-    upstream: 'Steam did not answer. Try again in a moment.'
+    timeout: 'Steam did not answer in time. Try again in a moment.',
+    upstream: 'Steam did not answer. Try again in a moment.',
+    not_configured: 'Import from Steam is not set up on the server yet (the Steam key is missing).',
+    bad_key: 'Steam refused the server\'s key, so the import cannot run right now.',
+    forbidden: 'The import only works on backlogwallet.com.'
 };
 let steamImport = null;
 
@@ -1666,7 +1670,11 @@ async function loadSteamGames() {
         setSteamStatus(status ? 'Import from Steam is not available right now. Try again later.' : 'Could not connect. Check your internet connection and try again.', true);
         return;
     }
-    if (data.error || !Array.isArray(data.games)) { setSteamStatus(STEAM_ERRORS[data.error] || STEAM_ERRORS.upstream, true); return; }
+    if (data.error || !Array.isArray(data.games)) {
+        const code = `${data.error || 'no_games'}${data.status ? ' ' + data.status : ''}${status ? ', HTTP ' + status : ''}`;
+        setSteamStatus(`${STEAM_ERRORS[data.error] || STEAM_ERRORS.upstream} (code: ${code})`, true);
+        return;
+    }
     try { localStorage.setItem('steamProfile', input); } catch (e) {}
     steamImport = matchSteamGames(data);
     setSteamStatus('');

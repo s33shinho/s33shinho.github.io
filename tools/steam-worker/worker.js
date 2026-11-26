@@ -68,7 +68,8 @@ export default {
             })));
             return reply(data);
         } catch (e) {
-            return reply({ error: e && e.message === 'busy' ? 'busy' : 'upstream' }, 502);
+            const code = (e && e.message) || 'upstream';
+            return reply({ error: ['busy', 'bad_key', 'timeout'].includes(code) ? code : 'upstream', status: (e && e.status) || 0 }, 502);
         }
     }
 };
@@ -86,9 +87,16 @@ function parseProfile(input) {
 }
 
 async function steam(env, path) {
-    const res = await fetch(`${API}${path}&key=${env.STEAM_KEY}`, { signal: AbortSignal.timeout(10000) });
-    if (res.status === 429) throw new Error('busy');
-    if (!res.ok) throw new Error('upstream');
+    let res;
+    try {
+        res = await fetch(`${API}${path}&key=${encodeURIComponent(env.STEAM_KEY.trim())}`, { signal: AbortSignal.timeout(10000) });
+    } catch (e) {
+        throw Object.assign(new Error('timeout'), { status: 0 });
+    }
+    // Steam answers 401/403 when the key is wrong or revoked
+    if (res.status === 401 || res.status === 403) throw Object.assign(new Error('bad_key'), { status: res.status });
+    if (res.status === 429) throw Object.assign(new Error('busy'), { status: 429 });
+    if (!res.ok) throw Object.assign(new Error('upstream'), { status: res.status });
     return res.json();
 }
 
