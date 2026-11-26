@@ -1550,9 +1550,52 @@ const STEAM_ERRORS = {
     private: 'This Steam profile is private. In Steam, open Edit Profile, then Privacy Settings, set My profile to Public and try again.',
     games_private: 'The profile is public, but its game list is not. In Steam\'s Privacy Settings, set Game details to Public. You can switch it back after the import.',
     busy: 'Steam is busy right now. Wait a minute and try again.',
-    upstream: 'Steam did not answer. Try again in a moment.'
+    timeout: 'Steam did not answer in time. Try again in a moment.',
+    upstream: 'Steam did not answer. Try again in a moment.',
+    not_configured: 'Import from Steam is not set up on the server yet (the Steam key is missing).',
+    bad_key: 'Steam refused the server\'s key, so the import cannot run right now.',
+    forbidden: 'The import only works on backlogwallet.com.'
 };
 let steamImport = null;
+
+// The last Steam import is remembered in this browser, so all its games can be removed in one go.
+// Removing goes through deleteGames, so the usual Undo toast can bring them back.
+function steamImportKey() { return 'steamLastImport:' + ((typeof currentUser !== 'undefined' && currentUser && currentUser.uid) || 'local'); }
+function lastSteamImport() {
+    let rec = null;
+    try { rec = JSON.parse(localStorage.getItem(steamImportKey()) || 'null'); } catch (e) {}
+    if (!rec || !Array.isArray(rec.ids)) return null;
+    const ids = new Set(rec.ids);
+    const present = games.filter(g => ids.has(g.id));
+    return present.length ? { at: rec.at, games: present } : null;
+}
+function undoSteamImport(skipConfirm) {
+    const rec = lastSteamImport();
+    if (!rec) { showToastText('Nothing from the last Steam import is left to remove.'); return; }
+    const n = rec.games.length;
+    const edited = rec.games.filter(g => hasPrice(g) || hasDate(g)).length;
+    if (!skipConfirm) {
+        const msg = `Remove the ${n} ${n === 1 ? 'game' : 'games'} added by your last Steam import?` +
+            (edited ? ` ${edited} of them already ${edited === 1 ? 'has' : 'have'} a price or date you added.` : '');
+        if (!confirm(msg)) return;
+    }
+    const ids = new Set(rec.games.map(g => g.id));
+    deleteGames(games.map((g, i) => ids.has(g.id) ? i : -1).filter(i => i > -1));
+    renderSteamUndoNote();
+}
+function renderSteamUndoNote() {
+    const rec = lastSteamImport();
+    const n = rec ? rec.games.length : 0;
+    const label = n ? `Undo last import (${n})` : '';
+    ['steamUndoNote', 'missingUndoBtn'].forEach(id => { const el = $(id); if (el) el.hidden = !n; });
+    const txt = $('steamUndoText');
+    if (txt && n) {
+        const when = rec.at ? new Date(rec.at).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+        txt.textContent = `Your last import${when ? ` on ${when}` : ''} added ${n} ${n === 1 ? 'game' : 'games'} that ${n === 1 ? 'is' : 'are'} still in your library.`;
+    }
+    const mb = $('missingUndoBtn');
+    if (mb && n) mb.textContent = label;
+}
 
 // every "Import from Steam" button: home page, add form open, panel in view
 function openSteamImport() {
@@ -1583,6 +1626,7 @@ function toggleSteamImport(forceState) {
     if (show) {
         const inp = $('steamProfileInput');
         try { const last = localStorage.getItem('steamProfile'); if (last && !inp.value) inp.value = last; } catch (e) {}
+        renderSteamUndoNote();
         setTimeout(() => inp.focus({ preventScroll: true }), 60);
     } else {
         steamImport = null;
@@ -1626,7 +1670,11 @@ async function loadSteamGames() {
         setSteamStatus(status ? 'Import from Steam is not available right now. Try again later.' : 'Could not connect. Check your internet connection and try again.', true);
         return;
     }
-    if (data.error || !Array.isArray(data.games)) { setSteamStatus(STEAM_ERRORS[data.error] || STEAM_ERRORS.upstream, true); return; }
+    if (data.error || !Array.isArray(data.games)) {
+        const code = `${data.error || 'no_games'}${data.status ? ' ' + data.status : ''}${status ? ', HTTP ' + status : ''}`;
+        setSteamStatus(`${STEAM_ERRORS[data.error] || STEAM_ERRORS.upstream} (code: ${code})`, true);
+        return;
+    }
     try { localStorage.setItem('steamProfile', input); } catch (e) {}
     steamImport = matchSteamGames(data);
     setSteamStatus('');
@@ -1794,9 +1842,10 @@ function commitSteamImport() {
         persistData();
     }
     if (added) {
+        try { localStorage.setItem(steamImportKey(), JSON.stringify({ at: Date.now(), ids: newlyAdded.map(g => g.id) })); } catch (e) {}
         toggleAddForm(false);
         setOnlyMissing(true);
-        showToastText(`${added} ${added === 1 ? 'game' : 'games'} added from Steam. Add a purchase date and price to each one.${skipped ? ` ${skipped} skipped.` : ''}`);
+        showUndoToast(`${added} ${added === 1 ? 'game' : 'games'} added from Steam. Add a purchase date and price to each one.${skipped ? ` ${skipped} skipped.` : ''}`, () => setTimeout(() => undoSteamImport(true), 0));
     } else {
         showToastText(ticked.size ? `Nothing was added (${skipped} skipped).` : 'No games were added.');
     }
@@ -2664,6 +2713,7 @@ function updateMissingBar() {
     const n = games.filter(isIncomplete).length;
     if (onlyMissing && !n) onlyMissing = false;
     bar.hidden = !onlyMissing;
+    if (onlyMissing) renderSteamUndoNote();
     if (onlyMissing) $('missingBarText').textContent = `Showing ${n} ${n === 1 ? 'game' : 'games'} without a purchase date or price. Edit each one to add them.`;
 }
 
